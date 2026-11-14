@@ -2862,7 +2862,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *         huggingface?: array{
  *             api_key?: string|Param,
- *             provider?: string|Param, // Default: "hf-inference"
+ *             provider?: string|Param, // Inference provider for chat completion, Hugging Face picks one when null // Default: null
+ *             api_catalog?: bool|Param, // Resolve models through the Hugging Face Hub API instead of the static model catalog // Default: false
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
  *         lmstudio?: array{
@@ -3076,6 +3077,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             index_name?: string|Param,
  *             vector_field?: string|Param, // Default: "vector"
  *             bulk_write?: bool|Param, // Default: false
+ *             dimensions?: int|Param, // Number of dimensions of the vector index created by "ai:store:setup"
+ *             similarity?: "euclidean"|"cosine"|"dotProduct"|Param, // Similarity function of the vector index created by "ai:store:setup"
  *             setup_options?: array{
  *                 fields?: mixed, // Default: []
  *             },
@@ -3107,6 +3110,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             namespace?: string|Param,
  *             filter?: list<scalar|Param|null>,
  *             top_k?: int|Param,
+ *             setup_options?: array{
+ *                 dimension?: int|Param,
+ *                 metric?: "cosine"|"euclidean"|"dotproduct"|Param,
+ *                 cloud?: string|Param,
+ *                 region?: string|Param,
+ *             },
  *         }>,
  *         postgres?: array<string, array{ // Default: []
  *             dsn?: string|Param,
@@ -3120,8 +3129,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             setup_options?: array{
  *                 vector_type?: string|Param, // Default: "vector"
  *                 vector_size?: int|Param, // Default: 1536
- *                 index_method?: string|Param, // Default: "ivfflat"
- *                 index_opclass?: string|Param, // Default: "vector_cosine_ops"
+ *                 index_method?: string|Param, // The pgvector index method, "hnsw" by default.
+ *                 index_opclass?: string|Param, // The operator class of the index, the one of the distance by default (e.g. "vector_l2_ops").
  *             },
  *         }>,
  *         qdrant?: array<string, array{ // Default: []
@@ -3139,6 +3148,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             index_name?: string|Param,
  *             key_prefix?: string|Param, // Default: "vector:"
  *             distance?: "COSINE"|"L2"|"IP"|Param, // Distance metric to use for vector similarity search // Default: "COSINE"
+ *             setup_options?: array{
+ *                 vector_size?: int|Param,
+ *             },
  *         }>,
  *         s3vectors?: array<string, array{ // Default: []
  *             client?: string|Param, // Service reference to an existing S3VectorsClient
@@ -3146,6 +3158,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             vector_bucket_name?: string|Param,
  *             index_name?: string|Param,
  *             filter?: list<mixed>,
+ *             setup_options?: array{
+ *                 dimension?: int|Param,
+ *                 distance_metric?: "cosine"|"euclidean"|Param,
+ *             },
  *             top_k?: int|Param, // Default number of results to return // Default: 3
  *         }>,
  *         sqlite?: array<string, array{ // Default: []
@@ -3178,6 +3194,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             strategy?: string|Param, // Default: "cosine"
  *             dimensions?: int|Param, // Default: 1536
  *             namespaced_user?: bool|Param,
+ *             setup_options?: array{
+ *                 force_database_creation?: bool|Param, // Create the namespace and database as well, SurrealDB 3 no longer creates them on first use.
+ *             },
  *         }>,
  *         typesense?: array<string, array{ // Default: []
  *             endpoint?: string|Param,
@@ -3294,6 +3313,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         http?: array{
  *             path?: string|Param, // HTTP endpoint path. Defaults to "/mcp/<name>". // Default: null
  *             allowed_hosts?: mixed, // DNS rebinding protection hosts (without port). Leave unset to keep the SDK default (localhost only), set an array of hostnames to expose a public MCP server, or false to disable the protection entirely. // Default: null
+ *             allowed_origins?: list<scalar|Param|null>,
  *         },
  *         protocol_versions?: Param|string|list<"2024-11-05"|"2025-03-26"|"2025-06-18"|"2025-11-25"|"2026-07-28"|Param>,
  *         request_state?: array{ // Signs the state a multi-round-trip answer carries through the client, which has no session to keep progress in. Required for a modern-era server whose handlers return an InputRequiredResult, and for one whose handlers call ClientGateway::elicit() more than once: the second ask has to carry the first answer to the next round.
@@ -3317,8 +3337,14 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             store?: "file"|"memory"|"cache"|"framework"|Param, // Default: "file"
  *             directory?: string|Param, // Directory for the "file" store. Defaults to "%kernel.cache_dir%/mcp-sessions/<name>". // Default: null
  *             cache_pool?: string|Param, // PSR-16 cache service for the "cache" store. // Default: "cache.mcp.sessions"
- *             prefix?: string|Param, // Key prefix for the "cache" and "framework" stores. Defaults to "mcp-<name>-". // Default: null
+ *             prefix?: string|Param, // Key prefix for the "cache" and "framework" stores and a "session.lock.factory" lock. Defaults to "mcp-<name>-". // Default: null
  *             ttl?: int|Param, // Default: 3600
+ *             lock?: bool|array{ // Serializes the concurrent requests of one session, so none of them overwrites what another saved.
+ *                 enabled?: bool|Param, // Default: false
+ *                 factory?: string|Param, // Service id of a Symfony\Component\Lock\LockFactory, for a store shared across machines. Unset, the "file" store locks with flock() next to its session files. // Default: null
+ *                 timeout?: float|Param, // Seconds to wait for a lock held by another request of the same session. // Default: 30.0
+ *                 ttl?: float|Param, // Seconds a "factory" lock lives before its store expires it; must exceed the longest handler run. Ignored by the file lock. // Default: 300.0
+ *             },
  *         },
  *         registry?: array{ // The elements this server exposes, either as one list covering every kind or as a map narrowing each kind.
  *             tools?: Param|string|list<scalar|Param|null>,
