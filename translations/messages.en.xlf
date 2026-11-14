@@ -16046,5 +16046,11 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>
+        <target>The provider data would create the new entry "%name%", but you are not allowed to create entries of this type. Review the provider data manually.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

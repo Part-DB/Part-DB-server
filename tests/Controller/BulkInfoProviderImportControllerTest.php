@@ -911,6 +911,71 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->cleanupJob($entityManager, $jobId);
     }
 
+    public function testQuickApplyAllRejectsNewEntitiesWithoutCreatePermission(): void
+    {
+        $client = static::createClient();
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        $user->getPermissions()->setPermissionValue('attachment_types', 'create', false);
+        $entityManager->flush();
+        $this->loginAsUser($client, 'user');
+
+        //Part 2 already has a footprint, so only the missing create permission can reject it
+        $parts = $this->getTestParts($entityManager, [2]);
+        $job = $this->createJobWithTestProviderResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(0, $response['applied']);
+        $this->assertSame(1, $response['failed']);
+        $this->assertStringContainsString('not allowed to create', $response['errors'][0]);
+
+        //The rejected part must not be changed, and the entity must not be created
+        $entityManager->clear();
+        $this->assertNull($entityManager->getRepository(AttachmentType::class)->findOneBy(['name' => 'Datasheet']));
+        $this->assertNotSame('1234', $entityManager->find(Part::class, 2)->getManufacturerProductNumber());
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyRejectsNewEntitiesWithoutCreatePermission(): void
+    {
+        $client = static::createClient();
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        $user->getPermissions()->setPermissionValue('manufacturers', 'create', false);
+        $entityManager->flush();
+        $this->loginAsUser($client, 'user');
+
+        $parts = $this->getTestParts($entityManager, [2]);
+        //The merger keeps an existing manufacturer, so the part must not have one for this test
+        $parts[0]->setManufacturer(null);
+        $job = $this->createJobWithTestProviderResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/2/quick-apply', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode([
+            'providerKey' => TestProvider::PROVIDER_KEY,
+            'providerId' => 'element1',
+        ]));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($response['success']);
+        $this->assertStringContainsString('not allowed to create', $response['error']);
+
+        $entityManager->clear();
+        $this->assertNull($entityManager->find(Part::class, 2)->getManufacturer());
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
     public function testStep2TemplateRenderingWithQuickApplyButtons(): void
     {
         $client = static::createClient();
