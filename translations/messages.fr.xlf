@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-  <file id="messages.en">
+  <file id="messages.fr">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -3612,6 +3612,12 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>parameter.label</source>
         <target>Caractéristique</target>
+      </segment>
+    </unit>
+    <unit id="3zsQYoc" name="parameter_definition.label">
+      <segment state="translated">
+        <source>parameter_definition.label</source>
+        <target>Définition de paramètre</target>
       </segment>
     </unit>
     <unit id="2iSHbcY" name="label_profile.label">
@@ -12952,6 +12958,90 @@ Serveur d'authentification Buerklin-API : 10 requêtes/min par adresse IP</targe
       <segment state="translated">
         <source>project.bom_import.field_mapping.error.check_delimiter</source>
         <target>Erreur de mapping : vérifier si vous avez sélectionné les bons délimiteurs</target>
+      </segment>
+    </unit>
+    <unit id="Bb902b_" name="parameter_definition.labelp">
+      <segment state="translated">
+        <source>parameter_definition.labelp</source>
+        <target>Définitions de paramètres</target>
+      </segment>
+    </unit>
+    <unit id="A7JARJs" name="parameter_definition.edit">
+      <segment state="translated">
+        <source>parameter_definition.edit</source>
+        <target>Modifier la définition de paramètre</target>
+      </segment>
+    </unit>
+    <unit id="7WJm9Rd" name="parameter_definition.new">
+      <segment state="translated">
+        <source>parameter_definition.new</source>
+        <target>Nouvelle définition de paramètre</target>
+      </segment>
+    </unit>
+    <unit id="AiuE2DS" name="parameter_definition.symbol">
+      <segment state="translated">
+        <source>parameter_definition.symbol</source>
+        <target>Symbole</target>
+      </segment>
+    </unit>
+    <unit id="1kybtXf" name="parameter_definition.unit">
+      <segment state="translated">
+        <source>parameter_definition.unit</source>
+        <target>Unité</target>
+      </segment>
+    </unit>
+    <unit id="E7_AWLL" name="parameter_definition.input_type">
+      <segment state="translated">
+        <source>parameter_definition.input_type</source>
+        <target>Type de saisie</target>
+      </segment>
+    </unit>
+    <unit id="UFPsXLA" name="parameter_definition.input_type.text">
+      <segment state="translated">
+        <source>parameter_definition.input_type.text</source>
+        <target>Texte</target>
+      </segment>
+    </unit>
+    <unit id="EtAX3.m" name="parameter_definition.input_type.choice">
+      <segment state="translated">
+        <source>parameter_definition.input_type.choice</source>
+        <target>Choix</target>
+      </segment>
+    </unit>
+    <unit id="lyMX0CO" name="parameter_definition.choices">
+      <segment state="translated">
+        <source>parameter_definition.choices</source>
+        <target>Choix</target>
+      </segment>
+    </unit>
+    <unit id="z0dCSLk" name="parameter_definition.choices.help">
+      <segment state="translated">
+        <source>parameter_definition.choices.help</source>
+        <target>Saisissez un choix par ligne. Ce champ est ignoré et vidé lorsque le type de saisie est Texte.</target>
+      </segment>
+    </unit>
+    <unit id="L.KWfIr" name="parameter_definition.deprecated_choices">
+      <segment state="translated">
+        <source>parameter_definition.deprecated_choices</source>
+        <target>Choix dépréciés</target>
+      </segment>
+    </unit>
+    <unit id="UVbrqa." name="parameter_definition.deprecated_choices.help">
+      <segment state="translated">
+        <source>parameter_definition.deprecated_choices.help</source>
+        <target>Ces valeurs étaient auparavant actives. Elles sont conservées comme vocabulaire historique permanent mais ne sont plus proposées pour les nouvelles sélections.</target>
+      </segment>
+    </unit>
+    <unit id="B_uasG7" name="parameter_definition.choice.deprecated_label">
+      <segment state="translated">
+        <source>parameter_definition.choice.deprecated_label</source>
+        <target>%choice% (déprécié)</target>
+      </segment>
+    </unit>
+    <unit id="sBcCICq" name="parameter_definition.delete.in_use">
+      <segment state="translated">
+        <source>parameter_definition.delete.in_use</source>
+        <target>Cette définition de paramètre est encore utilisée et ne peut pas être supprimée.</target>
       </segment>
     </unit>
   </file>

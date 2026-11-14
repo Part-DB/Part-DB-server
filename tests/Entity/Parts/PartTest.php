@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\Parts;
 
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -46,6 +48,23 @@ final class PartTest extends TestCase
         //Remove element
         $part->removePartLot($lot);
         $this->assertTrue($part->getPartLots()->isEmpty());
+    }
+
+    public function testRemovingForeignParameterDoesNotUnlinkItsDefinition(): void
+    {
+        $part_a = new Part();
+        $part_b = new Part();
+        $definition = (new ParameterDefinition())->setName('Foreign parameter definition');
+        $parameter = (new PartParameter())->setDefinition($definition);
+        $part_b->addParameter($parameter);
+
+        $part_a->removeParameter($parameter);
+
+        self::assertFalse($part_a->getParameters()->contains($parameter));
+        self::assertTrue($part_b->getParameters()->contains($parameter));
+        self::assertSame($part_b, $parameter->getElement());
+        self::assertSame($definition, $parameter->getDefinition());
+        self::assertTrue($definition->getParameterUsages()->contains($parameter));
     }
 
     public function testGetSetMinamount(): void
