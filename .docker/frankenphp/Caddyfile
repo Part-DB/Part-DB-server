@@ -30,12 +30,22 @@
 	encode zstd br gzip
 
 	mercure {
-		# Transport to use (default to Bolt)
-		transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
-		# Publisher JWT key
-		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
-		# Subscriber JWT key
-		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+		# Transport to use
+		transport bolt {
+			path /data/mercure.db
+		}
+		# Trusted issuer: binds the iss claim of the tokens to their keys (Mercure 1.x).
+		# Set MERCURE_TRUSTED_ISSUERS to the same value as Part-DB's MERCURE_JWT_ISSUER.
+		issuer {$MERCURE_TRUSTED_ISSUERS:https://localhost} {
+			# Publisher JWT key
+			publisher {
+				jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+			}
+			# Subscriber JWT key
+			subscriber {
+				jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+			}
+		}
 		# Allow anonymous subscribers (double-check that it's what you want)
 		anonymous
 		# Enable the subscription API (double-check that it's what you want)

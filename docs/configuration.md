@@ -240,6 +240,30 @@ access token via a login-and-consent flow instead of a manually created API toke
   `POST /oauth/register`) on top of the OAuth2 server. Has no effect unless `OAUTH_SERVER_ENABLED` is also set to
   `1`. Clients can always be registered manually by an administrator regardless of this setting.
 
+### Print agent push settings (all env only)
+
+Print agents normally poll Part-DB for [print jobs]({% link usage/labels.md %}#print-jobs). With a
+[Mercure](https://mercure.rocks) hub (version 1.x), Part-DB tells them about new jobs right away instead.
+
+* `MERCURE_PUBLIC_URL` (default empty): The URL of the hub that print agents connect to, e.g.
+  `https://partdb.example.org/.well-known/mercure`. Push is off while this is empty.
+* `MERCURE_URL` (default empty): The URL Part-DB publishes to, if it differs from the public one (e.g. an internal
+  Docker URL). Leave it empty in the FrankenPHP image to use its built-in hub.
+* `MERCURE_JWT_SECRET` (default empty): The key the hub checks tokens with (at least 32 characters). Required when
+  `MERCURE_PUBLIC_URL` is set.
+* `MERCURE_JWT_ISSUER` (default `https://localhost`): The issuer of the tokens Part-DB creates; the hub must trust it.
+
+In the FrankenPHP image (`partdborg/part-db`) the hub is built in: set `MERCURE_PUBLISHER_JWT_KEY` and
+`MERCURE_SUBSCRIBER_JWT_KEY` to the value of `MERCURE_JWT_SECRET`, `MERCURE_TRUSTED_ISSUERS` to the value of
+`MERCURE_JWT_ISSUER`, and `MERCURE_PUBLIC_URL` to `https://<your domain>/.well-known/mercure`.
+With the Apache image, run the `dunglas/mercure` image next to Part-DB with the same `MERCURE_PUBLISHER_JWT_KEY`,
+`MERCURE_SUBSCRIBER_JWT_KEY` and `MERCURE_TRUSTED_ISSUERS`, set `MERCURE_URL` to the URL under which Part-DB reaches it
+and `MERCURE_PUBLIC_URL` to the URL under which the agents reach it.
+
+If a reverse proxy in front of the hub terminates TLS (e.g. Traefik or nginx), the hub sees plain `http://` requests
+and rejects the agents' tokens. Tell it its public URL with
+`MERCURE_EXTRA_DIRECTIVES="resource_identifier <value of MERCURE_PUBLIC_URL>"`.
+
 ### MCP settings
 
 * `MCP_ENABLED` (default `0`): Enables the [MCP server]({% link api/mcp.md %}) under the `/mcp` path, which lets
