@@ -222,15 +222,20 @@ class PartMerger implements EntityMergerInterface
                     $t->setAvailableAmount($o->getAvailableAmount(), $other_stock_time);
                 }
                 // Merge price details: add new ones, update empty ones, keep existing non-empty ones
+                // A price tier is identified by its quantity alone, because that is what makes it unique
+                // within an orderdetail (see the UniqueEntity constraint on Pricedetail). Taking the currency
+                // into account as well would add a second tier for the same quantity whenever a provider
+                // quotes in another currency than the one stored, and the part could not be saved afterwards.
                 foreach ($o->getPricedetails() as $otherPrice) {
                     $found = false;
                     foreach ($t->getPricedetails() as $targetPrice) {
-                        if ($targetPrice->getMinDiscountQuantity() === $otherPrice->getMinDiscountQuantity()
-                            && $targetPrice->getCurrency() === $otherPrice->getCurrency()) {
+                        if ($targetPrice->getMinDiscountQuantity() === $otherPrice->getMinDiscountQuantity()) {
                             // Only update price if the existing one is zero/empty (most logical)
                             if ($targetPrice->getPrice()->isZero()) {
                                 $targetPrice->setPrice($otherPrice->getPrice());
                                 $targetPrice->setPriceRelatedQuantity($otherPrice->getPriceRelatedQuantity());
+                                // The amount is meaningless without the currency it was quoted in
+                                $targetPrice->setCurrency($otherPrice->getCurrency());
                             }
                             $found = true;
                             break;
