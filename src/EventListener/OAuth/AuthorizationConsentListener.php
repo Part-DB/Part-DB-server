@@ -131,13 +131,6 @@ class AuthorizationConsentListener
 
         $existingPreference = $this->grantPreferences->find($userIdentifier, $clientIdentifier);
 
-        // Stashed for App\EventListener\OAuth\OAuthAuthorizeFormActionCspListener (kernel.response), which
-        // needs the already-validated redirect_uri to scope-exempt this one response's CSP form-action
-        // directive (nelmio_security.yaml's csp has no form-action, so it falls back to default-src
-        // 'self', which would otherwise block the browser from following the post-decision redirect to
-        // this client's external redirect_uri).
-        $request?->attributes->set('oauth_authorize_redirect_uri', $event->getRedirectUri());
-
         $response = new Response($this->twig->render('oauth/authorize.html.twig', [
             'client' => $event->getClient(),
             'levels' => $requestedLevels,

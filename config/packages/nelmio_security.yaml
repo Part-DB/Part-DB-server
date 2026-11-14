@@ -61,5 +61,11 @@ nelmio_security:
             frame-src:
                 - 'self'
                 - 'data:'
+            # form-action does not fall back to default-src, so it has to be set explicitly. Note that Chrome
+            # also checks it on every redirect after a form submission, so a form must never be answered with a
+            # redirect to an external host (the OAuth consent form uses an intermediate page for this, see
+            # App\EventListener\OAuth\OAuthAuthorizeRedirectPageListener).
+            form-action:
+                - 'self'
             block-all-mixed-content: true # defaults to false, blocks HTTP content over HTTPS transport
             # upgrade-insecure-requests: true # defaults to false, upgrades HTTP requests to HTTPS transport
