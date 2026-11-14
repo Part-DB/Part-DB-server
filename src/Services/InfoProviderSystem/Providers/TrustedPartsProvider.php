@@ -63,6 +63,18 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
      */
     private const CACHE_TTL = 60 * 60 * 24;
 
+    /**
+     * @var string The parameter group the risk ratings of TrustedParts are put into, so that they stay
+     * distinguishable from the technical specifications of the part.
+     */
+    private const RISK_GROUP = 'TrustedParts';
+
+    /** @var array<string, string> The risk ratings of a part result, mapped to the parameter they become */
+    private const RISK_RATINGS = [
+        'LifecycleRisk' => 'Lifecycle risk',
+        'SupplyChainRisk' => 'Supply chain risk',
+    ];
+
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly TrustedPartsSettings $settings,
@@ -283,6 +295,8 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
             $parameters[] = ParameterDTO::parseValueIncludingUnit(name: $name, value: $value);
         }
 
+        $parameters = [...$parameters, ...$this->riskRatingsToParameters($part)];
+
         //Some of the specifications are useful for other fields of the part
         $footprint = $specifications['Package / Case'] ?? null;
         $category = null;
@@ -385,6 +399,43 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
         );
     }
 
+    /**
+     * The risk ratings TrustedParts assigns to a part, as parameters of their own group.
+     *
+     * They come with every result the API returns, so they cost no additional request. They are ratings and
+     * not facts about the part: the lifecycle risk is deliberately not mapped to the manufacturing status,
+     * as a band like "MED-HIGH" can mean an announced end of life just as well as a single source, and a
+     * manufacturing status is never overwritten once it is set.
+     *
+     * @param  array<string, mixed>  $part
+     * @return ParameterDTO[]
+     */
+    private function riskRatingsToParameters(array $part): array
+    {
+        if (!$this->settings->riskRatings) {
+            return [];
+        }
+
+        $parameters = [];
+
+        foreach (self::RISK_RATINGS as $field => $name) {
+            $rating = strtoupper(trim((string) ($part[$field] ?? '')));
+
+            //"NA" is how the API says that it cannot rate this part, which is not worth a parameter
+            if ($rating === '' || $rating === 'NA') {
+                continue;
+            }
+
+            $parameters[] = new ParameterDTO(name: $name, value_text: $rating, group: self::RISK_GROUP);
+        }
+
+        if (array_key_exists('IsAffectedByTariff', $part)) {
+            $parameters[] = new ParameterDTO(name: 'Affected by tariff',
+                value_text: $part['IsAffectedByTariff'] ? 'Yes' : 'No', group: self::RISK_GROUP);
+        }
+
+        return $parameters;
+    }
     /**
      * Builds the provider ID for the part with the given manufacturer and part number.
      */
