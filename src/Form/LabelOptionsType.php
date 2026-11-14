@@ -47,6 +47,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Form\Type\RichTextEditorType;
+use App\Services\LabelSystem\LabelHTMLGenerator;
 use App\Form\Type\TwigCodeEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -138,6 +139,10 @@ class LabelOptionsType extends AbstractType
                     'data-action' => 'label-lines-mode:change@document->pages--label-lines-mode#toggle',
                 ],
             ];
+
+            //Used by the label editor, to show the content and the barcode in the same size and position as on the label.
+            //Set in both modes, as the editor can be switched to HTML mode without reloading the page.
+            $fieldOptions['attr']['data-label-editor-parameters'] = json_encode(LabelHTMLGenerator::getLabelEditorParameters(), JSON_THROW_ON_ERROR);
 
             if ($processMode === LabelProcessMode::TWIG) {
                 $formType = TwigCodeEditorType::class;
