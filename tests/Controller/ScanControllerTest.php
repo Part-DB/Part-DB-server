@@ -46,6 +46,26 @@ final class ScanControllerTest extends WebTestCase
         $this->assertResponseRedirects('/en/part/1');
     }
 
+    public function testReturnToScannerCheckboxPrefilledFromQuery(): void
+    {
+        $this->client->request('GET', '/en/scan?return_to_scanner=1');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('#scan_dialog_return_to_scanner[checked]');
+
+        $this->client->request('GET', '/en/scan');
+        $this->assertSelectorNotExists('#scan_dialog_return_to_scanner[checked]');
+    }
+
+    public function testTurboRedirectBackToScannerRendersFullPage(): void
+    {
+        //Turbo keeps its turbo-stream Accept header when following the redirect after saving a new part
+        $this->client->request('GET', '/en/scan?return_to_scanner=1', [], [], [
+            'HTTP_ACCEPT' => 'text/vnd.turbo-stream.html, text/html, application/xhtml+xml',
+        ]);
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('#scan_dialog_return_to_scanner[checked]');
+    }
+
     public function testScanQRCode(): void
     {
         $this->client->request('GET', '/scan/part/1');
