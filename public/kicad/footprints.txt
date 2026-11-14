@@ -1,4 +1,4 @@
-# Generated on Mon Nov  2 09:11:21 UTC 2026
+# Generated on Mon Nov  9 09:31:15 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -12744,6 +12744,8 @@ Package_SO:SOIC-4_4.55x3.7mm_P2.54mm
 Package_SO:SOIC-5-6_4.4x3.6mm_P1.27mm
 Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm
 Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm_ThermalVias
+Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.05mm
+Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.05mm_ThermalVias
 Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm
 Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm_ThermalVias
 Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.81mm
