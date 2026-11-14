@@ -16056,5 +16056,11 @@ Buerklin-API-Authentication-Server:
         <target>Aus Zwischenablage</target>
       </segment>
     </unit>
+    <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>
+        <target>Die Daten der Informationsquelle würden das neue Element "%name%" anlegen, Sie sind aber nicht berechtigt, Elemente dieses Typs anzulegen. Bitte überprüfen Sie die Daten manuell.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
