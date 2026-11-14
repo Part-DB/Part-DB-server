@@ -1,0 +1,57 @@
+<?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+namespace App\Settings;
+
+use App\Form\Settings\ExternalPartLinkRulesCollectionType;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\SerializeType;
+use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+#[Settings(name: "external_part_links", label: new TM("settings.external_part_links"), description: "settings.external_part_links.help")]
+#[SettingsIcon("fa-up-right-from-square")]
+class ExternalPartLinkSettings
+{
+    use SettingsTrait;
+
+    #[SettingsParameter(
+        ArrayType::class,
+        label: new TM("settings.external_part_links.links"),
+        description: new TM("settings.external_part_links.links.help"),
+        options: ['type' => SerializeType::class],
+        formType: ExternalPartLinkRulesCollectionType::class,
+        formOptions: [
+            'required' => false,
+        ],
+    )]
+    #[Assert\Type('array')]
+    #[Assert\All([new Assert\Type('array')])]
+    /**
+     * An ordered list of external part link definitions, evaluated by ExternalPartLinkResolver.
+     * @var array<int, array{name: string, source_type: string, source: string, icon: string, open_new_tab: bool, enabled: bool}>
+     */
+    public array $links = [];
+}
