@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Controller\Helpers\SafeRedirectTrait;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
@@ -79,6 +80,8 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/part')]
 final class PartController extends AbstractController
 {
+    use SafeRedirectTrait;
+
     public function __construct(
         private readonly PricedetailHelper $pricedetailHelper,
         private readonly PartPreviewGenerator $partPreviewGenerator,
@@ -645,28 +648,21 @@ final class PartController extends AbstractController
                 $this->addFlash('success', 'part.edited_flash');
             }
 
-            //If a redirect URL was given, redirect there
-            if ($request->query->get('_redirect')) {
-                return $this->redirect($request->query->get('_redirect'));
-            }
-
-            //Redirect to clone page if user wished that...
-            //@phpstan-ignore-next-line
-            if ('save_and_clone' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
-            }
-            //@phpstan-ignore-next-line
-            if ('save_and_new' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_new');
-            }
-
-            // Check if we're in bulk import mode and preserve jobId
             $jobId = $request->query->get('jobId');
-            if ($jobId && isset($merge_infos['bulk_job'])) {
-                return $this->redirectToRoute('part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]);
-            }
+            //@phpstan-ignore-next-line
+            $clickedButton = $form->getClickedButton()->getName();
 
-            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
+            [$fallbackRoute, $fallbackParams] = match (true) {
+                //Redirect to clone page if user wished that...
+                'save_and_clone' === $clickedButton => ['part_clone', ['id' => $new_part->getID()]],
+                'save_and_new' === $clickedButton => ['part_new', []],
+                // Check if we're in bulk import mode and preserve jobId
+                $jobId && isset($merge_infos['bulk_job']) => ['part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]],
+                default => ['part_edit', ['id' => $new_part->getID()]],
+            };
+
+            //If a redirect URL was given, redirect there, otherwise to the page determined above
+            return $this->safeRedirect($request->query->get('_redirect'), $fallbackRoute, $fallbackParams);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
@@ -740,12 +736,8 @@ final class PartController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'part.withdraw.success');
 
-        //If a redirect was passed, then redirect there
-        if ($request->request->get('_redirect')) {
-            return $this->redirect($request->request->get('_redirect'));
-        }
-        //Otherwise just redirect to the part page
-        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        //If a (local) redirect was passed, then redirect there, otherwise just redirect to the part page
+        return $this->safeRedirect($request->request->get('_redirect'), 'part_info', ['id' => $part->getID()]);
     }
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
@@ -845,11 +837,7 @@ final class PartController extends AbstractController
         }
 
         err:
-        //If a redirect was passed, then redirect there
-        if ($request->request->get('_redirect')) {
-            return $this->redirect($request->request->get('_redirect'));
-        }
-        //Otherwise just redirect to the part page
-        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        //If a (local) redirect was passed, then redirect there, otherwise just redirect to the part page
+        return $this->safeRedirect($request->request->get('_redirect'), 'part_info', ['id' => $part->getID()]);
     }
 }

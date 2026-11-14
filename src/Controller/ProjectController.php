@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\ProjectBomEntriesDataTable;
+use App\Controller\Helpers\SafeRedirectTrait;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -59,6 +60,8 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/project')]
 class ProjectController extends AbstractController
 {
+    use SafeRedirectTrait;
+
     public function __construct(private readonly DataTableFactory $dataTableFactory)
     {
     }
@@ -176,15 +179,7 @@ class ProjectController extends AbstractController
                 $entityManager->flush();
                 $this->addFlash('success', 'project.build.flash.success');
 
-                return $this->redirect(
-                    $request->get(
-                        '_redirect',
-                        $this->generateUrl(
-                            'project_info',
-                            ['id' => $project->getID()]
-                        )
-                    )
-                );
+                return $this->safeRedirect($request->get('_redirect'), 'project_info', ['id' => $project->getID()]);
             }
 
             $this->addFlash('error', 'project.build.flash.invalid_input');
@@ -750,12 +745,8 @@ class ProjectController extends AbstractController
             $entityManager->flush();
 
 
-            //If a redirect query parameter is set, redirect to this page
-            if ($request->query->get('_redirect')) {
-                return $this->redirect($request->query->get('_redirect'));
-            }
-            //Otherwise just show the project info page
-            return $this->redirectToRoute('project_info', ['id' => $target_project->getID()]);
+            //If a (local) redirect query parameter is set, redirect to this page, otherwise just show the project info page
+            return $this->safeRedirect($request->query->get('_redirect'), 'project_info', ['id' => $target_project->getID()]);
         }
 
         return $this->render('projects/add_parts.html.twig', [

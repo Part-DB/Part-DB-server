@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\ErrorDataTable;
+use App\Controller\Helpers\SafeRedirectTrait;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Filters\PartSearchSort;
@@ -54,6 +55,8 @@ use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
+    use SafeRedirectTrait;
+
     public function __construct(private readonly EntityManagerInterface $entityManager,
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly DataTableFactory $dataTableFactory,
@@ -87,7 +90,7 @@ class PartListsController extends AbstractController
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
 
-            return $this->redirect($redirect);
+            return $this->safeRedirect($redirect, 'parts_show_all');
         }
 
         if (null === $action || null === $ids) {
@@ -122,7 +125,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        return $redirectResponse ?? $this->redirect($redirect);
+        return $redirectResponse ?? $this->safeRedirect($redirect, 'parts_show_all');
     }
 
     /**
