@@ -26,12 +26,14 @@ use App\Services\InfoProviderSystem\BulkInfoProviderService;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Entity\InfoProviderSystem\BulkImportJobStatus;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\Providers\TestProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -814,6 +816,99 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
             $entityManager->remove($persistedJob);
             $entityManager->flush();
         }
+    }
+
+    /**
+     * Creates a job, whose search results point to the test info provider for the given parts
+     */
+    private function createJobWithTestProviderResults(object $entityManager, object $user, array $parts): BulkInfoProviderImportJob
+    {
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $partResults = [];
+        foreach ($parts as $part) {
+            $job->addPart($part);
+            $partResults[] = new BulkSearchPartResultsDTO(
+                part: $part,
+                searchResults: [
+                    new BulkSearchPartResultDTO(
+                        searchResult: new SearchResultDTO(
+                            provider_key: TestProvider::PROVIDER_KEY,
+                            provider_id: 'element1',
+                            name: 'Element 1',
+                            description: 'fd',
+                        ),
+                        sourceField: 'mpn',
+                        sourceKeyword: $part->getName(),
+                    ),
+                ]
+            );
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO($partResults));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        return $job;
+    }
+
+    public function testQuickApplyAllCreatesNewAttachmentTypes(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        //Part 2 already has a footprint, so applying the provider data only creates new attachment types and a manufacturer
+        $parts = $this->getTestParts($entityManager, [2]);
+
+        $this->assertNull($entityManager->getRepository(AttachmentType::class)->findOneBy(['name' => 'Datasheet']));
+
+        $job = $this->createJobWithTestProviderResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(1, $response['applied']);
+        $this->assertSame(0, $response['failed']);
+
+        $entityManager->clear();
+        $this->assertNotNull($entityManager->getRepository(AttachmentType::class)->findOneBy(['name' => 'Datasheet']));
+        $this->assertNotNull($entityManager->getRepository(AttachmentType::class)->findOneBy(['name' => 'Image']));
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyAllFailingPartDoesNotAffectOtherParts(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        //Part 1 has no footprint, so applying the provider data would create a new footprint, which quick apply refuses
+        $parts = $this->getTestParts($entityManager, [1, 2]);
+
+        $job = $this->createJobWithTestProviderResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(1, $response['applied']);
+        $this->assertSame(1, $response['failed']);
+        $this->assertCount(1, $response['errors']);
+        $this->assertStringContainsString('Part 1', $response['errors'][0]);
+
+        $entityManager->clear();
+        $this->assertNull($entityManager->find(Part::class, 1)->getFootprint());
+        $this->assertSame('1234', $entityManager->find(Part::class, 2)->getManufacturerProductNumber());
+
+        $this->cleanupJob($entityManager, $jobId);
     }
 
     public function testStep2TemplateRenderingWithQuickApplyButtons(): void

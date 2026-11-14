@@ -93,6 +93,35 @@ class BulkInfoProviderImportController extends AbstractController
         ], $statusCode);
     }
 
+    /**
+     * Persist the new entities, which the info provider system creates for a merged part (manufacturer, suppliers,
+     * currencies and attachment types), as their relations do not cascade persist operations.
+     * Footprints are not persisted here, as this might pollute the database with unwanted formatted footprints from the provider.
+     */
+    private function persistNewProviderEntities(Part $part): void
+    {
+        if ($part->getManufacturer() !== null) {
+            $this->entityManager->persist($part->getManufacturer());
+        }
+
+        foreach ($part->getOrderdetails() as $orderdetail) {
+            if ($orderdetail->getSupplier() !== null) {
+                $this->entityManager->persist($orderdetail->getSupplier());
+            }
+            foreach ($orderdetail->getPricedetails() as $pricedetail) {
+                if ($pricedetail->getCurrency() !== null) {
+                    $this->entityManager->persist($pricedetail->getCurrency());
+                }
+            }
+        }
+
+        foreach ($part->getAttachments() as $attachment) {
+            if ($attachment->getAttachmentType() !== null) {
+                $this->entityManager->persist($attachment->getAttachmentType());
+            }
+        }
+    }
+
     private function validateJobAccess(int $jobId): ?BulkInfoProviderImportJob
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
@@ -648,12 +677,7 @@ class BulkInfoProviderImportController extends AbstractController
             $providerPart = $infoRetriever->dtoToPart($dto);
             $partMerger->merge($part, $providerPart);
 
-            //Persist part manufacturer and supplier if they are new, to avoid issues with detached entities during merge
-            //Do not footprints here, as it might pollute the database with unwanted formatting footprints from the provider,
-            $this->entityManager->persist($part->getManufacturer());
-            foreach ($part->getOrderdetails() as $orderdetail) {
-                $this->entityManager->persist($orderdetail->getSupplier());
-            }
+            $this->persistNewProviderEntities($part);
 
             try {
                 $this->entityManager->flush();
@@ -749,7 +773,14 @@ class BulkInfoProviderImportController extends AbstractController
             try {
                 $dto = $infoRetriever->getDetails($providerKey, $providerId);
                 $providerPart = $infoRetriever->dtoToPart($dto);
+
+                //Check this before merging, as a merged part referencing a new footprint would make every following flush fail
+                if ($part->getFootprint() === null && $providerPart->getFootprint() !== null && $providerPart->getFootprint()->getID() === null) {
+                    throw new \RuntimeException('Failed to persist merged part, as it would create new datastructures! Review the provider data by yourself.');
+                }
+
                 $partMerger->merge($part, $providerPart);
+                $this->persistNewProviderEntities($part);
                 $this->entityManager->flush();
 
                 $job->markPartAsCompleted($part->getId());
