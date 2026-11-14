@@ -111,9 +111,8 @@ curl -X POST https://your-part-db.local/oauth/register \
 ```
 
 Self-registered clients may request at most the `edit` scope (via the optional `scope` field). If no `scope` is
-given, the client is allowed `read_only` and `edit` (the scopes Part-DB advertises in its discovery metadata), the
-same default as for clients created without any scope on the admin page. This does not grant any access by itself:
-the user still picks the actual scope on the consent screen.
+given, the client is allowed `read_only` and `edit` (the scopes Part-DB advertises in its discovery metadata). This
+does not grant any access by itself: the user still picks the actual scope on the consent screen.
 
 This endpoint is rate-limited to 20 requests per hour per IP address to prevent abuse. Since registering a client
 grants it no access by itself (a user still has to explicitly log in and consent on `/oauth/authorize` before any token
