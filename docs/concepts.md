@@ -50,7 +50,10 @@ A part entity has many fields, which can be used to describe it better. Most of 
 * **Mass**: The mass of a single piece of this part (so of a single transistor). Given in grams.
 * **Internal Part Number** (IPN): Each part is automatically assigned a numerical ID that identifies a part in the
   database. This ID depends on when a part was created and cannot be changed. If you want to assign your own unique
-  identifiers, or sync parts identifiers with the identifiers of another database, you can use this field.
+  identifiers, or sync parts identifiers with the identifiers of another database, you can use this field. Part-DB 
+  can automatically suggest IPNs based on category prefixes and sequential numbering. See the 
+  [IPN Generation documentation]({% link usage/ipn_generation.md %}) for detailed information on how to set up and use 
+  this feature.
 
 ### Stock / Part lot
 
