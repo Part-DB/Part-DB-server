@@ -119,6 +119,9 @@ class PartSearchFilter implements FilterInterface
         return $filter;
     }
 
+    /**
+     * @return list<string>
+     */
     protected function getFieldsToSearch(): array
     {
         $fields_to_search = [];
