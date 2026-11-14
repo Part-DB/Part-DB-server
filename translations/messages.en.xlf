@@ -14948,19 +14948,19 @@ Buerklin-API Authentication server:
         <target>Elevated access</target>
       </segment>
     </unit>
-    <unit id="rdPg7aQ" name="oauth.authorize.redirect.title">
+    <unit id="Y6dDBcp" name="oauth.authorize.redirect.title">
       <segment state="translated">
         <source>oauth.authorize.redirect.title</source>
         <target>Returning to the application</target>
       </segment>
     </unit>
-    <unit id="rdPg7aR" name="oauth.authorize.redirect.description">
+    <unit id="sdtzJAA" name="oauth.authorize.redirect.description">
       <segment state="translated">
         <source>oauth.authorize.redirect.description</source>
         <target>You are being sent back to the application. If nothing happens, click the button below.</target>
       </segment>
     </unit>
-    <unit id="rdPg7aS" name="oauth.authorize.redirect.continue">
+    <unit id="zjoAEtx" name="oauth.authorize.redirect.continue">
       <segment state="translated">
         <source>oauth.authorize.redirect.continue</source>
         <target>Continue to application</target>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.en">
+  <file id="messages.de">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -14946,19 +14946,19 @@ Buerklin-API-Authentication-Server:
         <target>Erweiterter Zugriff</target>
       </segment>
     </unit>
-    <unit id="rdPg7aQ" name="oauth.authorize.redirect.title">
+    <unit id="Y6dDBcp" name="oauth.authorize.redirect.title">
       <segment state="translated">
         <source>oauth.authorize.redirect.title</source>
         <target>Zurück zur Anwendung</target>
       </segment>
     </unit>
-    <unit id="rdPg7aR" name="oauth.authorize.redirect.description">
+    <unit id="sdtzJAA" name="oauth.authorize.redirect.description">
       <segment state="translated">
         <source>oauth.authorize.redirect.description</source>
         <target>Sie werden zur Anwendung zurückgeleitet. Falls nichts passiert, klicken Sie auf die Schaltfläche unten.</target>
       </segment>
     </unit>
-    <unit id="rdPg7aS" name="oauth.authorize.redirect.continue">
+    <unit id="zjoAEtx" name="oauth.authorize.redirect.continue">
       <segment state="translated">
         <source>oauth.authorize.redirect.continue</source>
         <target>Weiter zur Anwendung</target>
