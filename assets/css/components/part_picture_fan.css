@@ -1,0 +1,147 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* Picture fan of the part info page: hovering the picture fans all pictures of the part out to its right. */
+
+.part-picture-fan {
+    --part-picture-fan-size: 160px;
+    --part-picture-fan-gap: .5rem;
+    position: relative;
+}
+
+/* Hidden by default: devices without a real hover (touch) and narrow layouts just keep the plain carousel. */
+.part-picture-fan-strip {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+    .part-picture-fan-strip {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        z-index: 1010;
+        /* The padding bridges the gap to the picture, so the mouse can travel onto the fan without leaving it. */
+        padding-left: var(--part-picture-fan-gap);
+        transform: translateY(-50%);
+        visibility: hidden;
+        /* The fan is a mouse-only shortcut (hidden elements can not be focused), the carousel controls stay usable by keyboard. */
+        pointer-events: none;
+        transition: visibility 0s linear .25s;
+    }
+
+    .part-picture-fan-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--part-picture-fan-gap);
+        /* Four pictures per row, further ones wrap onto the next rows. */
+        width: max-content;
+        max-width: min(calc(4 * var(--part-picture-fan-size) + 5 * var(--part-picture-fan-gap) + 2px), 60vw);
+        max-height: 80vh;
+        overflow-y: auto;
+        padding: var(--part-picture-fan-gap);
+        background-color: var(--bs-body-bg);
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius-lg);
+        box-shadow: var(--bs-box-shadow);
+        opacity: 0;
+        transition: opacity .2s ease-in-out;
+    }
+
+    .part-picture-fan-item {
+        flex: 0 0 auto;
+        position: relative;
+        width: var(--part-picture-fan-size);
+        height: var(--part-picture-fan-size);
+        padding: 0;
+        border: 0;
+        border-radius: var(--bs-border-radius);
+        background: none;
+        cursor: pointer;
+        opacity: 0;
+        /* Collapsed, the pictures are stacked behind the main picture; later ones travel further when fanning out. */
+        transform: translateX(calc(min(var(--fan-index, 0), 5) * -2.5rem - 3rem)) scale(.5) rotate(-10deg);
+        transition: transform .25s cubic-bezier(.2, .8, .3, 1.2), opacity .2s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    .part-picture-fan-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* With the fan next to it, the picture stays as it is: no dark overlay with the caption while hovering. */
+    .part-picture-fan[data-controller] .carousel .mask,
+    .part-picture-fan[data-controller] .carousel .carousel-caption-hover {
+        display: none;
+    }
+
+    .part-picture-fan:hover .part-picture-fan-strip {
+        visibility: visible;
+        pointer-events: auto;
+        transition-delay: 0s;
+    }
+
+    .part-picture-fan:hover .part-picture-fan-items {
+        opacity: 1;
+    }
+
+    .part-picture-fan:hover .part-picture-fan-item {
+        opacity: 1;
+        transform: none;
+        transition-delay: calc(min(var(--fan-index, 0), 11) * 25ms), calc(min(var(--fan-index, 0), 11) * 25ms), 0s;
+    }
+
+    /* The picture currently shown in the main slot */
+    .part-picture-fan-item.active {
+        box-shadow: 0 0 0 2px var(--bs-primary);
+    }
+
+    .part-picture-fan:hover .part-picture-fan-item:hover {
+        z-index: 1;
+        box-shadow: 0 0 0 3px var(--bs-primary), var(--bs-box-shadow);
+        transform: scale(1.12);
+        transition-delay: 0s;
+    }
+
+    /* The picture saved as preview picture of the part */
+    .part-picture-fan-item.is-master::after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 10px;
+        height: 10px;
+        border: 2px solid var(--bs-body-bg);
+        border-radius: 50%;
+        background-color: var(--bs-success);
+    }
+
+    .part-picture-fan-item.is-saving {
+        cursor: progress;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .part-picture-fan-strip,
+    .part-picture-fan-items,
+    .part-picture-fan-item {
+        transition: none !important;
+    }
+}
