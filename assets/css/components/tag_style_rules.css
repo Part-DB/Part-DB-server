@@ -1,0 +1,10 @@
+/*
+ * A fixed width for the preview column of a tag style rule.
+ *
+ * The preview shows the tag as it will look, so its width depends on the length of the tag. In an auto-sized
+ * column that width is taken from the other columns of the same row, which makes every row differently wide and
+ * destroys the alignment between the rows - a long tag like "Risk:Production-Lieferzeit" is enough to notice it.
+ */
+.tag-style-preview-col {
+    width: 13rem;
+}
