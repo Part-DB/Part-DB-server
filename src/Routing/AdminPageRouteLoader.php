@@ -104,7 +104,7 @@ final class AdminPageRouteLoader extends Loader
                 [],
                 '',
                 [],
-                ['GET']
+                ['GET', 'POST']
             ));
 
             // edit (named, with optional timestamp)
@@ -126,7 +126,7 @@ final class AdminPageRouteLoader extends Loader
                 [],
                 '',
                 [],
-                ['GET']
+                ['GET', 'POST']
             ));
 
             // unnamed edit alias (id only, e.g. /category/5, instead of /category/5/edit)
