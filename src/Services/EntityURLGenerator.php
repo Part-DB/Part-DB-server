@@ -23,29 +23,22 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parts\PartCustomState;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
-use App\Entity\PriceInformations\Currency;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
-use function array_key_exists;
+use App\Services\EntitySystem\EntityConfigRegistry;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -56,8 +49,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class EntityURLGenerator
 {
-    public function __construct(protected UrlGeneratorInterface $urlGenerator, protected AttachmentURLGenerator $attachmentURLGenerator)
-    {
+    public function __construct(
+        protected UrlGeneratorInterface $urlGenerator,
+        protected AttachmentURLGenerator $attachmentURLGenerator,
+        private readonly EntityConfigRegistry $entityConfigRegistry,
+    ) {
     }
 
     /**
@@ -93,66 +89,38 @@ class EntityURLGenerator
      */
     public function timeTravelURL(AbstractDBElement $entity, \DateTimeInterface $dateTime): string
     {
-        $map = [
-            Part::class => 'part_info',
-            //As long we does not have own things for it use edit page
-            AttachmentType::class => 'attachment_type_edit',
-            Category::class => 'category_edit',
-            Project::class => 'project_edit',
-            Supplier::class => 'supplier_edit',
-            Manufacturer::class => 'manufacturer_edit',
-            StorageLocation::class => 'store_location_edit',
-            Footprint::class => 'footprint_edit',
-            User::class => 'user_edit',
-            Currency::class => 'currency_edit',
-            MeasurementUnit::class => 'measurement_unit_edit',
-            Group::class => 'group_edit',
-            LabelProfile::class => 'label_profile_edit',
-            PartCustomState::class => 'part_custom_state_edit',
-        ];
+        $params = ['id' => $entity->getID(), 'timestamp' => $dateTime->getTimestamp()];
 
-        try {
-            return $this->urlGenerator->generate(
-                $this->mapToController($map, $entity),
-                [
-                    'id' => $entity->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]
-            );
-        } catch (EntityNotSupportedException) {
-            if ($entity instanceof PartLot) {
-                return $this->urlGenerator->generate('part_info', [
-                    'id' => $entity->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]);
-            }
-            if ($entity instanceof PartAttachment) {
-                return $this->urlGenerator->generate('part_info', [
-                    'id' => $entity->getElement()->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]);
-            }
-            if ($entity instanceof Orderdetail) {
-                return $this->urlGenerator->generate('part_info', [
-                    'id' => $entity->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]);
-            }
-            if ($entity instanceof Pricedetail) {
-                return $this->urlGenerator->generate('part_info', [
-                    'id' => $entity->getOrderdetail()->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]);
-            }
-            if ($entity instanceof PartParameter) {
-                return $this->urlGenerator->generate('part_info', [
-                    'id' => $entity->getElement()->getID(),
-                    'timestamp' => $dateTime->getTimestamp(),
-                ]);
-            }
+        // Part has a dedicated info page; all other registered entities use the edit page
+        if ($entity instanceof Part) {
+            return $this->urlGenerator->generate('part_info', $params);
         }
 
-        //Otherwise throw an error
+        $class = $entity::class;
+        if ($this->entityConfigRegistry->hasConfig($class)) {
+            return $this->urlGenerator->generate(
+                $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_edit',
+                $params
+            );
+        }
+
+        // Fallbacks for related entities that don't have their own time-travel page
+        if ($entity instanceof PartLot) {
+            return $this->urlGenerator->generate('part_info', ['id' => $entity->getPart()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
+        }
+        if ($entity instanceof PartAttachment) {
+            return $this->urlGenerator->generate('part_info', ['id' => $entity->getElement()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
+        }
+        if ($entity instanceof Orderdetail) {
+            return $this->urlGenerator->generate('part_info', ['id' => $entity->getPart()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
+        }
+        if ($entity instanceof Pricedetail) {
+            return $this->urlGenerator->generate('part_info', ['id' => $entity->getOrderdetail()->getPart()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
+        }
+        if ($entity instanceof PartParameter) {
+            return $this->urlGenerator->generate('part_info', ['id' => $entity->getElement()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
+        }
+
         throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.$entity::class);
     }
 
@@ -199,26 +167,17 @@ class EntityURLGenerator
      */
     public function infoURL(AbstractDBElement $entity): string
     {
-        $map = [
-            Part::class => 'part_info',
+        $class = $entity::class;
+        if (!$this->entityConfigRegistry->hasConfig($class)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
+        }
 
-            //As long we does not have own things for it use edit page
-            AttachmentType::class => 'attachment_type_edit',
-            Category::class => 'category_edit',
-            Project::class => 'project_info',
-            Supplier::class => 'supplier_edit',
-            Manufacturer::class => 'manufacturer_edit',
-            StorageLocation::class => 'store_location_edit',
-            Footprint::class => 'footprint_edit',
-            User::class => 'user_edit',
-            Currency::class => 'currency_edit',
-            MeasurementUnit::class => 'measurement_unit_edit',
-            Group::class => 'group_edit',
-            LabelProfile::class => 'label_profile_edit',
-            PartCustomState::class => 'part_custom_state_edit',
-        ];
+        $routeBase = $this->entityConfigRegistry->getConfig($class)->getRouteBase();
 
-        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
+        // Part and Project have dedicated info pages; everything else falls back to the edit page
+        $suffix = ($entity instanceof Part || $entity instanceof Project) ? '_info' : '_edit';
+
+        return $this->urlGenerator->generate($routeBase . $suffix, ['id' => $entity->getID()]);
     }
 
     /**
@@ -232,24 +191,15 @@ class EntityURLGenerator
      */
     public function editURL(AbstractDBElement $entity): string
     {
-        $map = [
-            Part::class => 'part_edit',
-            AttachmentType::class => 'attachment_type_edit',
-            Category::class => 'category_edit',
-            Project::class => 'project_edit',
-            Supplier::class => 'supplier_edit',
-            Manufacturer::class => 'manufacturer_edit',
-            StorageLocation::class => 'store_location_edit',
-            Footprint::class => 'footprint_edit',
-            User::class => 'user_edit',
-            Currency::class => 'currency_edit',
-            MeasurementUnit::class => 'measurement_unit_edit',
-            Group::class => 'group_edit',
-            LabelProfile::class => 'label_profile_edit',
-            PartCustomState::class => 'part_custom_state_edit',
-        ];
+        $class = $entity::class;
+        if (!$this->entityConfigRegistry->hasConfig($class)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
+        }
 
-        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
+        return $this->urlGenerator->generate(
+            $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_edit',
+            ['id' => $entity->getID()]
+        );
     }
 
     /**
@@ -264,24 +214,14 @@ class EntityURLGenerator
      */
     public function createURL(AbstractDBElement|string $entity): string
     {
-        $map = [
-            Part::class => 'part_new',
-            AttachmentType::class => 'attachment_type_new',
-            Category::class => 'category_new',
-            Project::class => 'project_new',
-            Supplier::class => 'supplier_new',
-            Manufacturer::class => 'manufacturer_new',
-            StorageLocation::class => 'store_location_new',
-            Footprint::class => 'footprint_new',
-            User::class => 'user_new',
-            Currency::class => 'currency_new',
-            MeasurementUnit::class => 'measurement_unit_new',
-            Group::class => 'group_new',
-            LabelProfile::class => 'label_profile_new',
-            PartCustomState::class => 'part_custom_state_new',
-        ];
+        $class = is_string($entity) ? $entity : $entity::class;
+        if (!$this->entityConfigRegistry->hasConfig($class)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
+        }
 
-        return $this->urlGenerator->generate($this->mapToController($map, $entity));
+        return $this->urlGenerator->generate(
+            $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_new'
+        );
     }
 
     /**
@@ -296,24 +236,15 @@ class EntityURLGenerator
      */
     public function cloneURL(AbstractDBElement $entity): string
     {
-        $map = [
-            Part::class => 'part_clone',
-            AttachmentType::class => 'attachment_type_clone',
-            Category::class => 'category_clone',
-            Project::class => 'project_clone',
-            Supplier::class => 'supplier_clone',
-            Manufacturer::class => 'manufacturer_clone',
-            StorageLocation::class => 'store_location_clone',
-            Footprint::class => 'footprint_clone',
-            User::class => 'user_clone',
-            Currency::class => 'currency_clone',
-            MeasurementUnit::class => 'measurement_unit_clone',
-            Group::class => 'group_clone',
-            LabelProfile::class => 'label_profile_clone',
-            PartCustomState::class => 'part_custom_state_clone',
-        ];
+        $class = $entity::class;
+        if (!$this->entityConfigRegistry->hasConfig($class)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
+        }
 
-        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
+        return $this->urlGenerator->generate(
+            $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_clone',
+            ['id' => $entity->getID()]
+        );
     }
 
     /**
@@ -342,24 +273,15 @@ class EntityURLGenerator
 
     public function deleteURL(AbstractDBElement $entity): string
     {
-        $map = [
-            Part::class => 'part_delete',
-            AttachmentType::class => 'attachment_type_delete',
-            Category::class => 'category_delete',
-            Project::class => 'project_delete',
-            Supplier::class => 'supplier_delete',
-            Manufacturer::class => 'manufacturer_delete',
-            StorageLocation::class => 'store_location_delete',
-            Footprint::class => 'footprint_delete',
-            User::class => 'user_delete',
-            Currency::class => 'currency_delete',
-            MeasurementUnit::class => 'measurement_unit_delete',
-            Group::class => 'group_delete',
-            LabelProfile::class => 'label_profile_delete',
-            PartCustomState::class => 'part_custom_state_delete',
-        ];
+        $class = $entity::class;
+        if (!$this->entityConfigRegistry->hasConfig($class)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
+        }
 
-        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
+        return $this->urlGenerator->generate(
+            $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_delete',
+            ['id' => $entity->getID()]
+        );
     }
 
     /**
