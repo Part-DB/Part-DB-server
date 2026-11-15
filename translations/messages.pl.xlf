@@ -340,7 +340,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.edit</source>
-        <target>Edytuj dostawcę</target>
+        <target>Edytuj dystrybutora</target>
       </segment>
     </unit>
     <unit id="b8jlkMd" name="supplier.new">
@@ -1197,7 +1197,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="b4ELeGb" name="orderdetails.edit.delete.confirm">
       <segment state="translated">
         <source>orderdetails.edit.delete.confirm</source>
-        <target>Czy naprawdę chcesz usunąć tego dostawcę? Nie można tego cofnąć!</target>
+        <target>Czy naprawdę chcesz usunąć tego dystrybutora? Nie można tego cofnąć!</target>
       </segment>
     </unit>
     <unit id="ESY7.Zk" name="part.info.title">
@@ -1593,7 +1593,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="dqIl9gT" name="parts_list.supplier.title">
       <segment state="translated">
         <source>parts_list.supplier.title</source>
-        <target>[[Part]] z dostawcą</target>
+        <target>[[Part]] z dystrybutorem</target>
       </segment>
     </unit>
     <unit id="BJygaSh" name="parts_list.tags.title">
@@ -14941,6 +14941,24 @@ Serwer autoryzacji Buerklin API:
         <target>Podwyższone uprawnienia dostępu</target>
       </segment>
     </unit>
+    <unit id="Y6dDBcp" name="oauth.authorize.redirect.title">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.title</source>
+        <target>Powracanie do aplikacji</target>
+      </segment>
+    </unit>
+    <unit id="sdtzJAA" name="oauth.authorize.redirect.description">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.description</source>
+        <target>Jesteś przekierowywany z powrotem do aplikacji. Jeśli nic się nie stanie, kliknij przycisk poniżej.</target>
+      </segment>
+    </unit>
+    <unit id="zjoAEtx" name="oauth.authorize.redirect.continue">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.continue</source>
+        <target>Przejdź do aplikacji</target>
+      </segment>
+    </unit>
     <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
       <segment state="translated">
         <source>user.settings.oauth_connected_apps</source>
@@ -16037,6 +16055,12 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>info_providers.error.server_exception</source>
         <target>Dostawca informacji (%host%) jest tymczasowo niedostępny (HTTP %status%). Spróbuj ponownie później.</target>
+      </segment>
+    </unit>
+    <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>
+        <target>Dane dostawcy informacji utworzyłyby nowy wpis "%name%", jednak nie masz uprawnień do tworzenia wpisów tego typu. Przejrzyj dane dostawcy ręcznie.</target>
       </segment>
     </unit>
   </file>
