@@ -39,6 +39,8 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartCustomStateAttachment;
+use App\Entity\Attribute\AdminPageEntity;
+use App\Form\AdminPages\PartCustomStateAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartCustomStateParameter;
@@ -63,6 +65,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractPartsContainingDBElement<PartCustomStateAttachment,PartCustomStateParameter>
  */
+#[AdminPageEntity(routeBase: 'part_custom_state', formClass: PartCustomStateAdminForm::class, showParametersTab: false)]
 #[ORM\Entity(repositoryClass: PartCustomStateRepository::class)]
 #[ORM\Table('`part_custom_states`')]
 #[ORM\Index(name: 'part_custom_state_name', columns: ['name'])]

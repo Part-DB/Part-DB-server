@@ -43,11 +43,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class GroupController extends BaseAdminController
 {
     protected string $entity_class = Group::class;
-    protected string $twig_template = 'admin/group_admin.html.twig';
-    protected string $form_class = GroupAdminForm::class;
-    protected string $route_base = 'group';
-    protected string $attachment_class = GroupAttachment::class;
-    protected ?string $parameter_class = GroupParameter::class;
 
     #[Route(path: '/{id}/edit/{timestamp}', name: 'group_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]

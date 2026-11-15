@@ -48,6 +48,8 @@ use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\Attribute\AdminPageEntity;
+use App\Form\AdminPages\ProjectAdminForm;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parts\Part;
@@ -65,6 +67,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter>
  */
+#[AdminPageEntity(routeBase: 'project', formClass: ProjectAdminForm::class)]
 #[ORM\Entity(repositoryClass: DeviceRepository::class)]
 #[ORM\Table(name: 'projects')]
 #[ApiResource(

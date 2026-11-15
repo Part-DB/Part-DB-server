@@ -34,12 +34,12 @@ use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
-use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
-use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Repository\AbstractPartsContainingRepository;
+use App\Services\AdminPages\AdminPageEntityConfig;
+use App\Services\AdminPages\AdminPageEntityRegistry;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
@@ -55,7 +55,6 @@ use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -71,29 +70,28 @@ use function Symfony\Component\Translation\t;
 abstract class BaseAdminController extends AbstractController
 {
     protected string $entity_class = '';
-    protected string $form_class = '';
-    protected string $twig_template = '';
-    protected string $route_base = '';
-    protected string $attachment_class = '';
-    protected ?string $parameter_class = '';
 
     public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
         protected AttachmentSubmitHandler $attachmentSubmitHandler,
         protected EventCommentHelper $commentHelper, protected HistoryHelper $historyHelper, protected TimeTravel $timeTravel,
         protected DataTableFactory $dataTableFactory, protected EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
-        protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager)
+        protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager,
+        private readonly AdminPageEntityRegistry $adminCrudRegistry)
     {
-        if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
-            throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
+        if ('' === $this->entity_class) {
+            throw new InvalidArgumentException('You have to override the $entity_class value in your subclass!');
         }
+    }
 
-        if ('' === $this->attachment_class || !is_a($this->attachment_class, Attachment::class, true)) {
-            throw new InvalidArgumentException('You have to override the $attachment_class value with a valid Attachment class in your subclass!');
-        }
+    protected function getAdminPageEntityConfig(): AdminPageEntityConfig
+    {
+        return $this->adminCrudRegistry->getConfig($this->entity_class);
+    }
 
-        if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
-            throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
-        }
+    /** @return array<string, mixed> */
+    protected function additionalTemplateVars(AbstractNamedDBElement $entity, FormInterface $form): array
+    {
+        return [];
     }
 
     protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
@@ -136,6 +134,7 @@ abstract class BaseAdminController extends AbstractController
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
+        $config = $this->getAdminPageEntityConfig();
 
         $timeTravel_timestamp = $this->revertElementIfNeeded($entity, $timestamp);
 
@@ -158,8 +157,8 @@ abstract class BaseAdminController extends AbstractController
         }
 
         $form_options = [
-            'attachment_class' => $this->attachment_class,
-            'parameter_class' => $this->parameter_class,
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
             'disabled' => $timeTravel_timestamp instanceof \DateTime,
         ];
 
@@ -172,15 +171,124 @@ abstract class BaseAdminController extends AbstractController
             $form_options['disable_options'] = true;
         }
 
-        $form = $this->createForm($this->form_class, $entity, $form_options);
+        $form = $this->createForm($config->getFormClass(), $entity, $form_options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->additionalActionEdit($form, $entity)) {
+                if ($config->hasAttachments()) {
+                    //Upload passed files
+                    $attachments = $form['attachments'];
+                    foreach ($attachments as $attachment) {
+                        /** @var FormInterface $attachment */
+                        try {
+                            $this->attachmentSubmitHandler->handleUpload(
+                                $attachment->getData(),
+                                AttachmentUpload::fromAttachmentForm($attachment)
+                            );
+                        } catch (AttachmentDownloadException $attachmentDownloadException) {
+                            $this->addFlash(
+                                'error',
+                                $this->translator->trans(
+                                    'attachment.download_failed'
+                                ).' '.$attachmentDownloadException->getMessage()
+                            );
+                        }
+                    }
+
+                    //Ensure that the master picture is still part of the attachments
+                    if ($entity instanceof AttachmentContainingDBElement && ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment()))) {
+                        $entity->setMasterPictureAttachment(null);
+                    }
+                }
+
+                $this->commentHelper->setMessage($form['log_comment']->getData());
+
+                //In principle, the form should be disabled, if the edit permission is not granted, but for good measure, we also check it here, before saving changes.
+                $this->denyAccessUnlessGranted('edit', $entity);
+                $em->persist($entity);
+                $em->flush();
+                $this->addFlash('success', 'entity.edit_flash');
+            }
+
+            //Rebuild form, so it is based on the updated data. Important for the parent field!
+            //We can not use dynamic form events here, because the parent entity list is build from database!
+            $form = $this->createForm($config->getFormClass(), $entity, [
+                'attachment_class' => $config->getAttachmentClass(),
+                'parameter_class' => $config->getParameterClass(),
+            ]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'entity.edit_flash.invalid');
+        }
+
+        $repo = $this->entityManager->getRepository($this->entity_class);
+
+        return $this->render($config->getTemplatePath(), array_merge(
+            [
+                'entity' => $entity,
+                'form' => $form,
+                'route_base' => $config->getRouteBase(),
+                'datatable' => $table,
+                'timeTravel' => $timeTravel_timestamp,
+                'repo' => $repo,
+                'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
+                'showParameters' => $config->showParametersTab(),
+                'showAttachments' => $config->hasAttachments(),
+            ],
+            $this->additionalTemplateVars($entity, $form)
+        ));
+    }
+
+    /**
+     * Perform some additional actions, when the form was valid, but before the entity is saved.
+     *
+     * @return bool return true, to save entity normally, return false, to abort saving
+     */
+    protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        return true;
+    }
+
+    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null): Response
+    {
+        $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
+        $config = $this->getAdminPageEntityConfig();
+
+        //This page also serves as list page, so read permission is sufficient to view it. The forms on it are disabled
+        //without the matching permission, but that does not stop them from being submitted, so each one is checked below.
+        $this->denyAccessUnlessGranted('read', $new_entity);
+
+        $form_options = [
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
+        ];
+
+        //Disable editing of options, if user is not allowed to use twig (a clone can start from a twig mode profile)
+        if (
+            $new_entity instanceof LabelProfile
+            && LabelProcessMode::TWIG === $new_entity->getOptions()->getProcessMode()
+            && !$this->isGranted('@labels.use_twig')
+        ) {
+            $form_options['disable_options'] = true;
+        }
+
+        //Basic edit form
+        $form = $this->createForm($config->getFormClass(), $new_entity, $form_options);
+
+        $form->handleRequest($request);
+
+        //Perform additional actions
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('create', $new_entity);
+        }
+
+        if ($form->isSubmitted() && $form->isValid() && $this->additionalActionNew($form, $new_entity)) {
+            if ($config->hasAttachments()) {
                 //Upload passed files
                 $attachments = $form['attachments'];
                 foreach ($attachments as $attachment) {
                     /** @var FormInterface $attachment */
+
                     try {
                         $this->attachmentSubmitHandler->handleUpload(
                             $attachment->getData(),
@@ -197,130 +305,16 @@ abstract class BaseAdminController extends AbstractController
                 }
 
                 //Ensure that the master picture is still part of the attachments
-                if ($entity instanceof AttachmentContainingDBElement && ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment()))) {
-                    $entity->setMasterPictureAttachment(null);
+                if ($new_entity instanceof AttachmentContainingDBElement && ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment()))) {
+                    $new_entity->setMasterPictureAttachment(null);
                 }
-
-                $this->commentHelper->setMessage($form['log_comment']->getData());
-
-                //In principle, the form should be disabled, if the edit permission is not granted, but for good measure, we also check it here, before saving changes.
-                if (!$entity instanceof User) { //Users entities does not have a simple edit permission, so we skip the check for them
-                    $this->denyAccessUnlessGranted('edit', $entity);
-                }
-                $em->persist($entity);
-                $em->flush();
-                $this->addFlash('success', 'entity.edit_flash');
-            }
-
-            //Rebuild form, so it is based on the updated data. Important for the parent field!
-            //We can not use dynamic form events here, because the parent entity list is build from database!
-            $form = $this->createForm($this->form_class, $entity, [
-                'attachment_class' => $this->attachment_class,
-                'parameter_class' => $this->parameter_class,
-            ]);
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'entity.edit_flash.invalid');
-        }
-
-        //Show preview for LabelProfile if needed.
-        if ($entity instanceof LabelProfile) {
-            $example = $this->barcodeExampleGenerator->getElement($entity->getOptions()->getSupportedElement());
-            $pdf_data = null;
-            try {
-                $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
-            } catch (TwigModeException $exception) {
-                $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
-            }
-        }
-
-        $repo = $this->entityManager->getRepository($this->entity_class);
-
-        return $this->render($this->twig_template, [
-            'entity' => $entity,
-            'form' => $form,
-            'route_base' => $this->route_base,
-            'datatable' => $table,
-            'pdf_data' => $pdf_data ?? null,
-            'timeTravel' => $timeTravel_timestamp,
-            'repo' => $repo,
-            'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
-            'showParameters' => !($this instanceof PartCustomStateController),
-        ]);
-    }
-
-    /**
-     * Perform some additional actions, when the form was valid, but before the entity is saved.
-     *
-     * @return bool return true, to save entity normally, return false, to abort saving
-     */
-    protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
-    {
-        return true;
-    }
-
-    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null): Response
-    {
-        $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
-
-        //This page also serves as list page, so read permission is sufficient to view it. The forms on it are disabled
-        //without the matching permission, but that does not stop them from being submitted, so each one is checked below.
-        $this->denyAccessUnlessGranted('read', $new_entity);
-
-        $form_options = [
-            'attachment_class' => $this->attachment_class,
-            'parameter_class' => $this->parameter_class,
-        ];
-
-        //Disable editing of options, if user is not allowed to use twig (a clone can start from a twig mode profile)
-        if (
-            $new_entity instanceof LabelProfile
-            && LabelProcessMode::TWIG === $new_entity->getOptions()->getProcessMode()
-            && !$this->isGranted('@labels.use_twig')
-        ) {
-            $form_options['disable_options'] = true;
-        }
-
-        //Basic edit form
-        $form = $this->createForm($this->form_class, $new_entity, $form_options);
-
-        $form->handleRequest($request);
-
-        //Perform additional actions
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->denyAccessUnlessGranted('create', $new_entity);
-        }
-
-        if ($form->isSubmitted() && $form->isValid() && $this->additionalActionNew($form, $new_entity)) {
-            //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
-
-                try {
-                    $this->attachmentSubmitHandler->handleUpload(
-                        $attachment->getData(),
-                        AttachmentUpload::fromAttachmentForm($attachment)
-                    );
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $this->translator->trans(
-                            'attachment.download_failed'
-                        ).' '.$attachmentDownloadException->getMessage()
-                    );
-                }
-            }
-
-            //Ensure that the master picture is still part of the attachments
-            if ($new_entity instanceof AttachmentContainingDBElement && ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment()))) {
-                $new_entity->setMasterPictureAttachment(null);
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');
-            return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
+            return $this->redirectToRoute($config->getRouteBase().'_edit', ['id' => $new_entity->getID()]);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
@@ -424,14 +418,18 @@ abstract class BaseAdminController extends AbstractController
 
         }
 
-        return $this->render($this->twig_template, [
-            'entity' => $new_entity,
-            'form' => $form,
-            'import_form' => $import_form,
-            'mass_creation_form' => $mass_creation_form,
-            'route_base' => $this->route_base,
-            'showParameters' => !($this instanceof PartCustomStateController),
-        ]);
+        return $this->render($config->getTemplatePath(), array_merge(
+            [
+                'entity' => $new_entity,
+                'form' => $form,
+                'import_form' => $import_form,
+                'mass_creation_form' => $mass_creation_form,
+                'route_base' => $config->getRouteBase(),
+                'showParameters' => $config->showParametersTab(),
+                'showAttachments' => $config->hasAttachments(),
+            ],
+            $this->additionalTemplateVars($new_entity, $form)
+        ));
     }
 
     /**
@@ -459,13 +457,14 @@ abstract class BaseAdminController extends AbstractController
     protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $entity);
+        $config = $this->getAdminPageEntityConfig();
 
         if ($this->isCsrfTokenValid('delete'.$entity->getID(), $request->request->get('_token'))) {
 
             $entityManager = $this->entityManager;
 
             if (!$this->deleteCheck($entity)) {
-                return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
+                return $this->redirectToRoute($config->getRouteBase().'_edit', ['id' => $entity->getID()]);
             }
 
             //Check if we need to remove recursively
@@ -480,7 +479,7 @@ abstract class BaseAdminController extends AbstractController
                 if($can_delete) {
                     $recursionHelper->delete($entity, false);
                 } else {
-                    return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
+                    return $this->redirectToRoute($config->getRouteBase().'_edit', ['id' => $entity->getID()]);
                 }
             } else {
                 if ($entity instanceof AbstractStructuralDBElement) {
@@ -507,7 +506,7 @@ abstract class BaseAdminController extends AbstractController
             $this->addFlash('error', 'csfr_invalid');
         }
 
-        return $this->redirectToRoute($this->route_base.'_new');
+        return $this->redirectToRoute($config->getRouteBase().'_new');
     }
 
     protected function _exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -515,10 +514,11 @@ abstract class BaseAdminController extends AbstractController
         $entity = new $this->entity_class();
         $this->denyAccessUnlessGranted('read', $entity);
         $entities = $em->getRepository($this->entity_class)->findAll();
+        $config = $this->getAdminPageEntityConfig();
 
         if (count($entities) === 0) {
             $this->addFlash('error', 'entity.export.flash.error.no_entities');
-            return $this->redirectToRoute($this->route_base.'_new');
+            return $this->redirectToRoute($config->getRouteBase().'_new');
         }
 
         return $exporter->exportEntityFromRequest($entities, $request);

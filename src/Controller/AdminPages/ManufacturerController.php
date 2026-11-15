@@ -42,11 +42,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class ManufacturerController extends BaseAdminController
 {
     protected string $entity_class = Manufacturer::class;
-    protected string $twig_template = 'admin/manufacturer_admin.html.twig';
-    protected string $form_class = CompanyForm::class;
-    protected string $route_base = 'manufacturer';
-    protected string $attachment_class = ManufacturerAttachment::class;
-    protected ?string $parameter_class = ManufacturerParameter::class;
 
     #[Route(path: '/{id}', name: 'manufacturer_delete', methods: ['DELETE'])]
     public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

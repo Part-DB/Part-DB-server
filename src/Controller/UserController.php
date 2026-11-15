@@ -52,11 +52,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends BaseAdminController
 {
     protected string $entity_class = User::class;
-    protected string $twig_template = 'admin/user_admin.html.twig';
-    protected string $form_class = UserAdminForm::class;
-    protected string $route_base = 'user';
-    protected string $attachment_class = UserAttachment::class;
-    protected ?string $parameter_class = null;
 
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {

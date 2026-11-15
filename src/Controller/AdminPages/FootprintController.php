@@ -43,11 +43,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class FootprintController extends BaseAdminController
 {
     protected string $entity_class = Footprint::class;
-    protected string $twig_template = 'admin/footprint_admin.html.twig';
-    protected string $form_class = FootprintAdminForm::class;
-    protected string $route_base = 'footprint';
-    protected string $attachment_class = FootprintAttachment::class;
-    protected ?string $parameter_class = FootprintParameter::class;
 
     #[Route(path: '/{id}', name: 'footprint_delete', methods: ['DELETE'])]
     public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

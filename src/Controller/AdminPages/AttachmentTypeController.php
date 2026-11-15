@@ -43,11 +43,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class AttachmentTypeController extends BaseAdminController
 {
     protected string $entity_class = AttachmentType::class;
-    protected string $twig_template = 'admin/attachment_type_admin.html.twig';
-    protected string $form_class = AttachmentTypeAdminForm::class;
-    protected string $route_base = 'attachment_type';
-    protected string $attachment_class = AttachmentTypeAttachment::class;
-    protected ?string $parameter_class = AttachmentTypeParameter::class;
 
     #[Route(path: '/{id}', name: 'attachment_type_delete', methods: ['DELETE'])]
     public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

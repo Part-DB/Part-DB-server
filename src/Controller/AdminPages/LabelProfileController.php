@@ -23,12 +23,16 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\LabelAttachment;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,12 +44,19 @@ use Symfony\Component\Routing\Attribute\Route;
 class LabelProfileController extends BaseAdminController
 {
     protected string $entity_class = LabelProfile::class;
-    protected string $twig_template = 'admin/label_profile_admin.html.twig';
-    protected string $form_class = LabelProfileAdminForm::class;
-    protected string $route_base = 'label_profile';
-    protected string $attachment_class = LabelAttachment::class;
-    //Just a placeholder
-    protected ?string $parameter_class = null;
+
+    protected function additionalTemplateVars(AbstractNamedDBElement $entity, FormInterface $form): array
+    {
+        assert($entity instanceof LabelProfile);
+        $example = $this->barcodeExampleGenerator->getElement($entity->getOptions()->getSupportedElement());
+        $pdf_data = null;
+        try {
+            $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+        } catch (TwigModeException $exception) {
+            $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
+        }
+        return ['pdf_data' => $pdf_data];
+    }
 
     #[Route(path: '/{id}', name: 'label_profile_delete', methods: ['DELETE'])]
     public function delete(Request $request, LabelProfile $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

@@ -42,11 +42,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class PartCustomStateController extends BaseAdminController
 {
     protected string $entity_class = PartCustomState::class;
-    protected string $twig_template = 'admin/part_custom_state_admin.html.twig';
-    protected string $form_class = PartCustomStateAdminForm::class;
-    protected string $route_base = 'part_custom_state';
-    protected string $attachment_class = PartCustomStateAttachment::class;
-    protected ?string $parameter_class = PartCustomStateParameter::class;
 
     #[Route(path: '/{id}', name: 'part_custom_state_delete', methods: ['DELETE'])]
     public function delete(Request $request, PartCustomState $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

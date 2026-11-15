@@ -36,6 +36,7 @@ use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
+use App\Services\AdminPages\AdminPageEntityRegistry;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\Exception;
@@ -57,11 +58,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CurrencyController extends BaseAdminController
 {
     protected string $entity_class = Currency::class;
-    protected string $twig_template = 'admin/currency_admin.html.twig';
-    protected string $form_class = CurrencyAdminForm::class;
-    protected string $route_base = 'currency';
-    protected string $attachment_class = CurrencyAttachment::class;
-    protected ?string $parameter_class = CurrencyParameter::class;
 
     public function __construct(
         TranslatorInterface $translator,
@@ -75,6 +71,7 @@ class CurrencyController extends BaseAdminController
         LabelExampleElementsGenerator $barcodeExampleGenerator,
         LabelGenerator $labelGenerator,
         EntityManagerInterface $entityManager,
+        AdminPageEntityRegistry $adminCrudRegistry,
         protected ExchangeRateUpdater $exchangeRateUpdater
     ) {
         parent::__construct(
@@ -88,7 +85,8 @@ class CurrencyController extends BaseAdminController
             $eventDispatcher,
             $barcodeExampleGenerator,
             $labelGenerator,
-            $entityManager
+            $entityManager,
+            $adminCrudRegistry
         );
     }
 

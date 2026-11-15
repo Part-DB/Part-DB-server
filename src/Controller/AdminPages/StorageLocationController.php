@@ -42,11 +42,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class StorageLocationController extends BaseAdminController
 {
     protected string $entity_class = StorageLocation::class;
-    protected string $twig_template = 'admin/storelocation_admin.html.twig';
-    protected string $form_class = StorelocationAdminForm::class;
-    protected string $route_base = 'store_location';
-    protected string $attachment_class = StorageLocationAttachment::class;
-    protected ?string $parameter_class = StorageLocationParameter::class;
 
     #[Route(path: '/{id}', name: 'store_location_delete', methods: ['DELETE'])]
     public function delete(Request $request, StorageLocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

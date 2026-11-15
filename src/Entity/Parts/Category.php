@@ -58,9 +58,11 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Attribute\AdminPageEntity;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
+use App\Form\AdminPages\CategoryAdminForm;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SortDirection;
@@ -72,6 +74,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractPartsContainingDBElement<CategoryAttachment, CategoryParameter>
  */
+#[AdminPageEntity(routeBase: 'category', formClass: CategoryAdminForm::class)]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: '`categories`')]
 #[ORM\Index(name: 'category_idx_name', columns: ['name'])]

@@ -43,11 +43,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class MeasurementUnitController extends BaseAdminController
 {
     protected string $entity_class = MeasurementUnit::class;
-    protected string $twig_template = 'admin/measurement_unit_admin.html.twig';
-    protected string $form_class = MeasurementUnitAdminForm::class;
-    protected string $route_base = 'measurement_unit';
-    protected string $attachment_class = MeasurementUnitAttachment::class;
-    protected ?string $parameter_class = MeasurementUnitParameter::class;
 
     #[Route(path: '/{id}', name: 'measurement_unit_delete', methods: ['DELETE'])]
     public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

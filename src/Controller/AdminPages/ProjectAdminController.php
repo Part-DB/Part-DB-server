@@ -41,11 +41,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProjectAdminController extends BaseAdminController
 {
     protected string $entity_class = Project::class;
-    protected string $twig_template = 'admin/project_admin.html.twig';
-    protected string $form_class = ProjectAdminForm::class;
-    protected string $route_base = 'project';
-    protected string $attachment_class = ProjectAttachment::class;
-    protected ?string $parameter_class = ProjectParameter::class;
 
     /**
      * Project BOM history remains available on individual BOM entries. Do not
