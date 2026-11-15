@@ -20,21 +20,42 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\ProjectSystem\Project;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\Type\RichTextEditorType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjectAdminForm extends BaseEntityAdminForm
+class ProjectAdminForm extends AbstractType
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function getParent(): string
     {
+        return BaseEntityAdminForm::class;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'validation_groups' => function (FormInterface $form): array {
+                $validationGroups = ['Default'];
+                if ($form->has('bom_entries')) {
+                    $validationGroups[] = 'project_bom';
+                }
+                return $validationGroups;
+            },
+        ]);
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
+
         $builder->add('description', RichTextEditorType::class, [
             'required' => false,
             'label' => 'part.edit.description',
@@ -64,22 +85,6 @@ class ProjectAdminForm extends BaseEntityAdminForm
                 'project.status.finished' => 'finished',
                 'project.status.archived' => 'archived',
             ],
-        ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        parent::configureOptions($resolver);
-
-        $resolver->setDefaults([
-           //Only validate the project bom  if the project bom form is present
-            'validation_groups' => function (FormInterface $form): array {
-                $validationGroups = ['Default'];
-                if ($form->has('bom_entries')) {
-                    $validationGroups[] = 'project_bom';
-                }
-                return $validationGroups;
-            }
         ]);
     }
 }

@@ -22,24 +22,30 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Form\Type\BigDecimalMoneyType;
 use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
-use App\Entity\Base\AbstractNamedDBElement;
-use App\Form\Type\BigDecimalMoneyType;
-use App\Services\LogSystem\EventCommentNeededHelper;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CurrencyAdminForm extends BaseEntityAdminForm
+class CurrencyAdminForm extends AbstractType
 {
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly LocalizationSettings $localizationSettings)
-    {
-        parent::__construct($security, $eventCommentNeededHelper);
+    public function __construct(
+        private readonly Security $security,
+        private readonly LocalizationSettings $localizationSettings,
+    ) {
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function getParent(): string
     {
+        return BaseEntityAdminForm::class;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
         $is_new = null === $entity->getID();
 
         $builder->add('iso_code', CurrencyType::class, [
@@ -58,14 +64,10 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         ]);
 
         if (!$is_new) {
-            $builder->add(
-                'update_exchange_rate',
-                SubmitType::class,
-                [
-                    'label' => 'currency.edit.update_rate',
-                    'disabled' => !$this->security->isGranted('edit', $entity),
-                ]
-            );
+            $builder->add('update_exchange_rate', SubmitType::class, [
+                'label' => 'currency.edit.update_rate',
+                'disabled' => !$this->security->isGranted('edit', $entity),
+            ]);
         }
     }
 }

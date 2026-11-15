@@ -22,17 +22,28 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\AbstractNamedDBElement;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CompanyForm extends BaseEntityAdminForm
+class CompanyForm extends AbstractType
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function __construct(private readonly Security $security)
     {
+    }
+
+    public function getParent(): string
+    {
+        return BaseEntityAdminForm::class;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
         $is_new = null === $entity->getID();
 
         $builder->add('address', TextareaType::class, [

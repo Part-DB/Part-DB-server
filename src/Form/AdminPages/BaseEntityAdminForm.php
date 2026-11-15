@@ -134,8 +134,6 @@ class BaseEntityAdminForm extends AbstractType
             ]);
         }
 
-        $this->additionalFormElements($builder, $options, $entity);
-
         if ($options['attachment_class'] !== null) {
             //Attachment section
             $builder->add('attachments', CollectionType::class, [
@@ -202,8 +200,4 @@ class BaseEntityAdminForm extends AbstractType
             ]);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
-    {
-        //Empty for Base
-    }
 }
