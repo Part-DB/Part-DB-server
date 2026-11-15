@@ -22,27 +22,24 @@ declare(strict_types=1);
 
 namespace App\Services\AdminPages;
 
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Services\EntitySystem\EntityConfigData;
 
 /**
- * Read-only value object that wraps a resolved #[AdminCrud] attribute for a given entity class,
- * enriched with attachment and parameter classes derived from Doctrine association metadata.
+ * Read-only value object combining a #[AdminPageEntity] attribute with the
+ * generic #[EntityConfig] data (route base, attachment/parameter classes) for the same entity.
  */
-final class AdminPageEntityConfig
+final class AdminCrudConfig
 {
     public function __construct(
-        private readonly AdminPageEntity $attr,
-        private readonly string $entityClass,
-        /** Detected from the Doctrine 'attachments' association, or null if none exists. */
-        private readonly ?string $attachmentClass,
-        /** Detected from the Doctrine 'parameters' association, or null if none exists. */
-        private readonly ?string $parameterClass,
+        private readonly AdminCrud $attr,
+        private readonly EntityConfigData $entityConfig,
     ) {
     }
 
     public function getEntityClass(): string
     {
-        return $this->entityClass;
+        return $this->entityConfig->getEntityClass();
     }
 
     public function getFormClass(): string
@@ -52,7 +49,7 @@ final class AdminPageEntityConfig
 
     public function getRouteBase(): string
     {
-        return $this->attr->routeBase;
+        return $this->entityConfig->getRouteBase();
     }
 
     public function getTemplatePath(): string
@@ -61,27 +58,27 @@ final class AdminPageEntityConfig
             return $this->attr->templatePath;
         }
 
-        return 'admin/' . $this->attr->routeBase . '_admin.html.twig';
+        return 'admin/' . $this->entityConfig->getRouteBase() . '_admin.html.twig';
     }
 
     public function getAttachmentClass(): ?string
     {
-        return $this->attachmentClass;
+        return $this->entityConfig->getAttachmentClass();
     }
 
     public function getParameterClass(): ?string
     {
-        return $this->parameterClass;
+        return $this->entityConfig->getParameterClass();
     }
 
     public function hasAttachments(): bool
     {
-        return $this->attachmentClass !== null;
+        return $this->entityConfig->hasAttachments();
     }
 
     public function hasParameters(): bool
     {
-        return $this->parameterClass !== null;
+        return $this->entityConfig->hasParameters();
     }
 
     public function showParametersTab(): bool

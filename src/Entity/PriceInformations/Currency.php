@@ -41,7 +41,8 @@ use App\Entity\Attachments\Attachment;
 use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Entity\Parameters\CurrencyParameter;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -61,7 +62,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter>
  */
-#[AdminPageEntity(routeBase: 'currency', formClass: CurrencyAdminForm::class)]
+#[EntityConfig(routeBase: 'currency')]
+#[AdminCrud(formClass: CurrencyAdminForm::class)]
 #[UniqueEntity('iso_code')]
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\Table(name: 'currencies')]

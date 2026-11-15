@@ -57,7 +57,8 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\StorageLocationAttachment;
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\StorelocationAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -73,7 +74,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity represents a storage location, where parts can be stored.
  * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter>
  */
-#[AdminPageEntity(routeBase: 'store_location', formClass: StorelocationAdminForm::class, templatePath: 'admin/storelocation_admin.html.twig')]
+#[EntityConfig(routeBase: 'store_location')]
+#[AdminCrud(formClass: StorelocationAdminForm::class, templatePath: 'admin/storelocation_admin.html.twig')]
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(name: 'location_idx_name', columns: ['name'])]

@@ -26,7 +26,8 @@ use App\Entity\Attachments\Attachment;
 use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
@@ -44,7 +45,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter>
  */
-#[AdminPageEntity(routeBase: 'group', formClass: GroupAdminForm::class)]
+#[EntityConfig(routeBase: 'group')]
+#[AdminCrud(formClass: GroupAdminForm::class)]
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
 #[ORM\Index(name: 'group_idx_name', columns: ['name'])]

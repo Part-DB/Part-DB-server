@@ -17,17 +17,17 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\AdminPages\AdminPageEntityRegistry;
+use App\Services\AdminPages\AdminCrudRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class AdminPageEntityRegistryTest extends KernelTestCase
+class AdminCrudRegistryTest extends KernelTestCase
 {
-    private AdminPageEntityRegistry $registry;
+    private AdminCrudRegistry $registry;
 
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->registry = self::getContainer()->get(AdminPageEntityRegistry::class);
+        $this->registry = self::getContainer()->get(AdminCrudRegistry::class);
     }
 
     public function testGetAllConfigsReturns13Entries(): void

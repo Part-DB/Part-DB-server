@@ -20,9 +20,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services\AdminPages;
+namespace App\Services\EntitySystem;
 
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\EntityConfig;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
@@ -31,20 +31,23 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
 /**
- * Discovers all Doctrine entity classes annotated with #[AdminCrud] and provides access to their config.
+ * Discovers all Doctrine entity classes annotated with #[EntityConfig] and provides
+ * read-only access to their generic metadata (route base, attachment class, parameter class).
+ *
+ * Attachment and parameter classes are auto-detected from the Doctrine association metadata
+ * (fields named 'attachments' and 'parameters') rather than being declared in the attribute.
  *
  * Discovery is cached in the system cache pool (cleared with cache:clear) and in memory within
  * a single request, so reflection runs at most once per request and rarely across requests.
  *
- * Attachment and parameter classes are detected from the Doctrine association metadata
- * ('attachments' and 'parameters' field names) rather than being declared in the attribute.
+ * @see EntityConfig
  */
 #[Autoconfigure(public: true)]
-class AdminPageEntityRegistry
+class EntityConfigRegistry
 {
-    private const CACHE_KEY = 'admin_crud_entity_classes';
+    private const CACHE_KEY = 'entity_config_classes';
 
-    /** @var array<class-string, AdminPageEntityConfig>|null */
+    /** @var array<class-string, EntityConfigData>|null */
     private ?array $configs = null;
 
     public function __construct(
@@ -56,15 +59,13 @@ class AdminPageEntityRegistry
 
     /**
      * @param class-string $entityClass
-     * @throws \InvalidArgumentException if the entity has no #[AdminCrud] attribute
+     * @throws \InvalidArgumentException if the entity has no #[EntityConfig] attribute
      */
-    public function getConfig(string $entityClass): AdminPageEntityConfig
+    public function getConfig(string $entityClass): EntityConfigData
     {
-        $all = $this->getAllConfigs();
-
-        return $all[$entityClass]
+        return $this->getAllConfigs()[$entityClass]
             ?? throw new \InvalidArgumentException(sprintf(
-                'Entity class "%s" has no #[AdminCrud] attribute.',
+                'Entity class "%s" has no #[EntityConfig] attribute.',
                 $entityClass
             ));
     }
@@ -75,7 +76,7 @@ class AdminPageEntityRegistry
     }
 
     /**
-     * @return array<class-string, AdminPageEntityConfig>
+     * @return array<class-string, EntityConfigData>
      */
     public function getAllConfigs(): array
     {
@@ -99,11 +100,11 @@ class AdminPageEntityRegistry
         return $this->configs;
     }
 
-    private function buildConfig(string $class, ClassMetadata $metadata): AdminPageEntityConfig
+    private function buildConfig(string $class, ClassMetadata $metadata): EntityConfigData
     {
         $ref = new \ReflectionClass($class);
-        $attrs = $ref->getAttributes(AdminPageEntity::class);
-        /** @var AdminPageEntity $attr */
+        $attrs = $ref->getAttributes(EntityConfig::class);
+        /** @var EntityConfig $attr */
         $attr = $attrs[0]->newInstance();
 
         $attachmentClass = $metadata->hasAssociation('attachments')
@@ -114,7 +115,7 @@ class AdminPageEntityRegistry
             ? $metadata->getAssociationTargetClass('parameters')
             : null;
 
-        return new AdminPageEntityConfig($attr, $class, $attachmentClass, $parameterClass);
+        return new EntityConfigData($attr, $class, $attachmentClass, $parameterClass);
     }
 
     /**
@@ -129,7 +130,7 @@ class AdminPageEntityRegistry
             /** @var class-string $class */
             $class = $metadata->getName();
 
-            if (!empty((new \ReflectionClass($class))->getAttributes(AdminPageEntity::class))) {
+            if (!empty((new \ReflectionClass($class))->getAttributes(EntityConfig::class))) {
                 $classes[] = $class;
             }
         }

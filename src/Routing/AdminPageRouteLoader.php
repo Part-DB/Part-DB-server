@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Routing;
 
 use App\Controller\AdminPages\AdminPageController;
-use App\Services\AdminPages\AdminPageEntityRegistry;
+use App\Services\AdminPages\AdminCrudRegistry;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Routing\Route;
@@ -42,7 +42,7 @@ final class AdminPageRouteLoader extends Loader
     private bool $loaded = false;
 
     public function __construct(
-        private readonly AdminPageEntityRegistry $registry,
+        private readonly AdminCrudRegistry $registry,
         ?string $env = null,
     ) {
         parent::__construct($env);

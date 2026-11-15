@@ -40,7 +40,8 @@ use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Form\UserAdminForm;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
@@ -76,7 +77,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  *
  * @extends AttachmentContainingDBElement<UserAttachment>
  */
-#[AdminPageEntity(routeBase: 'user', formClass: UserAdminForm::class)]
+#[EntityConfig(routeBase: 'user')]
+#[AdminCrud(formClass: UserAdminForm::class)]
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]

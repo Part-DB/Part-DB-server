@@ -54,7 +54,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\LabelAttachment;
-use App\Entity\Attribute\AdminPageEntity;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,7 +67,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @extends AttachmentContainingDBElement<LabelAttachment>
  */
-#[AdminPageEntity(routeBase: 'label_profile', formClass: LabelProfileAdminForm::class)]
+#[EntityConfig(routeBase: 'label_profile')]
+#[AdminCrud(formClass: LabelProfileAdminForm::class)]
 #[ApiResource(
     operations: [
         new Get(

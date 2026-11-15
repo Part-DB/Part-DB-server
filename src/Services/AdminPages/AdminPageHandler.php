@@ -70,7 +70,7 @@ use function Symfony\Component\Translation\t;
 final readonly class AdminPageHandler
 {
     public function __construct(
-        private AdminPageEntityRegistry $registry,
+        private AdminCrudRegistry $registry,
         private EntityManagerInterface $em,
         private FormFactoryInterface $formFactory,
         private Environment $twig,
@@ -437,7 +437,7 @@ final readonly class AdminPageHandler
         return $dt;
     }
 
-    private function handleAttachmentUploads(AdminPageEntityConfig $config, AbstractNamedDBElement $entity, FormInterface $form): void
+    private function handleAttachmentUploads(AdminCrudConfig $config, AbstractNamedDBElement $entity, FormInterface $form): void
     {
         if (!$config->hasAttachments()) {
             return;
