@@ -25,6 +25,7 @@ namespace App\Services\AdminPages;
 use App\Entity\Attribute\AdminPageEntity;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -38,6 +39,7 @@ use Symfony\Contracts\Cache\ItemInterface;
  * Attachment and parameter classes are detected from the Doctrine association metadata
  * ('attachments' and 'parameters' field names) rather than being declared in the attribute.
  */
+#[Autoconfigure(public: true)]
 class AdminPageEntityRegistry
 {
     private const CACHE_KEY = 'admin_crud_entity_classes';

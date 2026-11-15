@@ -300,7 +300,7 @@ class EntityURLGenerator
             Part::class => 'part_clone',
             AttachmentType::class => 'attachment_type_clone',
             Category::class => 'category_clone',
-            Project::class => 'device_clone',
+            Project::class => 'project_clone',
             Supplier::class => 'supplier_clone',
             Manufacturer::class => 'manufacturer_clone',
             StorageLocation::class => 'store_location_clone',
