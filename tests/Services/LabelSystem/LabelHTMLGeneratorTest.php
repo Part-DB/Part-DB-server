@@ -26,7 +26,10 @@ use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\LabelExampleElementsGenerator;
+use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LabelSystem\LabelHTMLGenerator;
+use Dompdf\Frame;
+use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class LabelHTMLGeneratorTest extends KernelTestCase
@@ -174,6 +177,25 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertStringContainsString('<p>&nbsp;</p><p>Test</p>', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
     }
 
+    public function testEmptyLineNextToWideImage(): void
+    {
+        //On a 100mm label, a 346px wide image wrapped left leaves 4.83px next to it: Too little for text, but enough for
+        //an empty line, which has no width. So the empty line stays next to the image (like in the editor), and only the
+        //text after it is moved below the image (the image ends 50px - 15.36px line height = 34.64px below the empty line)
+        $lines = '<figure class="image image-style-align-left">'.$this->createImage(346, 50).'</figure><p>&nbsp;</p><p>Text</p>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setLines($lines);
+        $this->assertStringContainsString('</figure><p><br></p><div class="partdb-float-spacer" style="height: 34.84px;"></div><p>Text</p>',
+            $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+
+        //On the rendered label, the empty line starts next to the image and the text directly below it
+        $layout = $this->renderLayout($options);
+        [$image, $empty_line, $text] = [$layout['figure'][0], $layout['p'][0], $layout['p'][1]];
+        $this->assertEqualsWithDelta($image['top'], $empty_line['top'], 0.01);
+        $this->assertEqualsWithDelta($image['bottom'], $text['top'], 0.1);
+        //So everything stays on the label (the page content ends 12px = 3.175mm above the bottom)
+        $this->assertLessThanOrEqual(50 - 3.175, $text['bottom']);
+    }
+
     public function testLegacyLayoutWithFloatingImages(): void
     {
         //dompdf can not handle floats inside floats, so the legacy QR columns must not float if the lines contain wrapped images
@@ -184,6 +206,43 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $options->setLines('<figure class="image image-style-align-right"><img src="data:image/png;base64,AAAA"></figure><p>Test</p>');
         $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
         $this->assertStringContainsString('<div class="row row-inline">', $html);
+    }
+
+    /**
+     * Renders a label for the example part with dompdf (like LabelGenerator does) and returns the boxes of its paragraphs
+     * and figures (in mm, relative to the top left corner of the label), in the order of the content.
+     * @return array{p: list<array{top: float, bottom: float, left: float, right: float}>, figure: list<array{top: float, bottom: float, left: float, right: float}>}
+     */
+    private function renderLayout(LabelOptions $options): array
+    {
+        $dompdf = self::getContainer()->get(DompdfFactoryInterface::class)->create();
+        $dompdf->setPaper(self::getContainer()->get(LabelGenerator::class)->mmToPointsArray($options->getWidth(), $options->getHeight()));
+        $dompdf->loadHtml($this->service->getLabelHTML($options, [$this->getExamplePart()]));
+
+        $boxes = ['p' => [], 'figure' => []];
+        $dompdf->setCallbacks([['event' => 'end_frame', 'f' => static function (Frame $frame) use (&$boxes): void {
+            $node = $frame->get_node();
+            if ($node instanceof \DOMElement && isset($boxes[$node->nodeName])) {
+                [$x, $y, $width, $height] = $frame->get_border_box();
+                $mm = static fn(float $pt): float => $pt / LabelGenerator::MM_TO_POINTS_FACTOR;
+                $boxes[$node->nodeName][] = ['top' => $mm($y), 'bottom' => $mm($y + $height), 'left' => $mm($x), 'right' => $mm($x + $width)];
+            }
+        }]]);
+        $dompdf->render();
+
+        return $boxes;
+    }
+
+    /**
+     * Creates an img element with a PNG image of the given size (dompdf needs a real image to lay it out).
+     */
+    private function createImage(int $width, int $height): string
+    {
+        $image = imagecreatetruecolor($width, $height);
+        ob_start();
+        imagepng($image);
+
+        return '<img src="data:image/png;base64,'.base64_encode((string) ob_get_clean()).'" width="'.$width.'" height="'.$height.'">';
     }
 
     private function getExamplePart(): Part

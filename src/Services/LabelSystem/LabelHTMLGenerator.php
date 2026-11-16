@@ -274,6 +274,8 @@ final readonly class LabelHTMLGenerator
         $inner_right = null;
         //The images of the current group of consecutive floating images (with their position), or null if unknown
         $group = [];
+        //Whether the group are the images before the current position, which is below empty lines next to them
+        $group_above = false;
 
         foreach (iterator_to_array($fragment->childNodes) as $node) {
             if ($node instanceof \DOMText && trim($node->textContent) === '') {
@@ -283,14 +285,29 @@ final readonly class LabelHTMLGenerator
             $style = $node instanceof \DOMElement ? $this->getFloatStyle($node) : null;
             //Only consecutive floating images are checked, other content resets the rows
             if ($style === null) {
-                if ($group !== null && $group !== [] && $node instanceof \DOMElement && $node->nodeName === 'p') {
-                    $changed = $this->moveBelowFloatingImages($node, $group, $available) || $changed;
-                }
                 $used = $used_left = $used_right = $row_height = $offset = $overlap = 0.0;
                 $row_height_known = true;
                 $inner_right = null;
+
+                if ($group !== null && $group !== [] && $node instanceof \DOMElement && $node->nodeName === 'p') {
+                    //An empty line has no width, so it is placed next to the images, even if there is only little space
+                    //left (like in the label editor). So it needs no spacer, but the next paragraph is checked below it.
+                    if ($this->isEmptyLine($node)) {
+                        $group = $this->moveImagesUp($group, 12 * self::DEFAULT_LINE_HEIGHT);
+                        $group_above = true;
+                        continue;
+                    }
+                    $changed = $this->moveBelowFloatingImages($node, $group, $available) || $changed;
+                }
                 $group = [];
+                $group_above = false;
                 continue;
+            }
+
+            //Floating images after empty lines start a new group
+            if ($group_above) {
+                $group = [];
+                $group_above = false;
             }
 
             $width = min($this->getElementWidth($node, $available) ?? 0.0, $available);
@@ -444,6 +461,40 @@ final readonly class LabelHTMLGenerator
         }
 
         return false;
+    }
+
+    /**
+     * Checks if the given paragraph is an empty line (it contains only line breaks, see replaceEmptyLines()).
+     */
+    private function isEmptyLine(\DOMElement $paragraph): bool
+    {
+        foreach ($paragraph->getElementsByTagName('*') as $child) {
+            if ($child->nodeName !== 'br') {
+                return false;
+            }
+        }
+
+        return preg_replace('/[\s\x{00A0}]+/u', '', $paragraph->textContent) === '';
+    }
+
+    /**
+     * Moves the given image positions (see fitFloatingImages()) up by the given height (in px), so that they are relative
+     * to a position below the current one. Images which end above that position are removed.
+     * @param  array<array{left: float, right: float, top: float, bottom: float, is_right?: bool}>  $images
+     * @return array<array{left: float, right: float, top: float, bottom: float, is_right?: bool}>
+     */
+    private function moveImagesUp(array $images, float $height): array
+    {
+        $moved = [];
+        foreach ($images as $image) {
+            $image['top'] -= $height;
+            $image['bottom'] -= $height;
+            if ($image['bottom'] > 0) {
+                $moved[] = $image;
+            }
+        }
+
+        return $moved;
     }
 
     /**
