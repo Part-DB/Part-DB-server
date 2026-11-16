@@ -1911,7 +1911,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>Liczba dostawców</target>
+        <target>Liczba dystrybutorów</target>
       </segment>
     </unit>
     <unit id="QEk.sHE" name="statistics.currencies_count">
@@ -2380,7 +2380,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="1jEDrSa" name="supplier.label">
       <segment state="translated">
         <source>supplier.label</source>
-        <target>Dostawca</target>
+        <target>Dystrybutor</target>
       </segment>
     </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
@@ -2416,7 +2416,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="yhOgcCg" name="supplier.labelp">
       <segment state="translated">
         <source>supplier.labelp</source>
-        <target>Dostawcy</target>
+        <target>Dystrybutorzy</target>
       </segment>
     </unit>
     <unit id="kSIFcD5" name="attachment.download_failed">
@@ -3376,7 +3376,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="jV304Pc" name="orderdetails.edit.supplierpartnr">
       <segment state="translated">
         <source>orderdetails.edit.supplierpartnr</source>
-        <target>Numer katalogowy dostawcy</target>
+        <target>Numer katalogowy dystrybutora</target>
       </segment>
     </unit>
     <unit id="XPPtB7m" name="orderdetails.edit.supplier">
@@ -3787,7 +3787,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="raK7qaK" name="tree.tools.edit.suppliers">
       <segment state="translated">
         <source>tree.tools.edit.suppliers</source>
-        <target>Dostawcy</target>
+        <target>[[Supplier]]</target>
       </segment>
     </unit>
     <unit id="1IJ48Y0" name="tree.tools.edit.manufacturer">
@@ -10268,7 +10268,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_supplier_fields</source>
-        <target>Eksportuj pola numerów [[part]] dostawców</target>
+        <target>Eksportuj pola numerów części dystrybutorów</target>
       </segment>
     </unit>
     <unit id="AK0phKm" name="settings.misc.kicad_eda.export_supplier_fields.help">
@@ -14053,6 +14053,18 @@ Serwer autoryzacji Buerklin API:
         <target>Gdy włączone, TrustedParts.com zwraca przechowywane dane o zapasach i cenach, zamiast odpytywać dystrybutorów w czasie rzeczywistym. Jest to szybsze i nie nalicza się do limitu danych, ale dane mogą być przestarzałe.</target>
       </segment>
     </unit>
+    <unit id="iF2gQaJ" name="settings.ips.trustedparts.riskRatings">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings</source>
+        <target>Importuj oceny ryzyka</target>
+      </segment>
+    </unit>
+    <unit id="ADEQkPe" name="settings.ips.trustedparts.riskRatings.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings.help</source>
+        <target>TrustedParts.com ocenia ryzyko cyklu życia i łańcucha dostaw części i pokazuje, czy jest objęta cłem. Jeśli włączone, te oceny są importowane jako parametry w odrębnej grupie. Są one dostarczane z każdą odpowiedzią API, więc ich uzyskiwanie nie zwiększa ilości żądań.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -15532,7 +15544,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="NUw3e9D" name="part.table.supplier_available_amount">
       <segment state="translated">
         <source>part.table.supplier_available_amount</source>
-        <target>Dostępne u dostawcy</target>
+        <target>Dostępne u dystrybutora</target>
       </segment>
     </unit>
     <unit id="cVfVQWf" name="perm.group.unknown">
@@ -15952,13 +15964,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="xxOseQB" name="part.table.supplier">
       <segment state="translated">
         <source>part.table.supplier</source>
-        <target>Dostawca</target>
+        <target>[Supplier]</target>
       </segment>
     </unit>
     <unit id="1AS7MVG" name="part.table.supplier_part_number">
       <segment state="translated">
         <source>part.table.supplier_part_number</source>
-        <target>Numer części dostawcy</target>
+        <target>Numer części dystrybutora</target>
       </segment>
     </unit>
     <unit id="8i5dlT4" name="settings.behavior.part_info.combined_tabs">
