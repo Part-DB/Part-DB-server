@@ -37,6 +37,17 @@ export default class PartDBLabelPreview extends Plugin {
         this.editor.on('ready', () => this._init());
     }
 
+    destroy() {
+        //The form outlives the editor (e.g. when switching between HTML and Twig mode), so its listeners must be removed
+        if (this._update) {
+            this._form.removeEventListener('input', this._update);
+            this._form.removeEventListener('change', this._update);
+            this._editable?.removeEventListener('load', this._update, true);
+            this._update = null;
+        }
+        super.destroy();
+    }
+
     _init() {
         const editor = this.editor;
         const form = editor.sourceElement?.form;
@@ -74,12 +85,16 @@ export default class PartDBLabelPreview extends Plugin {
         };
 
         update();
+        //Kept to remove the listeners in destroy()
+        this._form = form;
+        this._editable = editor.ui.getEditableElement();
+        this._update = update;
         form.addEventListener('input', update);
         form.addEventListener('change', update);
         //The margins of wrapped images depend on the images next to them (before other plugins use their position)
         this.listenTo(editor.editing.view, 'render', update, {priority: 'high'});
         //Images without a size get their width when they are loaded (load events do not bubble)
-        editor.ui.getEditableElement()?.addEventListener('load', update, true);
+        this._editable?.addEventListener('load', update, true);
     }
 
     /**
