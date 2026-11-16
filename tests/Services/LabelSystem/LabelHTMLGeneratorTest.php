@@ -26,7 +26,10 @@ use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\LabelExampleElementsGenerator;
+use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LabelSystem\LabelHTMLGenerator;
+use Dompdf\Frame;
+use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class LabelHTMLGeneratorTest extends KernelTestCase
@@ -95,18 +98,28 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
 
     public function testLegacy1DLayoutDoesNotOverlapText(): void
     {
-        //The barcode follows the text, which is at least as high as the space above the previous fixed position of the
-        //barcode: So the barcode keeps that position if the text fits above it, and is pushed down otherwise
-        $options = (new LabelOptions())->setWidth(50)->setHeight(30)->setBarcodeType(BarcodeType::CODE128)->setLines('<p>Test</p>');
-        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
-        $this->assertStringContainsString('<div class="barcode-below-text">', $html);
-        $this->assertStringContainsString('<div class="lines-container" style="min-height: 4.537mm;">', $html);
+        //Without a barcode size, 1D barcodes used to be placed at a fixed position, 32px above the bottom of the page
+        //content. On a 50x30mm label only a single line of text fitted above it, the following lines were covered.
+        $lines = '<p>First line</p><p>Second line</p><p>Third line</p>';
+        $options = (new LabelOptions())->setWidth(50)->setHeight(30)->setBarcodeType(BarcodeType::CODE128)->setLines($lines);
+        $layout = $this->renderLayout($options);
+        $this->assertCount(3, $layout['lines']);
+        $this->assertSame(1, $layout['pages']);
+        //The barcode starts below the last line of text...
+        $this->assertGreaterThanOrEqual(max(array_column($layout['lines'], 1)) - 0.01, $layout['barcode'][0]);
+        //... and stays on the label together with its caption (the page content ends 12px = 3.175mm above the bottom)
+        $this->assertLessThanOrEqual(30 - 3.175 + 0.01, $layout['caption'][1]);
+
+        //If the text fits above it, the barcode keeps its previous position: Its caption ends 32px (8.467mm) above the
+        //bottom of the page content
+        $layout = $this->renderLayout($options->setLines('<p>First line</p>'));
+        $this->assertEqualsWithDelta(30 - 3.175 - 8.467, $layout['caption'][1], 0.05);
+        $this->assertGreaterThan(max(array_column($layout['lines'], 1)), $layout['barcode'][0]);
 
         //Labels with custom CSS for the barcode may have placed it somewhere else, so they keep the fixed position
-        $options->setAdditionalCss('.C39-container { bottom: 5px; }');
-        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
-        $this->assertStringNotContainsString('<div class="barcode-below-text">', $html);
-        $this->assertStringContainsString('<div class="lines-container">', $html);
+        //(here 5px above the bottom of the page content), even if it covers the text
+        $layout = $this->renderLayout($options->setLines($lines)->setAdditionalCss('.C39-container { bottom: 5px; }'));
+        $this->assertEqualsWithDelta(30 - 3.175 - 5 * 25.4 / 96, $layout['caption'][1], 0.05);
     }
 
     public function testDefaultLayoutWithoutPlaceholder(): void
@@ -116,6 +129,40 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
 
         $this->assertStringContainsString('<table class="label-layout', $html);
         $this->assertStringContainsString('width: 15mm', $html);
+    }
+
+    /**
+     * Renders a label for the example part with dompdf (like LabelGenerator does) and returns the vertical position (top
+     * and bottom in mm, relative to the top of the label) of its text lines, its barcode and the caption of the barcode,
+     * together with the number of pages.
+     * @return array{lines: list<array{float, float}>, barcode: array{float, float}|null, caption: array{float, float}|null, pages: int}
+     */
+    private function renderLayout(LabelOptions $options): array
+    {
+        $dompdf = self::getContainer()->get(DompdfFactoryInterface::class)->create();
+        $dompdf->setPaper(self::getContainer()->get(LabelGenerator::class)->mmToPointsArray($options->getWidth(), $options->getHeight()));
+        $dompdf->loadHtml($this->service->getLabelHTML($options, [$this->getExamplePart()]));
+
+        $layout = ['lines' => [], 'barcode' => null, 'caption' => null];
+        $dompdf->setCallbacks([['event' => 'end_frame', 'f' => static function (Frame $frame) use (&$layout): void {
+            $node = $frame->get_node();
+            if (!$node instanceof \DOMElement) {
+                return;
+            }
+            [, $y, , $height] = $frame->get_border_box();
+            $box = [$y / LabelGenerator::MM_TO_POINTS_FACTOR, ($y + $height) / LabelGenerator::MM_TO_POINTS_FACTOR];
+            if ($node->nodeName === 'p') {
+                $layout['lines'][] = $box;
+            } elseif ($node->nodeName === 'img' && $node->getAttribute('class') === 'C39') {
+                $layout['barcode'] = $box;
+            } elseif ($node->getAttribute('class') === 'C39-text') {
+                $layout['caption'] = $box;
+            }
+        }]]);
+        $dompdf->render();
+        $layout['pages'] = $dompdf->getCanvas()->get_page_count();
+
+        return $layout;
     }
 
     private function getExamplePart(): Part
