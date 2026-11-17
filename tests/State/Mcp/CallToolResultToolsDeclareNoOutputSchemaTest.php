@@ -45,6 +45,8 @@ class CallToolResultToolsDeclareNoOutputSchemaTest extends KernelTestCase
         return [
             'get_attachment_content' => ['get_attachment_content'],
             'get_part_preview_image' => ['get_part_preview_image'],
+            'get_label_printing_options' => ['get_label_printing_options'],
+            'print_labels' => ['print_labels'],
         ];
     }
 

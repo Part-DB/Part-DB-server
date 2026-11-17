@@ -47,7 +47,8 @@ Once enabled, the MCP server is reachable under the `/mcp` path of your Part-DB 
 > even after enabling the MCP endpoint itself: with it off, every write tool call is rejected for every user,
 > regardless of their permissions or the connected token's scope - the MCP server behaves as if only the
 > read-only tools existed. Turn it on only once you're comfortable letting connected AI assistants create, edit
-> and delete data on your behalf.
+> and delete data on your behalf. The **print_labels** tool is not affected by this switch: it changes no data, and
+> is covered by the same **Create labels** permission as the Print buttons.
 
 {: .note }
 > If your MCP client gets a `Forbidden: Invalid Host header` response, set the `TRUSTED_HOSTS` environment variable
@@ -323,6 +324,20 @@ Measurement units and part custom states don't have write tools yet.
 * **list_projects** / **get_project_details** – Same behavior as the master data tools above.
   `get_project_details` additionally returns the project's BOM entries, status, description and associated build
   part.
+
+### Labels
+
+These tools print labels through your [print agent]({% link usage/labels.md %}#print-jobs), the same as the Print
+buttons in the label menus. They need the **Create labels** permission (`labels.create_labels`); a **Read-Only**
+token or grant is enough, just as for the print agent itself.
+
+* **get_label_printing_options** – List the label profiles (with what they label, their size and default printer)
+  and your label printers with their online status.
+* **print_labels** – Print labels for parts, part lots or storage locations (`targetType` and `ids` like
+  `1,2,5-10`), at most 50 labels per call. `profileId` and `printer` are optional: without them, the label profile
+  for that target type that has a default printer is used, on that printer. If a choice is needed, the tool's
+  answer lists the options. This creates a print job like the Print button; an offline agent prints it once it is
+  back.
 
 ### Attachments
 

@@ -46,6 +46,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
 use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Attachments\Attachment;
 use App\Repository\LabelProfileRepository;
@@ -57,6 +58,10 @@ use App\Entity\Attachments\LabelAttachment;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SortDirection;
+use App\Mcp\DTO\GetLabelPrintingOptionsInput;
+use App\Mcp\DTO\PrintLabelsInput;
+use App\State\Mcp\GetLabelPrintingOptionsProcessor;
+use App\State\Mcp\PrintLabelsProcessor;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -78,6 +83,27 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
     ],
     paginationEnabled: false,
+    mcp: [
+        'get_label_printing_options' => new McpTool(
+            title: 'List label profiles and label printers',
+            description: 'List the label profiles (id, name, targetType: what they label - part, part_lot or storelocation -, size in mm and default printer) and the current user\'s label printers from their Part-DB print agents (with online status). Use it to choose profileId and printer for print_labels.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@labels.read_profiles")',
+            input: GetLabelPrintingOptionsInput::class,
+            processor: GetLabelPrintingOptionsProcessor::class,
+        ),
+        'print_labels' => new McpTool(
+            title: 'Print labels',
+            description: 'Print labels for parts, part lots or storage locations on one of the current user\'s label printers, through their Part-DB print agent - the same as the Print button in the label menus. "ids" are database IDs or ranges like "1,2,5-10"; at most 50 labels per call. "profileId" and "printer" are optional: without profileId, the label profile for that targetType that has a default printer is used; without printer, the profile\'s default printer (or the user\'s only printer). If a choice is needed, the error lists the options (get_label_printing_options lists them too). Every successful call prints physical labels, so never repeat a call just to retry - read its result first.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("@labels.create_labels")',
+            input: PrintLabelsInput::class,
+            validate: true,
+            processor: PrintLabelsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(SearchFilter::class, properties: ['options.supported_element' => 'exact', 'show_in_dropdown' => 'exact'])]
 #[UniqueEntity(['name', 'options.supported_element'])]

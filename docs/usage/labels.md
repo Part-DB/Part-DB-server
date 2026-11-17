@@ -56,7 +56,8 @@ print labels; it gives no access to Part-DB data.
 A print agent can also fetch print jobs from Part-DB. This works from any device (also a phone) and through NAT,
 because the agent connects to Part-DB, not the other way round. The agent registers itself with an API token of its
 user; a read-only token is enough, but the user needs the "create labels" and "access API" permissions. Agents and their jobs are only
-visible to their owner, under "Tools -> Print agent".
+visible to their owner, under "Tools -> Print agent". AI assistants connected through the
+[MCP server]({% link api/mcp.md %}#labels) can print the same way, with the `print_labels` tool.
 
 Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and the
 label menus get a "Print on <printer>" item under each profile that prints in one click. A label profile can name a
