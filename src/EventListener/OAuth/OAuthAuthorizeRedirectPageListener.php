@@ -32,12 +32,13 @@ use Twig\Environment;
  * (App\EventListener\OAuth\AuthorizationConsentListener, templates/oauth/authorize.html.twig) with a small
  * page that sends the browser on to the client's redirect_uri via a meta refresh (plus a manual link).
  *
- * Why not just redirect: browsers (Chrome in particular) enforce the consent page's CSP form-action directive
+ * Why not just redirect: browsers (Chrome in particular) enforce a CSP form-action directive
  * on *every* redirect of the navigation started by the form submission, not only on the form's own action.
  * We could allow the client's redirect_uri host there, but some clients' redirect URIs redirect further to
  * hosts we can't know in advance (e.g. Gemini's https://oauth-redirect.googleusercontent.com/r/... forwards
  * to other Google hosts), which then gets blocked by form-action. A meta refresh starts a new navigation that
- * form-action does not apply to, so the global "form-action 'self'" (nelmio_security.yaml) can stay strict.
+ * form-action does not apply to, so the OAuth flow keeps working even if a
+ * form-action directive is set (e.g. by a reverse proxy).
  *
  * Safe for the same reason as App\EventListener\OAuth\OAuthExternalRedirectListener: league/oauth2-server has
  * already strictly validated the redirect target against the client's pre-registered redirect_uris.

@@ -95,7 +95,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
     /**
      * After the consent form was submitted, the user is sent back to the client via an intermediate page with a
      * meta refresh instead of an HTTP redirect (see App\EventListener\OAuth\OAuthAuthorizeRedirectPageListener),
-     * so the consent page's CSP form-action does not apply to the client's redirect chain.
+     * so a CSP form-action directive would not apply to the client's redirect chain.
      *
      * @return string the redirect target of the page
      */
@@ -142,43 +142,6 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         self::assertArrayHasKey('code', $query);
     }
 
-    /**
-     * form-action does not fall back to default-src, so the consent page (and the return page) must set it
-     * explicitly (config/packages/nelmio_security.yaml).
-     */
-    public function testConsentAndReturnPagesRestrictFormActionToSelf(): void
-    {
-        $httpClient = static::createClient();
-        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
-        $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
-        self::assertInstanceOf(User::class, $admin);
-        $httpClient->loginUser($admin);
-
-        $redirectUri = 'https://client.example.invalid/callback';
-        $client = $this->createTestClient($httpClient, $redirectUri);
-
-        $crawler = $httpClient->request('GET', $this->authorizeUrl($client, $redirectUri));
-        self::assertResponseIsSuccessful();
-        self::assertSame(["form-action 'self'"], $this->formActionDirectives($httpClient));
-
-        $httpClient->submit($crawler->selectButton('Approve')->form());
-        $this->assertRedirectPage($httpClient);
-        self::assertSame(["form-action 'self'"], $this->formActionDirectives($httpClient));
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function formActionDirectives(KernelBrowser $httpClient): array
-    {
-        $csp = (string) $httpClient->getResponse()->headers->get('Content-Security-Policy');
-        self::assertNotSame('', $csp);
-
-        return array_values(array_filter(
-            array_map(trim(...), explode(';', $csp)),
-            static fn (string $directive): bool => str_starts_with($directive, 'form-action')
-        ));
-    }
 
     public function testDenyRedirectsWithAccessDeniedError(): void
     {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="validators.en">
+  <file id="validators.de">
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
@@ -179,6 +179,12 @@
       <segment state="translated">
         <source>validator.attachment.name_not_blank</source>
         <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
+      </segment>
+    </unit>
+    <unit id="sfKWMsX" name="validator.attachment.external_url_invalid_scheme">
+      <segment state="translated">
+        <source>validator.attachment.external_url_invalid_scheme</source>
+        <target>Für externe Anhänge sind nur HTTP- und HTTPS-URLs erlaubt.</target>
       </segment>
     </unit>
     <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">

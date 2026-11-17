@@ -32,4 +32,11 @@
     </template>
 </turbo-stream>
 
-
+{# Keep the redirect target of the navbar login link in sync with the current page #}
+{% if not app.user %}
+    <turbo-stream action="replace" target="login-link">
+        <template>
+            {% include "_navbar_login_link.html.twig" %}
+        </template>
+    </turbo-stream>
+{% endif %}
