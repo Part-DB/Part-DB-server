@@ -66,6 +66,11 @@ final class LabelProfileAdminExtension extends AbstractAdminPageExtension
             throw new \InvalidArgumentException('Expected ' . LabelProfile::class . ', got ' . $entity::class . '.');
         }
 
+        // No preview for a new, unsaved profile with no content yet — nothing meaningful to render.
+        if ($entity->getID() === null && $entity->getOptions()->getLines() === '') {
+            return ['pdf_data' => null];
+        }
+
         $example = $this->exampleGenerator->getElement($entity->getOptions()->getSupportedElement());
         $pdfData = null;
         try {
