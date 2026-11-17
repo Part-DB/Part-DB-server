@@ -249,6 +249,21 @@ final class LabelControllerTest extends WebTestCase
         return $job;
     }
 
+    public function testAgentPageShowsTheAgentsBeforeThisComputer(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $client->request('GET', '/en/label/agent');
+
+        $this->assertResponseIsSuccessful();
+        $content = $client->getResponse()->getContent();
+        $this->assertStringContainsString('fetches print jobs from Part-DB', $content, 'the introduction covers agents on other computers');
+        $agents = strpos($content, 'Your print agents');
+        $thisComputer = strpos($content, 'if a print agent runs on the computer you');
+        $this->assertNotFalse($thisComputer, 'the browser connection has its own "This computer" section');
+        $this->assertLessThan($thisComputer, $agents, 'the agents come first, the browser connection is optional');
+    }
+
     public function testAgentPageListsOwnAgentsAndJobs(): void
     {
         $client = static::createClient();
