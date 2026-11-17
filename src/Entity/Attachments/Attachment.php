@@ -204,7 +204,11 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
     #[Assert\Length(max: 2048)]
-    #[Assert\Regex(pattern: self::SAFE_EXTERNAL_URL_REGEX, message: 'validator.attachment.external_url_invalid_scheme')]
+    #[Assert\Sequentially([
+        //Check the scheme first, to give a more specific error message for unsafe schemes like javascript:
+        new Assert\Regex(pattern: self::SAFE_EXTERNAL_URL_REGEX, message: 'validator.attachment.external_url_invalid_scheme'),
+        new Assert\Url(requireTld: false),
+    ])]
     protected ?string $external_path = null;
 
     /**
