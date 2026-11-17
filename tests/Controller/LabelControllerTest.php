@@ -68,18 +68,20 @@ final class LabelControllerTest extends WebTestCase
         $this->assertSelectorNotExists(self::PRINT_BUTTON);
     }
 
-    public function testPartPageLabelMenuHasPrintIcons(): void
+    public function testPartPageLabelMenuHasPrintItems(): void
     {
         $client = static::createClient();
         $this->loginAsAdmin($client);
         $client->request('GET', '/en/part/1');
 
         $this->assertResponseIsSuccessful();
-        //Fixture "Profile 1" (id 1) is a part profile shown in the dropdown
-        $this->assertSelectorExists('.dropdown-menu '.self::PRINT_BUTTON
+        //Fixture "Profile 1" (id 1) is a part profile shown in the dropdown; its print item stays hidden until an agent is connected
+        $item = '.dropdown-menu button.dropdown-item'.self::PRINT_BUTTON
             .'[data-pages--print-agent-print-profile-value="1"]'
             .'[data-pages--print-agent-print-ids-value="1"]'
-            .'[data-pages--print-agent-print-type-value="part"]');
+            .'[data-pages--print-agent-print-type-value="part"]';
+        $this->assertSelectorExists($item);
+        $this->assertSelectorTextContains($item, 'Print');
     }
 
     private const AGENT_FORM = 'form[action="/en/label/print"]';
@@ -189,6 +191,21 @@ final class LabelControllerTest extends WebTestCase
         $client->submit($crawler->filter('.dropdown-menu '.self::AGENT_FORM.' button[name="printer"]')->first()->form());
         $this->assertResponseRedirects('/en/part/1');
         $this->assertSame('1', $this->jobs($client)[0]->getPayload()['element_ids']);
+    }
+
+    public function testLabelMenuWithoutDefaultPrinterUsesTheFirstPrinter(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $agent = $this->agentWithDefaultPrinter($client);
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->find(LabelProfile::class, 1)->setDefaultPrinter('');
+        $em->flush();
+        $client->request('GET', '/en/part/1');
+
+        $item = '.dropdown-menu '.self::AGENT_FORM.' button.dropdown-item[name="printer"][value="'.$agent->getId().'|fake"]';
+        $this->assertSelectorExists($item);
+        $this->assertSelectorTextContains($item, 'Print on Fake QL');
     }
 
     private function jobFor(KernelBrowser $client, Agent $agent): AgentJob

@@ -26,8 +26,8 @@ printer at the printer's native resolution. Part-DB does not ship an agent; one 
 
 To connect a browser, open the connection link from your agent's settings and click "Connect" (or open
 "Tools -> Print agent"). The connection is stored in this browser only (local storage), not on the server.
-Afterwards a "Print" button appears next to "Download" in the label generator for saved label profiles, and a printer
-icon next to each profile in the label menus of parts, part lots and storage locations. Printing always uses the saved
+Afterwards a "Print" button appears next to "Download" in the label generator for saved label profiles, and a "Print"
+item under each profile in the label menus of parts, part lots and storage locations. Printing always uses the saved
 label profile; unsaved changes in the label generator are not printed.
 
 ### Agent contract
@@ -58,9 +58,10 @@ because the agent connects to Part-DB, not the other way round. The agent regist
 user; a read-only token is enough, but the user needs the "create labels" and "access API" permissions. Agents and their jobs are only
 visible to their owner, under "Tools -> Print agent".
 
-Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and a label
-profile can name a default printer (the printer id reported by the agent): the printer icons in the label menus and
-the "Print labels" actions of the parts tables then print on it in one click.
+Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and the
+label menus get a "Print on <printer>" item under each profile that prints in one click. A label profile can name a
+default printer (the printer id reported by the agent) for this and for the "Print labels" actions of the parts tables;
+without one, the label generator and the label menus use your first printer.
 
 The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`en` can be any language prefix):
 
