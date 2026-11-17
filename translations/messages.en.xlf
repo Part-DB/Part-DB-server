@@ -16364,5 +16364,23 @@ Buerklin-API Authentication server:
         <target>The print agent no longer reports this printer, so the job was not sent again.</target>
       </segment>
     </unit>
+    <unit id="nQg0xwG" name="label_generator.agent.explanation_jobs">
+      <segment state="translated">
+        <source>label_generator.agent.explanation_jobs</source>
+        <target>A print agent is a small program that prints labels directly on a label printer, without the browser's print dialog. It can run on any computer that reaches the printer, such as a PC or a Raspberry Pi next to it, or a server. It fetches print jobs from Part-DB, so you can print from any device.</target>
+      </segment>
+    </unit>
+    <unit id="bOuOfJM" name="label_generator.agent.this_computer">
+      <segment state="translated">
+        <source>label_generator.agent.this_computer</source>
+        <target>This computer</target>
+      </segment>
+    </unit>
+    <unit id="dOoT8FE" name="label_generator.agent.this_computer.explanation">
+      <segment state="translated">
+        <source>label_generator.agent.this_computer.explanation</source>
+        <target>Optional: if a print agent runs on the computer you're using right now, you can also connect this browser to it. Labels then go straight to that agent, without Part-DB's print jobs ("This computer" in the print menus).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
