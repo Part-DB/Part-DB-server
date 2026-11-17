@@ -26,6 +26,7 @@ namespace App\Tests\Controller;
 
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Crawler;
 
 #[Group('slow')]
 #[Group('DB')]
@@ -72,5 +73,38 @@ final class SecurityControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertCount(0, $crawler->filter('input[name="_target_path"]'));
         $this->assertCount(0, $crawler->filter('input[name="_failure_path"]'));
+    }
+
+    public function testNavbarLoginLinkTargetsCurrentPage(): void
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/en/part/1/info?foo=bar');
+        $this->assertResponseIsSuccessful();
+
+        //The link rendered in the navbar itself
+        $this->assertLoginLinkTarget('/part/1/info?foo=bar', $crawler->filter('#navbar-frame #login-link')->attr('href'));
+
+        //The turbo-stream inside the content frame, which replaces the navbar link on turbo navigation
+        $stream = $crawler->filter('turbo-frame#content turbo-stream[target="login-link"]');
+        $this->assertCount(1, $stream);
+        $link = (new Crawler($stream->filter('template')->html()))->filter('#login-link');
+        $this->assertLoginLinkTarget('/part/1/info?foo=bar', $link->attr('href'));
+    }
+
+    private function assertLoginLinkTarget(string $expectedTarget, ?string $href): void
+    {
+        $this->assertNotNull($href);
+        $this->assertSame('/en/login', parse_url($href, PHP_URL_PATH));
+        parse_str((string) parse_url($href, PHP_URL_QUERY), $query);
+        $this->assertSame($expectedTarget, $query['_target_path'] ?? null);
+    }
+
+    public function testNavbarLoginLinkHasNoTargetOnLoginPage(): void
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/en/login');
+        $this->assertSame('/en/login', $crawler->filter('#navbar-frame #login-link')->attr('href'));
     }
 }
