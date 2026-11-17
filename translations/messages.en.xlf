@@ -14060,6 +14060,18 @@ Buerklin-API Authentication server:
         <target>If enabled, TrustedParts.com answers with cached stock and price data instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the data can be outdated.</target>
       </segment>
     </unit>
+    <unit id="iF2gQaJ" name="settings.ips.trustedparts.riskRatings">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings</source>
+        <target>Import risk ratings</target>
+      </segment>
+    </unit>
+    <unit id="ADEQkPe" name="settings.ips.trustedparts.riskRatings.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings.help</source>
+        <target>TrustedParts.com rates the lifecycle and supply chain risk of a part and states whether it is affected by tariffs. If enabled, these ratings are imported as parameters of their own group. They come with every answer of the API, so importing them costs no additional request.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -14946,6 +14958,24 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>oauth.authorize.elevated_badge</source>
         <target>Elevated access</target>
+      </segment>
+    </unit>
+    <unit id="Y6dDBcp" name="oauth.authorize.redirect.title">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.title</source>
+        <target>Returning to the application</target>
+      </segment>
+    </unit>
+    <unit id="sdtzJAA" name="oauth.authorize.redirect.description">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.description</source>
+        <target>You are being sent back to the application. If nothing happens, click the button below.</target>
+      </segment>
+    </unit>
+    <unit id="zjoAEtx" name="oauth.authorize.redirect.continue">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.continue</source>
+        <target>Continue to application</target>
       </segment>
     </unit>
     <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
@@ -16122,6 +16152,12 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>label_generator.print.profile</source>
         <target>Print with label profile %name% (print agent)</target>
+      </segment>
+    </unit>
+    <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>
+        <target>The provider data would create the new entry "%name%", but you are not allowed to create entries of this type. Review the provider data manually.</target>
       </segment>
     </unit>
   </file>

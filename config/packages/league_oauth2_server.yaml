@@ -37,7 +37,14 @@ league_oauth2_server:
         # config/permissions.yaml's apiTokenRole mappings apply unchanged to both credential types (see
         # App\Services\UserSystem\VoterHelper for the permission-ceiling check both types go through).
         available: ['read_only', 'edit', 'admin', 'full']
-        default: ['read_only']
+        # Scopes a client gets if it is registered without any (RFC 7591 self-registration or admin/CLI).
+        # Must match ApiTokenLevel::advertisedScopes() (WWW-Authenticate header, scopes_supported): clients
+        # like Gemini register without a scope but then request every advertised scope at /oauth/authorize,
+        # and the bundle only checks the client's allowed scopes at the token exchange - after the user
+        # already approved the consent screen - so anything less makes the connection fail with
+        # invalid_scope. This grants no extra access: the consent screen and
+        # App\EventListener\OAuth\OAuthScopeResolveListener narrow the token to the level the user picks.
+        default: ['read_only', 'edit']
     persistence:
         doctrine:
             table_prefix: 'oauth2_'
