@@ -181,6 +181,12 @@
         <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
       </segment>
     </unit>
+    <unit id="sfKWMsX" name="validator.attachment.external_url_invalid_scheme">
+      <segment state="translated">
+        <source>validator.attachment.external_url_invalid_scheme</source>
+        <target>Für externe Anhänge sind nur HTTP- und HTTPS-URLs erlaubt.</target>
+      </segment>
+    </unit>
     <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">
       <segment state="translated">
         <source>validator.part_lot.owner_must_match_storage_location_owner</source>
