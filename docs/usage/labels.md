@@ -26,8 +26,8 @@ printer at the printer's native resolution. Part-DB does not ship an agent; one 
 
 To connect a browser, open the connection link from your agent's settings and click "Connect" (or open
 "Tools -> Print agent"). The connection is stored in this browser only (local storage), not on the server.
-Afterwards a "Print" button appears next to "Download" in the label generator for saved label profiles, and a printer
-icon next to each profile in the label menus of parts, part lots and storage locations. Printing always uses the saved
+Afterwards a "Print" button appears next to "Download" in the label generator for saved label profiles, and a "Print"
+item under each profile in the label menus of parts, part lots and storage locations. Printing always uses the saved
 label profile; unsaved changes in the label generator are not printed.
 
 ### Agent contract
