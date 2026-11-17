@@ -16082,5 +16082,11 @@ Buerklin-API Authentication server:
         <target>The provider data would create the new entry "%name%", but you are not allowed to create entries of this type. Review the provider data manually.</target>
       </segment>
     </unit>
+    <unit id="vqWRTKI" name="scan_dialog.return_to_scanner">
+      <segment>
+        <source>scan_dialog.return_to_scanner</source>
+        <target>Return to scanner after creating a new part</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -98,10 +98,11 @@ final readonly class BarcodeScanResultHandler
     /**
      * Returns a URL to create a new part based on this barcode scan result, if possible.
      * @param  BarcodeScanResultInterface  $scanResult
+     * @param  array  $additionalParameters Additional URL parameters for the creation page (e.g. _redirect)
      * @return string|null
      * @throws InfoProviderNotActiveException If the scan result contains information for a provider which is currently not active in the system
      */
-    public function getCreationURL(BarcodeScanResultInterface $scanResult): ?string
+    public function getCreationURL(BarcodeScanResultInterface $scanResult, array $additionalParameters = []): ?string
     {
         $infos = $this->getCreateInfos($scanResult);
         if ($infos === null) {
@@ -115,7 +116,7 @@ final readonly class BarcodeScanResultHandler
         }
 
         //So far we can just copy over our provider info array to the URL parameters:
-        return $this->urlGenerator->generate('info_providers_create_part', $infos);
+        return $this->urlGenerator->generate('info_providers_create_part', [...$infos, ...$additionalParameters]);
     }
 
     /**
