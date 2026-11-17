@@ -304,6 +304,51 @@ final class AttachmentTest extends TestCase
         $this->assertSame('https://example.de/test%20file.txt', $attachment->getExternalPath());
     }
 
+    public static function safeExternalURLDataProvider(): \Iterator
+    {
+        yield ['https://example.com/test.pdf', true];
+        yield ['HTTP://example.com', true];
+        yield ['//example.com/test.pdf', true];
+        yield ['www.foo.bar', true];
+        yield ['www.foo.bar/test:123', true];
+        yield ['foo?bar=baz:1', true];
+        yield ['javascript:alert(1)//https://example.com/x.pdf', false];
+        yield ['JavaScript:alert(1)', false];
+        yield ["java\tscript:alert(1)", false];
+        yield ["\x01javascript:alert(1)", false];
+        yield ['data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==', false];
+        yield ['vbscript:msgbox(1)', false];
+        yield ['file:///etc/passwd', false];
+        yield ['ftp://example.com/test.pdf', false];
+        yield ['http:\\\\example.com', false];
+    }
+
+    #[DataProvider('safeExternalURLDataProvider')]
+    public function testIsSafeExternalURL(string $url, bool $expected): void
+    {
+        $this->assertSame($expected, Attachment::isSafeExternalURL($url));
+    }
+
+    public function testUnsafeExternalPathIsNotExposed(): void
+    {
+        $attachment = new PartAttachment();
+        $attachment->setURL('javascript:alert(document.cookie)//https://example.com/x.pdf');
+
+        $this->assertFalse($attachment->hasExternal());
+        $this->assertNull($attachment->getExternalPath());
+        $this->assertNull($attachment->getURL());
+        $this->assertNull($attachment->getHost());
+
+        //Submitting an empty URL (as the form does, since the unsafe value is hidden) must clear the unsafe value
+        $attachment->setURL('');
+        $this->assertNull($this->getProtectedProperty($attachment, 'external_path'));
+
+        //Safe values are still exposed normally
+        $attachment->setURL('https://example.com/x.pdf');
+        $this->assertTrue($attachment->hasExternal());
+        $this->assertSame('https://example.com/x.pdf', $attachment->getExternalPath());
+    }
+
     public function testIsURL(): void
     {
         $url = '%MEDIA%/test.txt';
@@ -324,6 +369,11 @@ final class AttachmentTest extends TestCase
      * @param string $property - property on instance being modified
      * @param mixed  $value    - new value of the property being modified
      */
+    public function getProtectedProperty(object $object, string $property): mixed
+    {
+        return (new ReflectionClass($object))->getProperty($property)->getValue($object);
+    }
+
     public function setProtectedProperty(object $object, string $property, mixed $value): void
     {
         $reflection = new ReflectionClass($object);
