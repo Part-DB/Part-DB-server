@@ -262,17 +262,34 @@ abstract class BaseAdminController extends AbstractController
     {
         $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
 
+        //This page also serves as list page, so read permission is sufficient to view it. The forms on it are disabled
+        //without the matching permission, but that does not stop them from being submitted, so each one is checked below.
         $this->denyAccessUnlessGranted('read', $new_entity);
 
-        //Basic edit form
-        $form = $this->createForm($this->form_class, $new_entity, [
+        $form_options = [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
-        ]);
+        ];
+
+        //Disable editing of options, if user is not allowed to use twig (a clone can start from a twig mode profile)
+        if (
+            $new_entity instanceof LabelProfile
+            && LabelProcessMode::TWIG === $new_entity->getOptions()->getProcessMode()
+            && !$this->isGranted('@labels.use_twig')
+        ) {
+            $form_options['disable_options'] = true;
+        }
+
+        //Basic edit form
+        $form = $this->createForm($this->form_class, $new_entity, $form_options);
 
         $form->handleRequest($request);
 
         //Perform additional actions
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('create', $new_entity);
+        }
+
         if ($form->isSubmitted() && $form->isValid() && $this->additionalActionNew($form, $new_entity)) {
             //Upload passed files
             $attachments = $form['attachments'];
@@ -315,6 +332,8 @@ abstract class BaseAdminController extends AbstractController
         $import_form->handleRequest($request);
 
         if ($import_form->isSubmitted() && $import_form->isValid()) {
+            $this->denyAccessUnlessGranted('import', $new_entity);
+
             /** @var UploadedFile $file */
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
@@ -360,6 +379,8 @@ abstract class BaseAdminController extends AbstractController
         $mass_creation_form->handleRequest($request);
 
         if ($mass_creation_form->isSubmitted() && $mass_creation_form->isValid()) {
+            $this->denyAccessUnlessGranted('create', $new_entity);
+
             $data = $mass_creation_form->getData();
 
             //Create entries based on input

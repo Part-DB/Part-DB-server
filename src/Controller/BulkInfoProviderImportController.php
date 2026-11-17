@@ -45,6 +45,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/tools/bulk_info_provider_import')]
 class BulkInfoProviderImportController extends AbstractController
@@ -54,6 +55,7 @@ class BulkInfoProviderImportController extends AbstractController
         private readonly BulkRefreshResultsBuilder $refreshResultsBuilder,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
+        private readonly TranslatorInterface $translator,
         #[Autowire(param: 'partdb.bulk_import.batch_size')]
         private readonly int $bulkImportBatchSize,
         #[Autowire(param: 'partdb.bulk_import.max_parts_per_operation')]
@@ -91,6 +93,67 @@ class BulkInfoProviderImportController extends AbstractController
             'success' => false,
             'error' => $message
         ], $statusCode);
+    }
+
+    /**
+     * Persist the new entities, which the info provider system creates for a merged part (manufacturer, suppliers,
+     * currencies and attachment types), as their relations do not cascade persist operations.
+     * Footprints are not persisted here, as this might pollute the database with unwanted formatted footprints from the provider.
+     */
+    private function persistNewProviderEntities(Part $part): void
+    {
+        if ($part->getManufacturer() !== null) {
+            $this->entityManager->persist($part->getManufacturer());
+        }
+
+        foreach ($part->getOrderdetails() as $orderdetail) {
+            if ($orderdetail->getSupplier() !== null) {
+                $this->entityManager->persist($orderdetail->getSupplier());
+            }
+            foreach ($orderdetail->getPricedetails() as $pricedetail) {
+                if ($pricedetail->getCurrency() !== null) {
+                    $this->entityManager->persist($pricedetail->getCurrency());
+                }
+            }
+        }
+
+        foreach ($part->getAttachments() as $attachment) {
+            if ($attachment->getAttachmentType() !== null) {
+                $this->entityManager->persist($attachment->getAttachmentType());
+            }
+        }
+    }
+
+    /**
+     * Ensures that the current user is allowed to create all new entities, which applying the provider part would
+     * add to the target part. This mirrors the allow_add option of the part edit form.
+     * This must be called before merging, as otherwise the rejected part would stay modified in the unit of work
+     * and would be written (or fail) on the next flush.
+     * @throws \RuntimeException if the user is not allowed to create one of the new entities
+     */
+    private function denyUnlessNewProviderEntitiesAllowed(Part $target, Part $providerPart): void
+    {
+        //The merger keeps an already set manufacturer of the target part
+        $entities = $target->getManufacturer() === null ? [$providerPart->getManufacturer()] : [];
+
+        foreach ($providerPart->getOrderdetails() as $orderdetail) {
+            $entities[] = $orderdetail->getSupplier();
+            foreach ($orderdetail->getPricedetails() as $pricedetail) {
+                $entities[] = $pricedetail->getCurrency();
+            }
+        }
+
+        foreach ($providerPart->getAttachments() as $attachment) {
+            $entities[] = $attachment->getAttachmentType();
+        }
+
+        foreach ($entities as $entity) {
+            if ($entity !== null && $entity->getID() === null && !$this->isGranted('create', $entity)) {
+                throw new \RuntimeException($this->translator->trans('info_providers.bulk_import.quick_apply.new_entity_not_allowed', [
+                    '%name%' => $entity->getName(),
+                ]));
+            }
+        }
     }
 
     private function validateJobAccess(int $jobId): ?BulkInfoProviderImportJob
@@ -646,14 +709,10 @@ class BulkInfoProviderImportController extends AbstractController
         try {
             $dto = $infoRetriever->getDetails($providerKey, $providerId);
             $providerPart = $infoRetriever->dtoToPart($dto);
+            $this->denyUnlessNewProviderEntitiesAllowed($part, $providerPart);
             $partMerger->merge($part, $providerPart);
 
-            //Persist part manufacturer and supplier if they are new, to avoid issues with detached entities during merge
-            //Do not footprints here, as it might pollute the database with unwanted formatting footprints from the provider,
-            $this->entityManager->persist($part->getManufacturer());
-            foreach ($part->getOrderdetails() as $orderdetail) {
-                $this->entityManager->persist($orderdetail->getSupplier());
-            }
+            $this->persistNewProviderEntities($part);
 
             try {
                 $this->entityManager->flush();
@@ -749,7 +808,16 @@ class BulkInfoProviderImportController extends AbstractController
             try {
                 $dto = $infoRetriever->getDetails($providerKey, $providerId);
                 $providerPart = $infoRetriever->dtoToPart($dto);
+
+                //Check this before merging, as a merged part referencing a new footprint would make every following flush fail
+                if ($part->getFootprint() === null && $providerPart->getFootprint() !== null && $providerPart->getFootprint()->getID() === null) {
+                    throw new \RuntimeException('Failed to persist merged part, as it would create new datastructures! Review the provider data by yourself.');
+                }
+
+                $this->denyUnlessNewProviderEntitiesAllowed($part, $providerPart);
+
                 $partMerger->merge($part, $providerPart);
+                $this->persistNewProviderEntities($part);
                 $this->entityManager->flush();
 
                 $job->markPartAsCompleted($part->getId());

@@ -639,8 +639,8 @@ class AttachmentSubmitHandler
         //Resolve the path to the file
         $path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
 
-        //Check if the file exists
-        if (!file_exists($path)) {
+        //Check if the file exists (path can be null when the placeholder is invalid)
+        if ($path === null || !file_exists($path)) {
             return $attachment;
         }
 
