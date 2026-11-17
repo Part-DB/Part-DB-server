@@ -12,7 +12,7 @@
             {% endif %}
             {% for profile in profiles %}
                 <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_type': type, 'target_id': id, 'generate': true}) }}">{{ profile.name }}</a>
-                {% set agent_printer = id is not null ? agent_default_printer(profile) : null %}
+                {% set agent_printer = id is not null ? (agent_default_printer(profile) ?? agent_printers()|first) : null %}
                 {% if agent_printer %}
                     <form method="post" action="{{ path('label_print') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('label_print') }}">

@@ -193,6 +193,21 @@ final class LabelControllerTest extends WebTestCase
         $this->assertSame('1', $this->jobs($client)[0]->getPayload()['element_ids']);
     }
 
+    public function testLabelMenuWithoutDefaultPrinterUsesTheFirstPrinter(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $agent = $this->agentWithDefaultPrinter($client);
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->find(LabelProfile::class, 1)->setDefaultPrinter('');
+        $em->flush();
+        $client->request('GET', '/en/part/1');
+
+        $item = '.dropdown-menu '.self::AGENT_FORM.' button.dropdown-item[name="printer"][value="'.$agent->getId().'|fake"]';
+        $this->assertSelectorExists($item);
+        $this->assertSelectorTextContains($item, 'Print on Fake QL');
+    }
+
     private function jobFor(KernelBrowser $client, Agent $agent): AgentJob
     {
         $em = $client->getContainer()->get(EntityManagerInterface::class);

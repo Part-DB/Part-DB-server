@@ -58,9 +58,10 @@ because the agent connects to Part-DB, not the other way round. The agent regist
 user; a read-only token is enough, but the user needs the "create labels" and "access API" permissions. Agents and their jobs are only
 visible to their owner, under "Tools -> Print agent".
 
-Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and a label
-profile can name a default printer (the printer id reported by the agent): the printer icons in the label menus and
-the "Print labels" actions of the parts tables then print on it in one click.
+Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and the
+label menus get a "Print on <printer>" item under each profile that prints in one click. A label profile can name a
+default printer (the printer id reported by the agent) for this and for the "Print labels" actions of the parts tables;
+without one, the label generator and the label menus use your first printer.
 
 The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`en` can be any language prefix):
 
