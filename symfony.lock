@@ -380,24 +380,24 @@
         "version": "4.0.3"
     },
     "symfony/ai-bundle": {
-        "version": "0.8",
+        "version": "0.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.1",
-            "ref": "2be6ccd77335c2631fdf12d1680649b072efb8ad"
+            "ref": "abb8f2c86de009cbc24a3408a3ca7aedc6aaa7c8"
         },
         "files": [
             "config/packages/ai.yaml"
         ]
     },
     "symfony/ai-generic-platform": {
-        "version": "0.8",
+        "version": "0.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.1",
-            "ref": "f38913b87380322d4c40c302b41626e811516bc4"
+            "ref": "a3919116f59f52377b59cfffe889711f8351d472"
         },
         "files": [
             "config/packages/ai_generic_platform.yaml"
@@ -581,12 +581,12 @@
         "version": "v4.2.3"
     },
     "symfony/mailer": {
-        "version": "7.3",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "4.3",
-            "ref": "09051cfde49476e3c12cd3a0e44289ace1c75a4f"
+            "ref": "710cae90ab3e5d3f4a747e9ce6ae33299d7ae83b"
         },
         "files": [
             "config/packages/mailer.yaml"
@@ -793,12 +793,12 @@
         ]
     },
     "symfony/ux-turbo": {
-        "version": "2.28",
+        "version": "2.36",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.20",
-            "ref": "287f7c6eb6e9b65e422d34c00795b360a787380b"
+            "ref": "eaff62fc37864d355804c778309a226ae539831f"
         },
         "files": [
             "config/packages/ux_turbo.yaml"

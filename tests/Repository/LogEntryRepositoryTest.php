@@ -100,27 +100,33 @@ final class LogEntryRepositoryTest extends KernelTestCase
         //The part only has a creation log entry, so there is no editing user yet
         $this->assertNull($this->repo->getLastEditingUser($part));
 
+        //The fixtures also created log entries (without user) for the related elements, which have timestamps
+        //close to the last modification of the part (they can be some seconds later on slow machines). To be
+        //independent of them, our entries are placed well after them, and the time difference check is disabled
+        //(it is tested in testGetLastEditingUserIgnoresEntriesFarAwayFromLastModified)
+        $base = $part->getLastModified()->modify('+1 hour');
+
         //Adding an attachment to the part, counts as an edit of the part
         $log = new ElementCreatedLogEntry($part->getAttachments()->first());
-        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setTimestamp($base->modify('+1 second'));
         $log->setUser($user);
         $this->entityManager->persist($log);
 
         //Edit of the part itself, but older than the attachment creation
         $log = new ElementEditedLogEntry($part);
-        $log->setTimestamp($part->getLastModified());
+        $log->setTimestamp($base);
         $log->setUser($admin);
         $this->entityManager->persist($log);
         $this->entityManager->flush();
 
-        $this->assertSame($user, $this->repo->getLastEditingUser($part));
+        $this->assertSame($user, $this->repo->getLastEditingUser($part, null));
         //If related elements should not be considered, only the edit of the part itself counts
-        $this->assertSame($admin, $this->repo->getLastEditingUser($part, includeRelatedElements: false));
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part, null, includeRelatedElements: false));
 
         //Changing a pricedetail is an edit of the part too
         $pricedetail = $part->getOrderdetails()->first()->getPricedetails()->first();
         $log = new ElementEditedLogEntry($pricedetail);
-        $log->setTimestamp($part->getLastModified()->modify('+2 seconds'));
+        $log->setTimestamp($base->modify('+2 seconds'));
         $log->setUser($admin);
         $this->entityManager->persist($log);
         $this->entityManager->flush();
@@ -129,7 +135,7 @@ final class LogEntryRepositoryTest extends KernelTestCase
         $this->entityManager->clear();
         $part = $this->entityManager->find(Part::class, 3);
         $admin = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
-        $this->assertSame($admin, $this->repo->getLastEditingUser($part));
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part, null));
     }
 
     public function testGetLastEditingUserConsidersCreation(): void
@@ -139,13 +145,14 @@ final class LogEntryRepositoryTest extends KernelTestCase
         $this->assertInstanceOf(Part::class, $part);
 
         //The creation of the part also sets the last modified timestamp, so it counts as the last change
+        //(placed well after the fixture log entries, see testGetLastEditingUserConsidersRelatedElements)
         $log = new ElementCreatedLogEntry($part);
-        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setTimestamp($part->getLastModified()->modify('+1 hour'));
         $log->setUser($user);
         $this->entityManager->persist($log);
         $this->entityManager->flush();
 
-        $this->assertSame($user, $this->repo->getLastEditingUser($part, includeRelatedElements: false));
+        $this->assertSame($user, $this->repo->getLastEditingUser($part, null, includeRelatedElements: false));
     }
 
     public function testGetLastEditingUserIgnoresEntriesFarAwayFromLastModified(): void

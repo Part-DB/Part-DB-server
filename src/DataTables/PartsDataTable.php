@@ -49,6 +49,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -332,6 +333,7 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->createAdapter(TwoStepORMAdapter::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
+                'post_detail_query' => $this->fetchCollections(...),
                 'entity' => Part::class,
                 'hydrate' => AbstractQuery::HYDRATE_OBJECT,
                 //Use the simple total query, as we just want to get the total number of parts without any conditions
@@ -373,7 +375,9 @@ final readonly class PartsDataTable implements DataTableTypeInterface
         /*
          * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
          * full entities.
-         * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
+         * We fetch join the to-one associations here and a single collection (the part lots), as these do not cause
+         * a cartesian product of result rows.
+         * The other to-many associations (collections) are loaded afterward in separate queries by fetchCollections().
          * The only condition should be for the IDs.
          * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
          *
@@ -388,36 +392,28 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->addSelect('partCustomState')
             ->addSelect('master_picture_attachment')
             ->addSelect('footprint_attachment')
+            ->addSelect('built_project')
             ->addSelect('partLots')
-            ->addSelect('orderdetails')
-            ->addSelect('suppliers')
-            ->addSelect('attachments')
             ->addSelect('storelocations')
-            ->addSelect('projectBomEntries')
             ->from(Part::class, 'part')
-            
-            //Do not join anything here that is not selected (like the parameters): Every to-many join multiplies the
-            //number of result rows, which all have to be hydrated by doctrine, even if they contain no new data.
+
+            //Do not join any other to-many associations here: Every additional to-many join multiplies the number of
+            //result rows, which all have to be hydrated by doctrine, even if they contain no new data.
             //Also do not group by anything: Grouping by an entity groups by all of its columns, which is expensive
             //and with fetch-joined collections would cut off their elements (issue #190).
 
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-            ->leftJoin('part.partLots', 'partLots')
-            ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('part.orderdetails', 'orderdetails')
-            ->leftJoin('orderdetails.supplier', 'suppliers')
-            ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
-            ->leftJoin('part.project_bom_entries', 'projectBomEntries')
+            ->leftJoin('part.built_project', 'built_project')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
-
-
 
             ->setHint(Query::HINT_READ_ONLY, true)
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
@@ -425,6 +421,43 @@ final readonly class PartsDataTable implements DataTableTypeInterface
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
+    }
+
+    /**
+     * Loads the remaining collections of the parts fetched by the detail query, with one query per collection.
+     * As the parts are already managed by the entity manager, doctrine hydrates the fetch joined collections into the
+     * existing part objects and marks them as initialized, so no lazy loading is needed later while rendering.
+     * This is much cheaper than fetch joining all collections in the detail query, where the number of result rows
+     * would be the product of the collection sizes.
+     * @param  Part[]  $parts
+     */
+    private function fetchCollections(EntityManagerInterface $em, array $parts): void
+    {
+        //The collections to load, with the to-one associations of their elements, which should be fetched too
+        $collections = [
+            'orderdetails' => ['orderdetails.supplier'],
+            'attachments' => [],
+            //The build_part of a project is the inverse side of a one-to-one, which doctrine would otherwise load with
+            //an extra query for every project
+            'project_bom_entries' => ['project_bom_entries.project', '_sub0.build_part'],
+        ];
+
+        foreach ($collections as $collection => $subJoins) {
+            $qb = $em->createQueryBuilder()
+                ->select('PARTIAL part.{id}', $collection)
+                ->from(Part::class, 'part')
+                ->leftJoin('part.'.$collection, $collection)
+                ->where('part IN (:parts)')
+                ->setParameter('parts', $parts);
+
+            foreach ($subJoins as $i => $subJoin) {
+                $qb->addSelect('_sub'.$i)->leftJoin($subJoin, '_sub'.$i);
+            }
+
+            $qb->getQuery()
+                ->setHint(Query::HINT_READ_ONLY, true)
+                ->getResult();
+        }
     }
 
     /**

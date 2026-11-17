@@ -33,9 +33,6 @@ use InvalidArgumentException;
  */
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
-    /** @var int The maximum number of levels for which we can recurse before throwing an error */
-    private const RECURSION_LIMIT = 50;
-
     /**
      * Returns all parts associated with this element.
      *
@@ -55,59 +52,74 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     abstract public function getPartsCount(object $element): int;
 
     /**
+     * Returns the field of the Part entity, which references this element type, or null if the parts are not
+     * associated via a single field (e.g. via part lots or orderdetails).
+     * If a field is given, the recursive functions load the parts of the whole subtree with a single query.
+     */
+    protected function getPartsFieldName(): ?string
+    {
+        return null;
+    }
+
+    /**
      * Returns the count of the parts associated with this element and all its children.
-     * Please be aware that this function is pretty slow on large trees!
      * @return int
      */
     public function getPartsCountRecursive(AbstractPartsContainingDBElement $element): int
     {
-        return $this->getPartsCountRecursiveWithDepthN($element, self::RECURSION_LIMIT);
-    }
+        $elements = $this->getSubtree($element);
 
-    public function getPartsRecursive(AbstractPartsContainingDBElement $element): array
-    {
-        return $this->getPartsRecursiveWithDepthN($element, self::RECURSION_LIMIT);
-    }
-
-    /**
-     * The implementation of the recursive function to get the parts count.
-     * This function is used to limit the recursion depth (remaining_depth is decreased on each call).
-     * If the recursion limit is reached (remaining_depth <= 0), a RuntimeException is thrown.
-     * @internal This function is not intended to be called directly, use getPartsCountRecursive() instead.
-     * @return int
-     */
-    protected function getPartsCountRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): int
-    {
-        if ($remaining_depth <= 0) {
-            throw new \RuntimeException('Recursion limit reached!');
+        $field_name = $this->getPartsFieldName();
+        if ($field_name === null) {
+            return array_sum(array_map($this->getPartsCount(...), $elements));
         }
 
-        $count = $this->getPartsCount($element);
-
-        //If the element is its own parent, we have a loop in the tree, so we stop here.
-        if ($element->getParent() === $element) {
-            return 0;
-        }
-
-        foreach ($element->getChildren() as $child) {
-            $count += $this->getPartsCountRecursiveWithDepthN($child, $remaining_depth - 1);
+        $count = 0;
+        foreach (array_chunk($elements, 1000) as $chunk) {
+            $count += (int) $this->getEntityManager()->createQueryBuilder()
+                ->select('COUNT(part.id)')
+                ->from(Part::class, 'part')
+                ->where('part.'.$field_name.' IN (:elements)')
+                ->setParameter('elements', $chunk)
+                ->getQuery()
+                ->getSingleScalarResult();
         }
 
         return $count;
     }
 
-    protected function getPartsRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): array
+    /**
+     * Returns the parts associated with this element and all its children. The parts are ordered depth-first by
+     * element (children ordered by name), and by name inside each element, like getParts() does.
+     * @return Part[]
+     */
+    public function getPartsRecursive(AbstractPartsContainingDBElement $element): array
     {
-        if ($remaining_depth <= 0) {
-            throw new \RuntimeException('Recursion limit reached!');
+        $elements = $this->getSubtree($element);
+
+        $field_name = $this->getPartsFieldName();
+        if ($field_name === null) {
+            return array_merge(...array_map(fn ($e) => $this->getParts($e), $elements));
         }
 
-        //Add direct parts
-        $parts = $this->getParts($element);
+        $parts_by_element = [];
+        foreach (array_chunk($elements, 1000) as $chunk) {
+            $rows = $this->getEntityManager()->createQueryBuilder()
+                ->select('part', 'IDENTITY(part.'.$field_name.') AS element_id')
+                ->from(Part::class, 'part')
+                ->where('part.'.$field_name.' IN (:elements)')
+                ->setParameter('elements', $chunk)
+                ->orderBy('NATSORT(part.name)', 'ASC')
+                ->getQuery()
+                ->getResult();
+            foreach ($rows as $row) {
+                $parts_by_element[$row['element_id']][] = $row[0];
+            }
+        }
 
-        //Then iterate over all children and add their parts
-        foreach ($element->getChildren() as $child) {
-            $parts = array_merge($parts, $this->getPartsRecursiveWithDepthN($child, $remaining_depth - 1));
+        $parts = [];
+        foreach ($elements as $e) {
+            array_push($parts, ...($parts_by_element[$e->getID()] ?? []));
         }
 
         return $parts;

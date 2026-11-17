@@ -50,6 +50,12 @@ final class ProjectBuildRequest
     private bool $dont_check_quantity = false;
 
     /**
+     * The number of decimal places to which calculated amounts are rounded, to get rid of floating point inaccuracies
+     * (e.g. 0.26 * 11 = 2.8600000000000003), which would otherwise make the build form impossible to submit.
+     */
+    private const AMOUNT_PRECISION = 10;
+
+    /**
      * @param  Project  $project  The project that should be build
      * @param  int  $number_of_builds The number of builds that should be created
      */
@@ -87,7 +93,7 @@ final class ProjectBuildRequest
                 $id = $lot->getID() ?? throw new \RuntimeException("Part lot needs to have an ID!");
 
                 $this->withdraw_amounts[$id] = min($remaining_amount, $lot->getAmount());
-                $remaining_amount -= max(0, $this->withdraw_amounts[$id]);
+                $remaining_amount = round($remaining_amount - max(0, $this->withdraw_amounts[$id]), self::AMOUNT_PRECISION);
             }
         }
     }
@@ -224,10 +230,10 @@ final class ProjectBuildRequest
         }
 
         if ($entry->getPart() && !$entry->getPart()->useFloatAmount()) {
-            $sum = round($sum);
+            return round($sum);
         }
 
-        return $sum;
+        return round($sum, self::AMOUNT_PRECISION);
     }
 
     /**
@@ -253,7 +259,7 @@ final class ProjectBuildRequest
     {
         $this->ensureBOMEntryValid($entry);
 
-        return $entry->getQuantity() * $this->number_of_builds;
+        return round($entry->getQuantity() * $this->number_of_builds, self::AMOUNT_PRECISION);
     }
 
     /**

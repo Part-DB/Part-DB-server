@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Helpers\Trees\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -38,6 +39,8 @@ final class StructuralDBElementRepositoryTest extends WebTestCase
      */
     private $repo;
 
+    private EntityManagerInterface $entityManager;
+
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -46,6 +49,7 @@ final class StructuralDBElementRepositoryTest extends WebTestCase
             ->get('doctrine')
             ->getManager();
 
+        $this->entityManager = $entityManager;
         $this->repo = $entityManager->getRepository(AttachmentType::class);
     }
 
@@ -59,6 +63,58 @@ final class StructuralDBElementRepositoryTest extends WebTestCase
         $this->assertSame('Node 1', $root_nodes[0]->getName());
         $this->assertSame('Node 2', $root_nodes[1]->getName());
         $this->assertSame('Node 3', $root_nodes[2]->getName());
+    }
+
+    public function testGetSubtree(): void
+    {
+        $node1 = $this->repo->findOneBy(['name' => 'Node 1']);
+        $subtree = $this->repo->getSubtree($node1);
+
+        //Depth-first, children ordered by name
+        $this->assertSame(['Node 1', 'Node 1.1', 'Node 1.1.1', 'Node 1.2'],
+            array_map(static fn(AbstractStructuralDBElement $e) => $e->getName(), $subtree));
+        $this->assertSame($node1, $subtree[0]);
+
+        //A leaf only contains itself
+        $node3 = $this->repo->findOneBy(['name' => 'Node 3']);
+        $this->assertSame([$node3], $this->repo->getSubtree($node3));
+    }
+
+    public function testGetSubtreeStopsAtLoops(): void
+    {
+        $a = (new AttachmentType())->setName('Loop A');
+        $b = (new AttachmentType())->setName('Loop B')->setParent($a);
+        $this->entityManager->persist($a);
+        $this->entityManager->persist($b);
+        $this->entityManager->flush();
+
+        //Close the loop directly in the database (A is the parent of B and B the parent of A)
+        $this->entityManager->getConnection()->executeStatement(
+            'UPDATE attachment_types SET parent_id = ? WHERE id = ?', [$b->getID(), $a->getID()]);
+        $this->entityManager->clear();
+
+        $a = $this->repo->find($a->getID());
+        $this->assertSame(['Loop A', 'Loop B'],
+            array_map(static fn(AbstractStructuralDBElement $e) => $e->getName(), $this->repo->getSubtree($a)));
+    }
+
+    public function testGetSubtreeDepthLimit(): void
+    {
+        //A chain of 51 nested elements
+        $chain = [];
+        $parent = null;
+        for ($i = 0; $i < 51; $i++) {
+            $parent = (new AttachmentType())->setName('Depth '.$i)->setParent($parent);
+            $this->entityManager->persist($parent);
+            $chain[] = $parent;
+        }
+        $this->entityManager->flush();
+
+        //50 levels are still allowed
+        $this->assertCount(50, $this->repo->getSubtree($chain[1]));
+
+        $this->expectException(\RuntimeException::class);
+        $this->repo->getSubtree($chain[0]);
     }
 
     public function testGetGenericTree(): void

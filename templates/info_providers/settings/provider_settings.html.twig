@@ -89,6 +89,7 @@
             <div class="row">
                 <div class="{{ offset_label }} col ps-2">
                     <a href="{{ path('oauth_client_connect', {'name': info_provider_info.oauthAppName}) }}"
+                       data-turbo="false"
                        class="btn btn-primary {% if not is_granted('@system.manage_oauth_tokens') %}disabled{% endif %}">
                         <i class="fa-solid fa-plug fa-fw"></i>
                         {% if oauth_token is not null %}
