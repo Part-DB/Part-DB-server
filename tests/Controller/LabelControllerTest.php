@@ -208,6 +208,35 @@ final class LabelControllerTest extends WebTestCase
         $this->assertSelectorTextContains($item, 'Print on Fake QL');
     }
 
+    public function testLabelMenuHasOneClickPrintButtonForTheDefaultPrinter(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $agent = $this->agentWithDefaultPrinter($client);
+        $crawler = $client->request('GET', '/en/part/1');
+
+        $button = '.dropdown > button[form][name="printer"][value="'.$agent->getId().'|fake"]';
+        $this->assertSelectorExists($button);
+        $client->submit($crawler->filter($button)->first()->form());
+        $this->assertResponseRedirects('/en/part/1');
+        $jobs = $this->jobs($client);
+        $this->assertCount(1, $jobs);
+        $this->assertSame(['profile_id' => 1, 'element_type' => 'part', 'element_ids' => '1'], $jobs[0]->getPayload());
+    }
+
+    public function testNoOneClickPrintButtonWithoutDefaultPrinter(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $this->agentWithDefaultPrinter($client);
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->find(LabelProfile::class, 1)->setDefaultPrinter('');
+        $em->flush();
+        $client->request('GET', '/en/part/1');
+
+        $this->assertSelectorNotExists('.dropdown > button[form]');
+    }
+
     private function jobFor(KernelBrowser $client, Agent $agent): AgentJob
     {
         $em = $client->getContainer()->get(EntityManagerInterface::class);

@@ -61,7 +61,8 @@ visible to their owner, under "Tools -> Print agent".
 Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and the
 label menus get a "Print on <printer>" item under each profile that prints in one click. A label profile can name a
 default printer (the printer id reported by the agent) for this and for the "Print labels" actions of the parts tables;
-without one, the label generator and the label menus use your first printer.
+without one, the label generator and the label menus use your first printer. If a profile shown in a label menu has a
+default printer, a print button next to the menu prints that profile on it in one click.
 
 The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`en` can be any language prefix):
 

@@ -1,5 +1,6 @@
 {% macro profile_dropdown(type, id = null, include_text = true, btn_type = 'btn-secondary') %}
     <div class="dropdown">
+        {% set quick_print = null %} {# the first profile with a default printer gets a one-click print button #}
         <button type="button" class="btn {{ btn_type }} dropdown-toggle" title="{% trans %}label_generator.label_btn{% endtrans %}"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not is_granted("@labels.create_labels") %}disabled{% endif %}>
             <i class="fas fa-fw fa-qrcode"></i> {% if include_text %}{% trans %}label_generator.label_btn{% endtrans %}{% endif %}
@@ -12,9 +13,13 @@
             {% endif %}
             {% for profile in profiles %}
                 <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_type': type, 'target_id': id, 'generate': true}) }}">{{ profile.name }}</a>
-                {% set agent_printer = id is not null ? (agent_default_printer(profile) ?? agent_printers()|first) : null %}
+                {% set default_printer = id is not null ? agent_default_printer(profile) : null %}
+                {% set agent_printer = id is not null ? (default_printer ?? agent_printers()|first) : null %}
+                {% if default_printer and quick_print is null %}
+                    {% set quick_print = {'profile': profile, 'printer': default_printer} %}
+                {% endif %}
                 {% if agent_printer %}
-                    <form method="post" action="{{ path('label_print') }}">
+                    <form method="post" action="{{ path('label_print') }}" id="label-print-{{ type }}-{{ id }}-{{ profile.id }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('label_print') }}">
                         <input type="hidden" name="profile" value="{{ profile.id }}">
                         <input type="hidden" name="target_type" value="{{ type }}">
@@ -40,5 +45,12 @@
                 <a class="dropdown-item" href="{{ path('label_dialog', {'target_type': type, 'target_id': id}) }}">{% trans %}label_generator.label_empty{% endtrans %}</a>
             {% endif %}
         </div>
+        {% if quick_print %}
+            <button type="submit" class="btn btn-outline-primary ms-1" form="label-print-{{ type }}-{{ id }}-{{ quick_print.profile.id }}"
+                    name="printer" value="{{ quick_print.printer.agent.id }}|{{ quick_print.printer.id }}"
+                    title="{% trans with {'%name%': quick_print.profile.name, '%printer%': quick_print.printer.name} %}label_generator.print.profile_to{% endtrans %}">
+                <i class="fas fa-print fa-fw"></i><span class="visually-hidden">{% trans with {'%name%': quick_print.profile.name, '%printer%': quick_print.printer.name} %}label_generator.print.profile_to{% endtrans %}</span>
+            </button>
+        {% endif %}
     </div>
 {% endmacro %}
