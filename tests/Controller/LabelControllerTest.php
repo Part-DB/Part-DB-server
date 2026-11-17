@@ -215,8 +215,10 @@ final class LabelControllerTest extends WebTestCase
         $agent = $this->agentWithDefaultPrinter($client);
         $crawler = $client->request('GET', '/en/part/1');
 
-        $button = '.dropdown > button[form][name="printer"][value="'.$agent->getId().'|fake"]';
+        //joined with the label menu's toggle into one button group
+        $button = '.btn-group > .dropdown-toggle + .dropdown-menu + button[form][name="printer"][value="'.$agent->getId().'|fake"]';
         $this->assertSelectorExists($button);
+        $this->assertSelectorTextContains($button, 'Print', 'labelled like the menu button on the part page');
         $client->submit($crawler->filter($button)->first()->form());
         $this->assertResponseRedirects('/en/part/1');
         $jobs = $this->jobs($client);
@@ -234,7 +236,7 @@ final class LabelControllerTest extends WebTestCase
         $em->flush();
         $client->request('GET', '/en/part/1');
 
-        $this->assertSelectorNotExists('.dropdown > button[form]');
+        $this->assertSelectorNotExists('button[form^="label-print-"]');
     }
 
     private function jobFor(KernelBrowser $client, Agent $agent): AgentJob
