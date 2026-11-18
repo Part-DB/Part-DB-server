@@ -229,11 +229,19 @@ class LabelController extends AbstractController
         $this->denyAccessUnlessGranted('@labels.create_labels');
         $user = $this->getUser();
 
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('label_system/agent.html.twig', [
-            'agents' => $user instanceof User ? $this->em->getRepository(Agent::class)->findBy(['owner' => $user], ['lastSeenAt' => 'DESC']) : [],
-            'jobs' => $user instanceof User ? $this->em->getRepository(AgentJob::class)->createQueryBuilder('j')
-                ->join('j.agent', 'a')->where('a.owner = :user')->setParameter('user', $user)
-                ->orderBy('j.id', 'DESC')->setMaxResults(50)->getQuery()->getResult() : [],
+            'agents' => $this->em->getRepository(Agent::class)->findBy(['owner' => $user], ['lastSeenAt' => 'DESC']),
+            'shared_agents' => $this->em->getRepository(Agent::class)->createQueryBuilder('a')
+                ->where('a.shared = true AND a.owner != :user')->setParameter('user', $user)
+                ->orderBy('a.lastSeenAt', 'DESC')->getQuery()->getResult(),
+            //Jobs on the user's agents (also those others sent to a shared one), and the user's jobs on shared agents
+            'jobs' => $this->em->getRepository(AgentJob::class)->createQueryBuilder('j')
+                ->join('j.agent', 'a')->where('a.owner = :user OR j.createdBy = :user')->setParameter('user', $user)
+                ->orderBy('j.id', 'DESC')->setMaxResults(50)->getQuery()->getResult(),
         ]);
     }
 
@@ -241,7 +249,12 @@ class LabelController extends AbstractController
     public function agentJobResend(int $id, Request $request, AgentJobCreator $agentJobCreator): Response
     {
         $job = $this->ownAgentJob($id, $request);
-        if (!$job->getAgent()?->hasPrinter($job->getPrinter())) {
+        $user = $this->getUser();
+        //The sender can only resend while the agent is still shared with them
+        if (!$user instanceof User || !$job->getAgent() instanceof Agent || !$agentJobCreator->canUse($user, $job->getAgent())) {
+            throw $this->createNotFoundException();
+        }
+        if (!$job->getAgent()->hasPrinter($job->getPrinter())) {
             $this->addFlash('error', t('label_generator.agent.job_printer_gone'));
             return $this->redirectToRoute('label_agent');
         }
@@ -278,6 +291,20 @@ class LabelController extends AbstractController
         return $this->redirectToRoute('label_agent');
     }
 
+    #[Route(path: '/agent/agents/{id}/share', name: 'label_agent_share', methods: ['POST'])]
+    public function agentShare(int $id, Request $request): Response
+    {
+        $this->checkAgentPageRequest($request);
+        $agent = $this->em->find(Agent::class, $id);
+        if (!$agent instanceof Agent || $agent->getOwner() !== $this->getUser()) {
+            throw $this->createNotFoundException();
+        }
+        $agent->setShared(!$agent->isShared());
+        $this->em->flush();
+
+        return $this->redirectToRoute('label_agent');
+    }
+
     private function checkAgentPageRequest(Request $request): void
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
@@ -287,13 +314,14 @@ class LabelController extends AbstractController
     }
 
     /**
-     * A job of one of the current user's agents; other users' jobs are reported as missing.
+     * A job on one of the current user's agents, or one the user sent; other jobs are reported as missing.
      */
     private function ownAgentJob(int $id, Request $request): AgentJob
     {
         $this->checkAgentPageRequest($request);
         $job = $this->em->find(AgentJob::class, $id);
-        if (!$job instanceof AgentJob || $job->getAgent()?->getOwner() !== $this->getUser()) {
+        $user = $this->getUser();
+        if (!$job instanceof AgentJob || ($job->getAgent()?->getOwner() !== $user && $job->getCreatedBy() !== $user)) {
             throw $this->createNotFoundException();
         }
         return $job;
@@ -323,7 +351,7 @@ class LabelController extends AbstractController
         [$agentId, $printer] = explode('|', $request->request->getString('printer'), 2) + [1 => ''];
         $agent = $this->em->find(Agent::class, (int) $agentId);
         //Other users' agents are reported as missing, so their ids don't leak
-        if (!$agent instanceof Agent || $agent->getOwner() !== $user || !$agent->hasPrinter($printer)) {
+        if (!$agent instanceof Agent || !$agentJobCreator->canUse($user, $agent) || !$agent->hasPrinter($printer)) {
             throw $this->createNotFoundException();
         }
 

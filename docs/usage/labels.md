@@ -64,6 +64,18 @@ default printer (the printer id reported by the agent) for this and for the "Pri
 without one, the label generator and the label menus use your first printer. If a profile shown in a label menu has a
 default printer, a print button next to the menu prints that profile on it in one click.
 
+#### Shared printers
+
+The owner of an agent can share it ("Share" on the "Tools -> Print agent" page), e.g. in a lab where everybody who
+receives goods prints on the same label printer. A good setup is a dedicated user (e.g. "Label printer") whose read-only
+API token the agent uses. Every user with the "create labels" permission then sees the shared agent's printers after
+their own ones, in the label generator, the label menus, the parts tables and the MCP tools; if two printers have the
+same id, the user's own printer is used for a profile's default printer. The agent's owner sees all jobs on it, with
+who sent them; other users see the jobs they sent themselves.
+
+The agent fetches the label PDF with its owner's API token, so Part-DB checks when a job is created that the sender may
+read every part, part lot or storage location on it.
+
 The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`en` can be any language prefix):
 
 * `POST /en/agent-api/v1/agents/<uuid>/heartbeat` with `{"name": "...", "version": "...", "printers": [{"id": "ql810", "name": "Brother QL-810W"}]}`

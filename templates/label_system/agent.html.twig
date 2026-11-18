@@ -26,30 +26,40 @@
             <tbody>
             {% for agent in agents %}
                 <tr>
-                    <td>{{ agent.name }} <span class="text-muted">{{ agent.version }}</span></td>
-                    <td>
-                        {% for printer in agent.printers %}
-                            {{ agent.printerName(printer.id) }} <code>{{ printer.id }}</code>
-                            {% for key in ['model', 'media', 'status'] %}
-                                {% if printer[key] is defined and printer[key] is not iterable and printer[key] is not empty %}<span class="text-muted">· {{ printer[key] }}</span>{% endif %}
-                            {% endfor %}
-                            {% if not loop.last %}<br>{% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% if agent.online %}
-                            <span class="badge bg-success">{% trans %}label_generator.agent.online{% endtrans %}</span>
-                        {% else %}
-                            <span class="badge bg-secondary">{% trans %}label_generator.agent.offline{% endtrans %}</span>
-                        {% endif %}
-                        {% if agent.lastSeenAt %}{{ agent.lastSeenAt|format_datetime('short', 'short') }}{% endif %}
-                    </td>
-                    <td>
-                        <form method="post" action="{{ path('label_agent_remove', {'id': agent.id}) }}" data-turbo-confirm="{% trans %}label_generator.agent.remove.confirm{% endtrans %}">
+                    <td>{{ agent.name }} <span class="text-muted">{{ agent.version }}</span>
+                        {% if agent.shared %}<span class="badge bg-info">{% trans %}label_generator.agent.shared{% endtrans %}</span>{% endif %}</td>
+                    {{ _self.printers_and_status(agent) }}
+                    <td class="text-nowrap">
+                        <form method="post" action="{{ path('label_agent_share', {'id': agent.id}) }}" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary" title="{% trans %}label_generator.agent.share.help{% endtrans %}">
+                                {% if agent.shared %}{% trans %}label_generator.agent.unshare{% endtrans %}{% else %}{% trans %}label_generator.agent.share{% endtrans %}{% endif %}
+                            </button>
+                        </form>
+                        <form method="post" action="{{ path('label_agent_remove', {'id': agent.id}) }}" class="d-inline" data-turbo-confirm="{% trans %}label_generator.agent.remove.confirm{% endtrans %}">
                             <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
                             <button type="submit" class="btn btn-sm btn-outline-danger">{% trans %}label_generator.agent.remove{% endtrans %}</button>
                         </form>
                     </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if shared_agents is not empty %}
+        <h5 class="mt-4">{% trans %}label_generator.agent.shared_printers{% endtrans %}</h5>
+        <table class="table table-sm">
+            <thead><tr>
+                <th>{% trans %}label_generator.agent.agent{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.printers{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.last_seen{% endtrans %}</th>
+            </tr></thead>
+            <tbody>
+            {% for agent in shared_agents %}
+                <tr>
+                    <td>{{ agent.name }} <span class="text-muted">({{ agent.owner.fullName(true) }})</span></td>
+                    {{ _self.printers_and_status(agent) }}
                 </tr>
             {% endfor %}
             </tbody>
@@ -64,6 +74,7 @@
                 <th>{% trans %}label_generator.agent.job.printer{% endtrans %}</th>
                 <th>{% trans %}label_generator.agent.job.labels{% endtrans %}</th>
                 <th>{% trans %}label_generator.agent.job.status{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.job.sent_by{% endtrans %}</th>
                 <th></th>
             </tr></thead>
             <tbody>
@@ -81,6 +92,7 @@
                         {% endif %}
                         {% if job.message %}<br><small class="text-muted">{{ job.message }}</small>{% endif %}
                     </td>
+                    <td>{{ job.createdBy ? job.createdBy.fullName(true) : '-' }}</td>
                     <td class="text-nowrap">
                         {% if job.status.value == 'pending' %}
                             <form method="post" action="{{ path('label_agent_job_cancel', {'id': job.id}) }}" class="d-inline">
@@ -88,10 +100,12 @@
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">{% trans %}label_generator.agent.job.cancel{% endtrans %}</button>
                             </form>
                         {% endif %}
-                        <form method="post" action="{{ path('label_agent_job_resend', {'id': job.id}) }}" class="d-inline">
-                            <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
-                            <button type="submit" class="btn btn-sm btn-outline-primary">{% trans %}label_generator.agent.job.resend{% endtrans %}</button>
-                        </form>
+                        {% if job.agent.owner == app.user or job.agent.shared %}
+                            <form method="post" action="{{ path('label_agent_job_resend', {'id': job.id}) }}" class="d-inline">
+                                <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
+                                <button type="submit" class="btn btn-sm btn-outline-primary">{% trans %}label_generator.agent.job.resend{% endtrans %}</button>
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -132,3 +146,23 @@
         </div>
     </div>
 {% endblock %}
+
+{% macro printers_and_status(agent) %}
+                    <td>
+                        {% for printer in agent.printers %}
+                            {{ agent.printerName(printer.id) }} <code>{{ printer.id }}</code>
+                            {% for key in ['model', 'media', 'status'] %}
+                                {% if printer[key] is defined and printer[key] is not iterable and printer[key] is not empty %}<span class="text-muted">· {{ printer[key] }}</span>{% endif %}
+                            {% endfor %}
+                            {% if not loop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if agent.online %}
+                            <span class="badge bg-success">{% trans %}label_generator.agent.online{% endtrans %}</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{% trans %}label_generator.agent.offline{% endtrans %}</span>
+                        {% endif %}
+                        {% if agent.lastSeenAt %}{{ agent.lastSeenAt|format_datetime('short', 'short') }}{% endif %}
+                    </td>
+{% endmacro %}
