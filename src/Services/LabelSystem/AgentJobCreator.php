@@ -24,29 +24,38 @@ namespace App\Services\LabelSystem;
 
 use App\Entity\AgentSystem\Agent;
 use App\Entity\AgentSystem\AgentJob;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\UserSystem\User;
 use App\Repository\AgentJobRepository;
+use App\Repository\DBElementRepository;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Sends label print jobs to the print agents of a user.
  */
 final readonly class AgentJobCreator
 {
-    public function __construct(private EntityManagerInterface $em, private RangeParser $rangeParser)
+    public function __construct(private EntityManagerInterface $em, private RangeParser $rangeParser, private AuthorizationCheckerInterface $authorizationChecker)
     {
     }
 
     /**
-     * The printers of the user's agents, most recently seen agent first.
+     * The printers the user can print on: those of their own agents, then those of other users' shared agents,
+     * each most recently seen agent first.
      * @return list<array{agent: Agent, id: string, name: string}>
      */
     public function printersFor(User $user): array
     {
-        $agents = $this->em->getRepository(Agent::class)->findBy(['owner' => $user], ['lastSeenAt' => 'DESC']);
+        $agents = $this->em->getRepository(Agent::class)->createQueryBuilder('a')
+            ->where('a.owner = :user OR a.shared = true')->setParameter('user', $user)
+            ->getQuery()->getResult();
+        //Own agents first, so they win when printer ids clash
+        usort($agents, static fn (Agent $a, Agent $b): int => [$b->getOwner() === $user, $b->getLastSeenAt()] <=> [$a->getOwner() === $user, $a->getLastSeenAt()]);
         $printers = [];
         foreach ($agents as $agent) {
             foreach ($agent->getPrinters() as $printer) {
@@ -92,14 +101,37 @@ final readonly class AgentJobCreator
     }
 
     /**
+     * Whether the user may print on the agent's printers: their own agent, or another user's shared one.
+     */
+    public function canUse(User $user, Agent $agent): bool
+    {
+        return $agent->getOwner() === $user || $agent->isShared();
+    }
+
+    /**
      * Creates a pending print job. Also deletes finished jobs older than AgentJob::KEEP_DAYS.
-     * @throws \InvalidArgumentException if the agent doesn't belong to the user or doesn't have the printer, or the ids are invalid
+     * @throws \InvalidArgumentException if the user can't use the agent, the agent doesn't have the printer, or the ids are invalid
+     * @throws AccessDeniedException if the user may not read one of the elements: the agent renders the label with its
+     *                               owner's permissions, which can differ from the sender's on a shared agent
      */
     public function create(User $user, Agent $agent, string $printer, LabelProfile $profile, LabelSupportedElement $elementType, string $ids): AgentJob
     {
-        if ($agent->getOwner() !== $user || !$agent->hasPrinter($printer)) {
+        if (!$this->canUse($user, $agent) || !$agent->hasPrinter($printer)) {
             throw new \InvalidArgumentException('Unknown printer');
         }
+        $ids = $this->normalizeIds($ids);
+        /** @var DBElementRepository<AbstractDBElement> $repo */
+        $repo = $this->em->getRepository($elementType->getEntityClass());
+        $elements = $repo->getElementsFromIDArray($this->rangeParser->parse($ids));
+        if ($elements === []) {
+            throw new \InvalidArgumentException('No elements found with these ids');
+        }
+        foreach ($elements as $element) {
+            if (!$this->authorizationChecker->isGranted('read', $element)) {
+                throw new AccessDeniedException('You may not read one or more of these elements.');
+            }
+        }
+
         $job = (new AgentJob())
             ->setAgent($agent)
             ->setPrinter($printer)
@@ -107,7 +139,7 @@ final readonly class AgentJobCreator
             ->setPayload([
                 'profile_id' => $profile->getID(),
                 'element_type' => $elementType->value,
-                'element_ids' => $this->normalizeIds($ids),
+                'element_ids' => $ids,
             ]);
 
         return $this->save($job);

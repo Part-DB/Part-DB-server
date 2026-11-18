@@ -16382,5 +16382,41 @@ Buerklin-API Authentication server:
         <target>Optional: if a print agent runs on the computer you're using right now, you can also connect this browser to it. Labels then go straight to that agent, without Part-DB's print jobs ("This computer" in the print menus).</target>
       </segment>
     </unit>
+    <unit id="oJMV17q" name="label_generator.agent.share">
+      <segment state="translated">
+        <source>label_generator.agent.share</source>
+        <target>Share</target>
+      </segment>
+    </unit>
+    <unit id="i3TJVWu" name="label_generator.agent.unshare">
+      <segment state="translated">
+        <source>label_generator.agent.unshare</source>
+        <target>Stop sharing</target>
+      </segment>
+    </unit>
+    <unit id="Dmztrpd" name="label_generator.agent.share.help">
+      <segment state="translated">
+        <source>label_generator.agent.share.help</source>
+        <target>Let all users who may create labels print on this agent's printers</target>
+      </segment>
+    </unit>
+    <unit id="qTulvjK" name="label_generator.agent.shared">
+      <segment state="translated">
+        <source>label_generator.agent.shared</source>
+        <target>Shared</target>
+      </segment>
+    </unit>
+    <unit id="bCvSg8r" name="label_generator.agent.shared_printers">
+      <segment state="translated">
+        <source>label_generator.agent.shared_printers</source>
+        <target>Printers shared with you</target>
+      </segment>
+    </unit>
+    <unit id="f0xF8Tj" name="label_generator.agent.job.sent_by">
+      <segment state="translated">
+        <source>label_generator.agent.job.sent_by</source>
+        <target>Sent by</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

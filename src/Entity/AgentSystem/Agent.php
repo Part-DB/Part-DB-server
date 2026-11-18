@@ -69,6 +69,10 @@ class Agent
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $createdAt;
 
+    /** Other users who may create labels can print on a shared agent's printers; the owner keeps the agent. */
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $shared = false;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -180,5 +184,16 @@ class Agent
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function isShared(): bool
+    {
+        return $this->shared;
+    }
+
+    public function setShared(bool $shared): self
+    {
+        $this->shared = $shared;
+        return $this;
     }
 }

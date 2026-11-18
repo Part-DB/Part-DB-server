@@ -26,11 +26,15 @@ use App\Entity\AgentSystem\Agent;
 use App\Entity\AgentSystem\AgentJob;
 use App\Entity\AgentSystem\AgentJobStatus;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\UserSystem\User;
+use App\Services\LabelSystem\AgentJobCreator;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Group("slow")]
 #[Group("DB")]
@@ -239,10 +243,10 @@ final class LabelControllerTest extends WebTestCase
         $this->assertSelectorNotExists('button[form^="label-print-"]');
     }
 
-    private function jobFor(KernelBrowser $client, Agent $agent): AgentJob
+    private function jobFor(KernelBrowser $client, Agent $agent, ?User $sender = null): AgentJob
     {
         $em = $client->getContainer()->get(EntityManagerInterface::class);
-        $job = (new AgentJob())->setAgent($agent)->setPrinter('fake')
+        $job = (new AgentJob())->setAgent($agent)->setPrinter('fake')->setCreatedBy($sender)
             ->setPayload(['profile_id' => 1, 'element_type' => 'part', 'element_ids' => '7-9']);
         $em->persist($job);
         $em->flush();
@@ -280,6 +284,116 @@ final class LabelControllerTest extends WebTestCase
         $this->assertStringContainsString('Fake QL', $content);
         $this->assertStringContainsString('7-9', $content);
         $this->assertStringNotContainsString('someone else', $content);
+    }
+
+    private function sharedAgentOf(KernelBrowser $client, string $owner): Agent
+    {
+        $agent = $this->agentWithDefaultPrinter($client, $owner)->setShared(true)->setName($owner.' shared pc');
+        $client->getContainer()->get(EntityManagerInterface::class)->flush();
+        return $agent;
+    }
+
+    private function user(KernelBrowser $client, string $name): User
+    {
+        return $client->getContainer()->get(EntityManagerInterface::class)->getRepository(User::class)->findOneBy(['name' => $name]);
+    }
+
+    public function testASharedPrinterIsOfferedToOtherUsersAndPrints(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $shared = $this->sharedAgentOf($client, 'user');
+        $crawler = $client->request('GET', '/en/label/1/dialog?target_id=1&target_type=part&generate=1');
+
+        $button = self::AGENT_FORM.' button[name="printer"][value="'.$shared->getId().'|fake"]';
+        $this->assertSelectorExists($button);
+        $client->submit($crawler->filter($button)->form());
+        $this->assertResponseRedirects();
+        $jobs = $this->jobs($client);
+        $this->assertCount(1, $jobs);
+        $this->assertSame($shared->getId(), $jobs[0]->getAgent()->getId());
+        $this->assertSame('admin', $jobs[0]->getCreatedBy()?->getName(), 'the job records who sent it');
+    }
+
+    public function testOnlyTheOwnerSharesAnAgent(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $own = $this->agentWithDefaultPrinter($client);
+        $foreign = $this->agentWithDefaultPrinter($client, 'user');
+        $crawler = $client->request('GET', '/en/label/agent');
+
+        $client->submit($crawler->filter('form[action$="/agents/'.$own->getId().'/share"]')->form());
+        $this->assertResponseRedirects('/en/label/agent');
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->clear();
+        $this->assertTrue($em->find(Agent::class, $own->getId())->isShared());
+
+        $crawler = $client->request('GET', '/en/label/agent');
+        $client->submit($crawler->filter('form[action$="/agents/'.$own->getId().'/share"]')->form());
+        $em->clear();
+        $this->assertFalse($em->find(Agent::class, $own->getId())->isShared(), 'the same button stops sharing');
+
+        $token = $crawler->filter('input[name="_token"][data-agent-token]')->first()->attr('value');
+        $client->request('POST', '/en/label/agent/agents/'.$foreign->getId().'/share', ['_token' => $token]);
+        $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testTheSenderMustBeAllowedToReadTheElements(): void
+    {
+        $client = static::createClient();
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $permissions = $client->getContainer()->get(PermissionManager::class);
+        $user = (new User())->setName('labels_only_'.bin2hex(random_bytes(4)));
+        $permissions->setPermission($user, 'labels', 'create_labels', true);
+        $permissions->setPermission($user, 'parts', 'read', false);
+        $em->persist($user);
+        $em->flush();
+        $client->loginUser($user);
+        $agent = $this->sharedAgentOf($client, 'admin');
+
+        try {
+            $client->getContainer()->get(AgentJobCreator::class)
+                ->create($user, $agent, 'fake', $em->find(LabelProfile::class, 1), LabelSupportedElement::PART, '1');
+            $this->fail('a user who may not read the part must not print its label on someone else\'s printer');
+        } catch (AccessDeniedException) {
+        }
+        $this->assertCount(0, $this->jobs($client));
+    }
+
+    public function testTheOwnerSeesWhatOthersSentToTheirSharedPrinter(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $shared = $this->sharedAgentOf($client, 'admin');
+        $this->jobFor($client, $shared, $this->user($client, 'user'));
+        $client->request('GET', '/en/label/agent');
+        $this->assertStringContainsString('7-9', $client->getResponse()->getContent(), "the owner sees the other user's job");
+
+        $client->loginUser($this->user($client, 'user'));
+        $crawler = $client->request('GET', '/en/label/agent');
+        $content = $client->getResponse()->getContent();
+        $this->assertStringContainsString('admin shared pc', $content, 'other users see the shared printer');
+        $this->assertStringContainsString('7-9', $content, 'the sender sees their job');
+        $this->assertCount(0, $crawler->filter('form[action$="/agents/'.$shared->getId().'/remove"]'), "only the owner gets the agent's controls");
+    }
+
+    public function testTheSenderCanResendUntilThePrinterIsNoLongerShared(): void
+    {
+        $client = static::createClient();
+        $shared = $this->sharedAgentOf($client, 'admin');
+        $job = $this->jobFor($client, $shared, $this->user($client, 'user'));
+        $client->loginUser($this->user($client, 'user'));
+        $crawler = $client->request('GET', '/en/label/agent');
+        $client->submit($crawler->filter('form[action$="/jobs/'.$job->getId().'/resend"]')->form());
+        $this->assertCount(2, $this->jobs($client));
+
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->find(Agent::class, $shared->getId())->setShared(false);
+        $em->flush();
+        $client->submit($crawler->filter('form[action$="/jobs/'.$job->getId().'/resend"]')->form());
+        $this->assertResponseStatusCodeSame(404);
+        $this->assertCount(2, $this->jobs($client));
     }
 
     public function testAgentPageActions(): void
