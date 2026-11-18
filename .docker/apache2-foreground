@@ -40,4 +40,9 @@ for e in "${!APACHE_@}"; do
 	fi
 done
 
+# Proxy /.well-known/mercure to a Mercure hub (see symfony.conf)
+if [ -n "${MERCURE_URL:-}" ]; then
+	set -- -DMERCURE_PROXY "$@"
+fi
+
 exec apache2 -DFOREGROUND "$@"
