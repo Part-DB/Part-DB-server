@@ -302,6 +302,41 @@ services:
 
 Once configured, the Update Manager page will show the Watchtower connection status and provide an **Update via Watchtower** button when a new version is available. Clicking it triggers Watchtower to pull the latest image and recreate the Part-DB container automatically.
 
+### Instant delivery of print jobs to print agents
+
+[Print agents]({% link usage/labels.md %}#print-jobs) normally poll Part-DB for new print jobs. To deliver jobs right
+away, add a [Mercure](https://mercure.rocks) hub next to Part-DB. The Part-DB image then serves it under
+`/.well-known/mercure` on Part-DB's own address, so print agents reach it the same way they reach Part-DB, behind
+the same HTTPS and reverse proxy. Add the following to your `docker-compose.yaml`:
+
+```yaml
+services:
+  partdb:
+    # ... your existing configuration ...
+    environment:
+      # ... your existing configuration ...
+      - MERCURE_URL=http://mercure/.well-known/mercure
+      # A random value of at least 32 characters, e.g. from: openssl rand -hex 32
+      - MERCURE_JWT_SECRET=CHANGE_ME
+
+  mercure:
+    container_name: partdb-mercure
+    image: dunglas/mercure:v1
+    restart: unless-stopped
+    environment:
+      - SERVER_NAME=:80
+      # The same value as MERCURE_JWT_SECRET above
+      - MERCURE_PUBLISHER_JWT_KEY=CHANGE_ME
+      - MERCURE_SUBSCRIBER_JWT_KEY=CHANGE_ME
+      - MERCURE_TRUSTED_ISSUERS=https://localhost
+      # The same value as MERCURE_URL above
+      - MERCURE_EXTRA_DIRECTIVES=resource_identifier http://mercure/.well-known/mercure
+```
+
+The hub does not need a port of its own. If a reverse proxy in front of Part-DB buffers responses (e.g. nginx), turn
+buffering off for `/.well-known/mercure`, see the
+[Mercure documentation](https://mercure.rocks/docs/deployment/reverse-proxy).
+
 ## Direct use of docker image
 
 You can use the `jbtronics/part-db1:master` image directly. You have to expose port 80 to a host port and configure
