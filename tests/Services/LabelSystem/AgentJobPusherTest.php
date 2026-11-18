@@ -88,6 +88,16 @@ final class AgentJobPusherTest extends KernelTestCase
         $this->assertTrue($pusher->isEnabled());
     }
 
+    public function testSubscriberTokenAlsoValidForTheSidecarHub(): void
+    {
+        // Apache image with MERCURE_PUBLIC_URL also set: the sidecar pins resource_identifier to MERCURE_URL.
+        $internal = 'http://mercure/.well-known/mercure';
+        $pusher = new AgentJobPusher(new NullLogger(), self::PUBLIC_URL, $internal, 'test-secret-at-least-256-bits-long!!', 'https://localhost');
+        $token = $pusher->subscription($this->agent(), 'http://localhost')['token'];
+        $payload = json_decode(base64_decode(strtr(explode('.', $token)[1], '-_', '+/')), true);
+        $this->assertSame([self::PUBLIC_URL, $internal], (array) $payload['aud']);
+    }
+
     public function testNotifyPublishesPrivateUpdate(): void
     {
         $this->pusher()->notify($this->job());

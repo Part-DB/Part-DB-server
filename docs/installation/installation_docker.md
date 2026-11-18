@@ -333,8 +333,9 @@ services:
       - MERCURE_EXTRA_DIRECTIVES=resource_identifier http://mercure/.well-known/mercure
 ```
 
-The hub does not need a port of its own. If a reverse proxy in front of Part-DB buffers responses (e.g. nginx), turn
-buffering off for `/.well-known/mercure`, see the
+The hub does not need a port of its own. If a reverse proxy in front of Part-DB terminates HTTPS, set
+`TRUSTED_PROXIES` (see above); otherwise Part-DB tells the agents to connect to the hub over plain `http://`. If the reverse proxy buffers
+responses (e.g. nginx), turn buffering off for `/.well-known/mercure`, see the
 [Mercure documentation](https://mercure.rocks/docs/deployment/reverse-proxy).
 
 ## Direct use of docker image

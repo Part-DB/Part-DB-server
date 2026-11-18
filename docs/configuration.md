@@ -247,11 +247,12 @@ Print agents normally poll Part-DB for [print jobs]({% link usage/labels.md %}#p
 
 * `MERCURE_URL` (default empty): The URL Part-DB publishes to, e.g. the internal Docker URL
   `http://mercure/.well-known/mercure`. In the Part-DB Docker image (`jbtronics/part-db1`), setting it also serves the
-  hub under `/.well-known/mercure` on Part-DB's own address. Leave it empty in the FrankenPHP image to use its built-in
+  hub under `/.well-known/mercure` on Part-DB's own address (an `http://` URL there). Leave it empty in the FrankenPHP image to use its built-in
   hub.
 * `MERCURE_PUBLIC_URL` (default empty): The URL of the hub that print agents connect to, e.g.
   `https://partdb.example.org/.well-known/mercure`. If empty, agents connect to `/.well-known/mercure` under the
-  address they reach Part-DB at. Push is off while both this and `MERCURE_URL` are empty.
+  address they reach Part-DB at (behind a reverse proxy, set `TRUSTED_PROXIES` so that this keeps its `https://`).
+  Push is off while both this and `MERCURE_URL` are empty.
 * `MERCURE_JWT_SECRET` (default empty): The key the hub checks tokens with (at least 32 characters). Required when
   push is on.
 * `MERCURE_JWT_ISSUER` (default `https://localhost`): The issuer of the tokens Part-DB creates; the hub must trust it.

@@ -56,7 +56,7 @@ final class AgentJobPusher
 
     public function isEnabled(): bool
     {
-        return $this->audience() !== '';
+        return $this->hubUrl() !== '';
     }
 
     public function topic(Agent $agent): string
@@ -112,10 +112,10 @@ final class AgentJobPusher
     }
 
     /**
-     * The audience of all tokens: MERCURE_PUBLIC_URL, or else MERCURE_URL, which a sidecar hub pins with
+     * The hub's canonical URL: MERCURE_PUBLIC_URL, or else MERCURE_URL, which a sidecar hub pins with
      * resource_identifier so tokens are valid whatever host name the agent uses. Empty if Mercure is off.
      */
-    private function audience(): string
+    private function hubUrl(): string
     {
         return $this->publicUrl !== null && $this->publicUrl !== '' ? $this->publicUrl : (string) $this->url;
     }
@@ -126,15 +126,16 @@ final class AgentJobPusher
             if ($this->secret === null || $this->secret === '') {
                 throw new \LogicException('MERCURE_JWT_SECRET must be set when Mercure is enabled');
             }
-            $publicUrl = $this->audience();
-            $claims = ['iss' => (string) $this->issuer, 'aud' => $publicUrl, 'sub' => 'part-db', 'client_id' => 'part-db'];
+            $publicUrl = $this->hubUrl();
+            // Both URLs: the hub may know itself under either (a sidecar pins MERCURE_URL as its resource_identifier).
+            $audiences = array_values(array_unique(array_filter([$this->publicUrl, $this->url], static fn(?string $u): bool => $u !== null && $u !== '')));
+            $claims = ['iss' => (string) $this->issuer, 'aud' => $audiences, 'sub' => 'part-db', 'client_id' => 'part-db'];
             $factory = new DefaultClaimsTokenFactory(new LcobucciFactory($this->secret, jwtLifetime: self::TOKEN_SECONDS), $claims);
             if ($this->url === null || $this->url === '') {
                 // FrankenPHP's built-in hub
                 $this->hub = new FrankenPhpHub($publicUrl, $factory);
             } else {
-                // The publisher token goes to MERCURE_URL, which the hub may know under another name than the public one.
-                $publisher = new FactoryTokenProvider($factory, [new Grant([Grant::ACTION_PUBLISH], ['*'])], ['aud' => array_values(array_unique([$publicUrl, $this->url]))]);
+                $publisher = new FactoryTokenProvider($factory, [new Grant([Grant::ACTION_PUBLISH], ['*'])]);
                 // Short timeouts: publishing happens while the user waits for the Print button's answer.
                 $httpClient = HttpClient::create(['timeout' => 2, 'max_duration' => 5]);
                 $this->hub = new Hub($this->url, $publisher, $factory, $publicUrl, $httpClient);
