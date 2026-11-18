@@ -38,6 +38,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use App\Services\AdminPages\AdminCrudRegistry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\TreeViewGenerator;
@@ -50,8 +51,12 @@ use Twig\DeprecatedCallableInfo;
  */
 final readonly class EntityExtension
 {
-    public function __construct(private EntityURLGenerator $entityURLGenerator, private TreeViewGenerator $treeBuilder, private ElementTypeNameGenerator $nameGenerator)
-    {
+    public function __construct(
+        private EntityURLGenerator $entityURLGenerator,
+        private TreeViewGenerator $treeBuilder,
+        private ElementTypeNameGenerator $nameGenerator,
+        private AdminCrudRegistry $adminCrudRegistry,
+    ) {
     }
 
     /**
@@ -127,6 +132,33 @@ final readonly class EntityExtension
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
     {
         $tree = $this->treeBuilder->getTreeView($element::class, null, $type, $element);
+
+        return json_encode($tree, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Like tree_data() but applies alphabetical grouping when the entity's #[AdminCrud] attribute
+     * has a non-zero treeAlphaGroupingThreshold. Intended for the admin-page sidebar tree.
+     */
+    /**
+     * Like tree_data() but applies alphabetical grouping when the entity's #[AdminCrud] attribute
+     * has a non-zero treeAlphaGroupingThreshold and the top-level node count exceeds it.
+     * Intended for the admin-page sidebar tree.
+     */
+    #[AsTwigFunction("admin_tree_data")]
+    public function adminTreeData(AbstractDBElement $element, string $type = 'newEdit'): string
+    {
+        $class = $element::class;
+        $threshold = 0;
+        if ($this->adminCrudRegistry->hasConfig($class)) {
+            $threshold = $this->adminCrudRegistry->getConfig($class)->getTreeAlphaGroupingThreshold();
+        }
+
+        if ($threshold > 0) {
+            $tree = $this->treeBuilder->getTreeViewGrouped($class, null, $type, $element, $threshold);
+        } else {
+            $tree = $this->treeBuilder->getTreeView($class, null, $type, $element);
+        }
 
         return json_encode($tree, JSON_THROW_ON_ERROR);
     }
