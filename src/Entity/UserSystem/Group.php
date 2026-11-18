@@ -29,6 +29,7 @@ use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\GroupAdminForm;
+use App\Services\AdminPages\Extension\GroupAdminExtension;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
 use App\Security\Interfaces\HasPermissionsInterface;
@@ -46,7 +47,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter>
  */
 #[EntityConfig(routeBase: 'group')]
-#[AdminCrud(formClass: GroupAdminForm::class)]
+#[AdminCrud(formClass: GroupAdminForm::class, extensionClass: GroupAdminExtension::class)]
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
 #[ORM\Index(name: 'group_idx_name', columns: ['name'])]

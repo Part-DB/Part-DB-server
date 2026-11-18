@@ -57,6 +57,7 @@ use App\Entity\Attachments\LabelAttachment;
 use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\LabelProfileAdminForm;
+use App\Services\AdminPages\Extension\LabelProfileAdminExtension;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SortDirection;
@@ -68,7 +69,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AttachmentContainingDBElement<LabelAttachment>
  */
 #[EntityConfig(routeBase: 'label_profile')]
-#[AdminCrud(formClass: LabelProfileAdminForm::class)]
+#[AdminCrud(formClass: LabelProfileAdminForm::class, extensionClass: LabelProfileAdminExtension::class)]
 #[ApiResource(
     operations: [
         new Get(

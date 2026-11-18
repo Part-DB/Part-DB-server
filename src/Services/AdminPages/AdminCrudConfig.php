@@ -91,4 +91,14 @@ final class AdminCrudConfig
     {
         return $this->attr->treeAlphaGroupingThreshold;
     }
+
+    /**
+     * Returns the FQCN of the AdminPageExtensionInterface service for this entity, or null if none.
+     *
+     * @return class-string<\App\Services\AdminPages\AdminPageExtensionInterface>|null
+     */
+    public function getExtensionClass(): ?string
+    {
+        return $this->attr->extensionClass;
+    }
 }

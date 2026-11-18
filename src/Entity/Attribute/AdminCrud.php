@@ -37,16 +37,24 @@ final class AdminCrud
 {
     public function __construct(
         /** Form class used to build the admin edit/new form. Defaults to the generic base form. */
-        public readonly string $formClass = BaseEntityAdminForm::class,
+        public readonly string  $formClass = BaseEntityAdminForm::class,
         /** Twig template path. Empty string uses the convention 'admin/{routeBase}_admin.html.twig'. */
-        public readonly string $templatePath = '',
+        public readonly string  $templatePath = '',
         /** Set to false to suppress the Parameters tab (even if the entity has a 'parameters' association). */
-        public readonly bool   $showParametersTab = true,
+        public readonly bool    $showParametersTab = true,
         /**
          * When > 0, the admin-page sidebar tree groups nodes alphabetically once a level has more
          * entries than this threshold. Set to 0 (default) to disable grouping.
          */
-        public readonly int    $treeAlphaGroupingThreshold = 50,
+        public readonly int     $treeAlphaGroupingThreshold = 50,
+        /**
+         * Optional FQCN of an AdminPageExtensionInterface service that provides entity-specific
+         * behaviour (extra form options, template variables, pre/post-save hooks, etc.).
+         * Null means no extension.
+         *
+         * @var class-string<\App\Services\AdminPages\AdminPageExtensionInterface>|null
+         */
+        public readonly ?string $extensionClass = null,
     ) {
     }
 }

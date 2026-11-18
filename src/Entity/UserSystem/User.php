@@ -43,6 +43,7 @@ use App\Entity\Attachments\UserAttachment;
 use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
 use App\Form\UserAdminForm;
+use App\Services\AdminPages\Extension\UserAdminExtension;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
@@ -78,7 +79,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * @extends AttachmentContainingDBElement<UserAttachment>
  */
 #[EntityConfig(routeBase: 'user')]
-#[AdminCrud(formClass: UserAdminForm::class)]
+#[AdminCrud(formClass: UserAdminForm::class, extensionClass: UserAdminExtension::class)]
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]

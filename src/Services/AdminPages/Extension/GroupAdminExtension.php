@@ -51,11 +51,6 @@ final class GroupAdminExtension extends AbstractAdminPageExtension
     ) {
     }
 
-    public static function getEntityClass(): string
-    {
-        return Group::class;
-    }
-
     public function beforeEdit(object $entity, Request $request): ?Response
     {
         if (!$entity instanceof Group) {

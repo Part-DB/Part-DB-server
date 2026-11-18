@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace App\Services\AdminPages\Extension;
 
-use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelProcessMode;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Exceptions\TwigModeException;
 use App\Services\AdminPages\AbstractAdminPageExtension;
 use App\Services\LabelSystem\LabelExampleElementsGenerator;
@@ -39,11 +39,6 @@ final class LabelProfileAdminExtension extends AbstractAdminPageExtension
         private readonly LabelGenerator $labelGenerator,
         private readonly AuthorizationCheckerInterface $authChecker,
     ) {
-    }
-
-    public static function getEntityClass(): string
-    {
-        return LabelProfile::class;
     }
 
     public function formOptions(object $entity): array

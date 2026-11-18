@@ -62,11 +62,6 @@ final class UserAdminExtension extends AbstractAdminPageExtension
     ) {
     }
 
-    public static function getEntityClass(): string
-    {
-        return User::class;
-    }
-
     public function beforeEdit(object $entity, Request $request): ?Response
     {
         if (!$entity instanceof User) {

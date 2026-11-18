@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
+use App\Services\AdminPages\AdminCrudRegistry;
 use App\Services\AdminPages\AdminPageExtensionInterface;
 use App\Services\AdminPages\AdminPageHandler;
 use App\Services\Trees\StructuralElementRecursionHelper;
@@ -34,13 +35,14 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Single generic controller for all admin CRUD pages.
  * Routes are generated automatically by AdminPageRouteLoader from #[AdminPageEntity] attributes.
- * Entity-specific behaviour lives in AdminPageExtensionInterface implementations.
+ * Entity-specific behaviour lives in AdminPageExtensionInterface implementations declared via #[AdminCrud(extensionClass:)].
  */
 final class AdminPageController extends AbstractController
 {
     public function __construct(
         private readonly AdminPageHandler $handler,
-        #[TaggedLocator(AdminPageExtensionInterface::class, defaultIndexMethod: 'getEntityClass')]
+        private readonly AdminCrudRegistry $adminCrudRegistry,
+        #[TaggedLocator(AdminPageExtensionInterface::class)]
         private readonly ContainerInterface $extensions,
         private readonly StructuralElementRecursionHelper $recursionHelper,
     ) {
@@ -73,8 +75,17 @@ final class AdminPageController extends AbstractController
 
     private function ext(string $entityClass): ?AdminPageExtensionInterface
     {
-        return $this->extensions->has($entityClass)
-            ? $this->extensions->get($entityClass)
+        if (!$this->adminCrudRegistry->hasConfig($entityClass)) {
+            return null;
+        }
+
+        $extensionClass = $this->adminCrudRegistry->getConfig($entityClass)->getExtensionClass();
+        if ($extensionClass === null) {
+            return null;
+        }
+
+        return $this->extensions->has($extensionClass)
+            ? $this->extensions->get($extensionClass)
             : null;
     }
 }

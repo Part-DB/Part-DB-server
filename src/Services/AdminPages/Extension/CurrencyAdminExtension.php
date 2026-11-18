@@ -41,15 +41,10 @@ final class CurrencyAdminExtension extends AbstractAdminPageExtension
     ) {
     }
 
-    public static function getEntityClass(): string
-    {
-        return Currency::class;
-    }
-
     public function onEditFormValid(FormInterface $form, object $entity): bool
     {
         if (!$entity instanceof Currency) {
-            throw new \InvalidArgumentException('Expected ' . Currency::class . ', got ' . $entity::class . '.');
+            throw new \InvalidArgumentException('Expected Currency, got ' . $entity::class . '.');
         }
 
         //@phpstan-ignore-next-line
@@ -77,7 +72,7 @@ final class CurrencyAdminExtension extends AbstractAdminPageExtension
     public function checkDelete(object $entity): bool
     {
         if (!$entity instanceof Currency) {
-            throw new \InvalidArgumentException('Expected ' . Currency::class . ', got ' . $entity::class . '.');
+            throw new \InvalidArgumentException('Expected Currency, got ' . $entity::class . '.');
         }
 
         if ($entity->getPricedetails()->count() > 0) {

@@ -33,15 +33,10 @@ final class AttachmentTypeAdminExtension extends AbstractAdminPageExtension
     {
     }
 
-    public static function getEntityClass(): string
-    {
-        return AttachmentType::class;
-    }
-
     public function checkDelete(object $entity): bool
     {
         if (!$entity instanceof AttachmentType) {
-            throw new \InvalidArgumentException('Expected ' . AttachmentType::class . ', got ' . $entity::class . '.');
+            throw new \InvalidArgumentException('Expected AttachmentType, got ' . $entity::class . '.');
         }
 
         if ($entity->getAttachmentsForType()->count() > 0) {

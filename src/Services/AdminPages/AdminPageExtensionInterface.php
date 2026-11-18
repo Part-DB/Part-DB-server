@@ -30,14 +30,11 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Per-entity hook interface for the admin page system.
  * Implement this to add custom behaviour for a specific entity's admin pages.
- * All implementations are automatically discovered and keyed by getEntityClass().
+ * Register an implementation by setting extensionClass on the entity's #[AdminCrud] attribute.
  */
 #[AutoconfigureTag]
 interface AdminPageExtensionInterface
 {
-    /** Returns the FQCN of the entity class this extension handles. Used as the service-locator key. */
-    public static function getEntityClass(): string;
-
     /**
      * Called at the very start of the edit action, before the form is built.
      * Throw an exception or return a Response to short-circuit.
