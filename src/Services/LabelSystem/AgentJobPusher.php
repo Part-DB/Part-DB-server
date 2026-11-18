@@ -37,7 +37,7 @@ use Symfony\Component\Mercure\Update;
 
 /**
  * Tells print agents about new jobs right away through a Mercure hub, so they don't have to wait for their next poll.
- * Off unless MERCURE_PUBLIC_URL is set; agents then just poll.
+ * Off unless MERCURE_PUBLIC_URL or MERCURE_URL is set; agents then just poll.
  */
 final class AgentJobPusher
 {
@@ -56,7 +56,7 @@ final class AgentJobPusher
 
     public function isEnabled(): bool
     {
-        return $this->publicUrl !== null && $this->publicUrl !== '';
+        return $this->audience() !== '';
     }
 
     public function topic(Agent $agent): string
@@ -87,9 +87,10 @@ final class AgentJobPusher
 
     /**
      * What the agent needs to subscribe to its topic, or null if push is off.
+     * @param string $requestBase scheme, host and base path the agent reached Part-DB under
      * @return array{hub: string, topic: string, token: string}|null
      */
-    public function subscription(Agent $agent): ?array
+    public function subscription(Agent $agent, string $requestBase): ?array
     {
         if (!$this->isEnabled()) {
             return null;
@@ -103,16 +104,29 @@ final class AgentJobPusher
             return null;
         }
 
-        return ['hub' => (string) $this->publicUrl, 'topic' => $topic, 'token' => (string) $token];
+        // Without MERCURE_PUBLIC_URL the hub is proxied under Part-DB's own origin (Apache image), so the agent
+        // reaches it the same way it reached Part-DB.
+        $hubUrl = $this->publicUrl !== null && $this->publicUrl !== '' ? $this->publicUrl : $requestBase.'/.well-known/mercure';
+
+        return ['hub' => $hubUrl, 'topic' => $topic, 'token' => (string) $token];
+    }
+
+    /**
+     * The audience of all tokens: MERCURE_PUBLIC_URL, or else MERCURE_URL, which a sidecar hub pins with
+     * resource_identifier so tokens are valid whatever host name the agent uses. Empty if Mercure is off.
+     */
+    private function audience(): string
+    {
+        return $this->publicUrl !== null && $this->publicUrl !== '' ? $this->publicUrl : (string) $this->url;
     }
 
     private function hub(): HubInterface
     {
         if ($this->hub === null) {
             if ($this->secret === null || $this->secret === '') {
-                throw new \LogicException('MERCURE_JWT_SECRET must be set when MERCURE_PUBLIC_URL is set');
+                throw new \LogicException('MERCURE_JWT_SECRET must be set when Mercure is enabled');
             }
-            $publicUrl = (string) $this->publicUrl;
+            $publicUrl = $this->audience();
             $claims = ['iss' => (string) $this->issuer, 'aud' => $publicUrl, 'sub' => 'part-db', 'client_id' => 'part-db'];
             $factory = new DefaultClaimsTokenFactory(new LcobucciFactory($this->secret, jwtLifetime: self::TOKEN_SECONDS), $claims);
             if ($this->url === null || $this->url === '') {
@@ -120,7 +134,7 @@ final class AgentJobPusher
                 $this->hub = new FrankenPhpHub($publicUrl, $factory);
             } else {
                 // The publisher token goes to MERCURE_URL, which the hub may know under another name than the public one.
-                $publisher = new FactoryTokenProvider($factory, [new Grant([Grant::ACTION_PUBLISH], ['*'])], ['aud' => [$publicUrl, $this->url]]);
+                $publisher = new FactoryTokenProvider($factory, [new Grant([Grant::ACTION_PUBLISH], ['*'])], ['aud' => array_values(array_unique([$publicUrl, $this->url]))]);
                 // Short timeouts: publishing happens while the user waits for the Print button's answer.
                 $httpClient = HttpClient::create(['timeout' => 2, 'max_duration' => 5]);
                 $this->hub = new Hub($this->url, $publisher, $factory, $publicUrl, $httpClient);

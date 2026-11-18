@@ -77,9 +77,15 @@ final class AgentJobPusherTest extends KernelTestCase
     {
         $pusher = $this->pusher('');
         $this->assertFalse($pusher->isEnabled());
-        $this->assertNull($pusher->subscription($this->agent()));
+        $this->assertNull($pusher->subscription($this->agent(), 'http://localhost'));
         $pusher->notify($this->job());
         $this->assertSame([], $this->published);
+    }
+
+    public function testEnabledWithOnlyTheInternalUrl(): void
+    {
+        $pusher = new AgentJobPusher(new NullLogger(), '', 'http://mercure/.well-known/mercure', 'test-secret-at-least-256-bits-long!!', 'https://localhost');
+        $this->assertTrue($pusher->isEnabled());
     }
 
     public function testNotifyPublishesPrivateUpdate(): void
@@ -126,7 +132,7 @@ final class AgentJobPusherTest extends KernelTestCase
     public function testShortSecretDisablesTheSubscription(): void
     {
         $pusher = new AgentJobPusher(new NullLogger(), self::PUBLIC_URL, '', 'too-short', 'https://localhost');
-        $this->assertNull($pusher->subscription($this->agent()));
+        $this->assertNull($pusher->subscription($this->agent(), 'http://localhost'));
     }
 
     private function createJob(): AgentJob

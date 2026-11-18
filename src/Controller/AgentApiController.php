@@ -98,7 +98,7 @@ class AgentApiController extends AbstractController
             // lets the agent skip listing jobs when there are none
             'pending' => $this->em->getRepository(AgentJob::class)->count(['agent' => $agent, 'status' => AgentJobStatus::PENDING]),
         ];
-        $mercure = $this->pusher->subscription($agent);
+        $mercure = $this->pusher->subscription($agent, $request->getSchemeAndHttpHost().$request->getBasePath());
         if ($mercure !== null) {
             $reply['mercure'] = $mercure;
         }

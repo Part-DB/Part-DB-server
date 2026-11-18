@@ -125,6 +125,23 @@ final class AgentApiControllerTest extends WebTestCase
             $payload['authorization_details']);
     }
 
+    public function testHubUrlFollowsTheRequest(): void
+    {
+        // Only MERCURE_URL set (Apache image with a sidecar hub): the hub is served under Part-DB's own origin.
+        $internal = 'http://mercure/.well-known/mercure';
+        static::getContainer()->set(AgentJobPusher::class, new AgentJobPusher(new NullLogger(), '', $internal,
+            'test-secret-at-least-256-bits-long!!', 'https://localhost'));
+
+        $this->client->request('POST', 'https://partdb.example.org'.self::BASE_URL.'/agents/'.self::UUID.'/heartbeat',
+            server: ['CONTENT_TYPE' => 'application/json'], content: json_encode(['name' => 'pi', 'printers' => []], JSON_THROW_ON_ERROR));
+        $reply = json_decode((string) $this->client->getResponse()->getContent(), true);
+
+        $this->assertSame('https://partdb.example.org/.well-known/mercure', $reply['mercure']['hub']);
+        $payload = json_decode(base64_decode(strtr(explode('.', $reply['mercure']['token'])[1], '-_', '+/')), true);
+        // The hub pins this audience (resource_identifier), so the token works whatever host the agent used.
+        $this->assertSame([$internal], (array) $payload['aud']);
+    }
+
     #[TestWith([''])]
     #[TestWith(['too-short'])]
     public function testHeartbeatWorksWithMisconfiguredMercure(string $secret): void
