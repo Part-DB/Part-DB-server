@@ -16075,5 +16075,11 @@ Serwer autoryzacji Buerklin API:
         <target>Dane dostawcy informacji utworzyłyby nowy wpis "%name%", jednak nie masz uprawnień do tworzenia wpisów tego typu. Przejrzyj dane dostawcy ręcznie.</target>
       </segment>
     </unit>
+    <unit id="vqWRTKI" name="scan_dialog.return_to_scanner">
+      <segment state="translated">
+        <source>scan_dialog.return_to_scanner</source>
+        <target>Powróć do skanera po utworzeniu nowej części</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
