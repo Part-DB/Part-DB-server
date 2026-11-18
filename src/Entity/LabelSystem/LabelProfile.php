@@ -69,7 +69,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AttachmentContainingDBElement<LabelAttachment>
  */
 #[EntityConfig(routeBase: 'label_profile')]
-#[AdminCrud(formClass: LabelProfileAdminForm::class, extensionClass: LabelProfileAdminExtension::class)]
+#[AdminCrud(formClass: LabelProfileAdminForm::class, treeAlphaGroupingThreshold: 0, extensionClass: LabelProfileAdminExtension::class)]
 #[ApiResource(
     operations: [
         new Get(
