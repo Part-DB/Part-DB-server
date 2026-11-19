@@ -246,26 +246,23 @@ trait EntityMergerHelperTrait
     protected function mergeAttachments(AttachmentContainingDBElement $target, AttachmentContainingDBElement $other): object
     {
         return $this->mergeCollections($target, $other, 'attachments', function (Attachment $t, Attachment $o) {
-            if ($t->getName() === $o->getName() && $t->getAttachmentType() === $o->getAttachmentType()) {
-                //An external source is authoritative. Ignore generated internal paths.
-                if ($t->hasExternal() || $o->hasExternal()) {
-                    //Check if the normalized external paths are equal. If so, the attachments are considered equal.
-                    if ($t->getComparableURL() === $o->getComparableURL()) {
-                        //When the normalized version is equal, but the details are different, prefer the new one
-                        //If the external source provides an updated URL (some providers issue a fresh signed/tracking URL for
-                        //the very same file on every request, e.g. TrustedParts), refresh it, so a stale or expired link does
-                        //not linger just because the URL happened to differ from the previous import.
-                        if ($t->getExternalPath() !== $o->getExternalPath()) {
-                            $t->setURL($o->getExternalPath());
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-                //Only for local attachments, compare the internal path.
-                return $t->getInternalPath() === $o->getInternalPath();
+            //Name and attachment type are the identity of an attachment, because that is what makes it unique
+            //on an element (see the UniqueEntityIgnoringOrphans constraint on Attachment). Whatever else the
+            //two differ in, a second attachment under the same name and type cannot be stored, so comparing
+            //the path as well would only produce an element which can no longer be saved.
+            if ($t->getName() !== $o->getName() || $t->getAttachmentType() !== $o->getAttachmentType()) {
+                return false;
             }
-            return false;
+
+            //An external source is authoritative, so an updated URL for the same file is taken over. Some
+            //providers issue a fresh signed or tracking URL on every request (e.g. TrustedParts), and a
+            //stale or expired link should not linger just because the URL happened to differ from the
+            //previous import. Generated internal paths are ignored here.
+            if ($o->hasExternal() && $t->getExternalPath() !== $o->getExternalPath()) {
+                $t->setURL($o->getExternalPath());
+            }
+
+            return true;
         });
     }
 
@@ -277,14 +274,34 @@ trait EntityMergerHelperTrait
      */
     protected function mergeParameters(AbstractStructuralDBElement|Part $target, AbstractStructuralDBElement|Part $other): object
     {
-        return $this->mergeCollections($target, $other, 'parameters', fn(AbstractParameter $t, AbstractParameter $o): bool => $t->getName() === $o->getName()
-            && $t->getSymbol() === $o->getSymbol()
-            && $t->getUnit() === $o->getUnit()
-            && $t->getValueMax() === $o->getValueMax()
-            && $t->getValueMin() === $o->getValueMin()
-            && $t->getValueTypical() === $o->getValueTypical()
-            && $t->getValueText() === $o->getValueText()
-            && $t->getGroup() === $o->getGroup());
+        return $this->mergeCollections($target, $other, 'parameters', function (AbstractParameter $t, AbstractParameter $o): bool {
+            //A parameter is identified by its name and group, because that is what makes it unique on an
+            //element (see the UniqueEntityIgnoringOrphans constraint on AbstractParameter). Comparing the
+            //values as well would add a second parameter of the same name and group as soon as a provider
+            //reports a different value for it, and the element could not be saved afterwards.
+            if ($t->getName() !== $o->getName() || $t->getGroup() !== $o->getGroup()) {
+                return false;
+            }
+
+            //The values of the target win, as everywhere else in the merge, but a value it does not have
+            //yet is taken from the other side.
+            if ($t->getValueText() === '') {
+                $t->setValueText($o->getValueText());
+            }
+            foreach (['ValueTypical', 'ValueMin', 'ValueMax'] as $value) {
+                if ($t->{'get'.$value}() === null) {
+                    $t->{'set'.$value}($o->{'get'.$value}());
+                }
+            }
+            if ($t->getUnit() === '') {
+                $t->setUnit($o->getUnit());
+            }
+            if ($t->getSymbol() === '') {
+                $t->setSymbol($o->getSymbol());
+            }
+
+            return true;
+        });
     }
 
     /**
