@@ -117,6 +117,21 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertStringContainsString('width: 160.00px; height: 120.00px; padding: 0.00px 40.00px;', $html);
     }
 
+    public function testLinkedPartImagePlaceholder(): void
+    {
+        //Linked images are wrapped in a link inside their figure. The width of the figure (set by the corner resize handles
+        //of the editor) is still the width of the placeholder, so the 320x240px image is fitted into 120x120px
+        $lines = '<figure class="image image_resized image-style-align-left" style="width:120px;"><a href="https://example.com">'
+            .'<img style="aspect-ratio:64/64;" src="'.LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">'
+            .'</a></figure><p>Test</p>';
+        $options = (new LabelOptions())->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [LabelPartImageProviderTest::createPartWithPicture()]);
+
+        $this->assertStringContainsString('width: 120.00px; height: 90.00px; padding: 15.00px 0.00px;', $html);
+        $this->assertStringContainsString('style="width: 120.00px;"', $html);
+        $this->assertStringContainsString('<a href="https://example.com">', $html);
+    }
+
     public function testPartImagePlaceholderInRowOfFloatingImages(): void
     {
         //The part image is fitted into the placeholder and centered with padding, so the floating images are fitted with

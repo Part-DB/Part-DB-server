@@ -646,11 +646,18 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Returns the figure wrapping the given image (CKEditor wraps images with a block style in a figure), or null.
+     * Returns the figure wrapping the given image (CKEditor wraps images with a block style in a figure, and linked
+     * images in a link inside the figure), or null.
      */
     private function getFigure(\DOMElement $img): ?\DOMElement
     {
-        return $img->parentNode instanceof \DOMElement && $img->parentNode->nodeName === 'figure' ? $img->parentNode : null;
+        $parent = $img->parentNode;
+        //Linked images are wrapped in a link inside the figure
+        if ($parent instanceof \DOMElement && $parent->nodeName === 'a') {
+            $parent = $parent->parentNode;
+        }
+
+        return $parent instanceof \DOMElement && $parent->nodeName === 'figure' ? $parent : null;
     }
 
     /**
