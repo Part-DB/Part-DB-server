@@ -77,6 +77,17 @@ final readonly class LabelHTMLGenerator
         'textLeft' => 0.3916,
         'textWidth' => 0.5433,
     ];
+    /** The default maximum width of 1D barcodes in mm (150px) */
+    private const DEFAULT_1D_MAX_WIDTH = 39.6875;
+    /** The height of 1D barcodes in mm (30px) */
+    private const DEFAULT_1D_HEIGHT = 7.9375;
+    /** The default width of 2D barcodes, relative to the usable label width */
+    private const DEFAULT_2D_WIDTH_FACTOR = 0.3;
+    /** The gap between 1D barcodes and the text above them in mm (see label_style.css.twig) */
+    private const STACKED_GAP = 1.0;
+    /** The height of the caption below 1D barcodes in mm (6pt font size, plus some safety margin) */
+    private const CAPTION_HEIGHT = 2.5;
+
     /**
      * Geometry of the legacy 1D layout (label_page_1d.html.twig) in mm: The barcode image (max-width 150px, height 30px)
      * with its caption, positioned 32px above the bottom of the page content (see .C39-container in label_style.css.twig)
@@ -114,6 +125,8 @@ final readonly class LabelHTMLGenerator
             $sandboxed_twig = $this->sandboxedTwigProvider->createSandbox($options);
             $current_user = $this->security->getUser();
         }
+
+        $barcode_layout = $this->getBarcodeLayout($options);
 
         $page = 1;
         foreach ($elements as $element) {
@@ -157,6 +170,7 @@ final readonly class LabelHTMLGenerator
             'meta_title' => $this->getPDFTitle($options, $elements[0]),
             'elements' => $twig_elements,
             'options' => $options,
+            'barcode_layout' => $barcode_layout,
         ]);
     }
 
@@ -240,7 +254,14 @@ final readonly class LabelHTMLGenerator
             return $content_width;
         }
 
-        //Otherwise the lines are next to the 2D barcode
+        //With a barcode size, the table layout (label_page_barcode.html.twig) places the lines next to the barcode cell,
+        //which has a gap of SIDE_GAP (see .barcode-cell-left in label_style.css.twig)
+        if ($options->getBarcodeSize() !== null) {
+            $layout = $this->getBarcodeLayout($options);
+            return max($content_width - ($layout['width'] ?? 0.0) - self::SIDE_GAP, 1.0);
+        }
+
+        //Otherwise the lines are next to the 2D barcode of the legacy layout
         return $content_width * self::LEGACY_2D_LAYOUT['textWidth'];
     }
 
@@ -555,6 +576,49 @@ final readonly class LabelHTMLGenerator
         return $parse($element->getAttribute('style'))
             ?? ($img !== null ? $parse($img->getAttribute('style')) : null)
             ?? ($img !== null && (float) $img->getAttribute('width') > 0 ? (float) $img->getAttribute('width') : null);
+    }
+
+    /**
+     * Determines the size (in mm) of the barcode and the layout used.
+     * By default, 2D barcodes are placed left of the text and 1D barcodes below it.
+     * @return array{side: bool, width: float, height: float, cell_height: float, legacy_text_height: float}|null
+     */
+    public function getBarcodeLayout(LabelOptions $options): ?array
+    {
+        $type = $options->getBarcodeType();
+        if ($type === BarcodeType::NONE) {
+            return null;
+        }
+
+        //The area usable for content, without the page margins defined in label_style.css.twig
+        $content_width = max($options->getWidth() - 2 * self::PAGE_MARGIN_X, 1.0);
+        $content_height = max($options->getHeight() - 2 * self::PAGE_MARGIN_Y, 1.0);
+
+        if ($type->is2D()) {
+            $width = $options->getBarcodeSize() ?? min($content_width * self::DEFAULT_2D_WIDTH_FACTOR, $content_height);
+            $height = $width;
+        } else {
+            $width = $options->getBarcodeSize() ?? min(self::DEFAULT_1D_MAX_WIDTH, $content_width);
+            $height = self::DEFAULT_1D_HEIGHT;
+        }
+
+        //dompdf does not distribute the table height to its rows, so we have to calculate the height of the cells ourselves.
+        //For 1D barcodes below the text, the text cell gets all the space not used by the barcode (and its caption).
+        $barcode_block_height = $height + self::STACKED_GAP + self::CAPTION_HEIGHT;
+
+        //The legacy 1D layout places the barcode at a fixed position above the bottom of the label. This is the space
+        //above that position: The text gets it as minimum height, so that the barcode keeps its position if the text fits
+        //there, and is moved down otherwise (instead of overlapping the text).
+        $legacy_text_height = $content_height - self::LEGACY_1D_LAYOUT['bottom']
+            - self::LEGACY_1D_LAYOUT['height'] - self::LEGACY_1D_LAYOUT['captionHeight'];
+
+        return [
+            'side' => $type->is2D(),
+            'width' => round($width, 3),
+            'height' => round($height, 3),
+            'cell_height' => round($type->is2D() ? $content_height : max($content_height - $barcode_block_height, 0.0), 3),
+            'legacy_text_height' => round(max($legacy_text_height, 0.0), 3),
+        ];
     }
 
     private function getPDFTitle(LabelOptions $options, object $element): string

@@ -30,6 +30,10 @@
     <div class="row mb-2">
         <div class="{{ col_input }} {{ offset_label }}">
             <a href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+            {% if not update_target %}
+                <span class="text-muted mx-1">|</span>
+                <a href="{{ path('info_providers_direct_access') }}">{% trans %}info_providers.search.direct_access_link{% endtrans %}</a>
+            {% endif %}
         </div>
     </div>
 
@@ -182,6 +186,16 @@
         {% else %}
             <div class="alert alert-info" role="alert">
                 {% trans %}info_providers.search.no_results{% endtrans %}
+                {% if not update_target %}
+                    {# Prefill the direct access form with the search, the provider is only known if exactly one was selected #}
+                    {% set selected_providers = form.providers.vars.value %}
+                    <br>
+                    {% trans %}info_providers.search.no_results.direct_access_hint{% endtrans %}
+                    <a href="{{ path('info_providers_direct_access', {
+                        'provider_id': form.keyword.vars.value,
+                        'provider': selected_providers|length == 1 ? selected_providers|first : null
+                    }) }}">{% trans %}info_providers.search.direct_access_link{% endtrans %}</a>
+                {% endif %}
             </div>
         {% endif %}
     {% endif %}

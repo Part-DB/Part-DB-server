@@ -99,10 +99,49 @@ export default class extends Controller {
             };
         }
         this._tomSelect = new TomSelect(this.element, settings);
+
+        //Allow to paste an image from the clipboard into the URL field, which is then used as file for this attachment
+        this._onPaste = this.onPaste.bind(this);
+        this._tomSelect.wrapper.addEventListener('paste', this._onPaste);
+    }
+
+    /**
+     * If the clipboard contains a file (e.g. a screenshot or a file copied in the file manager), assign it to the file
+     * input of the attachment row this URL field belongs to. Normal text pastes are not affected.
+     * @param {ClipboardEvent} event
+     */
+    onPaste(event) {
+        const files = event.clipboardData?.files ?? [];
+        if (files.length === 0) {
+            return;
+        }
+
+        const row = this.element.closest('[data-controller~="elements--attachmenttype-change"]');
+        const fileInput = row?.querySelector("input[type='file']");
+        if (!fileInput) {
+            return;
+        }
+
+        event.preventDefault();
+
+        //Pasted images are usually all named "image.png", so give them a more meaningful name
+        let file = files[0];
+        if (file.type.startsWith('image/') && (file.name === '' || file.name === 'image.png')) {
+            const extension = file.type.split('/')[1] || 'png';
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            file = new File([file], `pasted_image_${timestamp}.${extension}`, {type: file.type});
+        }
+
+        //We can not directly assign the file to the input, so we have to create a new DataTransfer object
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change', {bubbles: true}));
     }
 
     disconnect() {
         super.disconnect();
+        this._tomSelect.wrapper.removeEventListener('paste', this._onPaste);
         //Destroy the TomSelect instance
         this._tomSelect.destroy();
     }

@@ -3024,7 +3024,7 @@
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>外部ファイルのURLを指定できます。内部リソース（例: フットプリント）の検索に使用するキーワードを入力することもできます。</target>
+        <target>外部ファイルのURLを指定できます。内部リソース（例: フットプリント）の検索に使用するキーワードを入力することもできます。クリップボードのファイル（例: 画像）をここに貼り付けて、アップロードすることもできます。</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

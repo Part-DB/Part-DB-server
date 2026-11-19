@@ -38,6 +38,7 @@ use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -62,6 +63,11 @@ final readonly class EntityExporter
 
         $resolver->setDefault('csv_delimiter', ';');
         $resolver->setAllowedTypes('csv_delimiter', 'string');
+
+        //Prefix values starting with formula characters (=, +, -, @, ...) with a ' in CSV exports, so that spreadsheet
+        //software does not evaluate them as formulas. This changes the data, so it is optional.
+        $resolver->setDefault('csv_escape_formulas', false);
+        $resolver->setAllowedTypes('csv_escape_formulas', 'bool');
 
         $resolver->setDefault('level', 'extended');
         $resolver->setAllowedValues('level', ['simple', 'extended', 'full']);
@@ -112,6 +118,7 @@ final readonly class EntityExporter
                 'groups' => $groups,
                 'as_collection' => true,
                 'csv_delimiter' => $options['csv_delimiter'],
+                CsvEncoder::ESCAPE_FORMULAS_KEY => $options['csv_escape_formulas'],
                 'xml_root_node_name' => 'PartDBExport',
                 'partdb_export' => true,
                     //Handle circular references
@@ -216,10 +223,14 @@ final readonly class EntityExporter
      */
     public function exportEntityFromRequest(AbstractNamedDBElement|array $entities, Request $request): Response
     {
+        $format = $request->get('format') ?? 'json';
+
         $options = [
-            'format' => $request->get('format') ?? 'json',
+            //csv_escaped is a CSV export with escaped formulas, which can be safely opened in spreadsheet software
+            'format' => $format === 'csv_escaped' ? 'csv' : $format,
             'level' => $request->get('level') ?? 'extended',
             'include_children' => $request->request->getBoolean('include_children'),
+            'csv_escape_formulas' => $format === 'csv_escaped',
         ];
 
         if (!is_array($entities)) {

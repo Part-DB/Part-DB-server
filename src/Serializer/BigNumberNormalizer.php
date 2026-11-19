@@ -67,6 +67,11 @@ class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
             throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
         }
 
+        //An empty cell in an imported CSV/XLSX file means no value
+        if ($data === '') {
+            return null;
+        }
+
         return $type::of($data);
     }
 

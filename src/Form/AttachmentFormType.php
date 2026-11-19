@@ -210,6 +210,10 @@ class AttachmentFormType extends AbstractType
             //provider, which reject non-browser requests). Attachments with such an URL are not pre-selected for
             //download, so the user is not shown a download error on every save. See FileDTO::$downloadable.
             'non_downloadable_urls' => [],
+            //The url field writes to external_path (via setURL()), so show the violations of that property on the url field
+            'error_mapping' => [
+                'external_path' => 'url',
+            ],
         ]);
 
         $resolver->setAllowedTypes('non_downloadable_urls', 'string[]');

@@ -28,13 +28,18 @@ use InvalidArgumentException;
 
 class PartCustomStateRepository extends AbstractPartsContainingRepository
 {
+    protected function getPartsFieldName(): string
+    {
+        return 'partCustomState';
+    }
+
     public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof PartCustomState) {
             throw new InvalidArgumentException('$element must be an PartCustomState!');
         }
 
-        return $this->getPartsByField($element, $nameOrderDirection, 'partUnit');
+        return $this->getPartsByField($element, $nameOrderDirection, $this->getPartsFieldName());
     }
 
     public function getPartsCount(object $element): int
@@ -43,6 +48,6 @@ class PartCustomStateRepository extends AbstractPartsContainingRepository
             throw new InvalidArgumentException('$element must be an PartCustomState!');
         }
 
-        return $this->getPartsCountByField($element, 'partUnit');
+        return $this->getPartsCountByField($element, $this->getPartsFieldName());
     }
 }

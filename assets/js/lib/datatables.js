@@ -237,6 +237,8 @@ export function initDataTables(root, config, options) {
             _dt: config.name,
             _init: true,
             order: config.initial_order ?? undefined,
+            //CHANGED jbtronics: Request the saved page length, so the initial data matches the length restored from the state
+            length: config.initial_length ?? undefined,
         }).then(function(data) {
             var baseState;
 

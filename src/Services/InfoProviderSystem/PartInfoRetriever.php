@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -65,6 +66,7 @@ final class PartInfoRetriever
      * @return SearchResultDTO[] The search results
      * @throws InfoProviderNotActiveException if any of the given providers is not active
      * @throws ClientException if any of the providers throws an exception during the search
+     * @throws ServerException if any of the providers returns a server error (5xx) during the search
      * @throws \InvalidArgumentException if any of the given providers is not a valid provider key or instance
      * @throws TransportException if any of the providers throws an exception during the search
      * @throws OAuthReconnectRequiredException if any of the providers throws an exception during the search that indicates that the OAuth token needs to be refreshed
@@ -138,6 +140,9 @@ final class PartInfoRetriever
      * @return PartDetailDTO
      * @throws InfoProviderNotActiveException if the the given providers is not active
      * @throws \InvalidArgumentException if the given provider key does not match any registered provider
+     * @throws ClientException if the provider API returns a client error (4xx)
+     * @throws ServerException if the provider API returns a server error (5xx), e.g. because it is temporarily unavailable
+     * @throws TransportException if the provider API could not be reached
      */
     public function getDetails(string $provider_key, string $part_id, array $options = []): PartDetailDTO
     {

@@ -469,5 +469,11 @@
         <target>malejąco</target>
       </segment>
     </unit>
+    <unit id="O_I8BVJ" name="attachment.create_from_clipboard.error">
+      <segment state="translated">
+        <source>attachment.create_from_clipboard.error</source>
+        <target>Nie można było wczytać obrazu ze schowka. Upewnij się, że obraz został skopiowany i dostęp do schowka jest dozwolony. Aby dodać inne pliki, naciśnij Ctrl+V w polu URL załącznika.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

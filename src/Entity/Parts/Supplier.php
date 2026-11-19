@@ -57,6 +57,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\SupplierForm;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\SupplierParameter;
@@ -75,6 +78,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractCompany<SupplierAttachment, SupplierParameter>
  */
+#[EntityConfig(routeBase: 'supplier')]
+#[AdminCrud(formClass: SupplierForm::class)]
 #[ORM\Entity(repositoryClass: SupplierRepository::class)]
 #[ORM\Table('`suppliers`')]
 #[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]

@@ -57,6 +57,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\CompanyForm;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
@@ -70,6 +73,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractCompany<ManufacturerAttachment, ManufacturerParameter>
  */
+#[EntityConfig(routeBase: 'manufacturer')]
+#[AdminCrud(formClass: CompanyForm::class)]
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]

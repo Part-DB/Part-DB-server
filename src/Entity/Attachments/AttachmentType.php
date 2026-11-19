@@ -40,7 +40,12 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Parameters\AttachmentTypeParameter;
+use App\Form\AdminPages\AttachmentTypeAdminForm;
+use App\Services\AdminPages\Extension\AttachmentTypeAdminExtension;
 use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -54,6 +59,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see \App\Tests\Entity\Attachments\AttachmentTypeTest
  * @extends AbstractStructuralDBElement<AttachmentTypeAttachment, AttachmentTypeParameter>
  */
+#[EntityConfig(routeBase: 'attachment_type')]
+#[AdminCrud(formClass: AttachmentTypeAdminForm::class, extensionClass: AttachmentTypeAdminExtension::class)]
 #[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
 #[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]

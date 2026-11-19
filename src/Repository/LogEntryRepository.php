@@ -23,13 +23,17 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\LogTargetType;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use RuntimeException;
 
 /**
@@ -188,13 +192,133 @@ class LogEntryRepository extends DBElementRepository
     }
 
     /**
+     * The maximum difference (in seconds) between the last modification timestamp of an element and the timestamp of
+     * the log entry, so that the user of the log entry is considered to be the last editing user.
+     */
+    public const LAST_EDITING_USER_MAX_TIME_DIFFERENCE = 2;
+
+    /**
      * Returns the last user that has edited the given element.
+     * If the element has a last modified timestamp, which differs from the timestamp of the found log entry more than
+     * $maxTimeDifference seconds, null is returned, as the log entry most likely does not belong to the last modification
+     * (e.g. because it was not logged). Pass null to disable this check.
      *
+     * @param bool $includeRelatedElements If true, changes of related elements (attachments, parameters, orderdetails, pricedetails),
+     *  which also update the last modified timestamp of the element, are considered as edits of the element too.
      * @return User|null a user object, or null if no user could be determined
      */
-    public function getLastEditingUser(AbstractDBElement $element): ?User
+    public function getLastEditingUser(AbstractDBElement $element, ?int $maxTimeDifference = self::LAST_EDITING_USER_MAX_TIME_DIFFERENCE,
+        bool $includeRelatedElements = true): ?User
     {
-        return $this->getLastUser($element, ElementEditedLogEntry::class);
+        $qb = $this->createQueryBuilder('log');
+        //See getLastUser() why the join with the user is important
+        $qb->select('log')
+            ->addSelect('user')
+            ->leftJoin('log.user', 'user')
+            ->orderBy('log.timestamp', 'DESC')
+            //Use id as fallback, if timestamp is the same (higher id means newer entry)
+            ->addOrderBy('log.id', 'DESC')
+            ->setMaxResults(1);
+
+        //Creation (which also sets the last modified timestamp) and edits of the element itself, or removal of elements
+        //from one of its collections
+        $conditions = $qb->expr()->orX(
+            'log INSTANCE OF ('.ElementCreatedLogEntry::class.', '.ElementEditedLogEntry::class.', '.CollectionElementDeleted::class.')'
+            .' AND log.target_type = :target_type AND log.target_id = :target_id'
+        );
+        $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
+        $qb->setParameter('target_id', $element->getID());
+
+        //Creating or editing related elements (attachments, parameters, etc.) also changes the last modified timestamp
+        //of the element, so we have to take them into account too. Each condition uses the (type, target_type, target_id)
+        //index, so the whole query can be resolved via index range scans.
+        foreach ($includeRelatedElements ? $this->getRelatedElementIDs($element) : [] as $i => [$target_type, $ids]) {
+            $conditions->add('log INSTANCE OF ('.ElementCreatedLogEntry::class.', '.ElementEditedLogEntry::class.')'
+                ." AND log.target_type = :related_type_{$i} AND log.target_id IN (:related_ids_{$i})");
+            $qb->setParameter("related_type_{$i}", $target_type);
+            $qb->setParameter("related_ids_{$i}", $ids);
+        }
+
+        $qb->where($conditions);
+
+        /** @var AbstractLogEntry[] $results */
+        $results = $qb->getQuery()->execute();
+        if (!isset($results[0])) {
+            return null;
+        }
+
+        //If the log entry is too far away from the last modification, it does not describe the last modification
+        if ($maxTimeDifference !== null && $element instanceof TimeStampableInterface && $element->getLastModified() !== null) {
+            $difference = abs($element->getLastModified()->getTimestamp() - $results[0]->getTimestamp()->getTimestamp());
+            if ($difference > $maxTimeDifference) {
+                return null;
+            }
+        }
+
+        return $results[0]->getUser();
+    }
+
+    /**
+     * Returns the IDs of the elements, whose changes also update the last modified timestamp of the given element
+     * (attachments, parameters, orderdetails and their pricedetails), grouped by their log target type.
+     * @return list<array{LogTargetType, non-empty-list<int>}>
+     */
+    private function getRelatedElementIDs(AbstractDBElement $element): array
+    {
+        if ($element->getID() === null) {
+            return [];
+        }
+
+        $em = $this->getEntityManager();
+        $metadata = $em->getClassMetadata($element::class);
+
+        $result = [];
+        foreach (['attachments', 'parameters', 'orderdetails'] as $field) {
+            if (!$metadata->hasAssociation($field) || !$metadata->isCollectionValuedAssociation($field)) {
+                continue;
+            }
+
+            $targetClass = $metadata->getAssociationTargetClass($field);
+            $collection = $metadata->getFieldValue($element, $field);
+
+            //If the collection is already loaded, we can use it directly and save a query
+            if ($collection instanceof Collection && !($collection instanceof PersistentCollection && !$collection->isInitialized())) {
+                $ids = $collection->map(static fn (AbstractDBElement $e) => $e->getID())
+                    ->filter(static fn (?int $id) => $id !== null)
+                    ->getValues();
+            } else {
+                $ids = $em->createQueryBuilder()
+                    ->select('e.id')
+                    ->from($targetClass, 'e')
+                    ->where('e.'.$metadata->getAssociationMappedByTargetField($field).' = :element')
+                    ->setParameter('element', $element)
+                    ->getQuery()
+                    ->getSingleColumnResult();
+            }
+
+            if ($ids === []) {
+                continue;
+            }
+
+            $result[] = [LogTargetType::fromElementClass($targetClass), $ids];
+
+            //Changes of pricedetails update the timestamp of the orderdetail and therefore of the part too
+            if ($field === 'orderdetails') {
+                $pricedetailIDs = $em->createQueryBuilder()
+                    ->select('p.id')
+                    ->from(Pricedetail::class, 'p')
+                    ->where('p.orderdetail IN (:orderdetails)')
+                    ->setParameter('orderdetails', $ids)
+                    ->getQuery()
+                    ->getSingleColumnResult();
+
+                if ($pricedetailIDs !== []) {
+                    $result[] = [LogTargetType::PRICEDETAIL, $pricedetailIDs];
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**

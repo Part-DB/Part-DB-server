@@ -3047,7 +3047,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Il est possible de saisir ici soit l'URL d'un fichier externe, soit un mot clé pour rechercher les ressources intégrées (par exemple les empreintes).</target>
+        <target>Il est possible de saisir ici soit l'URL d'un fichier externe, soit un mot clé pour rechercher les ressources intégrées (par exemple les empreintes). Vous pouvez également coller ici un fichier (par exemple une image) depuis le presse-papiers pour le téléverser.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

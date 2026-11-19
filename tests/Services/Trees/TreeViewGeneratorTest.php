@@ -118,4 +118,158 @@ final class TreeViewGeneratorTest extends WebTestCase
         //Only second element must be selected
         $this->assertTrue($tree[1]->getState()->getSelected());
     }
+
+    // ----- applyAlphabeticalGrouping -----
+
+    public function testApplyAlphabeticalGroupingBelowThreshold(): void
+    {
+        $nodes = [
+            new TreeViewNode('Apple'),
+            new TreeViewNode('Banana'),
+            new TreeViewNode('Cherry'),
+        ];
+
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 5);
+
+        // 3 nodes < threshold 5: returned unchanged
+        $this->assertCount(3, $result);
+        $this->assertSame('Apple', $result[0]->getText());
+        $this->assertSame('Banana', $result[1]->getText());
+        $this->assertSame('Cherry', $result[2]->getText());
+    }
+
+    public function testApplyAlphabeticalGroupingAboveThreshold(): void
+    {
+        $nodes = [
+            new TreeViewNode('Apple'),
+            new TreeViewNode('Avocado'),
+            new TreeViewNode('Banana'),
+            new TreeViewNode('Cherry'),
+        ];
+
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 2);
+
+        // 4 nodes > threshold 2: grouped into A, B, C
+        $this->assertCount(3, $result);
+        $this->assertSame('A', $result[0]->getText());
+        $this->assertCount(2, $result[0]->getNodes()); // Apple, Avocado
+        $this->assertSame('Apple', $result[0]->getNodes()[0]->getText());
+        $this->assertSame('Avocado', $result[0]->getNodes()[1]->getText());
+        $this->assertSame('B', $result[1]->getText());
+        $this->assertCount(1, $result[1]->getNodes()); // Banana
+        $this->assertSame('C', $result[2]->getText());
+        $this->assertCount(1, $result[2]->getNodes()); // Cherry
+    }
+
+    public function testApplyAlphabeticalGroupingTagsShowChildCount(): void
+    {
+        $nodes = [
+            new TreeViewNode('Alpha'),
+            new TreeViewNode('Aleph'),
+            new TreeViewNode('Bravo'),
+        ];
+
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 1);
+
+        $this->assertSame(['2'], $result[0]->getTags()); // 'A' group: 2 items
+        $this->assertSame(['1'], $result[1]->getTags()); // 'B' group: 1 item
+    }
+
+    public function testApplyAlphabeticalGroupingNonLetterPrefix(): void
+    {
+        $nodes = [
+            new TreeViewNode('1Sensor'),
+            new TreeViewNode('Apple'),
+            new TreeViewNode('Banana'),
+        ];
+
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 1);
+
+        $this->assertCount(3, $result);
+        $this->assertSame('#', $result[0]->getText()); // numeric first char
+        $this->assertSame('A', $result[1]->getText());
+        $this->assertSame('B', $result[2]->getText());
+    }
+
+    public function testApplyAlphabeticalGroupingSkipsEmptyText(): void
+    {
+        $nodes = [
+            new TreeViewNode(''),   // empty — skipped
+            new TreeViewNode('Apple'),
+            new TreeViewNode('Banana'),
+            new TreeViewNode('Cherry'),
+        ];
+
+        // 4 nodes but only 3 non-empty; threshold=2 → groups A, B, C, with '' omitted
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 2);
+        $this->assertCount(3, $result);
+        $this->assertSame('A', $result[0]->getText());
+        $this->assertSame('B', $result[1]->getText());
+        $this->assertSame('C', $result[2]->getText());
+    }
+
+    public function testApplyAlphabeticalGroupingRecursive(): void
+    {
+        // Parent has 10 children (5 × Alpha, 5 × Beta) — above threshold 5
+        $children = [];
+        for ($i = 0; $i < 5; $i++) {
+            $children[] = new TreeViewNode('Alpha ' . $i);
+            $children[] = new TreeViewNode('Beta ' . $i);
+        }
+        $parent = new TreeViewNode('Parent', null, $children);
+        $nodes = [$parent];
+
+        // 1 parent < threshold 5 → parent level not grouped
+        // 10 children > threshold 5 → children grouped into A and B
+        $result = $this->service->applyAlphabeticalGrouping($nodes, 5);
+
+        $this->assertCount(1, $result);
+        $groupedChildren = $result[0]->getNodes();
+        $this->assertCount(2, $groupedChildren);
+        $this->assertSame('A', $groupedChildren[0]->getText());
+        $this->assertSame('B', $groupedChildren[1]->getText());
+        $this->assertCount(5, $groupedChildren[0]->getNodes());
+        $this->assertCount(5, $groupedChildren[1]->getNodes());
+    }
+
+    // ----- getTreeViewGrouped -----
+
+    public function testGetTreeViewGroupedPreservesHeadNodes(): void
+    {
+        // threshold=0 → always group; all 3 fixture root nodes start with 'N' → one 'N' group
+        $tree = $this->service->getTreeViewGrouped(Category::class, null, 'newEdit', null, 0);
+
+        // Head: "New …" link + separator
+        $this->assertStringContainsStringIgnoringCase('New', $tree[0]->getText());
+        $this->assertNotNull($tree[0]->getHref());
+        $this->assertSame('', $tree[1]->getText());
+        $this->assertTrue($tree[1]->getState()->getDisabled());
+
+        // Entity nodes grouped: all 3 start with N → single 'N' group
+        $this->assertCount(3, $tree); // new, separator, N-group
+        $this->assertSame('N', $tree[2]->getText());
+        $this->assertCount(3, $tree[2]->getNodes());
+    }
+
+    public function testGetTreeViewGroupedSkipsGroupingBelowThreshold(): void
+    {
+        // 3 entity nodes, threshold=10 → no grouping; head (2) + 3 entity = 5
+        $tree = $this->service->getTreeViewGrouped(Category::class, null, 'newEdit', null, 10);
+
+        $this->assertCount(5, $tree);
+        $this->assertNotNull($tree[2]->getId()); // entity nodes, not letter groups
+        $this->assertNotNull($tree[3]->getId());
+        $this->assertNotNull($tree[4]->getId());
+    }
+
+    public function testGetTreeViewGroupedGroupNodesAreNotSelectable(): void
+    {
+        $tree = $this->service->getTreeViewGrouped(Category::class, null, 'newEdit', null, 0);
+
+        $groupNode = $tree[2]; // the 'N' letter group
+        $serialized = $groupNode->jsonSerialize();
+        $this->assertArrayHasKey('selectable', $serialized);
+        $this->assertFalse($serialized['selectable']);
+        $this->assertNull($groupNode->getId());
+    }
 }

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Controller\Helpers\SafeRedirectTrait;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
@@ -58,10 +59,14 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\ServerException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +80,8 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/part')]
 final class PartController extends AbstractController
 {
+    use SafeRedirectTrait;
+
     public function __construct(
         private readonly PricedetailHelper $pricedetailHelper,
         private readonly PartPreviewGenerator $partPreviewGenerator,
@@ -427,7 +434,7 @@ final class PartController extends AbstractController
 
     #[Route('/from_info_provider/{providerKey}/{providerId}/create', name: 'info_providers_create_part', requirements: ['providerId' => '.+'])]
     public function createFromInfoProvider(Request $request, string $providerKey, string $providerId, PartInfoRetriever $infoRetriever,
-        UploadedDocumentAttachmentHelper $uploadedDocumentAttachmentHelper): Response
+        UploadedDocumentAttachmentHelper $uploadedDocumentAttachmentHelper, LoggerInterface $exceptionLogger): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -436,11 +443,15 @@ final class PartController extends AbstractController
         $skip_delegation = $request->query->getBoolean('skip_delegation', false);
         $submitted_page_token = $request->query->getString('submitted_page_token');
 
-        $dto = $infoRetriever->getDetails($providerKey, $providerId, [
-            InfoProviderInterface::OPTION_NO_CACHE => $no_cache,
-            InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
-            InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submitted_page_token,
-        ]);
+        try {
+            $dto = $infoRetriever->getDetails($providerKey, $providerId, [
+                InfoProviderInterface::OPTION_NO_CACHE => $no_cache,
+                InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
+                InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submitted_page_token,
+            ]);
+        } catch (ClientException|ServerException|TransportException $e) {
+            return $this->handleInfoProviderException($e, $request, $exceptionLogger);
+        }
         $new_part = $infoRetriever->dtoToPart($dto);
 
         //A part created from an uploaded file gets this file as attachment. The provider ID is the token of the file,
@@ -476,6 +487,36 @@ final class PartController extends AbstractController
         ]);
     }
 
+    /**
+     * Shows a meaningful error message, when the info provider could not be reached or returned an error,
+     * and redirects the user back to the page they came from (or the info provider search).
+     */
+    private function handleInfoProviderException(ClientException|ServerException|TransportException $e, Request $request,
+        LoggerInterface $exceptionLogger): RedirectResponse
+    {
+        $exceptionLogger->error('Error while retrieving part details from info provider: ' . $e->getMessage(), ['exception' => $e]);
+
+        if ($e instanceof ServerException) {
+            $this->addFlash('error', t('info_providers.error.server_exception', [
+                '%status%' => $e->getResponse()->getStatusCode(),
+                '%host%' => parse_url((string) $e->getResponse()->getInfo('url'), PHP_URL_HOST) ?? '',
+            ]));
+        } elseif ($e instanceof ClientException) {
+            $this->addFlash('error', t('info_providers.search.error.client_exception'));
+            $this->addFlash('error', $e->getMessage());
+        } else {
+            $this->addFlash('error', t('info_providers.search.error.transport_exception'));
+        }
+
+        //Only redirect back to pages of this Part-DB instance, to prevent open redirects
+        $referer = $request->headers->get('referer');
+        if (is_string($referer) && str_starts_with($referer, $request->getSchemeAndHttpHost() . '/')) {
+            return $this->redirect($referer);
+        }
+
+        return $this->redirectToRoute('info_providers_search');
+    }
+
     #[Route('/{target}/merge/{other}', name: 'part_merge')]
     public function merge(Request $request, Part $target, Part $other, PartMerger $partMerger): Response
     {
@@ -501,7 +542,8 @@ final class PartController extends AbstractController
         string $providerKey,
         string $providerId,
         PartInfoRetriever $infoRetriever,
-        PartMerger $partMerger
+        PartMerger $partMerger,
+        LoggerInterface $exceptionLogger,
     ): Response {
         $this->denyAccessUnlessGranted('edit', $part);
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
@@ -512,7 +554,11 @@ final class PartController extends AbstractController
         //Save the old name of the target part for the template
         $old_name = $part->getName();
 
-        $dto = $infoRetriever->getDetails($providerKey, $providerId, [InfoProviderInterface::OPTION_NO_CACHE => $no_cache]);
+        try {
+            $dto = $infoRetriever->getDetails($providerKey, $providerId, [InfoProviderInterface::OPTION_NO_CACHE => $no_cache]);
+        } catch (ClientException|ServerException|TransportException $e) {
+            return $this->handleInfoProviderException($e, $request, $exceptionLogger);
+        }
         $provider_part = $infoRetriever->dtoToPart($dto);
 
         $part = $partMerger->merge($part, $provider_part);
@@ -602,28 +648,21 @@ final class PartController extends AbstractController
                 $this->addFlash('success', 'part.edited_flash');
             }
 
-            //If a redirect URL was given, redirect there
-            if ($request->query->get('_redirect')) {
-                return $this->redirect($request->query->get('_redirect'));
-            }
-
-            //Redirect to clone page if user wished that...
-            //@phpstan-ignore-next-line
-            if ('save_and_clone' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
-            }
-            //@phpstan-ignore-next-line
-            if ('save_and_new' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_new');
-            }
-
-            // Check if we're in bulk import mode and preserve jobId
             $jobId = $request->query->get('jobId');
-            if ($jobId && isset($merge_infos['bulk_job'])) {
-                return $this->redirectToRoute('part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]);
-            }
+            //@phpstan-ignore-next-line
+            $clickedButton = $form->getClickedButton()->getName();
 
-            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
+            [$fallbackRoute, $fallbackParams] = match (true) {
+                //Redirect to clone page if user wished that...
+                'save_and_clone' === $clickedButton => ['part_clone', ['id' => $new_part->getID()]],
+                'save_and_new' === $clickedButton => ['part_new', []],
+                // Check if we're in bulk import mode and preserve jobId
+                $jobId && isset($merge_infos['bulk_job']) => ['part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]],
+                default => ['part_edit', ['id' => $new_part->getID()]],
+            };
+
+            //If a redirect URL was given, redirect there, otherwise to the page determined above
+            return $this->safeRedirect($request->query->get('_redirect'), $fallbackRoute, $fallbackParams);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
@@ -697,12 +736,8 @@ final class PartController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'part.withdraw.success');
 
-        //If a redirect was passed, then redirect there
-        if ($request->request->get('_redirect')) {
-            return $this->redirect($request->request->get('_redirect'));
-        }
-        //Otherwise just redirect to the part page
-        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        //If a (local) redirect was passed, then redirect there, otherwise just redirect to the part page
+        return $this->safeRedirect($request->request->get('_redirect'), 'part_info', ['id' => $part->getID()]);
     }
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
@@ -802,11 +837,7 @@ final class PartController extends AbstractController
         }
 
         err:
-        //If a redirect was passed, then redirect there
-        if ($request->request->get('_redirect')) {
-            return $this->redirect($request->request->get('_redirect'));
-        }
-        //Otherwise just redirect to the part page
-        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        //If a (local) redirect was passed, then redirect there, otherwise just redirect to the part page
+        return $this->safeRedirect($request->request->get('_redirect'), 'part_info', ['id' => $part->getID()]);
     }
 }

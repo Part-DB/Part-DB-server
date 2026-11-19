@@ -50,6 +50,9 @@ use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\MeasurementUnitAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\MeasurementUnitAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
@@ -65,6 +68,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractPartsContainingDBElement<MeasurementUnitAttachment,MeasurementUnitParameter>
  */
+#[EntityConfig(routeBase: 'measurement_unit')]
+#[AdminCrud(formClass: MeasurementUnitAdminForm::class)]
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]

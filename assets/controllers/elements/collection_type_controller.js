@@ -21,6 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 
 import {AlertSwal, ConfirmSwal} from "../../helpers/swal";
 import accept from "attr-accept";
+import {trans} from "../../translator";
 
 export default class extends Controller {
     static values = {
@@ -151,49 +152,91 @@ export default class extends Controller {
         input.click();
 
         input.addEventListener('change', (event) => {
-            //Create a element for each file
+            this.createAttachmentsFromFiles(event, input.files);
+        });
 
-            for (let i = 0; i < input.files.length; i++) {
-                const file = input.files[i];
+    }
 
-                const newElement = this.createElement(event);
-                const rowInput = newElement.querySelector("input[type='file']");
+    /**
+     * This action reads the current clipboard content and creates a new attachment element for each file (image) in it.
+     * This should only be used for attachments collection types
+     * @param event
+     */
+    async createFromClipboard(event) {
+        const files = [];
 
-                //We can not directly assign the file to the input, so we have to create a new DataTransfer object
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
+        try {
+            //The async clipboard API only exposes images (no arbitrary files) and requires a secure context
+            const items = await navigator.clipboard.read();
+            for (const item of items) {
+                const type = item.types.find(t => !t.startsWith('text/'));
+                if (!type) {
+                    continue;
+                }
 
-                rowInput.files = dataTransfer.files;
+                const blob = await item.getType(type);
+                const extension = type.split('/')[1]?.split('+')[0] || 'bin';
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                files.push(new File([blob], `pasted_image_${timestamp}.${extension}`, {type: type}));
+            }
+        } catch (e) {
+            console.warn("Could not read clipboard", e);
+        }
 
-                //Check the file extension and find the corresponding attachment type based on the data-filetype_filter attribute
-                const attachmentTypeSelect = newElement.querySelector("select");
-                if (attachmentTypeSelect) {
-                    let foundMatch = false;
-                    for (let j = 0; j < attachmentTypeSelect.options.length; j++) {
-                        const option = attachmentTypeSelect.options[j];
-                        //skip disabled options
-                        if (option.disabled) {
-                            continue;
+        if (files.length === 0) {
+            AlertSwal.fire({"text": trans("attachment.create_from_clipboard.error")});
+            return;
+        }
+
+        this.createAttachmentsFromFiles(event, files);
+    }
+
+    /**
+     * Create a new attachment element for each of the given files, assign the file to its file input and select
+     * a matching attachment type.
+     * @param event
+     * @param {FileList|File[]} files
+     */
+    createAttachmentsFromFiles(event, files) {
+        //Create a element for each file
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+
+            const newElement = this.createElement(event);
+            const rowInput = newElement.querySelector("input[type='file']");
+
+            //We can not directly assign the file to the input, so we have to create a new DataTransfer object
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            rowInput.files = dataTransfer.files;
+
+            //Check the file extension and find the corresponding attachment type based on the data-filetype_filter attribute
+            const attachmentTypeSelect = newElement.querySelector("select");
+            if (attachmentTypeSelect) {
+                let foundMatch = false;
+                for (let j = 0; j < attachmentTypeSelect.options.length; j++) {
+                    const option = attachmentTypeSelect.options[j];
+                    //skip disabled options
+                    if (option.disabled) {
+                        continue;
+                    }
+
+                    const filter = option.getAttribute('data-filetype_filter');
+                    if (filter) {
+                        if (accept({name: file.name, type: file.type}, filter)) {
+                            attachmentTypeSelect.value = option.value;
+                            break;
                         }
-
-                        const filter = option.getAttribute('data-filetype_filter');
-                        if (filter) {
-                            if (accept({name: file.name, type: file.type}, filter)) {
-                                attachmentTypeSelect.value = option.value;
-                                break;
-                            }
-                        } else { //If no filter is set, chose this option until we find a better match
-                            if (!foundMatch) {
-                                attachmentTypeSelect.value = option.value;
-                                foundMatch = true;
-                            }
+                    } else { //If no filter is set, chose this option until we find a better match
+                        if (!foundMatch) {
+                            attachmentTypeSelect.value = option.value;
+                            foundMatch = true;
                         }
                     }
                 }
             }
-
-        });
-
+        }
     }
 
     /**

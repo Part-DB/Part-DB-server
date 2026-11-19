@@ -26,14 +26,24 @@ namespace App\Services\InfoProviderSystem;
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\Providers\AIWebProvider;
+use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\AutowireServiceClosure;
 
 final readonly class CreateFromUrlHelper
 {
     public function __construct(private Security $security,
         private ProviderRegistry $providerRegistry,
         private PartInfoRetriever $infoRetriever,
+        //Closures are needed here, as the providers depend on this service themselves (circular reference otherwise)
+        /** @var \Closure(): GenericWebProvider */
+        #[AutowireServiceClosure(GenericWebProvider::class)]
+        private \Closure $genericWebProvider,
+        /** @var \Closure(): AIWebProvider */
+        #[AutowireServiceClosure(AIWebProvider::class)]
+        private \Closure $aiWebProvider,
     )
     {
     }
@@ -50,10 +60,9 @@ final readonly class CreateFromUrlHelper
         }
 
         //Check if either the generic web provider or the ai web provider is active
-        $genericWebProvider = $this->providerRegistry->getProviderByKey('generic_web');
-        $aiWebProvider = $this->providerRegistry->getProviderByKey('ai_web');
-
-        return $genericWebProvider->isActive() || $aiWebProvider->isActive();
+        //We retrieve them directly instead of via the registry, as initializing the registry checks the active state
+        //of all providers, which can be expensive (e.g. DB queries for OAuth tokens)
+        return ($this->genericWebProvider)()->isActive() || ($this->aiWebProvider)()->isActive();
     }
 
     /**

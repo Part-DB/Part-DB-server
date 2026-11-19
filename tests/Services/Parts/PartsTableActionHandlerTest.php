@@ -74,6 +74,13 @@ final class PartsTableActionHandlerTest extends WebTestCase
         $this->assertStringContainsString('ids=42,99', $result->getTargetUrl());
     }
 
+    public function testExportCsvEscaped(): void
+    {
+        $result = $this->service->handleAction('export_csv_escaped', [], 1, '/test');
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertStringContainsString('format=csv_escaped', $result->getTargetUrl());
+    }
+
     public function testExportWithNoPartsProducesEmptyIds(): void
     {
         $result = $this->service->handleAction('export_json', [], 1, '/test');

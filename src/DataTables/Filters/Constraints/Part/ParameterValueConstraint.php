@@ -127,9 +127,10 @@ class ParameterValueConstraint extends NumberConstraint
 
         if ($this->operator === 'RANGE_INTERSECT_RANGE') {
             $queryBuilder->andWhere(
-                //The ORs are important here!!
-                "({$this->alias}.value_min <= :{$paramName1} OR {$this->alias}.value_min <= :{$paramName2}) OR
-                ({$this->alias}.value_max >= :{$paramName1} OR {$this->alias}.value_max >= :{$paramName2}) OR
+                //A missing min or max is treated as an open end of the range
+                "(({$this->alias}.value_min IS NOT NULL OR {$this->alias}.value_max IS NOT NULL) AND
+                ({$this->alias}.value_min IS NULL OR {$this->alias}.value_min <= :{$paramName2}) AND
+                ({$this->alias}.value_max IS NULL OR {$this->alias}.value_max >= :{$paramName1})) OR
                 ({$this->alias}.value_typical >= :{$paramName1} AND {$this->alias}.value_typical <= :{$paramName2})"
             );
 

@@ -40,6 +40,9 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
      */
     private array $new_entity_cache = [];
 
+    /** @var int The maximum depth of a subtree, before getSubtree() throws an error */
+    private const SUBTREE_DEPTH_LIMIT = 50;
+
     /**
      * Finds all nodes for the given parent node, ordered by name in a natural sort way
      * @param  AbstractStructuralDBElement|null  $parent
@@ -70,6 +73,59 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
     public function findRootNodes(): array
     {
         return $this->findNodesForParent(null);
+    }
+
+    /**
+     * Returns the given element and all its descendants, depth-first, with the children of each element ordered by
+     * name (like getChildren()). The subtree is loaded with one query per tree level.
+     * @phpstan-param TEntityClass $element
+     * @return AbstractStructuralDBElement[]
+     * @phpstan-return list<TEntityClass>
+     */
+    public function getSubtree(AbstractStructuralDBElement $element): array
+    {
+        //parent ID => children
+        $children_of = [];
+        $seen = [$element->getID() => true];
+        $level = [$element];
+        $depth = 0;
+        while ($level !== []) {
+            if (++$depth > self::SUBTREE_DEPTH_LIMIT) {
+                throw new \RuntimeException('Recursion limit reached!');
+            }
+
+            $next_level = [];
+            foreach (array_chunk($level, 1000) as $chunk) {
+                $qb = $this->createQueryBuilder('e')
+                    ->where('e.parent IN (:parents)')
+                    ->setParameter('parents', $chunk)
+                    ->orderBy('e.name', 'ASC');
+                //@phpstan-ignore-next-line [parent is only defined by the sub classes]
+                $children = $qb->getQuery()->getResult();
+                foreach ($children as $child) {
+                    //Stop at loops in the tree
+                    if (isset($seen[$child->getID()])) {
+                        continue;
+                    }
+                    $seen[$child->getID()] = true;
+                    $children_of[$child->getParent()->getID()][] = $child;
+                    $next_level[] = $child;
+                }
+            }
+            $level = $next_level;
+        }
+
+        $elements = [];
+        $stack = [$element];
+        while ($stack !== []) {
+            $current = array_pop($stack);
+            $elements[] = $current;
+            foreach (array_reverse($children_of[$current->getID()] ?? []) as $child) {
+                $stack[] = $child;
+            }
+        }
+
+        return $elements;
     }
 
     /**

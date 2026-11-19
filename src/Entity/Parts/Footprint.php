@@ -58,6 +58,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\FootprintAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
@@ -71,6 +74,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter>
  */
+#[EntityConfig(routeBase: 'footprint')]
+#[AdminCrud(formClass: FootprintAdminForm::class)]
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
 #[ORM\Index(name: 'footprint_idx_name', columns: ['name'])]
