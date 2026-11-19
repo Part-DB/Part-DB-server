@@ -49,7 +49,8 @@ export function getFormField(editor, name) {
 }
 
 /**
- * Calculates the geometry of the label (all values in mm), the same way as the label templates do:
+ * Calculates the geometry of the label (all values in mm), the same way as LabelHTMLGenerator::getBarcodeLayout() and
+ * the label templates do:
  *  - width/height: The label size, marginX/marginY: The page margins
  *  - barcodeType: "none", "1D" or "2D"
  *  - reserved: The area used by the barcode ({left, top, width, height}, relative to the label), or null if there is no
@@ -61,6 +62,8 @@ export function calculateGeometry(editor, params) {
 
     const width = parseFloat(field('width')?.value) || 50;
     const height = parseFloat(field('height')?.value) || 30;
+    //An empty (or invalid) barcode size uses the legacy layouts, like on the label
+    const size = parseFloat(field('barcode_size')?.value) || null;
     const type = field('barcode_type')?.value ?? 'none';
 
     const marginX = params.pageMarginX;
@@ -72,7 +75,18 @@ export function calculateGeometry(editor, params) {
     let reserved = null;
     let text = {left: marginX, width: contentWidth};
 
-    if (barcodeType === '2D') {
+    if (barcodeType !== 'none' && size !== null) {
+        //Layout of label_page_barcode.html.twig: The size is the edge length of 2D barcodes, or the width of 1D barcodes
+        const layout = params.sizedLayout;
+        if (barcodeType === '2D') {
+            reserved = {left: marginX, top: marginY, width: size, height: size};
+            text = {left: marginX + size + layout.sideGap, width: Math.max(contentWidth - size - layout.sideGap, 1)};
+        } else {
+            //The barcode with its caption at the bottom of the label
+            const blockHeight = params.legacy1D.height + layout.stackedGap + layout.captionHeight;
+            reserved = {left: marginX, top: height - marginY - blockHeight, width: size, height: blockHeight};
+        }
+    } else if (barcodeType === '2D') {
         //Legacy layout of label_page_qr.html.twig
         const layout = params.legacy2D;
         const edge = contentWidth * layout.barcodeWidth;

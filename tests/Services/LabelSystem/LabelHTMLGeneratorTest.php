@@ -56,6 +56,29 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $layout = $params['legacy2D'];
         $this->assertGreaterThan($layout['barcodeLeft'] + $layout['barcodeWidth'], $layout['textLeft']);
         $this->assertLessThanOrEqual(1.0, $layout['textLeft'] + $layout['textWidth']);
+
+        //The layout with a barcode size: 4mm gap next to 2D barcodes (.barcode-cell-left), 1D barcodes with the same
+        //height and caption as in getBarcodeLayout()
+        $sized = $params['sizedLayout'];
+        $this->assertEqualsWithDelta(4.0, $sized['sideGap'], 0.001);
+        $options = (new LabelOptions())->setWidth(60)->setHeight(30)->setBarcodeType(BarcodeType::CODE128)->setBarcodeSize(20);
+        $barcode = $this->service->getBarcodeLayout($options);
+        $this->assertEqualsWithDelta($barcode['height'], $params['legacy1D']['height'], 0.001);
+        $this->assertEqualsWithDelta(30 - 2 * 3.175 - $barcode['height'] - $sized['stackedGap'] - $sized['captionHeight'],
+            $barcode['cell_height'], 0.001);
+    }
+
+    public function testFloatingImagesNextToSizedQRCode(): void
+    {
+        //With a barcode size, the text is next to the QR code cell (with a 4mm gap): On a 100mm label with a 40mm QR code
+        //there are 96.825mm - 44mm = 52.825mm = 199.65px left, so two 100px images do not fit next to each other
+        $image = '<figure class="image image-style-align-left"><img src="data:image/png;base64,AAAA" width="100" height="50"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::QR)->setLines($image.$image.'<p>Test</p>');
+        $options->setBarcodeSize(10);
+        $this->assertDoesNotMatchRegularExpression('/<figure[^>]*margin-top/', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+
+        $options->setBarcodeSize(40);
+        $this->assertStringContainsString('margin-top: 50px;', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
     }
 
     public function testFloatingImagesWhichDoNotFit(): void

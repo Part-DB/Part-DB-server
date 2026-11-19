@@ -187,7 +187,13 @@ final readonly class LabelHTMLGenerator
             'pageMarginY' => self::PAGE_MARGIN_Y,
             'types1D' => array_values(array_map(static fn(BarcodeType $type): string => $type->value,
                 array_filter(BarcodeType::cases(), static fn(BarcodeType $type): bool => $type->is1D()))),
-            //Layouts of the barcodes (see label_page_qr/1d.html.twig and label_style.css.twig)
+            //Layout used if a barcode size is set (see label_page_barcode.html.twig and getBarcodeLayout())
+            'sizedLayout' => [
+                'sideGap' => self::SIDE_GAP,
+                'stackedGap' => self::STACKED_GAP,
+                'captionHeight' => self::CAPTION_HEIGHT,
+            ],
+            //Legacy layouts of the barcodes, used if no barcode size is set (see label_page_qr/1d.html.twig and label_style.css.twig)
             'legacy2D' => self::LEGACY_2D_LAYOUT,
             'legacy1D' => self::LEGACY_1D_LAYOUT,
         ];
