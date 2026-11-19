@@ -1596,6 +1596,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             root_url?: scalar|Param|null,
  *             visibility?: "public"|"private"|"noPredefinedVisibility"|Param, // Default: "public"
  *         },
+ *         format_extension?: array{
+ *             resolver?: scalar|Param|null, // Name of the configured resolver to decorate, for example "default".
+ *         },
  *     }>,
  *     loaders?: array<string, array{ // Default: []
  *         stream?: array{
@@ -1644,6 +1647,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         redirect_response_code?: int|Param, // Default: 302
  *         debug?: bool|Param|null, // Whether to report images that can not be generated as an error. Defaults to the kernel debug mode. When disabled, the default image is served instead, if one is configured. // Default: null
  *     },
+ *     normalize_filter_set_names?: bool|Param|null, // Whether to replace "-" by "_" in filter set names, as Symfony does for configuration keys. Not setting this option to false is deprecated: the normalization will be removed in 3.0. // Default: null
  *     filter_sets?: array<string, array{ // Default: []
  *         quality?: scalar|Param|null,
  *         jpeg_quality?: scalar|Param|null,
