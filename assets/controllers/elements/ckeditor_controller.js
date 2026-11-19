@@ -52,7 +52,7 @@ export default class extends Controller {
     connect() {
         const mode = this.element.dataset.mode;
 
-        let EDITOR_TYPE = "Invalid";
+        let EDITOR_TYPE;
 
         switch (mode) {
             case "markdown-full":
