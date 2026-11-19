@@ -101,6 +101,9 @@ Encore
      */
     .cleanupOutputBeforeBuild()
 
+    // Persistent filesystem cache to speed up subsequent builds. It is invalidated when this config file changes.
+    .enableBuildCache({ config: [import.meta.filename] })
+
     // Displays build status system notifications to the user
     // .enableBuildNotifications()
 
@@ -169,7 +172,7 @@ if (Encore.isProduction()) {
         .addPlugin(new CompressionPlugin({
             filename: '[path][base].br',
             algorithm: 'brotliCompress',
-            test: /\.(js|css|html|svg)$/,
+            test: /\.(js|css|html|svg|wasm|json)$/,
             compressionOptions: {
                 // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
                 level: 11,
@@ -184,7 +187,7 @@ if (Encore.isProduction()) {
             algorithm: 'gzip',
             threshold: 10240,
             minRatio: 0.8,
-            test: /\.(js|css|html|svg)$/,
+            test: /\.(js|css|html|svg|wasm|json)$/,
             deleteOriginalAssets: false,
         }))
 }
