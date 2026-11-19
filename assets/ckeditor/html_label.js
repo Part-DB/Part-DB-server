@@ -123,6 +123,31 @@ Editor.builtinPlugins = [
     SpecialCharactersGreek
 ];
 
+/**
+ * dompdf can not parse hsl() colors, which CKEditor uses by default (in its color palettes and color pickers). So all
+ * colors of the label editor use rgb() instead: The default CKEditor palette, converted to rgb.
+ */
+const LABEL_COLORS = [
+    {color: 'rgb(0, 0, 0)', label: 'Black'},
+    {color: 'rgb(77, 77, 77)', label: 'Dim grey'},
+    {color: 'rgb(153, 153, 153)', label: 'Grey'},
+    {color: 'rgb(230, 230, 230)', label: 'Light grey'},
+    {color: 'rgb(255, 255, 255)', label: 'White', hasBorder: true},
+    {color: 'rgb(230, 77, 77)', label: 'Red'},
+    {color: 'rgb(230, 153, 77)', label: 'Orange'},
+    {color: 'rgb(230, 230, 77)', label: 'Yellow'},
+    {color: 'rgb(153, 230, 77)', label: 'Light green'},
+    {color: 'rgb(77, 230, 77)', label: 'Green'},
+    {color: 'rgb(77, 230, 153)', label: 'Aquamarine'},
+    {color: 'rgb(77, 230, 230)', label: 'Turquoise'},
+    {color: 'rgb(77, 153, 230)', label: 'Light blue'},
+    {color: 'rgb(77, 77, 230)', label: 'Blue'},
+    {color: 'rgb(153, 77, 230)', label: 'Purple'},
+];
+
+/** The color picker (custom colors) must output rgb() too */
+const LABEL_COLOR_PICKER = {format: 'rgb'};
+
 // Editor configuration.
 Editor.defaultConfig = {
     toolbar: {
@@ -171,6 +196,14 @@ Editor.defaultConfig = {
         shouldNotGroupWhenFull: true
     },
     language: 'en',
+    fontColor: {
+        colors: LABEL_COLORS,
+        colorPicker: LABEL_COLOR_PICKER,
+    },
+    fontBackgroundColor: {
+        colors: LABEL_COLORS,
+        colorPicker: LABEL_COLOR_PICKER,
+    },
     fontFamily: {
         options: [
             'default',
@@ -262,7 +295,17 @@ Editor.defaultConfig = {
             'mergeTableCells',
             'tableCellProperties',
             'tableProperties'
-        ]
+        ],
+        tableProperties: {
+            borderColors: LABEL_COLORS,
+            backgroundColors: LABEL_COLORS,
+            colorPicker: LABEL_COLOR_PICKER,
+        },
+        tableCellProperties: {
+            borderColors: LABEL_COLORS,
+            backgroundColors: LABEL_COLORS,
+            colorPicker: LABEL_COLOR_PICKER,
+        },
     },
 };
 
