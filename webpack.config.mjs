@@ -118,9 +118,11 @@ Encore
     // .configureJsMinimizerPlugin((options, MinimizerPlugin) => {
     //     options.minify = MinimizerPlugin.esbuildMinify
     // })
-    // .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
-    //     options.minify = MinimizerPlugin.lightningCssMinify;
-    // })
+    // Encore 7 no longer minifies CSS by default, so we must configure a minifier explicitly.
+    // We use cssnano, as it is pure JS and works everywhere node runs (unlike native minifiers like lightningcss)
+    .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
+        options.minify = MinimizerPlugin.cssnanoMinify;
+    })
 
     // configure Babel
     .configureBabel((config) => {
