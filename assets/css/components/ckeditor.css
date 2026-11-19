@@ -30,6 +30,12 @@
     line-height: 1.2804;
 }
 
+/* CKEditor gives block images a min-width of 50px, which the PDF (label_style.css.twig) does not have. Without this, block
+   images smaller than ~13mm would be shown larger in the editor than on the label */
+.ck-html-label .ck-content .image {
+    min-width: 0;
+}
+
 .ck-html-label .ck-content [style*="font-family:Helvetica"] {
     line-height: 1.0175;
 }
@@ -203,8 +209,8 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
 .ck.partdb-image-size-form {
     display: flex;
     flex-direction: column;
-    gap: var(--ck-spacing-standard);
-    padding: var(--ck-spacing-large);
+    gap: var(--ck-spacing-base);
+    padding: var(--ck-spacing-lg);
     min-width: 12em;
 }
 
@@ -268,6 +274,17 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
 
     --ck-content-font-color: var(--ck-color-base-text);
 
+    /* CKEditor 5 v49 increased the padding of the editing area (1em on all sides), keep the previous value */
+    --ck-editor-editable-padding: 0 0.6em;
+}
+
+/* Keep the spacing above the first and below the last element of the content from before CKEditor 5 v49 */
+.ck.ck-editor__editable_inline > :first-child {
+    margin-top: 0.9em;
+}
+
+.ck.ck-editor__editable_inline > :last-child {
+    margin-bottom: 0.9em;
 }
 
 /* HTML snippets (see PartDBLabelHtmlEmbed.js): Show their rendered content in the size and position it has on the label
@@ -310,7 +327,7 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
 
 .ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview-placeholder {
     position: static;
-    font-size: var(--ck-font-size-tiny);
+    font-size: var(--ck-font-size-xs);
 }
 
 /* The label and the edit button of the widget cover the content, so they are only shown on hover or if it is selected */
@@ -333,6 +350,6 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
     font-family: monospace;
     tab-size: 4;
     white-space: pre;
-    margin: var(--ck-spacing-large);
+    margin: var(--ck-spacing-lg);
     margin-bottom: 0;
 }

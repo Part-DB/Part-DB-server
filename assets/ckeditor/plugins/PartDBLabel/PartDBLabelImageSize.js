@@ -49,6 +49,16 @@ class ImageSizeFormView extends View {
         submitHandler({view: this});
     }
 
+    /** Called by the dropdown panel, when the dropdown is opened via keyboard */
+    focus() {
+        this.widthInput.focus();
+    }
+
+    /** Called by the dropdown panel, when the dropdown is opened via keyboard with the arrow up key */
+    focusLast() {
+        this.saveButton.focus();
+    }
+
     _createInput(label) {
         const field = new LabeledFieldView(this.locale, createLabeledInputNumber);
         field.label = label;

@@ -31,7 +31,6 @@ import {LinkImage} from 'ckeditor5';
 import {List} from 'ckeditor5';
 import {ListProperties} from 'ckeditor5';
 import {MediaEmbed} from 'ckeditor5';
-import {MediaEmbedToolbar} from 'ckeditor5';
 import {Paragraph} from 'ckeditor5';
 import {PasteFromOffice} from 'ckeditor5';
 import {RemoveFormat} from 'ckeditor5';
@@ -54,7 +53,6 @@ import {TableProperties} from 'ckeditor5';
 import {TableToolbar} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
 import {WordCount} from 'ckeditor5';
-import {EditorWatchdog} from 'ckeditor5';
 import PartDBLabel from "./plugins/PartDBLabel/PartDBLabel";
 import {sanitizeLabelHtml} from "./plugins/PartDBLabel/PartDBLabelHtmlEmbed";
 import SpecialCharactersGreek from "./plugins/special_characters_emoji";
@@ -95,7 +93,6 @@ Editor.builtinPlugins = [
     List,
     ListProperties,
     MediaEmbed,
-    MediaEmbedToolbar,
     Paragraph,
     PasteFromOffice,
     RemoveFormat,
@@ -309,4 +306,4 @@ Editor.defaultConfig = {
     },
 };
 
-export default { Editor, EditorWatchdog };
+export default { Editor };
