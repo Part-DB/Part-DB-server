@@ -98,6 +98,7 @@ export default class PartDBLabelPartImage extends Plugin {
                 (commandEnabled, supported) => commandEnabled && supported);
 
             this.listenTo(button, 'execute', () => {
+                //Inserted like other new images: As block image with the "Wrap text: left" style (see PartDBLabelImageStyles)
                 editor.execute('insertImage', {source: {
                     src: createPlaceholderSrc(DEFAULT_SIZE, DEFAULT_SIZE), alt: 'Part image',
                     width: DEFAULT_SIZE, height: DEFAULT_SIZE,

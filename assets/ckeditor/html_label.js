@@ -280,6 +280,10 @@ Editor.defaultConfig = {
         },
         //Percentages would be relative to the (much wider) editor, and not to the label, so use absolute sizes instead
         resizeUnit: 'px',
+        //New images are block images, which get the "Wrap text: left" style (see PartDBLabelImageStyles)
+        insert: {
+            type: 'block',
+        },
     },
     //Show HTML snippets rendered (like on the label), their source is edited in a dialog (see PartDBLabelHtmlEmbed.js)
     htmlEmbed: {

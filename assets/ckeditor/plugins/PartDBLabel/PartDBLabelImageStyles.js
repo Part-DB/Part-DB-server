@@ -19,10 +19,20 @@
 
 import {Plugin} from 'ckeditor5';
 
+/** The style of images inserted in the editor ("Wrap text: left") */
+const NEW_IMAGE_STYLE = 'alignLeft';
+
+/** The commands which insert new images (via the toolbar, an upload, or by dropping or pasting image files) */
+const INSERT_COMMANDS = ['insertImage', 'uploadImage'];
+
 /**
- * Converts images of existing labels, which use the "side" image style (offered by older versions of the label editor),
- * to the "Wrap text: right" style (alignRight), which replaced it. The images are then saved with the new style.
- * The label generator renders both styles the same way, so labels which were not edited again look the same.
+ * Handles the image styles of the label editor:
+ *  - Converts images of existing labels, which use the "side" image style (offered by older versions of the label
+ *    editor), to the "Wrap text: right" style (alignRight), which replaced it. The images are then saved with the new
+ *    style. The label generator renders both styles the same way, so labels which were not edited again look the same.
+ *  - Images inserted in the editor get the "Wrap text: left" style. Otherwise they would be block images without a style,
+ *    which keep the default positioning of images of older labels (no wrapping, wide side margins), and which can not be
+ *    selected in the image toolbar. Images of existing labels (and images moved or restored by undo) are not changed.
  */
 export default class PartDBLabelImageStyles extends Plugin {
     static get pluginName() {
@@ -41,5 +51,39 @@ export default class PartDBLabelImageStyles extends Plugin {
                 conversionApi.writer.setAttribute('imageStyle', 'alignRight', image);
             }
         }, {priority: 'lowest'});
+    }
+
+    afterInit() {
+        const editor = this.editor;
+
+        //Whether one of the insert commands is executed. The images are inserted synchronously during the execution, so
+        //the flag is reset afterward (also if the command is disabled or fails).
+        let inserting = false;
+        for (const name of INSERT_COMMANDS) {
+            const command = editor.commands.get(name);
+            if (command) {
+                this.listenTo(command, 'execute', () => {
+                    inserting = true;
+                    queueMicrotask(() => inserting = false);
+                }, {priority: 'highest'});
+            }
+        }
+
+        //Part of the same change as the insertion, so that it is undone together with it
+        editor.model.document.registerPostFixer(writer => {
+            if (!inserting) {
+                return false;
+            }
+
+            let changed = false;
+            for (const change of editor.model.document.differ.getChanges()) {
+                const image = change.type === 'insert' && change.name === 'imageBlock' ? change.position.nodeAfter : null;
+                if (image?.is('element', 'imageBlock') && !image.hasAttribute('imageStyle')) {
+                    writer.setAttribute('imageStyle', NEW_IMAGE_STYLE, image);
+                    changed = true;
+                }
+            }
+            return changed;
+        });
     }
 }
