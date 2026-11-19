@@ -692,7 +692,7 @@ final readonly class LabelHTMLGenerator
     {
         [$box_width, $box_height] = $this->getPlaceholderSize($img);
 
-        if ($image === null) {
+        if ($image === null || $image['width'] <= 0 || $image['height'] <= 0) {
             $img->setAttribute('src', self::EMPTY_IMAGE);
             $style = sprintf('width: %.2Fpx; height: %.2Fpx;', $box_width, $box_height);
         } else {

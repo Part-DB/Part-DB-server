@@ -116,6 +116,36 @@ final class LabelPartImageProviderTest extends KernelTestCase
         }
     }
 
+    public function testSVGSize(): void
+    {
+        //SVG images are scaled to the placeholder, so only their aspect ratio matters, but their size must never be zero:
+        //Absolute units are converted to px, and the viewBox is used if there is no absolute size
+        $svgs = [
+            'width="0.4in" height="0.3in"' => 4 / 3,
+            'width="40mm" height="1cm"' => 4.0,
+            'width="1.5pt" height="4px"' => 0.5,
+            'viewBox="0 0 0.4 0.3"' => 4 / 3,
+            'width="100%" height="100%" viewBox="0 0 30 10"' => 3.0,
+            'width="2em" height="1em"' => 1.0,
+        ];
+        $file = 'public/media/_label_part_image_test.svg';
+        @mkdir(dirname($file), 0777, true);
+
+        try {
+            foreach ($svgs as $attributes => $ratio) {
+                file_put_contents($file, '<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" '.$attributes.'></svg>');
+                $image = (clone $this->service)->getImage(self::createPartWithPicture('%MEDIA%/_label_part_image_test.svg'));
+
+                $this->assertStringStartsWith('data:image/svg+xml;base64,', $image['uri'] ?? '', $attributes);
+                $this->assertGreaterThan(0, $image['width'], $attributes);
+                $this->assertGreaterThan(0, $image['height'], $attributes);
+                $this->assertEqualsWithDelta($ratio, $image['width'] / $image['height'], 0.02, $attributes);
+            }
+        } finally {
+            unlink($file);
+        }
+    }
+
     public function testNoImage(): void
     {
         //Part without picture

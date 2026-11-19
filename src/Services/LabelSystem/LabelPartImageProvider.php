@@ -172,6 +172,8 @@ final class LabelPartImageProvider
 
     /**
      * Determines the size of an SVG image from its width/height attributes or its viewBox. Defaults to a square.
+     * SVG images are scaled to the placeholder, so only the aspect ratio matters: Small sizes are scaled up, so that the
+     * aspect ratio is kept when they are rounded to whole pixels (and the size never becomes zero).
      * @return array{int, int}
      */
     private function getSVGSize(string $svg): array
@@ -180,20 +182,47 @@ final class LabelPartImageProvider
         $xml = simplexml_load_string($svg);
         libxml_use_internal_errors($previous);
 
+        $width = $height = null;
         if ($xml !== false) {
-            $width = (float) ($xml['width'] ?? 0);
-            $height = (float) ($xml['height'] ?? 0);
-            if ($width > 0 && $height > 0) {
-                return [(int) round($width), (int) round($height)];
-            }
+            $width = $this->parseSVGLength((string) ($xml['width'] ?? ''));
+            $height = $this->parseSVGLength((string) ($xml['height'] ?? ''));
 
-            $viewBox = preg_split('/[\s,]+/', trim((string) ($xml['viewBox'] ?? ''))) ?: [];
-            if (count($viewBox) === 4 && (float) $viewBox[2] > 0 && (float) $viewBox[3] > 0) {
-                return [(int) round((float) $viewBox[2]), (int) round((float) $viewBox[3])];
+            if ($width === null || $height === null) {
+                $viewBox = preg_split('/[\s,]+/', trim((string) ($xml['viewBox'] ?? ''))) ?: [];
+                [$width, $height] = count($viewBox) === 4 && (float) $viewBox[2] > 0 && (float) $viewBox[3] > 0
+                    ? [(float) $viewBox[2], (float) $viewBox[3]] : [null, null];
             }
         }
 
-        return [100, 100];
+        if ($width === null || $height === null) {
+            return [100, 100];
+        }
+
+        $scale = max(1.0, 100 / min($width, $height));
+        return [max(1, (int) round($width * $scale)), max(1, (int) round($height * $scale))];
+    }
+
+    /**
+     * Converts an absolute SVG length (e.g. "120", "120px", "1.5in" or "40mm") to px. Returns null if it is empty, not
+     * positive, or relative (e.g. "%" or "em"), so that it does not define the size of the image.
+     */
+    private function parseSVGLength(string $length): ?float
+    {
+        if (preg_match('/^\s*(\d*\.?\d+(?:e[+-]?\d+)?)\s*(px|in|cm|mm|q|pt|pc)?\s*$/i', $length, $matches) !== 1) {
+            return null;
+        }
+
+        $value = (float) $matches[1] * match (strtolower($matches[2] ?? '')) {
+            'in' => 96.0,
+            'cm' => 96 / 2.54,
+            'mm' => 96 / 25.4,
+            'q' => 96 / 101.6,
+            'pt' => 96 / 72,
+            'pc' => 16.0,
+            default => 1.0,
+        };
+
+        return $value > 0 ? $value : null;
     }
 
     private function toDataUri(string $content, string $mime): string
