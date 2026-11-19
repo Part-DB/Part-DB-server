@@ -214,6 +214,16 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
     min-width: 12em;
 }
 
+/* Part images are only rendered for parts and part lots (see PartDBLabelPreview.js) */
+.ck-html-label.partdb-label-no-part-image .ck-content img[src^="data:image/svg+xml;partdb=part-image"] {
+    opacity: 0.3;
+}
+
+/* Same as in label_style.css.twig */
+.ck-html-label .ck-content .image-inline:has(img[src^="data:image/svg+xml;partdb=part-image"]) {
+    vertical-align: top;
+}
+
 .ck-html-label .ck-content .image-style-align-left,
 .ck-html-label .ck-content .image-style-align-right,
 .ck-html-label .ck-content .image-style-side,

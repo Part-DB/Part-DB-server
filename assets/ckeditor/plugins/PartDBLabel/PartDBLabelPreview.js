@@ -18,7 +18,7 @@
  */
 
 import {Plugin} from 'ckeditor5';
-import {calculateGeometry, getParameters, PX_PER_MM} from "./labelGeometry";
+import {calculateGeometry, getFormField, getParameters, PART_IMAGE_ELEMENTS, PX_PER_MM} from "./labelGeometry";
 
 /** The gap between wrapped images and the text in mm (the same as --partdb-float-gap in ckeditor.css) */
 const FLOAT_GAP = 4;
@@ -78,6 +78,9 @@ export default class PartDBLabelPreview extends Plugin {
                 style.setProperty('--partdb-reserved-width', px(geometry.reserved.width));
                 style.setProperty('--partdb-reserved-height', px(geometry.reserved.height));
             }
+
+            //Part images are only rendered for parts and part lots (see LabelPartImageProvider)
+            root.classList.toggle('partdb-label-no-part-image', !PART_IMAGE_ELEMENTS.includes(getFormField(editor, 'supported_element')?.value ?? 'part'));
 
             root.classList.add('partdb-label-preview');
 
