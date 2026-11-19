@@ -146,6 +146,24 @@ final class LabelPartImageProviderTest extends KernelTestCase
         }
     }
 
+    public function testHugeImagesAreNotDecoded(): void
+    {
+        //A tiny file can describe a huge image: Decoding these 10000x10000px would need about 400MB of memory, so the image
+        //is not embedded (instead of exhausting the memory)
+        $chunk = static fn(string $type, string $data): string => pack('N', strlen($data)).$type.$data.pack('N', crc32($type.$data));
+        $png = "\x89PNG\r\n\x1a\n".$chunk('IHDR', pack('NNCCCCC', 10000, 10000, 8, 6, 0, 0, 0)).$chunk('IEND', '');
+        $file = 'public/media/_label_part_image_test.png';
+        @mkdir(dirname($file), 0777, true);
+        file_put_contents($file, $png);
+
+        try {
+            $this->assertSame([10000, 10000], array_slice(getimagesize($file) ?: [], 0, 2));
+            $this->assertNull($this->service->getImage(self::createPartWithPicture('%MEDIA%/_label_part_image_test.png')));
+        } finally {
+            unlink($file);
+        }
+    }
+
     public function testNoImage(): void
     {
         //Part without picture

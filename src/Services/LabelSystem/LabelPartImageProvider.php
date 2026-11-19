@@ -39,6 +39,11 @@ final class LabelPartImageProvider
     /** Images larger than this (in px) are downscaled, which is still enough for about 50mm at 300dpi */
     private const MAX_SIZE = 600;
 
+    /** The maximum number of pixels of an image, which is decoded for downscaling (about 25 megapixels) */
+    private const MAX_DECODE_PIXELS = 25_000_000;
+    /** The memory needed to decode an image, per pixel (4 bytes for a truecolor image, plus some reserve) */
+    private const DECODE_BYTES_PER_PIXEL = 5;
+
     /** @var array<int|string, array{uri: string, width: int, height: int}|null> Cache by attachment, as labels for many part lots often use the same image */
     private array $cache = [];
 
@@ -150,6 +155,12 @@ final class LabelPartImageProvider
 
         //Downscale large images, so that the PDF does not get huge. PNG keeps transparency.
         if (max($width, $height) > self::MAX_SIZE) {
+            //Decoding needs memory for all pixels of the original image, which can be much more than the file size (e.g.
+            //for compressed images with large uniform areas). Running out of memory can not be caught, so such images are
+            //not embedded (dompdf would have to decode the original image as well).
+            if (!$this->canDecode($width, $height)) {
+                return null;
+            }
             $image = @imagecreatefromstring($content);
             if ($image !== false) {
                 $scale = self::MAX_SIZE / max($width, $height);
@@ -168,6 +179,39 @@ final class LabelPartImageProvider
         }
 
         return ['uri' => $this->toDataUri($content, $mime), 'width' => $width, 'height' => $height];
+    }
+
+    /**
+     * Checks if an image of the given size (in px) can be decoded without running out of memory.
+     */
+    private function canDecode(int $width, int $height): bool
+    {
+        $pixels = $width * $height;
+        if ($pixels > self::MAX_DECODE_PIXELS) {
+            return false;
+        }
+
+        $limit = $this->getMemoryLimit();
+        return $limit === null || $pixels * self::DECODE_BYTES_PER_PIXEL < $limit - memory_get_usage();
+    }
+
+    /**
+     * Returns the memory limit of PHP in bytes, or null if there is none.
+     */
+    private function getMemoryLimit(): ?int
+    {
+        $limit = trim((string) ini_get('memory_limit'));
+        if ($limit === '' || $limit === '-1') {
+            return null;
+        }
+
+        $value = (int) $limit;
+        return match (strtolower(substr($limit, -1))) {
+            'g' => $value * 1024 ** 3,
+            'm' => $value * 1024 ** 2,
+            'k' => $value * 1024,
+            default => $value,
+        };
     }
 
     /**

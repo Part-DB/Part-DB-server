@@ -36,8 +36,8 @@ the image of the part is used.
 
 The placeholder can be resized and positioned like any other image. When the label is generated, the image is centered in
 the placeholder and scaled so that its larger dimension fits. If the part has no image (or the image is only stored as
-external URL, which can not be embedded in the label), the placeholder stays empty, so the layout of the label does not
-change.
+external URL, which can not be embedded in the label, or is too large to be processed, i.e. more than 25 megapixels), the
+placeholder stays empty, so the layout of the label does not change.
 
 In Twig mode (or when writing HTML by hand), you can use an image with the `partdb-part-image` class and its size in px:
 `<img class="partdb-part-image" style="width: 80px; height: 60px;">`.
