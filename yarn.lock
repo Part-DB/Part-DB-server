@@ -2472,10 +2472,15 @@ codejar-linenumbers@^1.0.1:
     codejar "^4.1.1"
     prismjs "^1.29.0"
 
-codejar@^4.1.1, codejar@^4.3.0:
+codejar@^4.1.1:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/codejar/-/codejar-4.3.0.tgz#16901574fa2114def629ff20bd0408acb1891a12"
   integrity sha512-A7BlrtD2oHR4xsABs/lLvDNxiPxkx71SuyHhcilBHbPMASpQs4d1AG2XjDSAm7y40RmfXbSGbMBhllGy//CDOA==
+
+codejar@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/codejar/-/codejar-5.0.0.tgz#2c6cc612545d69705a58ad59d6728826153a5928"
+  integrity sha512-p0yJqjxcohip+OxJqjn8axh/i1Gp2Jqg8p135M0CE5Qu/sgtmMK1/ZVGv6YgSMxllfc3rovrMfwYG39PqaPRug==
 
 collapse-white-space@^2.0.0:
   version "2.1.0"
