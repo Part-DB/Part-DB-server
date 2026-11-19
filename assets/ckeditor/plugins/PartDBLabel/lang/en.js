@@ -20,6 +20,10 @@
 import {add} from "ckeditor5";
 
 add( "en", {
+    'Size': 'Size',
+    'Width (mm)': 'Width (mm)',
+    'Height (mm)': 'Height (mm)',
+    'Set the size of the image': 'Set the size of the image',
     'Label Placeholder': 'Label placeholder',
     'Part': 'Part',
 
