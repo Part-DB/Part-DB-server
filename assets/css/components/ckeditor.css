@@ -269,3 +269,70 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
     --ck-content-font-color: var(--ck-color-base-text);
 
 }
+
+/* HTML snippets (see PartDBLabelHtmlEmbed.js): Show their rendered content in the size and position it has on the label
+   (where the snippet is a plain div), instead of the default box with padding, minimum width and a centered preview.
+   The source is edited in a dialog, so the widget only needs its outline and the edit button. */
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed {
+    min-width: 0;
+    margin: 0 var(--partdb-float-gap) 0 0;
+    background-color: transparent;
+    font-size: inherit;
+    text-align: inherit;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__content-wrapper {
+    padding: 0;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview-content {
+    display: flow-root;
+    margin: 0;
+    background-color: transparent;
+    border-spacing: 0;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview-content > * {
+    margin-left: initial;
+    margin-right: initial;
+}
+
+/* The placeholder ("Empty snippet content") is only needed if there is nothing to show */
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview:has(> .raw-html-embed__preview-content:not(:empty)) > .raw-html-embed__preview-placeholder {
+    display: none;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__preview-placeholder {
+    position: static;
+    font-size: var(--ck-font-size-tiny);
+}
+
+/* The label and the edit button of the widget cover the content, so they are only shown on hover or if it is selected */
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed:not(.ck-widget_selected):not(:hover)::before,
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed:not(.ck-widget_selected):not(:hover) .raw-html-embed__buttons-wrapper {
+    display: none;
+}
+
+.ck-html-label.partdb-label-preview .ck-widget.raw-html-embed .raw-html-embed__buttons-wrapper {
+    top: 0;
+    right: 0;
+}
+
+/* The dialog to edit the source of an HTML snippet */
+.partdb-html-embed-dialog .partdb-html-embed-source {
+    box-sizing: border-box;
+    width: min(60em, 85vw);
+    height: min(25em, 60vh);
+    resize: both;
+    font-family: monospace;
+    tab-size: 4;
+    white-space: pre;
+    margin: var(--ck-spacing-large);
+    margin-bottom: 0;
+}

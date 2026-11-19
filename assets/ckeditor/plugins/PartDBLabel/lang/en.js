@@ -20,6 +20,7 @@
 import {add} from "ckeditor5";
 
 add( "en", {
+    'Edit HTML snippet': 'Edit HTML snippet',
     'Size': 'Size',
     'Width (mm)': 'Width (mm)',
     'Height (mm)': 'Height (mm)',

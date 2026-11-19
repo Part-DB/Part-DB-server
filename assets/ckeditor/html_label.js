@@ -56,6 +56,7 @@ import {Underline} from 'ckeditor5';
 import {WordCount} from 'ckeditor5';
 import {EditorWatchdog} from 'ckeditor5';
 import PartDBLabel from "./plugins/PartDBLabel/PartDBLabel";
+import {sanitizeLabelHtml} from "./plugins/PartDBLabel/PartDBLabelHtmlEmbed";
 import SpecialCharactersGreek from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
@@ -248,6 +249,11 @@ Editor.defaultConfig = {
         },
         //Percentages would be relative to the (much wider) editor, and not to the label, so use absolute sizes instead
         resizeUnit: 'px',
+    },
+    //Show HTML snippets rendered (like on the label), their source is edited in a dialog (see PartDBLabelHtmlEmbed.js)
+    htmlEmbed: {
+        showPreviews: true,
+        sanitizeHtml: sanitizeLabelHtml,
     },
     table: {
         contentToolbar: [
