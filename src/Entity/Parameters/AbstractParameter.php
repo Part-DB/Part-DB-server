@@ -65,6 +65,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 use function sprintf;
 
@@ -98,6 +99,7 @@ use function sprintf;
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new parameter.
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 #[UniqueEntityIgnoringOrphans(fields: ['name', 'group', 'element'], ownerField: 'element')]
+#[Assert\Callback(callback: 'validateValueRange', groups: ['range'])]
 abstract class AbstractParameter extends AbstractNamedDBElement implements UniqueValidatableInterface
 {
 
@@ -127,8 +129,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      * @var float|null the guaranteed minimum value of this property
      */
     #[Assert\Type(['float', 'null'])]
-    #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
-    #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
@@ -145,7 +145,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      * @var float|null the maximum value of this property
      */
     #[Assert\Type(['float', 'null'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
@@ -521,5 +520,36 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function getComparableFields(): array
     {
         return ['name' => $this->name, 'group' => $this->group, 'element' => $this->element?->getId()];
+    }
+    
+
+    /**
+     * Validates that the min, typical and max values are consistent.
+     *
+     * Only runs in the 'range' validation group, so it does not block saving by default.
+     * Callers that want the check to be enforced have to validate the 'range' group explicitly.
+     */
+    public function validateValueRange(ExecutionContextInterface $context): void
+    {
+        if (null !== $this->value_min && null !== $this->value_typical && $this->value_min > $this->value_typical) {
+            $context->buildViolation('parameters.validator.min_lesser_typical')
+                ->atPath('value_min')
+                ->setParameter('{{ compared_value }}', (string) $this->value_typical)
+                ->addViolation();
+        }
+
+        if (null !== $this->value_min && null !== $this->value_max && $this->value_min >= $this->value_max) {
+            $context->buildViolation('parameters.validator.min_lesser_max')
+                ->atPath('value_min')
+                ->setParameter('{{ compared_value }}', (string) $this->value_max)
+                ->addViolation();
+        }
+
+        if (null !== $this->value_typical && null !== $this->value_max && $this->value_max < $this->value_typical) {
+            $context->buildViolation('parameters.validator.max_greater_typical')
+                ->atPath('value_max')
+                ->setParameter('{{ compared_value }}', (string) $this->value_typical)
+                ->addViolation();
+        }
     }
 }
