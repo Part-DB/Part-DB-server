@@ -39,6 +39,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntitySystem\EntityConfigRegistry;
+use Doctrine\Common\Util\ClassUtils;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -96,7 +97,7 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('part_info', $params);
         }
 
-        $class = $entity::class;
+        $class = ClassUtils::getClass($entity);
         if ($this->entityConfigRegistry->hasConfig($class)) {
             return $this->urlGenerator->generate(
                 $this->entityConfigRegistry->getConfig($class)->getRouteBase() . '_edit',
@@ -121,7 +122,7 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('part_info', ['id' => $entity->getElement()->getID(), 'timestamp' => $dateTime->getTimestamp()]);
         }
 
-        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.$entity::class);
+        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.ClassUtils::getClass($entity));
     }
 
     public function viewURL(Attachment $entity): string
@@ -142,7 +143,7 @@ class EntityURLGenerator
     public function downloadURL($entity): string
     {
         if (!($entity instanceof Attachment)) {
-            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', is_object($entity) ? ClassUtils::getClass($entity) : get_debug_type($entity)));
         }
 
         if ($entity->hasInternal()) {
@@ -167,7 +168,7 @@ class EntityURLGenerator
      */
     public function infoURL(AbstractDBElement $entity): string
     {
-        $class = $entity::class;
+        $class = ClassUtils::getClass($entity);
         if (!$this->entityConfigRegistry->hasConfig($class)) {
             throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
         }
@@ -191,7 +192,7 @@ class EntityURLGenerator
      */
     public function editURL(AbstractDBElement $entity): string
     {
-        $class = $entity::class;
+        $class = ClassUtils::getClass($entity);
         if (!$this->entityConfigRegistry->hasConfig($class)) {
             throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
         }
@@ -214,7 +215,7 @@ class EntityURLGenerator
      */
     public function createURL(AbstractDBElement|string $entity): string
     {
-        $class = is_string($entity) ? $entity : $entity::class;
+        $class = is_string($entity) ? $entity : ClassUtils::getClass($entity);
         if (!$this->entityConfigRegistry->hasConfig($class)) {
             throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
         }
@@ -236,7 +237,7 @@ class EntityURLGenerator
      */
     public function cloneURL(AbstractDBElement $entity): string
     {
-        $class = $entity::class;
+        $class = ClassUtils::getClass($entity);
         if (!$this->entityConfigRegistry->hasConfig($class)) {
             throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
         }
@@ -273,7 +274,7 @@ class EntityURLGenerator
 
     public function deleteURL(AbstractDBElement $entity): string
     {
-        $class = $entity::class;
+        $class = ClassUtils::getClass($entity);
         if (!$this->entityConfigRegistry->hasConfig($class)) {
             throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $class));
         }
@@ -298,7 +299,7 @@ class EntityURLGenerator
      */
     protected function mapToController(array $map, string|AbstractDBElement $entity): string
     {
-        $class = is_string($entity) ? $entity : $entity::class;
+        $class = is_string($entity) ? $entity : ClassUtils::getClass($entity);
 
         //Check if we have an direct mapping for the given class
         if (!array_key_exists($class, $map)) {
@@ -309,7 +310,7 @@ class EntityURLGenerator
                 }
             }
 
-            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', is_string($entity) ? $entity : ClassUtils::getClass($entity)));
         }
 
         return $map[$class];
