@@ -118,6 +118,18 @@ class LabelOptionsType extends AbstractType
             },
         ]);
 
+        $builder->add('barcode_size', NumberType::class, [
+            'label' => 'label_options.barcode_size.label',
+            'help' => 'label_options.barcode_size.help',
+            'html5' => true,
+            'required' => false,
+            'attr' => [
+                'placeholder' => 'label_options.barcode_size.placeholder',
+                'min' => 0,
+                'step' => 'any',
+            ],
+        ]);
+
         //The "lines" field is added via an event listener instead of directly, because which form type (and
         //therefore which editor) it should use depends on the entity's current process_mode: The CKEditor
         //WYSIWYG editor treats its content as HTML and therefore escapes characters like <, > and & (e.g. in
