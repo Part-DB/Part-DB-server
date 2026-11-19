@@ -4,9 +4,5 @@ ux_translator:
     # Only include the frontend translation domain in the JavaScript bundle
     domains:
         - 'frontend'
-
-when@prod:
-    ux_translator:
-        # Control whether TypeScript types are dumped alongside translations.
-        # Disable this if you do not use TypeScript (e.g. in production when using AssetMapper), to speed up cache warmup.
-        # dump_typescript: false
+    # We do not use TypeScript, so do not dump type declarations alongside the translations
+    dump_typescript: false

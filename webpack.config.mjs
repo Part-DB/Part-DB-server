@@ -129,9 +129,6 @@ Encore
     // enables Sass/SCSS support
     //.enableSassLoader()
 
-    // uncomment if you use TypeScript
-    .enableTypeScriptLoader()
-
     // uncomment if you use React
     //.enableReactPreset()
 
@@ -210,9 +207,9 @@ config.output.publicPath = 'auto';
 
 //Our own source files are plain scripts without file extensions on relative imports (e.g. "./error_handler").
 //Since package.json declares "type": "module", webpack's resolver otherwise requires those imports to be
-//fully specified (like native ESM does). Relax that requirement for our own JS/TS sources.
+//fully specified (like native ESM does). Relax that requirement for our own JS sources.
 config.module.rules.push({
-    test: /\.(js|mjs|ts)$/,
+    test: /\.(js|mjs)$/,
     resolve: {
         fullySpecified: false,
     },

@@ -81,8 +81,6 @@
         "stimulus-use": "^0.53.0",
         "sweetalert2": "^11.26.25",
         "three": "^0.187.0",
-        "tom-select": "^2.1.0",
-        "ts-loader": "^9.2.6",
-        "typescript": "^6.0.2"
+        "tom-select": "^2.1.0"
     }
 }
