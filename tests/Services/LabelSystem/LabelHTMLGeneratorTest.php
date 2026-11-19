@@ -40,6 +40,8 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
     {
         self::bootKernel();
         $this->service = self::getContainer()->get(LabelHTMLGenerator::class);
+        //Part images are only embedded, if the user is allowed to view them
+        LabelPartImageProviderTest::loginAs('admin');
     }
 
     public function testLabelEditorParameters(): void
@@ -79,6 +81,60 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
 
         $options->setBarcodeSize(40);
         $this->assertStringContainsString('margin-top: 50px;', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+    }
+
+    public function testPartImagePlaceholder(): void
+    {
+        //Like CKEditor outputs a resized block image: The 320x240 image must be fitted into the 120x120px placeholder
+        $lines = '<figure class="image image-style-align-right image_resized" style="width:120px;">'
+            .'<img style="aspect-ratio:64/64;" src="'.LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></figure><p>Test</p>';
+        $options = (new LabelOptions())->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [LabelPartImageProviderTest::createPartWithPicture()]);
+
+        $this->assertStringNotContainsString(LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX, $html);
+        $this->assertStringContainsString('src="data:image/png;base64,', $html);
+        $this->assertStringContainsString('width: 120.00px; height: 90.00px; padding: 15.00px 0.00px;', $html);
+        $this->assertStringContainsString('style="width: 120.00px;"', $html);
+        $this->assertStringContainsString('image-style-align-right', $html);
+
+        //Without an image, the placeholder becomes an empty box with its size
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('src="data:image/gif;base64,', $html);
+        $this->assertStringContainsString('width: 120.00px; height: 120.00px;', $html);
+    }
+
+    public function testRectangularPartImagePlaceholder(): void
+    {
+        //The size set in the editor is stored as the size of the placeholder image: The 320x240 image is fitted into 120x60px
+        $ph = LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA';
+        $options = (new LabelOptions())->setLines('<p><img src="'.$ph.'" width="120" height="60"></p>');
+        $html = $this->service->getLabelHTML($options, [LabelPartImageProviderTest::createPartWithPicture()]);
+        $this->assertStringContainsString('width: 80.00px; height: 60.00px; padding: 0.00px 20.00px;', $html);
+
+        //Resized with the resize handles afterward: The aspect ratio of the placeholder is kept
+        $options->setLines('<p><img class="image_resized" style="aspect-ratio:120/60;width:240px;" src="'.$ph.'" width="120" height="60"></p>');
+        $html = $this->service->getLabelHTML($options, [LabelPartImageProviderTest::createPartWithPicture()]);
+        $this->assertStringContainsString('width: 160.00px; height: 120.00px; padding: 0.00px 40.00px;', $html);
+    }
+
+    public function testPartImagePlaceholderInRowOfFloatingImages(): void
+    {
+        //The part image is fitted into the placeholder and centered with padding, so the floating images are fitted with
+        //the size of the placeholder, not of the image: The 320x240px image is 220x165px in the 220x200px placeholder, so
+        //the image which does not fit next to it starts 200px below
+        $placeholder = '<figure class="image image-style-align-left"><img src="'.LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA" width="220" height="200"></figure>';
+        $right = '<figure class="image image-style-align-right">'.$this->createImage(150, 50).'</figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(100)->setLines($placeholder.$right.'<p>Test</p>');
+        $part = LabelPartImageProviderTest::createPartWithPicture();
+        $html = $this->service->getLabelHTML($options, [$part]);
+        $this->assertStringContainsString('width: 220.00px; height: 165.00px; padding: 17.50px 0.00px;', $html);
+        $this->assertStringContainsString('margin-top: 200px;', $html);
+
+        //On the rendered label, the placeholder has its size and the other image starts below it
+        $layout = $this->renderLayout($options, $part);
+        [$box, $image] = $layout['figure'];
+        $this->assertEqualsWithDelta(200 * 25.4 / 96, $box['bottom'] - $box['top'], 0.05);
+        $this->assertEqualsWithDelta($box['bottom'], $image['top'], 0.05);
     }
 
     public function testFloatingImagesWhichDoNotFit(): void
@@ -321,15 +377,15 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
     }
 
     /**
-     * Renders a label for the example part with dompdf (like LabelGenerator does) and returns the boxes of its paragraphs
+     * Renders a label for the given element (the example part by default) with dompdf (like LabelGenerator does) and returns the boxes of its paragraphs
      * and figures (in mm, relative to the top left corner of the label), in the order of the content.
      * @return array{p: list<array{top: float, bottom: float, left: float, right: float}>, figure: list<array{top: float, bottom: float, left: float, right: float}>}
      */
-    private function renderLayout(LabelOptions $options): array
+    private function renderLayout(LabelOptions $options, ?object $element = null): array
     {
         $dompdf = self::getContainer()->get(DompdfFactoryInterface::class)->create();
         $dompdf->setPaper(self::getContainer()->get(LabelGenerator::class)->mmToPointsArray($options->getWidth(), $options->getHeight()));
-        $dompdf->loadHtml($this->service->getLabelHTML($options, [$this->getExamplePart()]));
+        $dompdf->loadHtml($this->service->getLabelHTML($options, [$element ?? $this->getExamplePart()]));
 
         $boxes = ['p' => [], 'figure' => []];
         $dompdf->setCallbacks([['event' => 'end_frame', 'f' => static function (Frame $frame) use (&$boxes): void {

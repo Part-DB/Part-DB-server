@@ -18,7 +18,8 @@
  */
 
 import {Plugin} from 'ckeditor5';
-import {getSelectedImage} from "./labelGeometry";
+import {getImageKind, getSelectedImage} from "./labelGeometry";
+import {setPartImagePlaceholderSize} from "./PartDBLabelPartImage";
 
 /** The directions of the handles: [name, changes width, sign of the change] */
 const HANDLES = [
@@ -33,7 +34,9 @@ const MIN_SIZE = 8;
 
 /**
  * Adds handles on the edges of the selected image, to change its width or height (in addition to the corner handles of
- * CKEditor). Images keep their aspect ratio, the other dimension is changed accordingly.
+ * CKEditor, which always keep the aspect ratio):
+ *  - Part image placeholders change only the dragged dimension, so they can get any aspect ratio
+ *  - Other images keep their aspect ratio, the other dimension is changed accordingly
  *
  * The handles are shown in an overlay over the editor content (and not inside the editing view), so that CKEditor does
  * not have to know about them. The size is only written to the model when the drag is finished (one undo step).
@@ -101,7 +104,7 @@ export default class PartDBLabelImageHandles extends Plugin {
             return null;
         }
 
-        return {image, viewElement, wrapper: domElement, img};
+        return {image, kind: getImageKind(image), viewElement, wrapper: domElement, img};
     }
 
     _update() {
@@ -184,12 +187,14 @@ export default class PartDBLabelImageHandles extends Plugin {
             height = Math.max(MIN_SIZE, drag.startHeight + drag.sign * (event.clientY - drag.startY));
         }
 
-        //Images keep their aspect ratio
-        const ratio = drag.startHeight / drag.startWidth;
-        if (drag.horizontal) {
-            height = width * ratio;
-        } else {
-            width = height / ratio;
+        //Normal images keep their aspect ratio
+        if (drag.target.kind !== 'part-image') {
+            const ratio = drag.startHeight / drag.startWidth;
+            if (drag.horizontal) {
+                height = width * ratio;
+            } else {
+                width = height / ratio;
+            }
         }
 
         drag.width = width;
@@ -245,9 +250,13 @@ export default class PartDBLabelImageHandles extends Plugin {
 
         if (drag.width !== drag.startWidth || drag.height !== drag.startHeight) {
             this.editor.model.change(writer => {
-                //Like the resize handles of CKEditor
-                writer.setAttribute('resizedWidth', (Math.round(drag.width * 100) / 100) + 'px', drag.target.image);
-                writer.removeAttribute('resizedHeight', drag.target.image);
+                if (drag.target.kind === 'part-image') {
+                    setPartImagePlaceholderSize(writer, drag.target.image, drag.width, drag.height);
+                } else {
+                    //Like the resize handles of CKEditor
+                    writer.setAttribute('resizedWidth', (Math.round(drag.width * 100) / 100) + 'px', drag.target.image);
+                    writer.removeAttribute('resizedHeight', drag.target.image);
+                }
             });
         }
 

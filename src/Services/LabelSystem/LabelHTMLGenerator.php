@@ -99,6 +99,15 @@ final readonly class LabelHTMLGenerator
         'bottom' => 8.4667,
     ];
 
+    /** The start of the src of the part image placeholder, inserted by the label editor (see PartDBLabelPartImage.js) */
+    public const PART_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=part-image';
+    /** Images with this class are replaced by the part image too (e.g. for handwritten HTML or twig mode) */
+    public const PART_IMAGE_CLASS = 'partdb-part-image';
+    /** The size of the part image placeholder in px, if no size is given (the size of the placeholder image of the editor) */
+    private const PART_IMAGE_DEFAULT_SIZE = 64.0;
+    /** An empty image, used if the part has no image, so that the placeholder keeps its size */
+    private const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
     /** Matches the CKEditor image styles, which float the image (so that the text wraps around it) */
     private const FLOATING_IMAGE_REGEX = '/image-style-(align-left|align-right|side)\b/';
 
@@ -109,7 +118,8 @@ final readonly class LabelHTMLGenerator
         private LabelBarcodeGenerator $barcodeGenerator,
         private SandboxedTwigFactory $sandboxedTwigProvider,
         private Security $security,
-        private CustomizationSettings $customizationSettings)
+        private CustomizationSettings $customizationSettings,
+        private LabelPartImageProvider $partImageProvider)
     {
     }
 
@@ -152,7 +162,7 @@ final readonly class LabelHTMLGenerator
                 $lines = $this->replacer->replace($options->getLines(), $element);
             }
 
-            $placed_lines = $this->processLines($lines, $options);
+            $placed_lines = $this->processLines($lines, $element, $options);
 
             $twig_elements[] = [
                 'element' => $element,
@@ -200,24 +210,67 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Processes the lines of a label: Fixes the position of floating images, which do not fit next to each other (see
-     * fitFloatingImages()).
-     * @return string|null The modified lines, or null if they were not changed (so that labels without floating images
-     *                     are not changed in any way)
+     * Checks if the given img element is a placeholder image of the given type, inserted via the label editor
+     * (identified by its src), or written by hand (identified by its class).
      */
-    private function processLines(string $lines, LabelOptions $options): ?string
+    private function isPlaceholderImage(\DOMElement $img, string $src_prefix, string $class): bool
     {
-        if (preg_match(self::FLOATING_IMAGE_REGEX, $lines) !== 1) {
+        return str_starts_with($img->getAttribute('src'), $src_prefix)
+            || in_array($class, preg_split('/\s+/', $img->getAttribute('class')) ?: [], true);
+    }
+
+    /**
+     * Processes the lines of a label: Replaces the placeholder images (see replacePlaceholderImages()) and fixes the
+     * position of floating images, which do not fit next to each other (see fitFloatingImages()).
+     * @return string|null The modified lines, or null if they were not changed (so that labels without placeholders or
+     *                     floating images are not changed in any way)
+     */
+    private function processLines(string $lines, object $element, LabelOptions $options): ?string
+    {
+        $has_placeholders = str_contains($lines, 'partdb=') || str_contains($lines, self::PART_IMAGE_CLASS);
+        $has_floats = preg_match(self::FLOATING_IMAGE_REGEX, $lines) === 1;
+        if (!$has_placeholders && !$has_floats) {
             return null;
         }
 
         $html5 = new HTML5(['disable_html_ns' => true]);
         $fragment = $html5->loadHTMLFragment($lines);
 
-        $changed = $this->replaceEmptyLines($fragment);
-        $changed = $this->fitFloatingImages($fragment, $this->getAvailableWidth($options)) || $changed;
+        //The placeholders are replaced first, so that their final size is used to fit the floating images
+        $changed = $has_placeholders && $this->replacePlaceholderImages($fragment, $element);
+
+        if ($has_floats) {
+            $changed = $this->replaceEmptyLines($fragment) || $changed;
+            $changed = $this->fitFloatingImages($fragment, $this->getAvailableWidth($options)) || $changed;
+        }
 
         return $changed ? $html5->saveHTML($fragment) : null;
+    }
+
+    /**
+     * Replaces the placeholder images in the given lines: Part image placeholders with the image of the part (fitted
+     * into the placeholder).
+     * @return bool Whether the lines were changed
+     */
+    private function replacePlaceholderImages(\DOMDocumentFragment $fragment, object $element): bool
+    {
+        $part_images = [];
+        foreach ((new \DOMXPath($fragment->ownerDocument))->query('.//img', $fragment) as $img) {
+            if ($img instanceof \DOMElement && $this->isPlaceholderImage($img, self::PART_IMAGE_SRC_PREFIX, self::PART_IMAGE_CLASS)) {
+                $part_images[] = $img;
+            }
+        }
+
+        if ($part_images === []) {
+            return false;
+        }
+
+        $part_image = $this->partImageProvider->getImage($element);
+        foreach ($part_images as $img) {
+            $this->placePartImage($img, $part_image);
+        }
+
+        return true;
     }
 
     /**
@@ -535,6 +588,10 @@ final readonly class LabelHTMLGenerator
             return null;
         }
 
+        if ((float) $img->getAttribute('data-box-height') > 0) {
+            return (float) $img->getAttribute('data-box-height');
+        }
+
         if (preg_match('/(?:^|;)\s*height\s*:\s*([\d.]+)\s*(px|mm)/i', $img->getAttribute('style'), $matches) === 1) {
             return strtolower($matches[2]) === 'mm' ? (float) $matches[1] * self::PX_PER_MM : (float) $matches[1];
         }
@@ -579,9 +636,109 @@ final readonly class LabelHTMLGenerator
 
         $img = $element->nodeName === 'img' ? $element : ($element->getElementsByTagName('img')->item(0));
 
+        if ($img !== null && (float) $img->getAttribute('data-box-width') > 0) {
+            return (float) $img->getAttribute('data-box-width');
+        }
+
         return $parse($element->getAttribute('style'))
             ?? ($img !== null ? $parse($img->getAttribute('style')) : null)
             ?? ($img !== null && (float) $img->getAttribute('width') > 0 ? (float) $img->getAttribute('width') : null);
+    }
+
+    /**
+     * Returns the figure wrapping the given image (CKEditor wraps images with a block style in a figure), or null.
+     */
+    private function getFigure(\DOMElement $img): ?\DOMElement
+    {
+        return $img->parentNode instanceof \DOMElement && $img->parentNode->nodeName === 'figure' ? $img->parentNode : null;
+    }
+
+    /**
+     * Sets the style and classes of a replaced placeholder image and its figure, so that the figure has the given width
+     * (then the CKEditor alignment styles work).
+     */
+    private function applyPlaceholderStyles(\DOMElement $img, string $class, string $img_style, string $figure_width): void
+    {
+        //The size is defined by us, so remove any size given in the editor
+        $img->removeAttribute('width');
+        $img->removeAttribute('height');
+        $img->setAttribute('style', trim($this->removeSizeStyles($img->getAttribute('style')).' '.$img_style));
+        $classes = array_diff(preg_split('/\s+/', $img->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [], ['image_resized', $class]);
+        $img->setAttribute('class', implode(' ', [...$classes, $class]));
+
+        $figure = $this->getFigure($img);
+        if ($figure !== null) {
+            $figure->setAttribute('style', trim($this->removeSizeStyles($figure->getAttribute('style')).' width: '.$figure_width.';'));
+            if (!str_contains($figure->getAttribute('class'), 'image_resized')) {
+                $figure->setAttribute('class', trim($figure->getAttribute('class').' image_resized'));
+            }
+        }
+    }
+
+    /**
+     * Replaces a part image placeholder with the image of the part: The placeholder keeps its size (as set in the editor),
+     * and the image is centered in it and scaled so that its larger dimension fits. If there is no image, the placeholder
+     * becomes an empty box of its size.
+     * @param  array{uri: string, width: int, height: int}|null  $image
+     */
+    private function placePartImage(\DOMElement $img, ?array $image): void
+    {
+        [$box_width, $box_height] = $this->getPlaceholderSize($img);
+
+        if ($image === null) {
+            $img->setAttribute('src', self::EMPTY_IMAGE);
+            $style = sprintf('width: %.2Fpx; height: %.2Fpx;', $box_width, $box_height);
+        } else {
+            //dompdf does not support object-fit: contain, so we scale the image ourselves and center it with padding
+            $scale = min($box_width / $image['width'], $box_height / $image['height']);
+            $width = $image['width'] * $scale;
+            $height = $image['height'] * $scale;
+            $img->setAttribute('src', $image['uri']);
+            $style = sprintf('width: %.2Fpx; height: %.2Fpx; padding: %.2Fpx %.2Fpx;',
+                $width, $height, ($box_height - $height) / 2, ($box_width - $width) / 2);
+        }
+
+        $this->applyPlaceholderStyles($img, self::PART_IMAGE_CLASS, $style, sprintf('%.2Fpx', $box_width));
+        //The style contains the size of the fitted image, so remember the size of the box (see fitFloatingImages())
+        $img->setAttribute('data-box-width', sprintf('%.2F', $box_width));
+        $img->setAttribute('data-box-height', sprintf('%.2F', $box_height));
+    }
+
+    /**
+     * Determines the size (in px) of a placeholder image: The width from the resized image or its figure (as set by
+     * the resize handles of the editor, in px), or from the width attribute. The height keeps the aspect ratio of the
+     * width and height attributes (or is set explicitly via the style).
+     * @return array{float, float}
+     */
+    private function getPlaceholderSize(\DOMElement $img): array
+    {
+        $px = static function (string $style, string $property): ?float {
+            return preg_match('/(?:^|;)\s*'.$property.'\s*:\s*([\d.]+)px/i', $style, $matches) === 1 ? (float) $matches[1] : null;
+        };
+
+        $attr_width = (float) $img->getAttribute('width') ?: self::PART_IMAGE_DEFAULT_SIZE;
+        $attr_height = (float) $img->getAttribute('height') ?: $attr_width;
+
+        $figure = $this->getFigure($img);
+        $width = $px($img->getAttribute('style'), 'width')
+            ?? ($figure !== null ? $px($figure->getAttribute('style'), 'width') : null)
+            ?? $attr_width;
+        $height = $px($img->getAttribute('style'), 'height') ?? $width * $attr_height / $attr_width;
+
+        return [$width, $height];
+    }
+
+    /**
+     * Removes all width, height and aspect-ratio declarations from the given CSS style string.
+     */
+    private function removeSizeStyles(string $style): string
+    {
+        $declarations = array_filter(array_map('trim', explode(';', $style)),
+            static fn(string $declaration): bool => $declaration !== ''
+                && preg_match('/^(width|height|aspect-ratio|min-width|max-width|min-height|max-height)\s*:/i', $declaration) !== 1
+        );
+
+        return $declarations === [] ? '' : implode('; ', $declarations).';';
     }
 
     /**

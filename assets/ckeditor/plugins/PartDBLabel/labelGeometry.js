@@ -23,8 +23,27 @@
  * lines field, so that the editor matches the generated label.
  */
 
+/**
+ * The start of the src of the part image placeholder (see LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX)
+ */
+export const PART_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=part-image';
+
+/** The label target types (values of LabelSupportedElement), which have a part image */
+export const PART_IMAGE_ELEMENTS = ['part', 'part_lot'];
+
 /** CSS px per mm (the editor uses px font sizes like the label, so 1mm on the label is this many px in the editor) */
 export const PX_PER_MM = 96 / 25.4;
+
+/**
+ * Returns the kind of the given image model element: null (no image), "part-image" (part image placeholder) or "image"
+ * (a normal image).
+ */
+export function getImageKind(image) {
+    if (!image) {
+        return null;
+    }
+    return String(image.getAttribute('src') ?? '').startsWith(PART_IMAGE_SRC_PREFIX) ? 'part-image' : 'image';
+}
 
 /**
  * Returns the selected image model element, or null.
