@@ -166,6 +166,8 @@ Editor.defaultConfig = {
             'sourceEditing',
             '|',
             'partdb_label',
+            'partdb_barcode',
+            'partdb_part_image',
         ],
         shouldNotGroupWhenFull: true
     },
@@ -230,10 +232,24 @@ Editor.defaultConfig = {
         toolbar: [
             'imageTextAlternative',
             'imageStyle:inline',
-            'imageStyle:block',
-            'imageStyle:side',
-            'linkImage'
-        ]
+            'imageStyle:wrapText',
+            //Like the default "imageStyle:breakText" dropdown, but with the "alignCenter" style instead of the default "block"
+            //style: The block style has no CSS class, so that centered images could not be distinguished from images of
+            //existing labels, which are not centered on the label (see label_style.css.twig)
+            {
+                name: 'imageStyle:breakTextCentered',
+                title: 'Break text',
+                items: ['imageStyle:alignBlockLeft', 'imageStyle:alignCenter', 'imageStyle:alignBlockRight'],
+                defaultItem: 'imageStyle:alignCenter',
+            },
+            'linkImage',
+            'partdb_image_size',
+        ],
+        styles: {
+            options: ['inline', 'alignLeft', 'alignRight', 'alignCenter', 'alignBlockLeft', 'alignBlockRight', 'block', 'side'],
+        },
+        //Percentages would be relative to the (much wider) editor, and not to the label, so use absolute sizes instead
+        resizeUnit: 'px',
     },
     table: {
         contentToolbar: [

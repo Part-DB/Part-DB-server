@@ -19,8 +19,12 @@
     {# The page div ensures the page breaks, while the page-inner elements restrict the content to the page size. Sine dompdf 3.1.1 we cannot apply the position: absolute; to the page element directly. #}
     <div class="page">
         <div class="page-inner">
-            {% if options.barcodeType.none %}
+            {# If the barcode is placed inside the lines (via the barcode placeholder image), the lines are rendered without the default layout #}
+            {% if options.barcodeType.none or element.barcode_placed %}
                 {% include "label_system/labels/label_page_none.html.twig" %}
+            {% elseif options.barcodeSize is not null %}
+                {# The size can only be applied with the newer layout. Without a size, we keep the legacy layouts, so existing labels do not change #}
+                {% include "label_system/labels/label_page_barcode.html.twig" %}
             {% elseif options.barcodeType.is2D() %}
                 {% include "label_system/labels/label_page_qr.html.twig" %}
             {% elseif options.barcodeType.is1D() %}
