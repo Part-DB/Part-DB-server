@@ -37,6 +37,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\AlternativeNames\AttachmentTypeAlternativeName;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -57,7 +58,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  * @see \App\Tests\Entity\Attachments\AttachmentTypeTest
- * @extends AbstractStructuralDBElement<AttachmentTypeAttachment, AttachmentTypeParameter>
+ * @extends AbstractStructuralDBElement<AttachmentTypeAttachment, AttachmentTypeParameter, AttachmentTypeAlternativeName>
  */
 #[EntityConfig(routeBase: 'attachment_type')]
 #[AdminCrud(formClass: AttachmentTypeAdminForm::class, extensionClass: AttachmentTypeAdminExtension::class)]
@@ -130,6 +131,10 @@ class AttachmentType extends AbstractStructuralDBElement
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     /**
      * @var Collection<Attachment>
      */
@@ -157,6 +162,7 @@ class AttachmentType extends AbstractStructuralDBElement
     {
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         parent::__construct();
         $this->attachments = new ArrayCollection();
         $this->attachments_with_type = new ArrayCollection();

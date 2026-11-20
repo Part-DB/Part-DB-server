@@ -46,6 +46,7 @@ use App\Entity\Attribute\EntityConfig;
 use App\Entity\Parameters\CurrencyParameter;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\AdminPages\Extension\CurrencyAdminExtension;
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use Brick\Math\BigDecimal;
@@ -61,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a currency that can be used for price information.
  *
- * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter>
+ * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter, AbstractAlternativeName>
  */
 #[EntityConfig(routeBase: 'currency')]
 #[AdminCrud(formClass: CurrencyAdminForm::class, extensionClass: CurrencyAdminExtension::class)]

@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\CategoryAlternativeName;
 use App\Entity\EDA\EDACategoryInfo;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
@@ -73,7 +74,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a category, a part can belong to, which is used to group parts by their function.
  *
- * @extends AbstractPartsContainingDBElement<CategoryAttachment, CategoryParameter>
+ * @extends AbstractPartsContainingDBElement<CategoryAttachment, CategoryParameter, CategoryAlternativeName>
  */
 #[EntityConfig(routeBase: 'category')]
 #[AdminCrud(formClass: CategoryAdminForm::class)]
@@ -256,6 +257,10 @@ class Category extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: CategoryAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     #[Groups(['category:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['category:read'])]
@@ -272,6 +277,7 @@ class Category extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         $this->eda_info = new EDACategoryInfo();
     }
 

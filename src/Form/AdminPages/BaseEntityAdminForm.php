@@ -27,6 +27,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
 use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\CallbackTransformer;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
@@ -125,13 +126,17 @@ class BaseEntityAdminForm extends AbstractType
                 'required' => false,
                 'label' => 'entity.edit.alternative_names.label',
                 'help' => 'entity.edit.alternative_names.help',
-                'empty_data' => null,
+                'empty_data' => '',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 'attr' => [
                     'class' => 'tagsinput',
                     'data-controller' => 'elements--tagsinput',
                 ]
             ]);
+            $builder->get('alternative_names')->addModelTransformer(new CallbackTransformer(
+                static fn(array $names): string => implode(',', $names),
+                static fn(string $csv): array => array_values(array_filter(array_map('trim', explode(',', $csv)), static fn(string $s): bool => $s !== ''))
+            ));
         }
 
         if ($options['attachment_class'] !== null) {

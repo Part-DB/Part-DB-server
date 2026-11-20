@@ -38,6 +38,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\PartCustomStateAlternativeName;
 use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
@@ -64,7 +65,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity represents a custom part state.
  * If an organisation uses Part-DB and has its custom part states, this is useful.
  *
- * @extends AbstractPartsContainingDBElement<PartCustomStateAttachment,PartCustomStateParameter>
+ * @extends AbstractPartsContainingDBElement<PartCustomStateAttachment, PartCustomStateParameter, PartCustomStateAlternativeName>
  */
 #[EntityConfig(routeBase: 'part_custom_state')]
 #[AdminCrud(formClass: PartCustomStateAdminForm::class, showParametersTab: false)]
@@ -156,6 +157,10 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: PartCustomStateAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     #[Groups(['part_custom_state:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['part_custom_state:read'])]
@@ -167,6 +172,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 
     public function getColor(): ?BootstrapColor

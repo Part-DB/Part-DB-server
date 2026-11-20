@@ -42,8 +42,8 @@ abstract readonly class AbstractStructuralElementWriteInput
         public ?bool $notSelectable,
         /** Pass null to move this element to the root level (no parent). */
         public ?int $parentId,
-        /** Comma-separated alternative names, used for searching (e.g. by the info provider system). Pass null (or "") to clear. */
-        public ?string $alternativeNames,
+        /** Alternative names used for searching (e.g. by the info provider system). Pass null to leave unchanged, empty array to clear. */
+        public ?array $alternativeNames,
         /** Optional message for the audit log; not a field of the element itself. */
         public ?string $logComment,
         private array $providedFields,
@@ -64,7 +64,7 @@ abstract readonly class AbstractStructuralElementWriteInput
      *     comment: string|null,
      *     notSelectable: bool|null,
      *     parentId: int|null,
-     *     alternativeNames: string|null,
+     *     alternativeNames: list<string>|null,
      *     logComment: string|null,
      * }
      */
@@ -74,7 +74,7 @@ abstract readonly class AbstractStructuralElementWriteInput
             'comment' => PartInputHelpers::str($data, 'comment'),
             'notSelectable' => PartInputHelpers::bool($data, 'notSelectable'),
             'parentId' => PartInputHelpers::int($data, 'parentId'),
-            'alternativeNames' => PartInputHelpers::str($data, 'alternativeNames'),
+            'alternativeNames' => PartInputHelpers::strList($data, 'alternativeNames'),
             'logComment' => PartInputHelpers::str($data, 'logComment'),
         ];
     }

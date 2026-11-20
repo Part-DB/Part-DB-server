@@ -92,4 +92,21 @@ final class PartInputHelpers
 
         return array_map(static fn ($v): string => (string) $v, $data[$key]);
     }
+
+    /**
+     * Like strArray, but returns null when the key is absent or null (preserves "not provided" semantics).
+     * @return list<string>|null
+     */
+    public static function strList(array $data, string $key): ?array
+    {
+        if (!array_key_exists($key, $data) || $data[$key] === null) {
+            return null;
+        }
+
+        if (!is_array($data[$key])) {
+            return null;
+        }
+
+        return array_values(array_map(static fn ($v): string => (string) $v, $data[$key]));
+    }
 }

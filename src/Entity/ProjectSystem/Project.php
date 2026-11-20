@@ -51,6 +51,7 @@ use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\ProjectAdminForm;
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parts\Part;
@@ -66,7 +67,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * This class represents a project in the database.
  *
- * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter>
+ * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter, AbstractAlternativeName>
  */
 #[EntityConfig(routeBase: 'project')]
 #[AdminCrud(formClass: ProjectAdminForm::class)]

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Parameters\AbstractParameter;
 use App\Repository\StructuralDBElementRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
@@ -38,6 +39,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use LogicException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -55,6 +57,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
  *
  * @template AT of Attachment
  * @template PT of AbstractParameter
+ * @template ANT of AbstractAlternativeName
  * @template-use ParametersTrait<PT>
  * @extends AttachmentContainingDBElement<AT>
  * @uses ParametersTrait<PT>
@@ -125,16 +128,20 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     private array $full_path_strings = [];
 
     /**
-     * Alternative names (semicolon-separated) for this element, which can be used for searching (especially for info provider system)
+     * Alternative names for this element, used for searching (especially for the info provider system).
+     * Mapping is done in concrete subclasses via OneToMany to the respective XxxAlternativeName entity.
+     *
+     * @var Collection<int, AbstractAlternativeName>
+     * @phpstan-var Collection<int, ANT>
      */
-    #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
-    private ?string $alternative_names = "";
+    protected Collection $alternative_names;
 
     public function __construct()
     {
         parent::__construct();
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 
     public function __clone()
@@ -424,32 +431,72 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * Returns a comma separated list of alternative names.
-     * @return string|null
+     * Returns the alternative names for this element.
+     * @return string[]
      */
-    public function getAlternativeNames(): ?string
+    public function getAlternativeNames(): array
     {
-        if ($this->alternative_names === null) {
-            return null;
-        }
-
-        //Remove trailing comma
-        return rtrim($this->alternative_names, ',');
+        return $this->alternative_names->map(static fn(AbstractAlternativeName $n) => $n->getName())->toArray();
     }
 
     /**
-     * Sets a comma separated list of alternative names.
-     * @return $this
+     * Sets the alternative names for this element, reusing existing entities where possible.
+     * @param string[] $names
      */
-    public function setAlternativeNames(?string $new_value): self
+    public function setAlternativeNames(array $names): static
     {
-        //Add a trailing comma, if not already there (makes it easier to find in the database)
-        if (is_string($new_value) && !str_ends_with($new_value, ',')) {
-            $new_value .= ',';
+        // Build desired set (trimmed, deduped, non-empty)
+        $desired = [];
+        foreach ($names as $name) {
+            $name = trim($name);
+            if ($name !== '') {
+                $desired[$name] = true;
+            }
         }
 
-        $this->alternative_names = $new_value;
+        // Remove entities no longer wanted; unmark those still present
+        foreach ($this->alternative_names as $entity) {
+            if (isset($desired[$entity->getName()])) {
+                unset($desired[$entity->getName()]);
+            } else {
+                $this->alternative_names->removeElement($entity);
+            }
+        }
+
+        // Add entities for names not already in the collection
+        foreach (array_keys($desired) as $name) {
+            $this->alternative_names->add($this->createAlternativeNameEntity($name));
+        }
 
         return $this;
+    }
+
+    /**
+     * Creates a concrete AlternativeName entity for this structural element type, by reading the targetEntity
+     * from the #[ORM\OneToMany] attribute already present on $alternative_names in the concrete subclass.
+     */
+    protected function createAlternativeNameEntity(string $name): AbstractAlternativeName
+    {
+        $attr = (new \ReflectionProperty(static::class, 'alternative_names'))
+            ->getAttributes(ORM\OneToMany::class)[0] ?? null;
+
+        if ($attr === null) {
+            throw new LogicException(sprintf(
+                '%s has no #[ORM\OneToMany] on $alternative_names.',
+                static::class
+            ));
+        }
+
+        $class = $attr->newInstance()->targetEntity;
+        $entity = new $class();
+        if (!$entity instanceof AbstractAlternativeName) {
+            throw new LogicException(sprintf(
+                'targetEntity %s is not an AbstractAlternativeName.',
+                $class
+            ));
+        }
+        $entity->setName($name);
+        $entity->setElement($this);
+        return $entity;
     }
 }
