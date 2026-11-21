@@ -46,7 +46,7 @@ final readonly class ExistingPartFinder
         $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
         $qb->select('part')
             ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('manufacturer.alternativeNames', 'manufacturer_altname')
+            ->leftJoin('manufacturer.alternative_names', 'manufacturer_altname')
             ->Orwhere($qb->expr()->andX(
                 'part.providerReference.provider_key = :providerKey',
                 'part.providerReference.provider_id = :providerId',
