@@ -42,6 +42,8 @@ final class AdminCrud
         public readonly string  $templatePath = '',
         /** Set to false to suppress the Parameters tab (even if the entity has a 'parameters' association). */
         public readonly bool    $showParametersTab = true,
+        /** Set to false to suppress the Alternative Names field in the admin form. */
+        public readonly bool    $showAlternativeNames = true,
         /**
          * When > 0, the admin-page sidebar tree groups nodes alphabetically once a level has more
          * entries than this threshold. Set to 0 (default) to disable grouping.

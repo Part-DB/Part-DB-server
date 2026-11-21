@@ -65,7 +65,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter, CurrencyAlternativeName>
  */
 #[EntityConfig(routeBase: 'currency')]
-#[AdminCrud(formClass: CurrencyAdminForm::class, extensionClass: CurrencyAdminExtension::class)]
+#[AdminCrud(formClass: CurrencyAdminForm::class, extensionClass: CurrencyAdminExtension::class, showAlternativeNames: false)]
 #[UniqueEntity('iso_code')]
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\Table(name: 'currencies')]

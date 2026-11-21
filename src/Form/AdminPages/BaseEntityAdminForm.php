@@ -56,6 +56,8 @@ class BaseEntityAdminForm extends AbstractType
         $resolver->setAllowedTypes('attachment_class', ['string', 'null']);
         $resolver->setDefault('parameter_class', null);
         $resolver->setAllowedTypes('parameter_class', ['string', 'null']);
+        $resolver->setDefault('show_alternative_names', true);
+        $resolver->setAllowedTypes('show_alternative_names', 'bool');
 
         $resolver->setDefaults([
             'warn_on_unsaved_changes' => true,
@@ -118,7 +120,7 @@ class BaseEntityAdminForm extends AbstractType
             );
         }
 
-        if ($entity instanceof AbstractStructuralDBElement) {
+        if ($entity instanceof AbstractStructuralDBElement && $options['show_alternative_names']) {
             $builder->add('alternative_names', TextType::class, [
                 'required' => false,
                 'label' => 'entity.edit.alternative_names.label',

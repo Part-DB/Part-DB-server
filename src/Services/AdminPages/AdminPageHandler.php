@@ -138,6 +138,7 @@ final readonly class AdminPageHandler
             [
                 'attachment_class' => $config->getAttachmentClass(),
                 'parameter_class' => $config->getParameterClass(),
+                'show_alternative_names' => $config->showAlternativeNamesField(),
                 'disabled' => $timeTravel_timestamp instanceof DateTime,
             ],
             $extension !== null ? $extension->formOptions($entity) : []
@@ -160,6 +161,7 @@ final readonly class AdminPageHandler
             $form = $this->formFactory->create($config->getFormClass(), $entity, [
                 'attachment_class' => $config->getAttachmentClass(),
                 'parameter_class' => $config->getParameterClass(),
+                'show_alternative_names' => $config->showAlternativeNamesField(),
             ]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->flash('error', 'entity.edit_flash.invalid');
@@ -207,6 +209,7 @@ final readonly class AdminPageHandler
             [
                 'attachment_class' => $config->getAttachmentClass(),
                 'parameter_class' => $config->getParameterClass(),
+                'show_alternative_names' => $config->showAlternativeNamesField(),
             ],
             $extension !== null ? $extension->formOptions($newEntity) : []
         );

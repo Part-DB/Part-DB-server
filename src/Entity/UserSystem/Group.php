@@ -48,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter, GroupAlternativeName>
  */
 #[EntityConfig(routeBase: 'group')]
-#[AdminCrud(formClass: GroupAdminForm::class, extensionClass: GroupAdminExtension::class)]
+#[AdminCrud(formClass: GroupAdminForm::class, extensionClass: GroupAdminExtension::class, showAlternativeNames: false)]
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
 #[ORM\Index(name: 'group_idx_name', columns: ['name'])]

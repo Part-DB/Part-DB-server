@@ -70,7 +70,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter, ProjectAlternativeName>
  */
 #[EntityConfig(routeBase: 'project')]
-#[AdminCrud(formClass: ProjectAdminForm::class)]
+#[AdminCrud(formClass: ProjectAdminForm::class, showAlternativeNames: false)]
 #[ORM\Entity(repositoryClass: DeviceRepository::class)]
 #[ORM\Table(name: 'projects')]
 #[ApiResource(
