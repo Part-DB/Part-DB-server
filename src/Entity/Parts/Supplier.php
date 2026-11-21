@@ -221,7 +221,7 @@ class Supplier extends AbstractCompany
     protected Collection $parameters;
 
     #[ORM\OneToMany(targetEntity: SupplierAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
     protected Collection $alternative_names;
 
     /**

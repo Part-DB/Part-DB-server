@@ -103,7 +103,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected Collection $parameters;
 
     #[ORM\OneToMany(targetEntity: GroupAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
     protected Collection $alternative_names;
 
     public function __construct()

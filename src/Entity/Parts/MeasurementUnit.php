@@ -183,7 +183,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     protected Collection $parameters;
 
     #[ORM\OneToMany(targetEntity: MeasurementUnitAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
     protected Collection $alternative_names;
 
     #[Groups(['measurement_unit:read'])]

@@ -441,31 +441,42 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * Sets the alternative names for this element, reusing existing entities where possible.
+     * The position in the array is used as the sort_index, so the order of $names is preserved.
      * @param string[] $names
      */
     public function setAlternativeNames(array $names): static
     {
-        // Build desired set (trimmed, deduped, non-empty)
+        // Build ordered, deduped, non-empty list; position becomes sort_index
         $desired = [];
+        $seen = [];
         foreach ($names as $name) {
             $name = trim($name);
-            if ($name !== '') {
-                $desired[$name] = true;
+            if ($name !== '' && !isset($seen[$name])) {
+                $desired[] = $name;
+                $seen[$name] = true;
             }
         }
 
-        // Remove entities no longer wanted; unmark those still present
+        // Index existing entities by name for O(1) lookup
+        $existing = [];
         foreach ($this->alternative_names as $entity) {
-            if (isset($desired[$entity->getName()])) {
-                unset($desired[$entity->getName()]);
-            } else {
+            $existing[$entity->getName()] = $entity;
+        }
+
+        // Remove entities no longer in the desired list
+        foreach ($this->alternative_names->toArray() as $entity) {
+            if (!isset($seen[$entity->getName()])) {
                 $this->alternative_names->removeElement($entity);
             }
         }
 
-        // Add entities for names not already in the collection
-        foreach (array_keys($desired) as $name) {
-            $this->alternative_names->add($this->createAlternativeNameEntity($name));
+        // Assign sort_index to kept entities; create new ones for added names
+        foreach ($desired as $index => $name) {
+            if (isset($existing[$name])) {
+                $existing[$name]->setSortIndex($index);
+            } else {
+                $this->alternative_names->add($this->createAlternativeNameEntity($name, $index));
+            }
         }
 
         return $this;
@@ -475,7 +486,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * Creates a concrete AlternativeName entity for this structural element type, by reading the targetEntity
      * from the #[ORM\OneToMany] attribute already present on $alternative_names in the concrete subclass.
      */
-    protected function createAlternativeNameEntity(string $name): AbstractAlternativeName
+    protected function createAlternativeNameEntity(string $name, int $sortIndex = 0): AbstractAlternativeName
     {
         $attr = (new \ReflectionProperty(static::class, 'alternative_names'))
             ->getAttributes(ORM\OneToMany::class)[0] ?? null;
@@ -496,6 +507,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             ));
         }
         $entity->setName($name);
+        $entity->setSortIndex($sortIndex);
         $entity->setElement($this);
         return $entity;
     }

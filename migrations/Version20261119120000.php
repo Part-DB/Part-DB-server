@@ -37,6 +37,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
                 element_id INT NOT NULL,
                 type SMALLINT NOT NULL,
                 name VARCHAR(255) NOT NULL,
+                sort_index INT NOT NULL DEFAULT 0,
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
@@ -61,7 +62,8 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 element_id INTEGER NOT NULL,
                 type SMALLINT NOT NULL,
-                name VARCHAR(255) NOT NULL
+                name VARCHAR(255) NOT NULL,
+                sort_index INTEGER NOT NULL DEFAULT 0
             )
         SQL);
         $this->addSql('CREATE INDEX idx_altname_lookup ON alternative_names (type, name)');
@@ -90,6 +92,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
                 element_id INT NOT NULL,
                 type SMALLINT NOT NULL,
                 name VARCHAR(255) NOT NULL,
+                sort_index INT NOT NULL DEFAULT 0,
                 PRIMARY KEY(id)
             )
         SQL);
@@ -140,6 +143,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
                     continue;
                 }
 
+                $sortIndex = 0;
                 foreach (explode(',', $csv) as $name) {
                     $name = trim($name);
                     if ($name === '') {
@@ -147,9 +151,10 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
                     }
 
                     $this->connection->executeStatement(
-                        'INSERT INTO alternative_names (element_id, type, name) VALUES (?, ?, ?)',
-                        [(int) $row['id'], $type, $name]
+                        'INSERT INTO alternative_names (element_id, type, name, sort_index) VALUES (?, ?, ?, ?)',
+                        [(int) $row['id'], $type, $name, $sortIndex]
                     );
+                    ++$sortIndex;
                 }
             }
         }

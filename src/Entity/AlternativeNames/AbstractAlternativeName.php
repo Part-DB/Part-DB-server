@@ -67,6 +67,9 @@ abstract class AbstractAlternativeName
     #[ORM\Column(type: Types::STRING, length: 255)]
     private string $name = '';
 
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $sort_index = 0;
+
     /**
      * The element this alternative name belongs to. Defined with concrete FK in each subclass.
      */
@@ -85,6 +88,17 @@ abstract class AbstractAlternativeName
     public function setName(string $name): static
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getSortIndex(): int
+    {
+        return $this->sort_index;
+    }
+
+    public function setSortIndex(int $sort_index): static
+    {
+        $this->sort_index = $sort_index;
         return $this;
     }
 
