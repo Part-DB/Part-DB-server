@@ -138,7 +138,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
             );
 
             foreach ($rows as $row) {
-                $csv = rtrim((string) $row['alternative_names'], ',');
+                $csv = rtrim(trim((string) $row['alternative_names']), ', ');
                 if ($csv === '') {
                     continue;
                 }
