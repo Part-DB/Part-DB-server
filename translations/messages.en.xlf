@@ -178,6 +178,36 @@
         <target>Common</target>
       </segment>
     </unit>
+    <unit id="tg6HUWz" name="admin.alt_names_overview">
+      <segment state="translated">
+        <source>admin.alt_names_overview</source>
+        <target>Alternative Names</target>
+      </segment>
+    </unit>
+    <unit id="dXf_PrR" name="admin.alt_names_overview.name">
+      <segment state="translated">
+        <source>admin.alt_names_overview.name</source>
+        <target>Alternative Name</target>
+      </segment>
+    </unit>
+    <unit id="tueArU4" name="admin.alt_names_overview.element">
+      <segment state="translated">
+        <source>admin.alt_names_overview.element</source>
+        <target>Element</target>
+      </segment>
+    </unit>
+    <unit id="9J.v0g9" name="admin.alt_names_overview.empty">
+      <segment state="translated">
+        <source>admin.alt_names_overview.empty</source>
+        <target>No alternative names defined yet.</target>
+      </segment>
+    </unit>
+    <unit id="9w9ImBX" name="admin.alt_names_overview.duplicate_warning">
+      <segment state="translated">
+        <source>admin.alt_names_overview.duplicate_warning</source>
+        <target>This name is assigned to multiple elements.</target>
+      </segment>
+    </unit>
     <unit id="fn26FXc" name="admin.attachments">
       <segment state="translated">
         <source>admin.attachments</source>

@@ -68,6 +68,9 @@
                             {% else %}
                                 <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
                                 <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
+                                {% if altNamesOverview is defined and altNamesOverview is not null %}
+                                    <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#alt_names_overview">{% trans %}admin.alt_names_overview{% endtrans %}</a></li>
+                                {% endif %}
                             {% endif %}
                         </ul>
 
@@ -195,6 +198,11 @@
                                     {{ form(mass_creation_form) }}
                                 </div>
 
+                                {% if altNamesOverview is defined and altNamesOverview is not null %}
+                                    <div id="alt_names_overview" class="tab-pane fade">
+                                        {% include 'admin/_alt_names_overview.html.twig' %}
+                                    </div>
+                                {% endif %}
 
                             {% endif %}
                         </div>
