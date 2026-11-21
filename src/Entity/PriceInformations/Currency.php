@@ -46,7 +46,7 @@ use App\Entity\Attribute\EntityConfig;
 use App\Entity\Parameters\CurrencyParameter;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\AdminPages\Extension\CurrencyAdminExtension;
-use App\Entity\AlternativeNames\AbstractAlternativeName;
+use App\Entity\AlternativeNames\CurrencyAlternativeName;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use Brick\Math\BigDecimal;
@@ -62,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a currency that can be used for price information.
  *
- * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter, AbstractAlternativeName>
+ * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter, CurrencyAlternativeName>
  */
 #[EntityConfig(routeBase: 'currency')]
 #[AdminCrud(formClass: CurrencyAdminForm::class, extensionClass: CurrencyAdminExtension::class)]
@@ -150,6 +150,10 @@ class Currency extends AbstractStructuralDBElement
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: CurrencyAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     /** @var Collection<int, Pricedetail>
      */
     #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'currency')]
@@ -166,6 +170,7 @@ class Currency extends AbstractStructuralDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         $this->pricedetails = new ArrayCollection();
         parent::__construct();
     }

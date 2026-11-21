@@ -32,6 +32,9 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\UserSystem\Group;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -50,6 +53,9 @@ use Doctrine\ORM\Mapping as ORM;
     5 => MeasurementUnitAlternativeName::class,
     6 => AttachmentTypeAlternativeName::class,
     7 => PartCustomStateAlternativeName::class,
+    8 => GroupAlternativeName::class,
+    9 => CurrencyAlternativeName::class,
+    10 => ProjectAlternativeName::class,
 ])]
 abstract class AbstractAlternativeName
 {

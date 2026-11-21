@@ -14,8 +14,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
         return 'Migrate alternative_names from CSV column to relational alternative_names table';
     }
 
-    // Discriminator values match AbstractStructuralElementAlternativeName::DiscriminatorMap:
-    // 0=category, 1=footprint, 2=manufacturer, 3=supplier, 4=storelocation, 5=measurement_unit, 6=attachment_type, 7=part_custom_state
+    // Discriminator values match AbstractAlternativeName::DiscriminatorMap
     private const ENTITY_SOURCES = [
         ['table' => 'categories',         'type' => 0],
         ['table' => 'footprints',         'type' => 1],
@@ -25,6 +24,9 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
         ['table' => 'measurement_units',  'type' => 5],
         ['table' => 'attachment_types',   'type' => 6],
         ['table' => 'part_custom_states', 'type' => 7],
+        ['table' => 'groups',             'type' => 8],
+        ['table' => 'currencies',         'type' => 9],
+        ['table' => 'projects',           'type' => 10],
     ];
 
     public function mySQLUp(Schema $schema): void
@@ -40,6 +42,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql('CREATE INDEX idx_altname_lookup ON alternative_names (type, name)');
         $this->addSql('CREATE INDEX idx_altname_element ON alternative_names (type, element_id)');
+        $this->addSql('CREATE INDEX IDX_D81ABF221F1F2A24 ON alternative_names (element_id)');
         // Old columns dropped in postUp() after data migration
     }
 
@@ -63,6 +66,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql('CREATE INDEX idx_altname_lookup ON alternative_names (type, name)');
         $this->addSql('CREATE INDEX idx_altname_element ON alternative_names (type, element_id)');
+        $this->addSql('CREATE INDEX IDX_D81ABF221F1F2A24 ON alternative_names (element_id)');
 
         foreach (self::ENTITY_SOURCES as $source) {
             // SQLite cannot DROP columns directly; rebuild each table without alternative_names.
@@ -91,6 +95,7 @@ final class Version20261119120000 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql('CREATE INDEX idx_altname_lookup ON alternative_names (type, name)');
         $this->addSql('CREATE INDEX idx_altname_element ON alternative_names (type, element_id)');
+        $this->addSql('CREATE INDEX IDX_D81ABF221F1F2A24 ON alternative_names (element_id)');
         // Old columns dropped in postUp() after data migration
     }
 

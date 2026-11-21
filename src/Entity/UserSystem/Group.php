@@ -30,7 +30,7 @@ use App\Entity\Attribute\AdminCrud;
 use App\Entity\Attribute\EntityConfig;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Services\AdminPages\Extension\GroupAdminExtension;
-use App\Entity\AlternativeNames\AbstractAlternativeName;
+use App\Entity\AlternativeNames\GroupAlternativeName;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
 use App\Security\Interfaces\HasPermissionsInterface;
@@ -45,7 +45,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a user group.
  *
- * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter, AbstractAlternativeName>
+ * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter, GroupAlternativeName>
  */
 #[EntityConfig(routeBase: 'group')]
 #[AdminCrud(formClass: GroupAdminForm::class, extensionClass: GroupAdminExtension::class)]
@@ -102,10 +102,15 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: GroupAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
