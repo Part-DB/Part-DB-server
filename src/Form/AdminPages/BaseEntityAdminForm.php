@@ -22,9 +22,6 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\PriceInformations\Currency;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\UserSystem\Group;
 use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\CallbackTransformer;
@@ -121,7 +118,7 @@ class BaseEntityAdminForm extends AbstractType
             );
         }
 
-        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Currency)) {
+        if ($entity instanceof AbstractStructuralDBElement) {
             $builder->add('alternative_names', TextType::class, [
                 'required' => false,
                 'label' => 'entity.edit.alternative_names.label',
@@ -131,11 +128,12 @@ class BaseEntityAdminForm extends AbstractType
                 'attr' => [
                     'class' => 'tagsinput',
                     'data-controller' => 'elements--tagsinput',
+                    'data-elements--tagsinput-separator-value' => '\\t',
                 ]
             ]);
             $builder->get('alternative_names')->addModelTransformer(new CallbackTransformer(
-                static fn(array $names): string => implode(',', $names),
-                static fn(string $csv): array => array_values(array_filter(array_map('trim', explode(',', $csv)), static fn(string $s): bool => $s !== ''))
+                static fn(array $names): string => implode("\t", $names),
+                static fn(string $csv): array => array_values(array_filter(array_map('trim', explode("\t", $csv)), static fn(string $s): bool => $s !== ''))
             ));
         }
 
