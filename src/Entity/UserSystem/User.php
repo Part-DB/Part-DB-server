@@ -79,7 +79,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * @extends AttachmentContainingDBElement<UserAttachment>
  */
 #[EntityConfig(routeBase: 'user')]
-#[AdminCrud(formClass: UserAdminForm::class, extensionClass: UserAdminExtension::class)]
+#[AdminCrud(formClass: UserAdminForm::class, extensionClass: UserAdminExtension::class, showAlternativeNames: false)]
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]

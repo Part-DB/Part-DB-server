@@ -121,7 +121,7 @@ class StructuralElementMutationProcessorsTest extends WebTestCase
             'comment' => 'A comment',
             'notSelectable' => true,
             'parentId' => $parent->getID(),
-            'alternativeNames' => 'Alt1,Alt2',
+            'alternativeNames' => ['Alt1', 'Alt2'],
         ]);
 
         $result = $this->createProcessor->process($input, (new Post())->withClass($class));
@@ -130,7 +130,7 @@ class StructuralElementMutationProcessorsTest extends WebTestCase
         self::assertSame('A comment', $result->getComment());
         self::assertTrue($result->isNotSelectable());
         self::assertSame($parent, $result->getParent());
-        self::assertSame('Alt1,Alt2', $result->getAlternativeNames());
+        self::assertSame(['Alt1', 'Alt2'], $result->getAlternativeNames());
     }
 
     #[DataProvider('provideClasses')]
@@ -160,7 +160,7 @@ class StructuralElementMutationProcessorsTest extends WebTestCase
         $element = new $class();
         $element->setName('MCP Test Child');
         $element->setParent($parent);
-        $element->setAlternativeNames('Foo,Bar');
+        $element->setAlternativeNames(['Foo', 'Bar']);
         $this->em->persist($element);
         $this->em->flush();
 
@@ -173,7 +173,7 @@ class StructuralElementMutationProcessorsTest extends WebTestCase
         $result = $this->updateProcessor->process($input, (new Patch())->withClass($class));
 
         self::assertNull($result->getParent());
-        self::assertNull($result->getAlternativeNames());
+        self::assertSame([], $result->getAlternativeNames());
     }
 
     #[DataProvider('provideClasses')]

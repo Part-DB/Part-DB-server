@@ -142,15 +142,16 @@ final readonly class AdminPageHandler
             $table = null;
         }
 
-        $formOptions = array_merge(
-            [
-                'attachment_class' => $config->getAttachmentClass(),
-                'parameter_class' => $config->getParameterClass(),
-                'show_alternative_names' => $config->showAlternativeNamesField(),
-                'disabled' => $timeTravel_timestamp instanceof DateTime,
-            ],
-            $extension !== null ? $extension->formOptions($entity) : []
-        );
+        $isStructural = is_a($entityClass, AbstractStructuralDBElement::class, true);
+        $baseOptions = [
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
+            'disabled' => $timeTravel_timestamp instanceof DateTime,
+        ];
+        if ($isStructural) {
+            $baseOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+        }
+        $formOptions = array_merge($baseOptions, $extension !== null ? $extension->formOptions($entity) : []);
 
         $form = $this->formFactory->create($config->getFormClass(), $entity, $formOptions);
         $form->handleRequest($request);
@@ -166,11 +167,14 @@ final readonly class AdminPageHandler
                 $this->flash('success', 'entity.edit_flash');
             }
 
-            $form = $this->formFactory->create($config->getFormClass(), $entity, [
+            $reCreateOptions = [
                 'attachment_class' => $config->getAttachmentClass(),
                 'parameter_class' => $config->getParameterClass(),
-                'show_alternative_names' => $config->showAlternativeNamesField(),
-            ]);
+            ];
+            if ($isStructural) {
+                $reCreateOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+            }
+            $form = $this->formFactory->create($config->getFormClass(), $entity, $reCreateOptions);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->flash('error', 'entity.edit_flash.invalid');
         }
@@ -213,14 +217,15 @@ final readonly class AdminPageHandler
 
         $this->denyAccess('read', $newEntity);
 
-        $formOptions = array_merge(
-            [
-                'attachment_class' => $config->getAttachmentClass(),
-                'parameter_class' => $config->getParameterClass(),
-                'show_alternative_names' => $config->showAlternativeNamesField(),
-            ],
-            $extension !== null ? $extension->formOptions($newEntity) : []
-        );
+        $isStructural = is_a($entityClass, AbstractStructuralDBElement::class, true);
+        $newOptions = [
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
+        ];
+        if ($isStructural) {
+            $newOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+        }
+        $formOptions = array_merge($newOptions, $extension !== null ? $extension->formOptions($newEntity) : []);
 
         $form = $this->formFactory->create($config->getFormClass(), $newEntity, $formOptions);
         $form->handleRequest($request);

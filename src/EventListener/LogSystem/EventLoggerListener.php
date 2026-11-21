@@ -148,7 +148,19 @@ class EventLoggerListener
             }
         }
 
+        // Build a set of OIDs for entities being inserted in this flush — they have no ID yet
+        // and will be logged as "created" in postPersist, so we must not log an edit for them here.
+        $insertedOidsSet = [];
+        foreach ($uow->getScheduledEntityInsertions() as $insertedEntity) {
+            $insertedOidsSet[spl_object_id($insertedEntity)] = true;
+        }
+
         foreach ($affectedParents as $oid => $parent) {
+            if (isset($insertedOidsSet[$oid])) {
+                // Parent is being created in this flush — no ID yet; skip to avoid TypeError.
+                continue;
+            }
+
             $log = new ElementEditedLogEntry($parent);
 
             // Compute new state: entities currently in the collection (after the change)
