@@ -8793,6 +8793,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Attachments</target>
       </segment>
     </unit>
+    <unit id="HYz.9NH" name="log.element_edited.changed_fields.alternative_names">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.alternative_names</source>
+        <target>Alternative names</target>
+      </segment>
+    </unit>
     <unit id="FcLV2wQ" name="tfa_u2f.add_key.registration_error">
       <segment state="translated">
         <source>tfa_u2f.add_key.registration_error</source>

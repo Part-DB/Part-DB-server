@@ -22,8 +22,10 @@ declare(strict_types=1);
 
 namespace App\EventListener\LogSystem;
 
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
@@ -106,6 +108,88 @@ class EventLoggerListener
             if ($this->validEntity($entity)) {
                 $this->logElementDeleted($entity, $em);
             }
+        }
+
+        // Log the parent structural element as edited when alternative names are inserted, updated, or deleted.
+        // AbstractAlternativeName does not extend AbstractDBElement so validEntity() skips it; we handle it here.
+        /** @var array<int, AbstractStructuralDBElement> $affectedParents */
+        $affectedParents = [];
+        /** @var array<int, AbstractAlternativeName[]> $insertedByParent */
+        $insertedByParent = [];
+        /** @var array<int, AbstractAlternativeName[]> $deletedByParent */
+        $deletedByParent = [];
+
+        foreach ($uow->getScheduledEntityInsertions() as $entity) {
+            if ($entity instanceof AbstractAlternativeName) {
+                $parent = $entity->getElement();
+                if ($parent instanceof AbstractStructuralDBElement && $this->validEntity($parent)) {
+                    $oid = spl_object_id($parent);
+                    $affectedParents[$oid] = $parent;
+                    $insertedByParent[$oid][] = $entity;
+                }
+            }
+        }
+        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+            if ($entity instanceof AbstractAlternativeName) {
+                $parent = $entity->getElement();
+                if ($parent instanceof AbstractStructuralDBElement && $this->validEntity($parent)) {
+                    $affectedParents[spl_object_id($parent)] = $parent;
+                }
+            }
+        }
+        foreach ($uow->getScheduledEntityDeletions() as $entity) {
+            if ($entity instanceof AbstractAlternativeName) {
+                $parent = $entity->getElement();
+                if ($parent instanceof AbstractStructuralDBElement && $this->validEntity($parent)) {
+                    $oid = spl_object_id($parent);
+                    $affectedParents[$oid] = $parent;
+                    $deletedByParent[$oid][] = $entity;
+                }
+            }
+        }
+
+        foreach ($affectedParents as $oid => $parent) {
+            $log = new ElementEditedLogEntry($parent);
+
+            // Compute new state: entities currently in the collection (after the change)
+            $newEntities = $parent->getAlternativeNameEntities();
+            usort($newEntities, static fn(AbstractAlternativeName $a, AbstractAlternativeName $b) => $a->getSortIndex() <=> $b->getSortIndex());
+            $newNames = array_map(static fn(AbstractAlternativeName $e) => $e->getName(), $newEntities);
+
+            // Compute old state: new – inserted + deleted; for updated entities use pre-change values from change set
+            $insertedOids = array_map('spl_object_id', $insertedByParent[$oid] ?? []);
+            $oldNamesMap = [];
+            foreach ($newEntities as $e) {
+                if (!in_array(spl_object_id($e), $insertedOids, true)) {
+                    $changeSet = $uow->getEntityChangeSet($e);
+                    $oldNamesMap[] = [
+                        'name'       => isset($changeSet['name'])       ? $changeSet['name'][0]       : $e->getName(),
+                        'sort_index' => isset($changeSet['sort_index']) ? $changeSet['sort_index'][0] : $e->getSortIndex(),
+                    ];
+                }
+            }
+            foreach ($deletedByParent[$oid] ?? [] as $e) {
+                $oldNamesMap[] = ['name' => $e->getName(), 'sort_index' => $e->getSortIndex()];
+            }
+            usort($oldNamesMap, static fn(array $a, array $b) => $a['sort_index'] <=> $b['sort_index']);
+            $oldNames = array_column($oldNamesMap, 'name');
+
+            if ($this->settings->saveOldData) {
+                $log->setOldData(['alternative_names' => $oldNames]);
+                if ($this->settings->saveNewData) {
+                    $log->setNewData(['alternative_names' => $newNames]);
+                }
+            } elseif ($this->settings->saveChangedFields) {
+                $log->setChangedFields(['alternative_names']);
+            }
+
+            if ($this->eventCommentHelper->isMessageSet()) {
+                $log->setComment($this->eventCommentHelper->getMessage());
+            }
+            if ($this->eventUndoHelper->isUndo()) {
+                $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
+            }
+            $this->logger->logFromOnFlush($log);
         }
 
         /* Do not call $uow->computeChangeSets() in this function, only individual entities should be computed!
@@ -207,6 +291,16 @@ class EventLoggerListener
         if ($this->settings->saveRemovedData) {
             //The 4th param is important here, as we delete the element...
             $this->saveChangeSet($entity, $log, $em, true);
+
+            // Merge alternative names into old data (not captured by getOriginalEntityData)
+            if ($entity instanceof AbstractStructuralDBElement) {
+                $altNames = $entity->getAlternativeNames();
+                if ($altNames !== []) {
+                    $oldData = $log->getOldData();
+                    $oldData['alternative_names'] = $altNames;
+                    $log->setOldData($oldData);
+                }
+            }
         }
         $this->logger->logFromOnFlush($log);
 

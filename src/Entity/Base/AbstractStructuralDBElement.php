@@ -440,6 +440,16 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
+     * Returns the alternative name entities as a plain array.
+     * @internal Used by the event logger; prefer getAlternativeNames() for display.
+     * @return AbstractAlternativeName[]
+     */
+    public function getAlternativeNameEntities(): array
+    {
+        return $this->alternative_names->toArray();
+    }
+
+    /**
      * Sets the alternative names for this element, reusing existing entities where possible.
      * The position in the array is used as the sort_index, so the order of $names is preserved.
      * @param string[] $names
