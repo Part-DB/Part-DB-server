@@ -43,7 +43,7 @@ final class ExternalPartLinkRulesCollectionTypeTest extends TypeTestCase
             new ValidatorExtension(Validation::createValidator()),
             new PreloadedExtension([
                 new ExternalPartLinkRulesCollectionType($translator),
-                new ExternalPartLinkRuleType(),
+                new ExternalPartLinkRuleType($translator),
             ], []),
         ];
     }

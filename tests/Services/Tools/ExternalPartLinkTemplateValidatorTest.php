@@ -48,6 +48,13 @@ final class ExternalPartLinkTemplateValidatorTest extends TestCase
         self::assertSame('sku', ExternalPartLinkTemplateValidator::findUnknownPlaceholder('https://example.com/{sku}'));
     }
 
+    public function testPlaceholderWithUnderscoreOrDigitIsRejected(): void
+    {
+        self::assertSame('unknown_placeholder', ExternalPartLinkTemplateValidator::validate('https://example.com/{part_id}'));
+        self::assertSame('part_id', ExternalPartLinkTemplateValidator::findUnknownPlaceholder('https://example.com/{part_id}'));
+        self::assertSame('mpn2', ExternalPartLinkTemplateValidator::findUnknownPlaceholder('https://example.com/{mpn2}'));
+    }
+
     public function testNonHttpsSchemeIsRejected(): void
     {
         self::assertSame('invalid_template', ExternalPartLinkTemplateValidator::validate('http://example.com/{mpn}'));

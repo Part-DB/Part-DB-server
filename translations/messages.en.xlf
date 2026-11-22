@@ -16274,6 +16274,12 @@ Buerklin-API Authentication server:
         <target>Add link</target>
       </segment>
     </unit>
+    <unit id="ckm00xm" name="external_part_link.remove_link">
+      <segment state="translated">
+        <source>external_part_link.remove_link</source>
+        <target>Remove link</target>
+      </segment>
+    </unit>
     <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>

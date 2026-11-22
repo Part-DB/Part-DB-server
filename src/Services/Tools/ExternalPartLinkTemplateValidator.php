@@ -41,7 +41,7 @@ final class ExternalPartLinkTemplateValidator
      */
     public static function findUnknownPlaceholder(string $template): ?string
     {
-        if (preg_match_all('/\{([a-zA-Z]+)}/', $template, $matches) > 0) {
+        if (preg_match_all('/\{([^}]+)}/', $template, $matches) > 0) {
             foreach (array_unique($matches[1]) as $placeholder) {
                 if (!in_array($placeholder, self::ALLOWED_PLACEHOLDERS, true)) {
                     return $placeholder;
@@ -60,7 +60,7 @@ final class ExternalPartLinkTemplateValidator
     public static function resolvesToAllowedUrlWithSampleValues(string $template): bool
     {
         $sample = preg_replace_callback(
-            '/\{([a-zA-Z]+)}/',
+            '/\{([^}]+)}/',
             static fn (array $m): string => rawurlencode('sample-' . $m[1]),
             $template
         );

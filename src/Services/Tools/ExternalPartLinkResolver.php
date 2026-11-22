@@ -108,7 +108,7 @@ final class ExternalPartLinkResolver
             'id' => $part->getID() === null ? null : (string) $part->getID(),
         ];
 
-        if (preg_match_all('/\{([a-zA-Z]+)}/', $template, $matches) > 0) {
+        if (preg_match_all('/\{([^}]+)}/', $template, $matches) > 0) {
             foreach (array_unique($matches[1]) as $placeholder) {
                 if (!in_array($placeholder, ExternalPartLinkTemplateValidator::ALLOWED_PLACEHOLDERS, true)) {
                     return null;
@@ -121,7 +121,7 @@ final class ExternalPartLinkResolver
         }
 
         $url = preg_replace_callback(
-            '/\{([a-zA-Z]+)}/',
+            '/\{([^}]+)}/',
             static fn (array $m): string => rawurlencode((string) $values[$m[1]]),
             $template
         );
