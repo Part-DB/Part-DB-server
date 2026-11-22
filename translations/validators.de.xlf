@@ -277,5 +277,17 @@
         <target>Wenn Sie einen Info-Anbieter angeben, müssen Sie auch eine Anbieter-ID angeben oder beides entfernen.</target>
       </segment>
     </unit>
+    <unit id="dTHY_Rh" name="settings.external_part_links.rules.unknown_placeholder">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.unknown_placeholder</source>
+        <target>Unbekannter Platzhalter „{%placeholder%}". Nur {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint} und {id} werden unterstützt.</target>
+      </segment>
+    </unit>
+    <unit id="wHI1itr" name="settings.external_part_links.rules.invalid_template">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.invalid_template</source>
+        <target>Dies ergibt keine gültige https-URL, wenn die Platzhalter ausgefüllt werden.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
