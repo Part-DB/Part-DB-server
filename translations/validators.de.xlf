@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="validators.de">
+  <file id="validators.en">
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
@@ -275,6 +275,18 @@
       <segment state="translated">
         <source>info_providers.validation.provider_key_without_id</source>
         <target>Wenn Sie einen Info-Anbieter angeben, müssen Sie auch eine Anbieter-ID angeben oder beides entfernen.</target>
+      </segment>
+    </unit>
+    <unit id="dTHY_Rh" name="settings.external_part_links.rules.unknown_placeholder">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.unknown_placeholder</source>
+        <target>Unbekannter Platzhalter „{%placeholder%}". Nur {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint} und {id} werden unterstützt.</target>
+      </segment>
+    </unit>
+    <unit id="wHI1itr" name="settings.external_part_links.rules.invalid_template">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.invalid_template</source>
+        <target>Dies ergibt keine gültige https-URL, wenn die Platzhalter ausgefüllt werden.</target>
       </segment>
     </unit>
   </file>
