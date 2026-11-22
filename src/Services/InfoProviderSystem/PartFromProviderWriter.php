@@ -25,11 +25,16 @@ namespace App\Services\InfoProviderSystem;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\ApiResource\InfoProviderSystem\InfoProviderPartWriteResult;
 use App\ApiResource\InfoProviderSystem\PartFieldChange;
+use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Exceptions\AttachmentDownloadException;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityMergers\Mergers\PartMerger;
+use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -52,6 +57,9 @@ final readonly class PartFromProviderWriter
         private PartChangeSetBuilder $changeSetBuilder,
         private EntityManagerInterface $entityManager,
         private ValidatorInterface $validator,
+        private AttachmentSubmitHandler $attachmentSubmitHandler,
+        private AttachmentsSettings $attachmentsSettings,
+        private UploadedDocumentAttachmentHelper $uploadedDocumentHelper,
     ) {
     }
 
@@ -99,6 +107,14 @@ final readonly class PartFromProviderWriter
             );
         }
 
+        //The ai_document provider uses the provider_id as the token of the uploaded source file. The browser
+        //attaches it via UploadedDocumentAttachmentHelper; without a form we do it here, so the source file
+        //is not lost on a successful create. The file is only written to disk during the real write (not dry run):
+        //the helper only marks the attachment with the token; the actual copy happens in applyAttachmentDefaults().
+        if ($provider_key === AIDocumentProvider::PROVIDER_KEY) {
+            $this->uploadedDocumentHelper->attachToPart($part, $provider_id);
+        }
+
         //Persisting (without flushing) lets Doctrine compute the change set, so a new part reports its fields
         //the same way an updated one does - which is what makes a dry run useful here
         $this->entityManager->persist($part);
@@ -134,9 +150,48 @@ final readonly class PartFromProviderWriter
             return InfoProviderPartWriteResult::dryRun($status, $changes);
         }
 
+        $this->applyAttachmentDefaults($part);
         $this->entityManager->flush();
 
         return InfoProviderPartWriteResult::of($status, $changes, $part);
+    }
+
+    /**
+     * Applies the same attachment save defaults the form layer applies to new provider attachments:
+     *   1. Downloads external URLs to local storage if the system is configured to do so (downloadByDefault).
+     *   2. Sets a first picture as the part's preview image if none is set yet (becomePreviewIfEmpty).
+     *   3. Saves any uploaded source file referenced by its token (the ai_document case).
+     *
+     * Only called for real writes, not dry runs, since downloading and saving files is irreversible.
+     * Download failures are silently skipped so that a network hiccup does not abort the whole write.
+     */
+    private function applyAttachmentDefaults(Part $part): void
+    {
+        $shouldDownload = $this->attachmentsSettings->downloadByDefault && $this->attachmentsSettings->allowDownloads;
+
+        foreach ($part->getAttachments() as $attachment) {
+            if ($attachment->getID() !== null) {
+                continue; // Only process new attachments (no DB id yet)
+            }
+
+            $existing = $attachment->getUpload();
+
+            $upload = new AttachmentUpload(
+                file: $existing?->file,
+                data: $existing?->data,
+                filename: $existing?->filename,
+                downloadUrl: $shouldDownload && $attachment->hasExternal(),
+                private: $existing?->private,
+                becomePreviewIfEmpty: true,
+                uploadedDocumentToken: $existing?->uploadedDocumentToken,
+            );
+
+            try {
+                $this->attachmentSubmitHandler->handleUpload($attachment, $upload);
+            } catch (AttachmentDownloadException|\RuntimeException) {
+                // Keep the attachment as an external link if download fails rather than aborting the write
+            }
+        }
     }
 
     /**
