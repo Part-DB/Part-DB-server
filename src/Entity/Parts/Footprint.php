@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\FootprintAlternativeName;
 use App\Entity\EDA\EDAFootprintInfo;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
@@ -72,7 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a footprint of a part (its physical dimensions and shape).
  *
- * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter>
+ * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter, FootprintAlternativeName>
  */
 #[EntityConfig(routeBase: 'footprint')]
 #[AdminCrud(formClass: FootprintAdminForm::class)]
@@ -200,6 +201,10 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: FootprintAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     #[Groups(['footprint:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['footprint:read'])]
@@ -216,6 +221,7 @@ class Footprint extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         $this->eda_info = new EDAFootprintInfo();
     }
 

@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\StorageLocationAlternativeName;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -72,7 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a storage location, where parts can be stored.
- * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter>
+ * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter, StorageLocationAlternativeName>
  */
 #[EntityConfig(routeBase: 'store_location')]
 #[AdminCrud(formClass: StorelocationAdminForm::class, templatePath: 'admin/storelocation_admin.html.twig')]
@@ -185,6 +186,10 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
+
+    #[ORM\OneToMany(targetEntity: StorageLocationAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
 
     /**
      * @var bool When this attribute is set, it is not possible to add additional parts or increase the instock of existing parts.
@@ -366,5 +371,6 @@ class StorageLocation extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 }

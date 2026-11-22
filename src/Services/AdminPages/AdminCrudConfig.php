@@ -86,6 +86,11 @@ final class AdminCrudConfig
         return $this->attr->showParametersTab && $this->hasParameters();
     }
 
+    public function showAlternativeNamesField(): bool
+    {
+        return $this->attr->showAlternativeNames;
+    }
+
     /** Returns the alphabetical grouping threshold for the admin sidebar tree, or 0 if grouping is disabled. */
     public function getTreeAlphaGroupingThreshold(): int
     {

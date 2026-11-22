@@ -1,0 +1,33 @@
+{# altNamesOverview: list<{name: string, is_duplicate: bool, elements: list<{id: int, full_path: string}>}> #}
+{# route_base: string #}
+
+{% if altNamesOverview is empty %}
+    <p class="text-muted">{% trans %}admin.alt_names_overview.empty{% endtrans %}</p>
+{% else %}
+    <table class="table table-sm table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>{% trans %}admin.alt_names_overview.name{% endtrans %}</th>
+                <th>{% trans %}admin.alt_names_overview.element{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in altNamesOverview %}
+                <tr {% if group.is_duplicate %}class="table-warning"{% endif %}>
+                    <td>
+                        {% if group.is_duplicate %}
+                            <i class="fas fa-exclamation-triangle text-warning me-1"
+                               title="{% trans %}admin.alt_names_overview.duplicate_warning{% endtrans %}"></i>
+                        {% endif %}
+                        {{ group.name }}
+                    </td>
+                    <td>
+                        {% for element in group.elements %}
+                            <a href="{{ path(route_base ~ '_edit', {'id': element.id}) }}">{{ element.full_path }}</a>{% if not loop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

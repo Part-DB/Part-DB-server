@@ -23,12 +23,15 @@ declare(strict_types=1);
 namespace App\Services\AdminPages;
 
 use App\DataTables\LogDataTable;
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
+use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
@@ -58,6 +61,8 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -86,6 +91,9 @@ final readonly class AdminPageHandler
         private EntityExporter $exporter,
         private TranslatorInterface $translator,
         private RequestStack $requestStack,
+        private TagAwareCacheInterface $cache,
+        private ElementCacheTagGenerator $tagGenerator,
+        private StructuralElementPathCache $pathCache,
     ) {
     }
 
@@ -134,14 +142,16 @@ final readonly class AdminPageHandler
             $table = null;
         }
 
-        $formOptions = array_merge(
-            [
-                'attachment_class' => $config->getAttachmentClass(),
-                'parameter_class' => $config->getParameterClass(),
-                'disabled' => $timeTravel_timestamp instanceof DateTime,
-            ],
-            $extension !== null ? $extension->formOptions($entity) : []
-        );
+        $isStructural = is_a($entityClass, AbstractStructuralDBElement::class, true);
+        $baseOptions = [
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
+            'disabled' => $timeTravel_timestamp instanceof DateTime,
+        ];
+        if ($isStructural) {
+            $baseOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+        }
+        $formOptions = array_merge($baseOptions, $extension !== null ? $extension->formOptions($entity) : []);
 
         $form = $this->formFactory->create($config->getFormClass(), $entity, $formOptions);
         $form->handleRequest($request);
@@ -157,10 +167,14 @@ final readonly class AdminPageHandler
                 $this->flash('success', 'entity.edit_flash');
             }
 
-            $form = $this->formFactory->create($config->getFormClass(), $entity, [
+            $reCreateOptions = [
                 'attachment_class' => $config->getAttachmentClass(),
                 'parameter_class' => $config->getParameterClass(),
-            ]);
+            ];
+            if ($isStructural) {
+                $reCreateOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+            }
+            $form = $this->formFactory->create($config->getFormClass(), $entity, $reCreateOptions);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->flash('error', 'entity.edit_flash.invalid');
         }
@@ -203,13 +217,15 @@ final readonly class AdminPageHandler
 
         $this->denyAccess('read', $newEntity);
 
-        $formOptions = array_merge(
-            [
-                'attachment_class' => $config->getAttachmentClass(),
-                'parameter_class' => $config->getParameterClass(),
-            ],
-            $extension !== null ? $extension->formOptions($newEntity) : []
-        );
+        $isStructural = is_a($entityClass, AbstractStructuralDBElement::class, true);
+        $newOptions = [
+            'attachment_class' => $config->getAttachmentClass(),
+            'parameter_class' => $config->getParameterClass(),
+        ];
+        if ($isStructural) {
+            $newOptions['show_alternative_names'] = $config->showAlternativeNamesField();
+        }
+        $formOptions = array_merge($newOptions, $extension !== null ? $extension->formOptions($newEntity) : []);
 
         $form = $this->formFactory->create($config->getFormClass(), $newEntity, $formOptions);
         $form->handleRequest($request);
@@ -323,6 +339,7 @@ final readonly class AdminPageHandler
                 'route_base' => $config->getRouteBase(),
                 'showParameters' => $config->showParametersTab(),
                 'showAttachments' => $config->hasAttachments(),
+                'altNamesOverview' => $this->getAlternativeNamesOverview($entityClass, $config),
             ],
             $extension !== null ? $extension->additionalTemplateVars($newEntity, $form) : []
         ));
@@ -496,5 +513,87 @@ final readonly class AdminPageHandler
     private function renderResponse(string $template, array $vars): Response
     {
         return new Response($this->twig->render($template, $vars));
+    }
+
+    /**
+     * Returns the alternative names overview for the given entity class, grouped by name, with full paths and
+     * duplicate detection. The result is cached and tagged with the entity type's cache tag so it is invalidated
+     * whenever any element of that type changes.
+     *
+     * Returns null when alternative names are disabled for this entity type or no matching subclass is found.
+     *
+     * Each entry in the returned array has the shape:
+     *   ['name' => string, 'is_duplicate' => bool, 'elements' => list<array{id: int, full_path: string}>]
+     *
+     * @return list<array{name: string, is_duplicate: bool, elements: list<array{id: int, full_path: string}>}>|null
+     */
+    private function getAlternativeNamesOverview(string $entityClass, AdminCrudConfig $config): ?array
+    {
+        if (!$config->showAlternativeNamesField()) {
+            return null;
+        }
+
+        $altMeta = $this->em->getClassMetadata(AbstractAlternativeName::class);
+        $altNameClass = null;
+        foreach ($altMeta->discriminatorMap as $altClass) {
+            $altClassMeta = $this->em->getClassMetadata($altClass);
+            if ($altClassMeta->hasAssociation('element')
+                && $altClassMeta->getAssociationTargetClass('element') === $entityClass) {
+                $altNameClass = $altClass;
+                break;
+            }
+        }
+
+        if ($altNameClass === null) {
+            return null;
+        }
+
+        $cacheTag = $this->tagGenerator->getElementTypeCacheTag($entityClass);
+        $cacheKey = 'alt_names_overview_' . $cacheTag;
+
+        return $this->cache->get($cacheKey, function (ItemInterface $item) use ($altNameClass, $entityClass, $cacheTag): array {
+            $item->tag([$cacheTag]);
+
+            $rows = $this->em->createQueryBuilder()
+                ->select('an.name AS alt_name', 'e.id AS element_id')
+                ->from($altNameClass, 'an')
+                ->join('an.element', 'e')
+                ->orderBy('an.name', 'ASC')
+                ->addOrderBy('e.name', 'ASC')
+                ->getQuery()
+                ->getArrayResult();
+
+            $isStructural = is_a($entityClass, AbstractStructuralDBElement::class, true);
+
+            $groups = [];
+            foreach ($rows as $row) {
+                $key = mb_strtolower((string) $row['alt_name']);
+                if (!isset($groups[$key])) {
+                    $groups[$key] = ['name' => (string) $row['alt_name'], 'elements' => []];
+                }
+                $elementId = (int) $row['element_id'];
+                if ($isStructural) {
+                    /** @var class-string<AbstractStructuralDBElement> $entityClass */
+                    $pathNames = $this->pathCache->getPathNames($entityClass, $elementId);
+                    $fullPath = $pathNames !== null
+                        ? implode(AbstractStructuralDBElement::PATH_DELIMITER_ARROW, $pathNames)
+                        : (string) $row['alt_name'];
+                } else {
+                    $fullPath = (string) $row['alt_name'];
+                }
+                $groups[$key]['elements'][] = ['id' => $elementId, 'full_path' => $fullPath];
+            }
+
+            $result = [];
+            foreach ($groups as $group) {
+                $result[] = [
+                    'name' => $group['name'],
+                    'is_duplicate' => count($group['elements']) > 1,
+                    'elements' => $group['elements'],
+                ];
+            }
+
+            return $result;
+        });
     }
 }

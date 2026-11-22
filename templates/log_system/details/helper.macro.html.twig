@@ -17,6 +17,7 @@
         {% set title_short = 'log.undo.undo.short'|trans %}
     {% endif %}
 
+    {% if icon is defined %}
     <form method="post" action="{{ path("log_undo") }}"
             {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
           data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
@@ -47,6 +48,7 @@
             {% endif %}
         </div>
     </form>
+    {% endif %}
 {% endmacro %}
 
 
@@ -79,7 +81,7 @@
     {% set fields, old_data, new_data = {}, {}, {} %}
 
     {# For log entries where only the changed fields are saved, this is the last executed assignment #}
-    {% if attribute(entry, 'changedFieldInfo') is defined and entry.changedFieldsInfo %}
+    {% if attribute(entry, 'changedFieldsInfo') is defined and entry.changedFieldsInfo %}
         {% set fields = entry.changedFields %}
     {% endif %}
 

@@ -216,6 +216,17 @@ class TimeTravel
 
         foreach ($old_data as $field => $data) {
 
+            // Restore alternative names: new format is an array of name strings; old format was a CSV string
+            if ($field === 'alternative_names' && $element instanceof AbstractStructuralDBElement) {
+                if (is_array($data)) {
+                    $element->setAlternativeNames($data);
+                } elseif (is_string($data)) {
+                    $names = array_values(array_filter(array_map('trim', explode(',', $data)), static fn(string $n): bool => $n !== ''));
+                    $element->setAlternativeNames($names);
+                }
+                continue;
+            }
+
             //We use the fieldMappings property directly instead of the hasField method, as we do not want to match the embedded field itself
             //The sub fields are handled in the setField method
             if (isset($metadata->fieldMappings[$field])) {
