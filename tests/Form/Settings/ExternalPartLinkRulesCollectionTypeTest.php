@@ -24,8 +24,8 @@ namespace App\Tests\Form\Settings;
 
 use App\Form\Settings\ExternalPartLinkRulesCollectionType;
 use App\Form\Settings\ExternalPartLinkRuleType;
-use App\Services\Tools\ExternalPartLinkIcon;
-use App\Services\Tools\ExternalPartLinkSourceType;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkIcon;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkSourceType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
