@@ -48,7 +48,6 @@ import {Table} from 'ckeditor5';
 import {TableProperties} from 'ckeditor5';
 import {TableToolbar} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
-import {EditorWatchdog} from 'ckeditor5';
 import {TodoList} from 'ckeditor5';
 
 import ExtendedMarkdown from "./plugins/extendedMarkdown.js";
@@ -184,4 +183,4 @@ Editor.defaultConfig = {
     }
 };
 
-export default { Editor, EditorWatchdog };
+export default { Editor };

@@ -20,6 +20,14 @@
 import {add} from "ckeditor5";
 
 add( "en", {
+    'Part image': 'Part image',
+    'Insert the image of the part. It is fitted into the placeholder, which can be resized.': 'Insert the image of the part. It is fitted into the placeholder, which can be resized.',
+    'Only labels for parts and part lots can contain the part image.': 'Only labels for parts and part lots can contain the part image.',
+    'Edit HTML snippet': 'Edit HTML snippet',
+    'Size': 'Size',
+    'Width (mm)': 'Width (mm)',
+    'Height (mm)': 'Height (mm)',
+    'Set the size of the image': 'Set the size of the image',
     'Label Placeholder': 'Label placeholder',
     'Part': 'Part',
 

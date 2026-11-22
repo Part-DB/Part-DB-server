@@ -22,27 +22,31 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Settings\SystemSettings\LocalizationSettings;
-use Symfony\Bundle\SecurityBundle\Security;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\StructuralEntityType;
-use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Settings\SystemSettings\LocalizationSettings;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SupplierForm extends CompanyForm
+class SupplierForm extends AbstractType
 {
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly LocalizationSettings $localizationSettings)
-    {
-        parent::__construct($security, $eventCommentNeededHelper);
+    public function __construct(
+        private readonly Security $security,
+        private readonly LocalizationSettings $localizationSettings,
+    ) {
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function getParent(): string
     {
-        $is_new = null === $entity->getID();
+        return CompanyForm::class;
+    }
 
-        parent::additionalFormElements($builder, $options, $entity);
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
+        $is_new = null === $entity->getID();
 
         $builder->add('default_currency', StructuralEntityType::class, [
             'class' => Currency::class,

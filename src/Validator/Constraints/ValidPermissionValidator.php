@@ -22,8 +22,10 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Controller\GroupController;
+use App\Controller\AdminPages\AdminPageController;
 use App\Controller\UserController;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\UserSystem\PermissionManager;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
@@ -57,19 +59,23 @@ class ValidPermissionValidator extends ConstraintValidator
 
         $changed = $this->resolver->ensureCorrectSetOperations($perm_holder);
 
-        //Sending a flash message if the permissions were fixed (only if called from UserController or GroupController)
+        //Sending a flash message if the permissions were fixed (only if called from a User/Group admin page)
         //This is pretty hacky and bad design but I dont see a better way without a complete rewrite of how permissions are validated
         //on the admin pages
         if ($changed) {
-            //Check if this was called in context of UserController
             $request = $this->requestStack->getMainRequest();
             if ($request === null) {
                 return;
             }
             //Determine the controller class (the part before the ::)
             $controller_class = explode('::', (string) $request->attributes->get('_controller'))[0];
+            $entity_class = $request->attributes->get('entityClass', '');
 
-            if (in_array($controller_class, [UserController::class, GroupController::class], true)) {
+            $isUserAdminPage = $controller_class === AdminPageController::class
+                && in_array($entity_class, [User::class, Group::class], true);
+            $isLegacyUserController = $controller_class === UserController::class;
+
+            if ($isUserAdminPage || $isLegacyUserController) {
                 /** @var Session $session */
                 $session = $this->requestStack->getSession();
                 $flashBag = $session->getFlashBag();

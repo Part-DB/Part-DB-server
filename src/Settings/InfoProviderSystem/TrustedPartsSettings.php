@@ -93,4 +93,9 @@ class TrustedPartsSettings
         description: new TM("settings.ips.trustedparts.useCachedData.help"),
         envVar: "bool:PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $useCachedData = false;
+
+    #[SettingsParameter(label: new TM("settings.ips.trustedparts.riskRatings"),
+        description: new TM("settings.ips.trustedparts.riskRatings.help"),
+        envVar: "bool:PROVIDER_TRUSTEDPARTS_RISK_RATINGS", envVarMode: EnvVarMode::OVERWRITE)]
+    public bool $riskRatings = true;
 }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use Doctrine\DBAL\Types\Types;
@@ -35,7 +36,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @template AT of Attachment
  * @template PT of AbstractParameter
- * @extends AbstractPartsContainingDBElement<AT, PT>
+ * @template ANT of AbstractAlternativeName
+ * @extends AbstractPartsContainingDBElement<AT, PT, ANT>
  */
 #[ORM\MappedSuperclass]
 abstract class AbstractCompany extends AbstractPartsContainingDBElement

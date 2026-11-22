@@ -291,10 +291,10 @@ final class PopulateKicadCommand extends Command
      *
      * @param array<string, string> $mappings
      * @param string $name The primary name of the footprint
-     * @param string|null $alternativeNames Comma-separated alternative names
+     * @param string[] $alternative_names Alternative names
      * @return string|null The matched KiCad path, or null if no match found
      */
-    private function findFootprintMapping(array $mappings, string $name, ?string $alternativeNames): ?string
+    private function findFootprintMapping(array $mappings, string $name, array $alternative_names): ?string
     {
         // Check primary name
         if (isset($mappings[$name])) {
@@ -302,12 +302,9 @@ final class PopulateKicadCommand extends Command
         }
 
         // Check alternative names
-        if ($alternativeNames !== null && $alternativeNames !== '') {
-            foreach (explode(',', $alternativeNames) as $altName) {
-                $altName = trim($altName);
-                if ($altName !== '' && isset($mappings[$altName])) {
-                    return $mappings[$altName];
-                }
+        foreach ($alternative_names as $altName) {
+            if ($altName !== '' && isset($mappings[$altName])) {
+                return $mappings[$altName];
             }
         }
 
@@ -320,10 +317,10 @@ final class PopulateKicadCommand extends Command
      *
      * @param array<string, string> $mappings
      * @param string $name The primary name of the category
-     * @param string|null $alternativeNames Comma-separated alternative names
+     * @param string[] $alternative_names Alternative names
      * @return string|null The matched KiCad symbol path, or null if no match found
      */
-    private function findCategoryMapping(array $mappings, string $name, ?string $alternativeNames): ?string
+    private function findCategoryMapping(array $mappings, string $name, array $alternative_names): ?string
     {
         // Check primary name against all patterns
         foreach ($mappings as $pattern => $kicadSymbol) {
@@ -333,16 +330,13 @@ final class PopulateKicadCommand extends Command
         }
 
         // Check alternative names against all patterns
-        if ($alternativeNames !== null && $alternativeNames !== '') {
-            foreach (explode(',', $alternativeNames) as $altName) {
-                $altName = trim($altName);
-                if ($altName === '') {
-                    continue;
-                }
-                foreach ($mappings as $pattern => $kicadSymbol) {
-                    if ($this->matchesPattern($altName, $pattern)) {
-                        return $kicadSymbol;
-                    }
+        foreach ($alternative_names as $altName) {
+            if ($altName === '') {
+                continue;
+            }
+            foreach ($mappings as $pattern => $kicadSymbol) {
+                if ($this->matchesPattern($altName, $pattern)) {
+                    return $kicadSymbol;
                 }
             }
         }

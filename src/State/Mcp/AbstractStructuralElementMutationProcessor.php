@@ -109,7 +109,7 @@ abstract class AbstractStructuralElementMutationProcessor implements ProcessorIn
             $element->setParent($data->parentId !== null ? $this->resolveParent($element::class, $data->parentId) : null);
         }
         if ($data->wasProvided('alternativeNames')) {
-            $element->setAlternativeNames($data->alternativeNames);
+            $element->setAlternativeNames($data->alternativeNames ?? []);
         }
     }
 

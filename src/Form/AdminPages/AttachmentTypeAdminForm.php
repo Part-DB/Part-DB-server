@@ -25,28 +25,34 @@ namespace App\Form\AdminPages;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\ProjectAttachment;
+use App\Services\Attachments\FileTypeFilterTools;
 use App\Services\ElementTypeNameGenerator;
 use Symfony\Bundle\SecurityBundle\Security;
-use App\Entity\Base\AbstractNamedDBElement;
-use App\Services\Attachments\FileTypeFilterTools;
-use App\Services\LogSystem\EventCommentNeededHelper;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Translation\StaticMessage;
 
-class AttachmentTypeAdminForm extends BaseEntityAdminForm
+class AttachmentTypeAdminForm extends AbstractType
 {
-    public function __construct(Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
-    {
-        parent::__construct($security, $eventCommentNeededHelper);
+    public function __construct(
+        private readonly Security $security,
+        private readonly FileTypeFilterTools $filterTools,
+        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
+    ) {
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function getParent(): string
     {
-        $is_new = null === $entity->getID();
+        return BaseEntityAdminForm::class;
+    }
 
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
+        $is_new = null === $entity->getID();
 
         $choiceLabel = function (string $class) {
             if (!is_a($class, Attachment::class, true)) {
@@ -54,7 +60,6 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
             }
             return new StaticMessage($this->elementTypeNameGenerator->typeLabelPlural($class::ALLOWED_ELEMENT_CLASS));
         };
-
 
         $builder->add('allowed_targets', ChoiceType::class, [
             'required' => false,
@@ -72,16 +77,15 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
             'help' => 'attachment_type.edit.filetype_filter.help',
             'attr' => [
                 'placeholder' => 'attachment_type.edit.filetype_filter.placeholder',
-                'data-controller' => 'elements--tagsinput'
+                'data-controller' => 'elements--tagsinput',
             ],
             'empty_data' => '',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        //Normalize data before writing it to database
         $builder->get('filetype_filter')->addViewTransformer(new CallbackTransformer(
-            static fn($value) => $value,
-            fn($value) => $this->filterTools->normalizeFilterString($value)
+            static fn ($value) => $value,
+            fn ($value) => $this->filterTools->normalizeFilterString($value)
         ));
     }
 }

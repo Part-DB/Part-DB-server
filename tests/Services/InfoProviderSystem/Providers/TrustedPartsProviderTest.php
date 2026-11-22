@@ -377,4 +377,98 @@ final class TrustedPartsProviderTest extends TestCase
         //The terms of use require to identify the application and the user
         $this->assertSame('Part-DB/1.2.3 (system)', $request['UserAgent']);
     }
+
+    /**
+     * A minimal part result, so that a risk rating test is not buried in offers and specifications.
+     *
+     * @param  array<string, mixed>  $risk_fields
+     */
+    private function getRiskResponse(array $risk_fields): MockResponse
+    {
+        return new MockResponse(json_encode([
+            'Messages' => [],
+            'ErrorMessage' => null,
+            'PartResults' => [
+                [
+                    'PartNumber' => 'LM358DR',
+                    'Manufacturer' => 'Texas Instruments',
+                    'Specifications' => [['Key' => 'Package / Case', 'Value' => 'SOIC-8']],
+                    'Distributors' => [],
+                    ...$risk_fields,
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR), ['response_headers' => ['content-type' => 'application/json']]);
+    }
+
+    /**
+     * @return array<string, string> the parameters of the risk group, by name
+     */
+    private function getRiskParameters(PartDetailDTO $result): array
+    {
+        $parameters = [];
+        foreach ($result->parameters ?? [] as $parameter) {
+            if ($parameter->group === 'TrustedParts') {
+                $parameters[$parameter->name] = $parameter->value_text;
+            }
+        }
+
+        return $parameters;
+    }
+
+    public function testRiskRatingsBecomeParametersOfTheirOwnGroup(): void
+    {
+        $response = $this->getRiskResponse([
+            'LifecycleRisk' => 'MED-HIGH',
+            'SupplyChainRisk' => 'low',
+            'IsAffectedByTariff' => true,
+        ]);
+
+        $result = $this->getProvider([$response])->searchByKeyword('LM358DR')[0];
+
+        $this->assertSame([
+            'Lifecycle risk' => 'MED-HIGH',
+            'Supply chain risk' => 'LOW',
+            'Affected by tariff' => 'Yes',
+        ], $this->getRiskParameters($result));
+
+        //The ratings must not end up between the technical specifications of the part
+        $this->assertSame('Package / Case', ($result->parameters[0] ?? null)?->name);
+        $this->assertNull($result->parameters[0]->group);
+
+        //A rating says what the risk is, not what the part is - the manufacturing status stays untouched,
+        //as it is never overwritten once it is set
+        $this->assertNull($result->manufacturing_status);
+    }
+
+    public function testRiskRatingsWithoutARatingAreSkipped(): void
+    {
+        //"NA" is how the API says that it cannot rate the part
+        $response = $this->getRiskResponse([
+            'LifecycleRisk' => 'NA',
+            'SupplyChainRisk' => '',
+            'IsAffectedByTariff' => false,
+        ]);
+
+        $result = $this->getProvider([$response])->searchByKeyword('LM358DR')[0];
+
+        //A part which is not affected by a tariff is a statement, an absent rating is not
+        $this->assertSame(['Affected by tariff' => 'No'], $this->getRiskParameters($result));
+    }
+
+    public function testRiskRatingsCanBeTurnedOff(): void
+    {
+        $this->settings->riskRatings = false;
+
+        $response = $this->getRiskResponse([
+            'LifecycleRisk' => 'HIGH',
+            'SupplyChainRisk' => 'HIGH',
+            'IsAffectedByTariff' => true,
+        ]);
+
+        $result = $this->getProvider([$response])->searchByKeyword('LM358DR')[0];
+
+        $this->assertSame([], $this->getRiskParameters($result));
+        //The specifications are unaffected by the setting
+        $this->assertCount(1, $result->parameters);
+    }
 }

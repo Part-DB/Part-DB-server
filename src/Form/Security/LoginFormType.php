@@ -25,6 +25,7 @@ namespace App\Form\Security;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -59,6 +60,20 @@ class LoginFormType extends AbstractType
                 'label' => t('login.btn'),
             ])
         ;
+
+        //Preserve the redirect target (and keep it on the login page, if the login fails), if one was given
+        if ($options['target_path'] !== null) {
+            $builder->add('_target_path', HiddenType::class, [
+                'mapped' => false,
+                'data' => $options['target_path'],
+            ]);
+        }
+        if ($options['failure_path'] !== null) {
+            $builder->add('_failure_path', HiddenType::class, [
+                'mapped' => false,
+                'data' => $options['failure_path'],
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -70,8 +85,13 @@ class LoginFormType extends AbstractType
             'csrf_token_id'   => 'authenticate',
             'attr' => [
                 'data-turbo' => 'false', // Disable Turbo for the login form to ensure proper redirection after login
-            ]
+            ],
+            'target_path' => null,
+            'failure_path' => null,
         ]);
+
+        $resolver->setAllowedTypes('target_path', ['null', 'string']);
+        $resolver->setAllowedTypes('failure_path', ['null', 'string']);
     }
 
     public function getBlockPrefix(): string

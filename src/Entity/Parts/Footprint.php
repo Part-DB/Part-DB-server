@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\FootprintAlternativeName;
 use App\Entity\EDA\EDAFootprintInfo;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
@@ -58,6 +59,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\FootprintAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
@@ -69,8 +73,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a footprint of a part (its physical dimensions and shape).
  *
- * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter>
+ * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter, FootprintAlternativeName>
  */
+#[EntityConfig(routeBase: 'footprint')]
+#[AdminCrud(formClass: FootprintAdminForm::class)]
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
 #[ORM\Index(name: 'footprint_idx_name', columns: ['name'])]
@@ -195,6 +201,10 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: FootprintAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     #[Groups(['footprint:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['footprint:read'])]
@@ -211,6 +221,7 @@ class Footprint extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         $this->eda_info = new EDAFootprintInfo();
     }
 

@@ -129,6 +129,59 @@ Interesting folders are:
 * `templates`: The templates (HTML) that are used by Twig to render the different pages. Email templates are also saved here.
 * `tests/`: Tests that can be run by PHPUnit.
 
+## Admin CRUD system
+
+Many structural entity types (Category, Footprint, Supplier, …) share a generic Create/Read/Update/Delete
+interface. This section explains how the system works and what you need to do to add a new entity type to it.
+
+### Key classes
+
+| Class | Location | Purpose |
+|---|---|---|
+| `#[EntityConfig]` | `src/Entity/Attribute/EntityConfig.php` | Generic entity metadata: `routeBase` (used to build URLs) and auto-detected attachment/parameter classes (from Doctrine associations). Place on any entity that participates in the CRUD or attachment/parameter systems — including `Part`. |
+| `#[AdminCrud]` | `src/Entity/Attribute/AdminCrud.php` | Admin-CRUD overlay: `formClass`, `templatePath`, `showParametersTab`. Place alongside `#[EntityConfig]` on entities managed by the generic admin interface. |
+| `EntityConfigRegistry` | `src/Services/EntitySystem/` | Discovers all entities with `#[EntityConfig]` and exposes `EntityConfigData` (routeBase, attachment class, parameter class). Used by `EntityURLGenerator` to derive route names. |
+| `AdminCrudRegistry` | `src/Services/AdminPages/` | Filters the above to entities that also have `#[AdminCrud]` and exposes `AdminCrudConfig`. |
+| `AdminCrudConfig` | `src/Services/AdminPages/` | Value object combining both attributes for one entity. |
+| `AdminPageHandler` | `src/Services/AdminPages/` | Core CRUD service: handles edit, new, and delete flows, calls extensions, renders Twig. |
+| `AdminPageController` | `src/Controller/AdminPages/` | Thin controller that delegates to `AdminPageHandler`. Routes are generated dynamically by `AdminPageRouteLoader`. |
+| `AdminPageExtensionInterface` | `src/Services/AdminPages/` | Per-entity hook interface. Implement and tag `app.admin_page_extension` to add custom behaviour (flash messages, permission checks, extra template vars, form options). |
+
+### Route naming convention
+
+Routes for admin-managed entities follow the pattern `{routeBase}_{action}`:
+
+| Action | Suffix | Example (`routeBase = category`) |
+|---|---|---|
+| Edit | `_edit` | `category_edit` |
+| New | `_new` | `category_new` |
+| Clone | `_clone` | `category_clone` |
+| Delete | `_delete` | `category_delete` |
+
+`Part` and `Project` additionally have a `_info` route used as their info/detail page; all other entities fall back to `_edit` for `infoURL`.
+
+### Adding a new admin-managed entity
+
+1. **Add both attributes to the entity class:**
+   ```php
+   #[EntityConfig(routeBase: 'my_entity')]
+   #[AdminCrud(formClass: MyEntityAdminForm::class)]
+   class MyEntity extends AbstractStructuralDBElement { … }
+   ```
+   - `routeBase` drives URL generation and the default template path (`admin/{routeBase}_admin.html.twig`).
+   - Attachment and parameter classes are detected automatically from the Doctrine `attachments` / `parameters` associations — no need to declare them in the attribute.
+
+2. **Create the form class** in `src/Form/AdminPages/`. Extend `AbstractType` and return `BaseEntityAdminForm::class` from `getParent()`. Add only the fields specific to this entity; the base form's fields (name, comment, attachments, parameters) are inherited automatically via Symfony's form type inheritance chain.
+
+3. **Create the Twig template** at `templates/admin/{routeBase}_admin.html.twig`. Extend `admin/base_admin.html.twig`.
+
+4. **Clear the cache** so route discovery and entity config discovery pick up the new annotations:
+   ```bash
+   php bin/console cache:clear
+   ```
+
+5. **Optional — add an extension** for custom behaviour: implement `AdminPageExtensionInterface` (extend `AbstractAdminPageExtension` for convenience), tag the service with `app.admin_page_extension`, and set `getEntityClass()` to return your entity class. Available hooks: `beforeEdit`, `beforeNew`, `beforeDelete`, `onEditFormValid`, `onNewFormValid`, `checkDelete`, `formOptions`, `additionalTemplateVars`.
+
 # Development environment
 See [DEVELOPMENT.md](DEVELOPMENT.md) for setting up a development environment.
 

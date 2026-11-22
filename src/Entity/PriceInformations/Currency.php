@@ -41,8 +41,13 @@ use App\Entity\Attachments\Attachment;
 use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
 use App\Entity\Parameters\CurrencyParameter;
+use App\Form\AdminPages\CurrencyAdminForm;
+use App\Services\AdminPages\Extension\CurrencyAdminExtension;
+use App\Entity\AlternativeNames\CurrencyAlternativeName;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
@@ -57,8 +62,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a currency that can be used for price information.
  *
- * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter>
+ * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter, CurrencyAlternativeName>
  */
+#[EntityConfig(routeBase: 'currency')]
+#[AdminCrud(formClass: CurrencyAdminForm::class, extensionClass: CurrencyAdminExtension::class, showAlternativeNames: false)]
 #[UniqueEntity('iso_code')]
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\Table(name: 'currencies')]
@@ -143,6 +150,10 @@ class Currency extends AbstractStructuralDBElement
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: CurrencyAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     /** @var Collection<int, Pricedetail>
      */
     #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'currency')]
@@ -159,6 +170,7 @@ class Currency extends AbstractStructuralDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
         $this->pricedetails = new ArrayCollection();
         parent::__construct();
     }

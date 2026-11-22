@@ -136,7 +136,7 @@ final class KiCadHelperTest extends KernelTestCase
         $part = $this->em->find(Part::class, 3);
         $result = $this->helper->getKiCADPart($part);
 
-        // "TestAttachment" (url: www.foo.bar) and "Test2" (internal: invalid) don't match datasheet patterns
+        // "TestAttachment" (url: https://www.foo.bar) and "Test2" (internal: invalid) don't match datasheet patterns
         self::assertSame(
             $result['fields']['Part-DB URL']['value'],
             $result['fields']['datasheet']['value']

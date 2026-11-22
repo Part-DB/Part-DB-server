@@ -45,6 +45,7 @@ use App\DataTables\Filters\PartSearchFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attribute\EntityConfig;
 use App\Entity\EDA\EDAPartInfo;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\Parameters\ParametersTrait;
@@ -98,6 +99,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @extends AttachmentContainingDBElement<PartAttachment>
  * @template-use ParametersTrait<PartParameter>
  */
+#[EntityConfig(routeBase: 'part')]
 #[ORM\Entity(repositoryClass: PartRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`parts`')]

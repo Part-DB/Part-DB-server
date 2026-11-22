@@ -35,7 +35,7 @@ final readonly class CreateStructuralElementInput extends AbstractStructuralElem
         ?string $comment,
         ?bool $notSelectable,
         ?int $parentId,
-        ?string $alternativeNames,
+        ?array $alternativeNames,
         ?string $logComment,
         array $providedFields,
     ) {

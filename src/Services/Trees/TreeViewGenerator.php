@@ -170,7 +170,9 @@ class TreeViewGenerator
 
             if ($href_type !== '' && null !== $item->getId()) {
                 $entity = $this->em->find($class, $item->getId());
-                $item->setHref($this->urlGenerator->getURL($entity, $href_type));
+                if ($entity !== null) {
+                    $item->setHref($this->urlGenerator->getURL($entity, $href_type));
+                }
             }
 
             //Translate text if text starts with $$
@@ -228,6 +230,97 @@ class TreeViewGenerator
             Project::class => $icon.'fa-archive',
             default => null,
         };
+    }
+
+    /**
+     * Like {@see getTreeView()} but groups top-level entity nodes alphabetically by first letter.
+     * Head nodes prepended by the newEdit mode (New-entity link, separator) are preserved as-is.
+     *
+     * @param  string  $class
+     * @param  AbstractStructuralDBElement|null  $parent
+     * @param  string  $mode
+     * @param  AbstractDBElement|null  $selectedElement
+     * @param  int  $topLevelThreshold  Minimum number of top-level entity nodes required before
+     *                                   grouping is applied. 0 means always group.
+     * @return TreeViewNode[]
+     */
+    public function getTreeViewGrouped(
+        string $class,
+        ?AbstractStructuralDBElement $parent = null,
+        string $mode = 'list_parts',
+        ?AbstractDBElement $selectedElement = null,
+        int $topLevelThreshold = 0,
+    ): array {
+        $tree = $this->getTreeView($class, $parent, $mode, $selectedElement);
+
+        // Head nodes (e.g. "New entity" link + separator) have no entity ID and are prepended by
+        // getTreeViewUncached before the entity nodes. Keep them in place and only group the rest.
+        $head = [];
+        $entityNodes = [];
+        $headDone = false;
+        foreach ($tree as $node) {
+            if (!$headDone && $node->getId() === null) {
+                $head[] = $node;
+            } else {
+                $headDone = true;
+                $entityNodes[] = $node;
+            }
+        }
+
+        // Skip grouping when the top-level count is at or below the threshold
+        if ($topLevelThreshold > 0 && count($entityNodes) <= $topLevelThreshold) {
+            return $tree;
+        }
+
+        return array_merge($head, $this->applyAlphabeticalGrouping($entityNodes, 1));
+    }
+
+    /**
+     * Groups nodes by their first letter when the count exceeds the threshold.
+     * Applied recursively so deep sub-trees with many children also get grouped.
+     *
+     * @param  TreeViewNode[]  $nodes
+     * @return TreeViewNode[]
+     */
+    public function applyAlphabeticalGrouping(array $nodes, int $threshold): array
+    {
+        // Recurse into children first so deep levels are also grouped
+        foreach ($nodes as $node) {
+            $children = $node->getNodes();
+            if ($children !== null && count($children) > $threshold) {
+                $node->setNodes($this->applyAlphabeticalGrouping($children, $threshold));
+            }
+        }
+
+        if (count($nodes) <= $threshold) {
+            return $nodes;
+        }
+
+        // Build letter buckets
+        $groups = [];
+        foreach ($nodes as $node) {
+            $text = $node->getText();
+            if ($text === '') {
+                continue;
+            }
+            $firstChar = mb_strtoupper(mb_substr($text, 0, 1));
+            // Non-letter characters (numbers, symbols) go under "#"
+            if (!ctype_alpha($firstChar)) {
+                $firstChar = '#';
+            }
+            $groups[$firstChar][] = $node;
+        }
+
+        ksort($groups);
+
+        $result = [];
+        foreach ($groups as $letter => $letterNodes) {
+            $groupNode = new TreeViewNode($letter, null, $letterNodes);
+            $groupNode->addTag((string) count($letterNodes));
+            $result[] = $groupNode;
+        }
+
+        return $result;
     }
 
     /**
