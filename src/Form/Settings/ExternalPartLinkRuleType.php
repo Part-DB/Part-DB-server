@@ -73,6 +73,9 @@ class ExternalPartLinkRuleType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'choice_label' => fn (ExternalPartLinkIcon $choice) => $choice->toTranslationKey(),
+                'choice_attr' => fn (ExternalPartLinkIcon $choice): array => [
+                    'data-icon' => $choice->toFontAwesomeClass(),
+                ],
                 'constraints' => [new Assert\NotNull()],
                 'row_attr' => ['class' => 'mb-0'],
                 'attr' => ['class' => 'form-select-sm', 'aria-label' => $t->trans('external_part_link.icon')],
