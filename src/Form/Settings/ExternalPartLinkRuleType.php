@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace App\Form\Settings;
 
-use App\Services\Tools\ExternalPartLinkIcon;
-use App\Services\Tools\ExternalPartLinkSourceType;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkIcon;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkSourceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;

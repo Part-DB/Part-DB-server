@@ -23,8 +23,8 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\Parts\Part;
-use App\Services\Tools\ExternalPartLinkResolver;
-use App\Services\Tools\ResolvedExternalPartLink;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkResolver;
+use App\Services\Parts\ExternalLinks\ResolvedExternalPartLink;
 use Twig\Attribute\AsTwigFunction;
 
 final readonly class ExternalPartLinkExtension
