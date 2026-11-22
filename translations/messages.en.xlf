@@ -178,6 +178,36 @@
         <target>Common</target>
       </segment>
     </unit>
+    <unit id="tg6HUWz" name="admin.alt_names_overview">
+      <segment state="translated">
+        <source>admin.alt_names_overview</source>
+        <target>Alternative Names</target>
+      </segment>
+    </unit>
+    <unit id="dXf_PrR" name="admin.alt_names_overview.name">
+      <segment state="translated">
+        <source>admin.alt_names_overview.name</source>
+        <target>Alternative Name</target>
+      </segment>
+    </unit>
+    <unit id="tueArU4" name="admin.alt_names_overview.element">
+      <segment state="translated">
+        <source>admin.alt_names_overview.element</source>
+        <target>Element</target>
+      </segment>
+    </unit>
+    <unit id="9J.v0g9" name="admin.alt_names_overview.empty">
+      <segment state="translated">
+        <source>admin.alt_names_overview.empty</source>
+        <target>No alternative names defined yet.</target>
+      </segment>
+    </unit>
+    <unit id="9w9ImBX" name="admin.alt_names_overview.duplicate_warning">
+      <segment state="translated">
+        <source>admin.alt_names_overview.duplicate_warning</source>
+        <target>This name is assigned to multiple elements.</target>
+      </segment>
+    </unit>
     <unit id="fn26FXc" name="admin.attachments">
       <segment state="translated">
         <source>admin.attachments</source>
@@ -6987,6 +7017,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Number of [[part]] with this element or its sub elements</target>
       </segment>
     </unit>
+    <unit id="wPok5Wh" name="entity.info.total_count">
+      <segment state="translated">
+        <source>entity.info.total_count</source>
+        <target>Total number of entities</target>
+      </segment>
+    </unit>
+    <unit id="chqscjk" name="entity.info.root_count">
+      <segment state="translated">
+        <source>entity.info.root_count</source>
+        <target>Number of root entities</target>
+      </segment>
+    </unit>
     <unit id="st92iWF" name="tools.server_infos.title">
       <segment state="translated">
         <source>tools.server_infos.title</source>
@@ -8791,6 +8833,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>log.element_edited.changed_fields.attachments</source>
         <target>Attachments</target>
+      </segment>
+    </unit>
+    <unit id="HYz.9NH" name="log.element_edited.changed_fields.alternative_names">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.alternative_names</source>
+        <target>Alternative names</target>
       </segment>
     </unit>
     <unit id="FcLV2wQ" name="tfa_u2f.add_key.registration_error">
