@@ -295,7 +295,7 @@ final class GeneratedImageAttachmentHelperTest extends TestCase
         $this->service->attachSvgToPart($part, '<svg></svg>', 'Test');
 
         $this->assertSame('image/*', $type->getFiletypeFilter());
-        $this->assertSame('Generated image', $type->getAlternativeNames());
+        $this->assertSame(['Generated image'], $type->getAlternativeNames());
         $this->assertContains($type, $persisted);
     }
 
@@ -303,7 +303,7 @@ final class GeneratedImageAttachmentHelperTest extends TestCase
     {
         $type = $this->mockGeneratedImageType(persisted: true);
         $type->setFiletypeFilter('');
-        $type->setAlternativeNames(null);
+        $type->setAlternativeNames([]);
         $this->mockSuccessfulPictureUpload();
 
         $persisted = [];
@@ -316,7 +316,7 @@ final class GeneratedImageAttachmentHelperTest extends TestCase
 
         //Existing types must not be modified...
         $this->assertSame('', $type->getFiletypeFilter());
-        $this->assertNull($type->getAlternativeNames());
+        $this->assertSame([], $type->getAlternativeNames());
         //...nor persisted again (only the new attachment should be persisted)
         $this->assertNotContains($type, $persisted);
     }

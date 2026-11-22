@@ -307,7 +307,7 @@ final class PopulateKicadCommandTest extends KernelTestCase
         // but an alternative name that does
         $footprint = new Footprint();
         $footprint->setName('MyCustomSOT23');
-        $footprint->setAlternativeNames('SOT-23, SOT23-3L');
+        $footprint->setAlternativeNames(['SOT-23', 'SOT23-3L']);
         $this->entityManager->persist($footprint);
         $this->entityManager->flush();
 
@@ -332,7 +332,7 @@ final class PopulateKicadCommandTest extends KernelTestCase
         // but an alternative name that matches a pattern
         $category = new Category();
         $category->setName('SMD Components');
-        $category->setAlternativeNames('Resistor SMD, Chip Resistors');
+        $category->setAlternativeNames(['Resistor SMD', 'Chip Resistors']);
         $this->entityManager->persist($category);
         $this->entityManager->flush();
 

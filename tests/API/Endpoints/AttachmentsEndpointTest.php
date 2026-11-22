@@ -99,6 +99,43 @@ final class AttachmentsEndpointTest extends AuthenticatedApiTestCase
         ]);
     }
 
+    public function testCreateAttachmentWithExternalURL(): void
+    {
+        static::createAuthenticatedClient()->request('POST', '/api/attachments', ['json' => [
+            'name' => 'test',
+            'element' => '/api/parts/1',
+            'attachment_type' => '/api/attachment_types/1',
+            'url' => 'https://example.com/test.pdf',
+        ]]);
+
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            'external_path' => 'https://example.com/test.pdf',
+        ]);
+    }
+
+    public function testCreateAttachmentRejectsJavascriptURL(): void
+    {
+        static::createAuthenticatedClient()->request('POST', '/api/attachments', ['json' => [
+            'name' => 'test',
+            'element' => '/api/parts/1',
+            'attachment_type' => '/api/attachment_types/1',
+            'url' => 'javascript:alert(document.cookie)//https://example.com/x.pdf',
+        ]]);
+
+        self::assertResponseStatusCodeSame(422);
+    }
+
+    public function testUpdateAttachmentRejectsJavascriptURL(): void
+    {
+        static::createAuthenticatedClient()->request('PATCH', '/api/attachments/1', [
+            'json' => ['url' => 'javascript:alert(1)'],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
+    }
+
     public function testRemoveAttachment(): void
     {
         $response = static::createAuthenticatedClient()->request('DELETE', '/api/attachments/1');

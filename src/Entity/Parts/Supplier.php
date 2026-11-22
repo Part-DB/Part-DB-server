@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\SupplierAlternativeName;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -57,6 +58,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\SupplierForm;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\SupplierParameter;
@@ -73,8 +77,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a supplier of parts (the company that sells the parts).
  *
- * @extends AbstractCompany<SupplierAttachment, SupplierParameter>
+ * @extends AbstractCompany<SupplierAttachment, SupplierParameter, SupplierAlternativeName>
  */
+#[EntityConfig(routeBase: 'supplier')]
+#[AdminCrud(formClass: SupplierForm::class)]
 #[ORM\Entity(repositoryClass: SupplierRepository::class)]
 #[ORM\Table('`suppliers`')]
 #[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
@@ -214,6 +220,10 @@ class Supplier extends AbstractCompany
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: SupplierAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
      */
@@ -267,5 +277,6 @@ class Supplier extends AbstractCompany
         $this->orderdetails = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 }

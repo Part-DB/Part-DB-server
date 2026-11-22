@@ -159,6 +159,14 @@ abstract class Attachment extends AbstractNamedDBElement
     final public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%FOOTPRINTS_C%'];
 
     /**
+     * Regex matching external paths, which are safe to be used as a link target: Either an absolute HTTP(S) URL, or a
+     * value without any scheme (no colon before the first "/", "?" or "#"), which browsers treat as a relative URL.
+     * Everything else (javascript:, data:, vbscript:, file:, ...) is rejected. As control characters and whitespace
+     * are part of the "scheme" part, obfuscations like "java\tscript:" are rejected too.
+     */
+    final public const SAFE_EXTERNAL_URL_REGEX = '#^(?:https?://|[^:/?\#]*(?:[/?\#]|$))#i';
+
+    /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      * @phpstan-var class-string<T>
      */
@@ -196,6 +204,11 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
     #[Assert\Length(max: 2048)]
+    #[Assert\Sequentially([
+        //Check the scheme first, to give a more specific error message for unsafe schemes like javascript:
+        new Assert\Regex(pattern: self::SAFE_EXTERNAL_URL_REGEX, message: 'validator.attachment.external_url_invalid_scheme'),
+        new Assert\Url(requireTld: false),
+    ])]
     protected ?string $external_path = null;
 
     /**
@@ -356,7 +369,9 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     public function hasExternal(): bool
     {
-        return $this->external_path !== null && $this->external_path !== '';
+        //Treat external paths with a non-HTTP(S) scheme (e.g. javascript:) as non-existent, so they are never rendered
+        return $this->external_path !== null && $this->external_path !== ''
+            && self::isSafeExternalURL($this->external_path);
     }
 
     /**
@@ -505,9 +520,13 @@ abstract class Attachment extends AbstractNamedDBElement
         return $this->internal_path;
     }
 
+    /**
+     * Returns the path to the external file. If the stored external path uses an unsafe scheme (anything else than
+     * HTTP(S), like javascript: or data:), null is returned, so that it can not be used as a link target.
+     */
     public function getExternalPath(): ?string
     {
-        return $this->external_path;
+        return $this->hasExternal() ? $this->external_path : null;
     }
 
     /**
@@ -634,6 +653,10 @@ abstract class Attachment extends AbstractNamedDBElement
     {
         //Don't allow the user to set an empty external path if the internal path is empty already
         if (($url === null || $url === "") && !$this->hasInternal()) {
+            //But drop an existing unsafe external path (which is hidden from the form), so the attachment can be fixed
+            if (!$this->hasExternal()) {
+                $this->external_path = null;
+            }
             return $this;
         }
 
@@ -702,6 +725,16 @@ abstract class Attachment extends AbstractNamedDBElement
         //Builtins must have a %PLACEHOLDER% construction
 
         return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, true);
+    }
+
+    /**
+     * Checks if the given URL is safe to be used as external path / link target of an attachment.
+     * Only absolute HTTP(S) URLs and scheme-less (relative) values are allowed. Every other scheme (like javascript:,
+     * data:, vbscript: or file:) is rejected, as it could be used for XSS or to access local resources.
+     */
+    public static function isSafeExternalURL(string $url): bool
+    {
+        return preg_match(self::SAFE_EXTERNAL_URL_REGEX, $url) === 1;
     }
 
     /**

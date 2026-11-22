@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Parts\Part;
+use App\Controller\Helpers\SafeRedirectTrait;
 use App\Form\Part\EDA\BatchEdaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BatchEdaController extends AbstractController
 {
+    use SafeRedirectTrait;
+
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
@@ -54,7 +57,7 @@ class BatchEdaController extends AbstractController
         $this->denyAccessUnlessGranted('@parts.edit');
 
         $ids = $request->query->getString('ids', '');
-        $redirectUrl = $request->query->getString('_redirect', '');
+        $redirectUrl = self::sanitizeRedirectTarget($request->query->getString('_redirect'));
 
         //Parse part IDs and load parts
         $idArray = array_filter(array_map(intval(...), explode(',', $ids)), static fn (int $id): bool => $id > 0);
@@ -63,7 +66,7 @@ class BatchEdaController extends AbstractController
         if ($parts === []) {
             $this->addFlash('error', 'batch_eda.no_parts_selected');
 
-            return $redirectUrl !== '' ? $this->redirect($redirectUrl) : $this->redirectToRoute('parts_show_all');
+            return $this->safeRedirect($redirectUrl, 'parts_show_all');
         }
 
         //Pre-populate form with shared values (when all parts have the same value)
@@ -105,7 +108,7 @@ class BatchEdaController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', 'batch_eda.success');
 
-            return $redirectUrl !== '' ? $this->redirect($redirectUrl) : $this->redirectToRoute('parts_show_all');
+            return $this->safeRedirect($redirectUrl, 'parts_show_all');
         }
 
         return $this->render('parts/batch_eda_edit.html.twig', [

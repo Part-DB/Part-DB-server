@@ -32,7 +32,18 @@ TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
 TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
+    static values = {
+        // Separator between tags in the underlying input value.
+        // Use escape sequences like \n or \t for special characters.
+        separator: { type: String, default: ',' },
+    };
+
     _tomSelect;
+
+    // Decode \n and \t escape sequences so the HTML attribute can carry them.
+    get _separator() {
+        return this.separatorValue.replace('\\n', '\n').replace('\\t', '\t');
+    }
 
     connect() {
         let dropdownParent = "body";
@@ -53,6 +64,7 @@ export default class extends Controller {
             create: true,
             dropdownParent: dropdownParent,
             clearAfterSelect: true,
+            delimiter: this._separator,
         };
 
         if(this.element.dataset.autocomplete) {

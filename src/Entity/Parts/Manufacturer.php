@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\ManufacturerAlternativeName;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -57,6 +58,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\CompanyForm;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
@@ -68,8 +72,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a manufacturer of a part (The company that produces the part).
  *
- * @extends AbstractCompany<ManufacturerAttachment, ManufacturerParameter>
+ * @extends AbstractCompany<ManufacturerAttachment, ManufacturerParameter, ManufacturerAlternativeName>
  */
+#[EntityConfig(routeBase: 'manufacturer')]
+#[AdminCrud(formClass: CompanyForm::class)]
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
@@ -185,11 +191,17 @@ class Manufacturer extends AbstractCompany
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
+
+    #[ORM\OneToMany(targetEntity: ManufacturerAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     public function __construct()
     {
         parent::__construct();
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 }
