@@ -60,7 +60,7 @@ class PasswordResetManager
         $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token));
 
         //Determine the expiration datetime of
-        $expiration_date = new \DateTimeImmutable("+1 day");
+        $expiration_date = new \DateTimeImmutable("+2 hours");
         $user->setPwResetExpires($expiration_date);
 
         if ($user->getEmail() !== null && $user->getEmail() !== '') {
