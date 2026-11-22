@@ -32,12 +32,16 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\EntityMergers\Mergers\PartMerger;
+use Brick\Math\BigDecimal;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -496,5 +500,184 @@ final class PartMergerTest extends KernelTestCase
         //A stock is only meaningful together with its age, so the time has to travel with the value
         $this->assertSame(500.0, $merged->getOrderdetails()->first()->getAvailableAmount());
         $this->assertEquals($retrieved_at, $merged->getOrderdetails()->first()->getAvailableAmountUpdatedAt());
+    }
+
+    /**
+     * Builds a price tier, so that the merge tests below read as the data they describe.
+     */
+    private function pricedetail(float $min_discount_quantity, ?Currency $currency, string $price): Pricedetail
+    {
+        $pricedetail = new Pricedetail();
+        $pricedetail->setMinDiscountQuantity($min_discount_quantity);
+        $pricedetail->setPrice(BigDecimal::of($price));
+        $pricedetail->setCurrency($currency);
+
+        return $pricedetail;
+    }
+
+    /**
+     * @return float[] the min discount quantities of the given orderdetail, in the order they were added
+     */
+    private function quantitiesOf(Orderdetail $orderdetail): array
+    {
+        return array_map(
+            static fn (Pricedetail $pricedetail): float => $pricedetail->getMinDiscountQuantity(),
+            $orderdetail->getPricedetails()->toArray()
+        );
+    }
+
+    public function testMergePricedetailsDoesNotDuplicateATierQuotedInAnotherCurrency(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $usd = new Currency();
+        $usd->setIsoCode('USD');
+
+        //The part as it is stored: the provider quoted in USD when it was imported
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target_orderdetail->addPricedetail($this->pricedetail(1.0, $usd, '1.50'));
+        $target_orderdetail->addPricedetail($this->pricedetail(10.0, $usd, '1.20'));
+        $target->addOrderdetail($target_orderdetail);
+
+        //What the provider returns now: the same tiers, but in the base currency
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        $other_orderdetail->addPricedetail($this->pricedetail(1.0, null, '1.40'));
+        $other_orderdetail->addPricedetail($this->pricedetail(10.0, null, '1.10'));
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A price tier is unique per orderdetail by its quantity alone (see the UniqueEntity constraint on
+        //Pricedetail), so a tier which only differs in its currency must not be added a second time - the
+        //part could not be saved afterwards.
+        $quantities = $this->quantitiesOf($merged->getOrderdetails()->first());
+        $this->assertSame($quantities, array_unique($quantities), 'a quantity must appear at most once');
+        $this->assertEqualsCanonicalizing([1.0, 10.0], $quantities);
+    }
+
+    public function testMergePricedetailsFillsAnEmptyPriceFromTheOtherCurrency(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $usd = new Currency();
+        $usd->setIsoCode('USD');
+
+        //A tier which is known, but has no price yet
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target_orderdetail->addPricedetail($this->pricedetail(1.0, null, '0'));
+        $target->addOrderdetail($target_orderdetail);
+
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        $other_orderdetail->addPricedetail($this->pricedetail(1.0, $usd, '2.50'));
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //An empty price is filled from the provider - and then the currency it was quoted in has to travel
+        //with it, otherwise the amount would be read as the base currency.
+        $pricedetail = $merged->getOrderdetails()->first()->getPricedetails()->first();
+        $this->assertTrue($pricedetail->getPrice()->isEqualTo('2.50'));
+        $this->assertSame($usd, $pricedetail->getCurrency());
+    }
+
+    private function parameter(string $name, string $group, string $value_text): PartParameter
+    {
+        $parameter = new PartParameter();
+        $parameter->setName($name);
+        $parameter->setGroup($group);
+        $parameter->setValueText($value_text);
+
+        return $parameter;
+    }
+
+    public function testMergeParametersDoesNotDuplicateAParameterWhoseValueChanged(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', '5 V'));
+
+        //The provider reports the same parameter, but with another value than the one stored
+        $other = new Part();
+        $other->addParameter($this->parameter('Voltage', 'Electrical', '6 V'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A parameter is unique per element by name and group (see the constraint on AbstractParameter), so a
+        //changed value must not produce a second one - the part could not be saved afterwards.
+        $this->assertCount(1, $merged->getParameters());
+        //As everywhere else in the merge, what the target already has wins
+        $this->assertSame('5 V', $merged->getParameters()->first()->getValueText());
+    }
+
+    public function testMergeParametersFillsAValueTheTargetDoesNotHave(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', ''));
+
+        $other = new Part();
+        $other_parameter = $this->parameter('Voltage', 'Electrical', '6 V');
+        $other_parameter->setValueTypical(6.0);
+        $other_parameter->setUnit('V');
+        $other->addParameter($other_parameter);
+
+        $merged = $this->merger->merge($target, $other);
+
+        $this->assertCount(1, $merged->getParameters());
+        $parameter = $merged->getParameters()->first();
+        $this->assertSame('6 V', $parameter->getValueText());
+        $this->assertSame(6.0, $parameter->getValueTypical());
+        $this->assertSame('V', $parameter->getUnit());
+    }
+
+    public function testMergeParametersKeepsTheSameNameInAnotherGroup(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', '5 V'));
+
+        $other = new Part();
+        $other->addParameter($this->parameter('Voltage', 'Absolute maximum', '7 V'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //The group is part of the identity, so the same name in another group is a different parameter
+        $this->assertCount(2, $merged->getParameters());
+    }
+
+    public function testMergeAttachmentsDoesNotDuplicateAnAttachmentWhichPointsSomewhereElseNow(): void
+    {
+        $attachment_type = new AttachmentType();
+
+        $target = (new Part())->addAttachment((new PartAttachment())
+            ->setName('Datasheet')
+            ->setAttachmentType($attachment_type)
+            ->setExternalPath('https://example.invalid/old/datasheet.pdf'));
+
+        //The provider serves the same document under another path now - not just another query string
+        $other = (new Part())->addAttachment((new PartAttachment())
+            ->setName('Datasheet')
+            ->setAttachmentType($attachment_type)
+            ->setExternalPath('https://example.invalid/new/datasheet.pdf'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A name may exist only once per attachment type on an element, so a second one cannot be added -
+        //the part could not be saved afterwards.
+        $this->assertCount(1, $merged->getAttachments());
+        //The provider is authoritative for where the file is, so the link is refreshed
+        $this->assertSame('https://example.invalid/new/datasheet.pdf',
+            $merged->getAttachments()->first()->getExternalPath());
     }
 }

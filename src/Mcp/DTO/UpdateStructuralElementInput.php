@@ -37,7 +37,7 @@ final readonly class UpdateStructuralElementInput extends AbstractStructuralElem
         ?string $comment,
         ?bool $notSelectable,
         ?int $parentId,
-        ?string $alternativeNames,
+        ?array $alternativeNames,
         ?string $logComment,
         array $providedFields,
     ) {

@@ -100,7 +100,7 @@ export default class extends Controller {
 
         }
 
-        return '<div>' + this._renderImage(data, escape) + this._renderText(data, escape) + '</div>';
+        return '<div>' + this._renderImage(data, escape) + this._renderIcon(data, escape) + this._renderText(data, escape) + '</div>';
     }
 
     renderOption(data, escape) {
@@ -114,7 +114,7 @@ export default class extends Controller {
             subtext = ' <small class="text-muted">' + escape(data.subtext) + '</small>';
         }
 
-        return '<div>' + this._renderImage(data, escape) + this._renderText(data, escape) + subtext + '</div>';
+        return '<div>' + this._renderImage(data, escape) + this._renderIcon(data, escape) + this._renderText(data, escape) + subtext + '</div>';
     }
 
     _renderText(data, escape) {
@@ -132,6 +132,16 @@ export default class extends Controller {
             return '';
         }
         return '<img class="structural-entity-select-image" style="margin-right: 5px;" src="' + escape(data.image) + '" alt="">';
+    }
+
+    /**
+     * Renders a Font Awesome icon, if the option has a data-icon attribute containing FA classes
+     */
+    _renderIcon(data, escape) {
+        if (!data.icon) {
+            return '';
+        }
+        return '<i class="' + escape(data.icon) + ' me-1" style="width:1.25em;text-align:center;" aria-hidden="true"></i>';
     }
 
     disconnect() {

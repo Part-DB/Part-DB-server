@@ -20,6 +20,14 @@
 import {add} from "ckeditor5";
 
 add( "de", {
+    'Part image': 'Bauteilbild',
+    'Insert the image of the part. It is fitted into the placeholder, which can be resized.': 'Das Bild des Bauteils einfügen. Es wird in den Platzhalter eingepasst, dessen Größe geändert werden kann.',
+    'Only labels for parts and part lots can contain the part image.': 'Nur Labels für Bauteile und Bauteilbestände können das Bauteilbild enthalten.',
+    'Edit HTML snippet': 'HTML-Snippet bearbeiten',
+    'Size': 'Größe',
+    'Width (mm)': 'Breite (mm)',
+    'Height (mm)': 'Höhe (mm)',
+    'Set the size of the image': 'Größe des Bildes festlegen',
     'Label Placeholder': 'Label Platzhalter',
     'Part': 'Bauteil',
 

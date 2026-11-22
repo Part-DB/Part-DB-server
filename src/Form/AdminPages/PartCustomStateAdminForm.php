@@ -22,17 +22,26 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\PartCustomState;
 use App\Form\Type\BootstrapColorType;
-use App\Helpers\BootstrapColor;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class PartCustomStateAdminForm extends BaseEntityAdminForm
+class PartCustomStateAdminForm extends AbstractType
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function __construct(private readonly Security $security)
     {
+    }
+
+    public function getParent(): string
+    {
+        return BaseEntityAdminForm::class;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
         if (!$entity instanceof PartCustomState) {
             return;
         }

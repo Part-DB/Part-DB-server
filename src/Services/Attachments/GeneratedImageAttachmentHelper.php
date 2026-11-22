@@ -132,7 +132,7 @@ final readonly class GeneratedImageAttachmentHelper
         //A newly created type is not persisted yet, and the attachment_type relation does not cascade persist.
         if ($type->getID() === null) {
             $type->setFiletypeFilter('image/*');
-            $type->setAlternativeNames(self::ATTACHMENT_TYPE_NAME);
+            $type->setAlternativeNames([self::ATTACHMENT_TYPE_NAME]);
             $this->em->persist($type);
         }
 

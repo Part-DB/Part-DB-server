@@ -62,3 +62,21 @@
         </div>
     </div>
 {% endif %}
+
+{% if entity.id is null and entityCount is defined %}
+    <hr>
+    <div class="form-group row">
+        <label class="col-form-label col-md-4">{% trans %}entity.info.total_count{% endtrans %}</label>
+        <div class="col-md-8">
+            <p class="form-control-plaintext">{{ entityCount }}</p>
+        </div>
+    </div>
+    {% if rootEntityCount is not null %}
+        <div class="form-group row">
+            <label class="col-form-label col-md-4">{% trans %}entity.info.root_count{% endtrans %}</label>
+            <div class="col-md-8">
+                <p class="form-control-plaintext">{{ rootEntityCount }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

@@ -64,11 +64,9 @@ readonly class NormalizePropertyNameCollectionFactory implements PropertyNameCol
             if (str_contains($property, '_')) {
                 $camelized = u($property)->camel()->toString();
 
-                //If the camelized version exists, remove it from the collection
-                $index = array_search($camelized, $properties, true);
-                if ($index !== false) {
-                    unset($properties[$index]);
-                }
+                //If the camelized version exists, remove it from the collection. Compare case-insensitively, as
+                //accessors like setManufacturerProductURL() yield names that differ from the camelized one only in case
+                $properties = array_filter($properties, static fn (string $name) => strcasecmp($name, $camelized) !== 0);
             }
         }
 

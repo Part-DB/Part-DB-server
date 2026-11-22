@@ -55,7 +55,7 @@ final class UserVoter extends Voter
                 array_merge(
                     $this->resolver->listOperationsForPermission('users'),
                     $this->resolver->listOperationsForPermission('self'),
-                    ['info']
+                    ['info', 'edit']
                 ),
                 true
             );
@@ -66,7 +66,7 @@ final class UserVoter extends Voter
 
     public function supportsAttribute(string $attribute): bool
     {
-        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute) || $attribute === 'info';
+        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute) || $attribute === 'info' || $attribute === 'edit';
     }
 
     public function supportsType(string $subjectType): bool
@@ -92,6 +92,17 @@ final class UserVoter extends Voter
 
             //For the anonymous user, use the user read permission
             $attribute = 'read';
+        }
+
+        if ($attribute === 'edit') {
+            if (($subject instanceof User) && $subject->getID() === $user->getID()) {
+                return $this->helper->isGranted($token, 'self', 'edit_infos', $vote)
+                    || $this->helper->isGranted($token, 'self', 'edit_username', $vote);
+            }
+            return $this->helper->isGranted($token, 'users', 'edit_infos', $vote)
+                || $this->helper->isGranted($token, 'users', 'edit_username', $vote)
+                || $this->helper->isGranted($token, 'users', 'edit_permissions', $vote)
+                || $this->helper->isGranted($token, 'users', 'set_password', $vote);
         }
 
         //Check if the checked user is the user itself

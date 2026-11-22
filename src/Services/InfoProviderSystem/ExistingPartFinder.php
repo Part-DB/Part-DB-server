@@ -46,6 +46,7 @@ final readonly class ExistingPartFinder
         $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
         $qb->select('part')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('manufacturer.alternative_names', 'manufacturer_altname')
             ->Orwhere($qb->expr()->andX(
                 'part.providerReference.provider_key = :providerKey',
                 'part.providerReference.provider_id = :providerId',
@@ -55,11 +56,11 @@ final readonly class ExistingPartFinder
             ->OrWhere(
                 $qb->expr()->andX(
                     $qb->expr()->orX(
-                    "ILIKE(manufacturer.name, :manufacturerName) = TRUE",
-                        "ILIKE(manufacturer.alternative_names, :manufacturerAltNames) = TRUE",
+                        "ILIKE(manufacturer.name, :manufacturerName) = TRUE",
+                        "ILIKE(manufacturer_altname.name, :manufacturerName) = TRUE",
                     ),
                     $qb->expr()->orX(
-                    "ILIKE(part.manufacturer_product_number, :mpn) = TRUE",
+                        "ILIKE(part.manufacturer_product_number, :mpn) = TRUE",
                         "ILIKE(part.name, :mpn) = TRUE",
                     )
                 )
@@ -70,7 +71,6 @@ final readonly class ExistingPartFinder
         $qb->setParameter('providerId', $dto->provider_id);
 
         $qb->setParameter('manufacturerName', $dto->manufacturer);
-        $qb->setParameter('manufacturerAltNames', '%'.$dto->manufacturer.'%');
         $qb->setParameter('mpn', $dto->mpn);
 
         return $qb->getQuery()->getResult();

@@ -20,6 +20,15 @@ oauth_server_controllers:
         namespace: App\Controller\OAuth\NonLocalized
     type: attribute
 
+admin_pages:
+    resource: .
+    type: admin_pages
+    prefix: '{_locale}'
+    defaults:
+        _locale: '%kernel.default_locale%'
+    requirements:
+        _locale: "^[a-z]{2}(_[A-Z]{2})?$"
+
 kernel:
     resource: ../../src/Kernel.php
     type: attribute

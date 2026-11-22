@@ -22,11 +22,9 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\PriceInformations\Currency;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\UserSystem\Group;
 use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Form\Type\AlternativeNamesType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
@@ -54,9 +52,12 @@ class BaseEntityAdminForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
-        $resolver->setRequired('attachment_class');
-        $resolver->setRequired('parameter_class');
+        $resolver->setDefault('attachment_class', null);
+        $resolver->setAllowedTypes('attachment_class', ['string', 'null']);
+        $resolver->setDefault('parameter_class', null);
         $resolver->setAllowedTypes('parameter_class', ['string', 'null']);
+        $resolver->setDefault('show_alternative_names', true);
+        $resolver->setAllowedTypes('show_alternative_names', 'bool');
 
         $resolver->setDefaults([
             'warn_on_unsaved_changes' => true,
@@ -119,42 +120,34 @@ class BaseEntityAdminForm extends AbstractType
             );
         }
 
-        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Currency)) {
-            $builder->add('alternative_names', TextType::class, [
-                'required' => false,
-                'label' => 'entity.edit.alternative_names.label',
-                'help' => 'entity.edit.alternative_names.help',
-                'empty_data' => null,
+        if ($entity instanceof AbstractStructuralDBElement && $options['show_alternative_names']) {
+            $builder->add('alternative_names', AlternativeNamesType::class, [
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-                'attr' => [
-                    'class' => 'tagsinput',
-                    'data-controller' => 'elements--tagsinput',
-                ]
             ]);
         }
 
-        $this->additionalFormElements($builder, $options, $entity);
+        if ($options['attachment_class'] !== null) {
+            //Attachment section
+            $builder->add('attachments', CollectionType::class, [
+                'entry_type' => AttachmentFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'reindex_enable' => true,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'entry_options' => [
+                    'data_class' => $options['attachment_class'],
+                ],
+                'by_reference' => false,
+            ]);
 
-        //Attachment section
-        $builder->add('attachments', CollectionType::class, [
-            'entry_type' => AttachmentFormType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'label' => false,
-            'reindex_enable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'entry_options' => [
-                'data_class' => $options['attachment_class'],
-            ],
-            'by_reference' => false,
-        ]);
-
-        $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
-            'required' => false,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'label' => 'part.edit.master_attachment',
-            'entity' => $entity,
-        ]);
+            $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
+                'required' => false,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'label' => 'part.edit.master_attachment',
+                'entity' => $entity,
+            ]);
+        }
 
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
@@ -199,8 +192,4 @@ class BaseEntityAdminForm extends AbstractType
             ]);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
-    {
-        //Empty for Base
-    }
 }

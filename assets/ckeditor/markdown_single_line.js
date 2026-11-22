@@ -26,7 +26,6 @@ import {Strikethrough} from 'ckeditor5';
 import {Subscript} from 'ckeditor5';
 import {Superscript} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
-import {EditorWatchdog} from 'ckeditor5';
 import {Mention, Emoji} from "ckeditor5";
 
 import ExtendedMarkdownInline from "./plugins/extendedMarkdownInline";
@@ -94,4 +93,4 @@ Editor.defaultConfig = {
     language: 'en'
 };
 
-export default { Editor, EditorWatchdog };
+export default { Editor };
