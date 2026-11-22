@@ -52,6 +52,9 @@ class AppSettings
     public ?SynonymSettings $synonyms = null;
 
     #[EmbeddedSettings]
+    public ?ExternalPartLinkSettings $externalPartLinks = null;
+
+    #[EmbeddedSettings]
     public ?AISettings $ai = null;
 
     #[EmbeddedSettings()]
