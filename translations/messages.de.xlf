@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.de">
+  <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -176,6 +176,36 @@
       <segment state="translated">
         <source>admin.common</source>
         <target>Allgemein</target>
+      </segment>
+    </unit>
+    <unit id="tg6HUWz" name="admin.alt_names_overview">
+      <segment state="translated">
+        <source>admin.alt_names_overview</source>
+        <target>Alternative Namen</target>
+      </segment>
+    </unit>
+    <unit id="dXf_PrR" name="admin.alt_names_overview.name">
+      <segment state="translated">
+        <source>admin.alt_names_overview.name</source>
+        <target>Alternativer Name</target>
+      </segment>
+    </unit>
+    <unit id="tueArU4" name="admin.alt_names_overview.element">
+      <segment state="translated">
+        <source>admin.alt_names_overview.element</source>
+        <target>Element</target>
+      </segment>
+    </unit>
+    <unit id="9J.v0g9" name="admin.alt_names_overview.empty">
+      <segment state="translated">
+        <source>admin.alt_names_overview.empty</source>
+        <target>Noch keine alternativen Namen definiert.</target>
+      </segment>
+    </unit>
+    <unit id="9w9ImBX" name="admin.alt_names_overview.duplicate_warning">
+      <segment state="translated">
+        <source>admin.alt_names_overview.duplicate_warning</source>
+        <target>Dieser Name ist mehreren Elementen zugeordnet.</target>
       </segment>
     </unit>
     <unit id="fn26FXc" name="admin.attachments">
@@ -3266,6 +3296,24 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>label_options.barcode_type.label</source>
         <target>Barcode-Typ</target>
+      </segment>
+    </unit>
+    <unit id="k8tCp3p" name="label_options.barcode_size.label">
+      <segment state="translated">
+        <source>label_options.barcode_size.label</source>
+        <target>Barcode-Größe</target>
+      </segment>
+    </unit>
+    <unit id="d4JiLZm" name="label_options.barcode_size.placeholder">
+      <segment state="translated">
+        <source>label_options.barcode_size.placeholder</source>
+        <target>Automatisch</target>
+      </segment>
+    </unit>
+    <unit id="udG3rSL" name="label_options.barcode_size.help">
+      <segment state="translated">
+        <source>label_options.barcode_size.help</source>
+        <target>Kantenlänge von 2D-Barcodes (z.B. QR-Codes) oder Breite von 1D-Barcodes. Leer lassen, um die Standardgröße und das Standard-Layout beizubehalten.</target>
       </segment>
     </unit>
     <unit id="OnaZspp" name="label_profile.lines.label">
@@ -6968,6 +7016,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Bauteile mit diesem Element oder dessen Kindelementen</target>
       </segment>
     </unit>
+    <unit id="wPok5Wh" name="entity.info.total_count">
+      <segment state="translated">
+        <source>entity.info.total_count</source>
+        <target>Gesamtanzahl der Elemente</target>
+      </segment>
+    </unit>
+    <unit id="chqscjk" name="entity.info.root_count">
+      <segment state="translated">
+        <source>entity.info.root_count</source>
+        <target>Anzahl der Stammelemente</target>
+      </segment>
+    </unit>
     <unit id="st92iWF" name="tools.server_infos.title">
       <segment state="translated">
         <source>tools.server_infos.title</source>
@@ -8772,6 +8832,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>log.element_edited.changed_fields.attachments</source>
         <target>Dateianhänge</target>
+      </segment>
+    </unit>
+    <unit id="HYz.9NH" name="log.element_edited.changed_fields.alternative_names">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.alternative_names</source>
+        <target>Alternative Namen</target>
       </segment>
     </unit>
     <unit id="FcLV2wQ" name="tfa_u2f.add_key.registration_error">
@@ -14058,6 +14124,18 @@ Buerklin-API-Authentication-Server:
         <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lagerbestands- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und wird nicht auf die Ratenbegrenzung angerechnet, die Daten können jedoch veraltet sein.</target>
       </segment>
     </unit>
+    <unit id="iF2gQaJ" name="settings.ips.trustedparts.riskRatings">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings</source>
+        <target>Risikobewertungen importieren</target>
+      </segment>
+    </unit>
+    <unit id="ADEQkPe" name="settings.ips.trustedparts.riskRatings.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings.help</source>
+        <target>TrustedParts.com bewertet den Lebenszyklus und das Lieferkettenrisiko eines Bauteils und gibt an, ob es von Zöllen betroffen ist. Wenn aktiviert, werden diese Bewertungen als Parameter einer eigenen Gruppe importiert. Sie werden bei jeder API-Antwort mitgeliefert, sodass der Import keine zusätzliche Anfrage kostet.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -16054,6 +16132,150 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>attachment.create_from_clipboard</source>
         <target>Aus Zwischenablage</target>
+      </segment>
+    </unit>
+    <unit id="v7ovlvw" name="info_providers.error.server_exception">
+      <segment state="translated">
+        <source>info_providers.error.server_exception</source>
+        <target>Der Informationsanbieter (%host%) ist vorübergehend nicht verfügbar (HTTP %status%). Bitte versuchen Sie es später erneut.</target>
+      </segment>
+    </unit>
+    <unit id="G9i5NMy" name="settings.external_part_links">
+      <segment state="translated">
+        <source>settings.external_part_links</source>
+        <target>Externe Bauteil-Links</target>
+      </segment>
+    </unit>
+    <unit id=".iW8w38" name="settings.external_part_links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.help</source>
+        <target>Definieren Sie Schnelllinks zu externen Diensten, die auf der Bauteil-Detailseite angezeigt werden. Die URL eines Links wird entweder aus einer Vorlage mit Platzhaltern berechnet oder direkt aus einem der Bauteilparameter gelesen.</target>
+      </segment>
+    </unit>
+    <unit id="YZnItr6" name="settings.external_part_links.links">
+      <segment state="translated">
+        <source>settings.external_part_links.links</source>
+        <target>Links</target>
+      </segment>
+    </unit>
+    <unit id="07OwrPf" name="settings.external_part_links.links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.links.help</source>
+        <target>Ein Link wird für ein Bauteil nur angezeigt, wenn seine Quelle vollständig zu einer gültigen, erlaubten URL für dieses Bauteil aufgelöst wird.</target>
+      </segment>
+    </unit>
+    <unit id="uTYu64n" name="settings.external_part_links.rules.placeholders_hint">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.placeholders_hint</source>
+        <target>Unterstützte Vorlagen-Platzhalter: {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint}, {id}. Nur http- und https-URLs sind erlaubt.</target>
+      </segment>
+    </unit>
+    <unit id="7tGNrSr" name="external_part_link.name">
+      <segment state="translated">
+        <source>external_part_link.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="2hV2WSY" name="external_part_link.source_type">
+      <segment state="translated">
+        <source>external_part_link.source_type</source>
+        <target>Quelle</target>
+      </segment>
+    </unit>
+    <unit id="DxFWEf4" name="external_part_link.source_type.template">
+      <segment state="translated">
+        <source>external_part_link.source_type.template</source>
+        <target>URL-Vorlage</target>
+      </segment>
+    </unit>
+    <unit id="rYaRkRV" name="external_part_link.source_type.parameter">
+      <segment state="translated">
+        <source>external_part_link.source_type.parameter</source>
+        <target>Bauteilparameter</target>
+      </segment>
+    </unit>
+    <unit id="P7TBf.x" name="external_part_link.source">
+      <segment state="translated">
+        <source>external_part_link.source</source>
+        <target>URL-Vorlage / Parametername</target>
+      </segment>
+    </unit>
+    <unit id="Zvqaz6C" name="external_part_link.icon">
+      <segment state="translated">
+        <source>external_part_link.icon</source>
+        <target>Symbol</target>
+      </segment>
+    </unit>
+    <unit id="pBy7pjG" name="external_part_link.icon.external-link">
+      <segment state="translated">
+        <source>external_part_link.icon.external-link</source>
+        <target>Externer Link</target>
+      </segment>
+    </unit>
+    <unit id="Wsg1k76" name="external_part_link.icon.search">
+      <segment state="translated">
+        <source>external_part_link.icon.search</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="pytkKrJ" name="external_part_link.icon.shopping-cart">
+      <segment state="translated">
+        <source>external_part_link.icon.shopping-cart</source>
+        <target>Warenkorb</target>
+      </segment>
+    </unit>
+    <unit id="lp1pL44" name="external_part_link.icon.industry">
+      <segment state="translated">
+        <source>external_part_link.icon.industry</source>
+        <target>Industrie</target>
+      </segment>
+    </unit>
+    <unit id="5oa6wzK" name="external_part_link.icon.globe">
+      <segment state="translated">
+        <source>external_part_link.icon.globe</source>
+        <target>Globus</target>
+      </segment>
+    </unit>
+    <unit id="4CZyKCA" name="external_part_link.icon.file">
+      <segment state="translated">
+        <source>external_part_link.icon.file</source>
+        <target>Datei</target>
+      </segment>
+    </unit>
+    <unit id="Gt1BR.W" name="external_part_link.icon.box">
+      <segment state="translated">
+        <source>external_part_link.icon.box</source>
+        <target>Box</target>
+      </segment>
+    </unit>
+    <unit id="L_uJ2oj" name="external_part_link.icon.info">
+      <segment state="translated">
+        <source>external_part_link.icon.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="mCRd7zj" name="external_part_link.open_new_tab">
+      <segment state="translated">
+        <source>external_part_link.open_new_tab</source>
+        <target>In neuem Tab öffnen</target>
+      </segment>
+    </unit>
+    <unit id=".yaVEiq" name="external_part_link.enabled">
+      <segment state="translated">
+        <source>external_part_link.enabled</source>
+        <target>Aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="wjFqhk2" name="external_part_link.add_link">
+      <segment state="translated">
+        <source>external_part_link.add_link</source>
+        <target>Link hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="ckm00xm" name="external_part_link.remove_link">
+      <segment state="translated">
+        <source>external_part_link.remove_link</source>
+        <target>Link entfernen</target>
       </segment>
     </unit>
     <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">

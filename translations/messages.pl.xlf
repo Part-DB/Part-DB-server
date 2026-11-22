@@ -3265,6 +3265,24 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
         <target>Kod kreskowy</target>
       </segment>
     </unit>
+    <unit id="k8tCp3p" name="label_options.barcode_size.label">
+      <segment state="translated">
+        <source>label_options.barcode_size.label</source>
+        <target>Rozmiar kodu paskowego</target>
+      </segment>
+    </unit>
+    <unit id="d4JiLZm" name="label_options.barcode_size.placeholder">
+      <segment state="translated">
+        <source>label_options.barcode_size.placeholder</source>
+        <target>Automatyczny</target>
+      </segment>
+    </unit>
+    <unit id="udG3rSL" name="label_options.barcode_size.help">
+      <segment state="translated">
+        <source>label_options.barcode_size.help</source>
+        <target>Długość krawędzi kodów 2D (np. kodów QR) lub szerokość kodów paskowych 1D. Pozostaw puste, aby zachować domyślny rozmiar i układ.</target>
+      </segment>
+    </unit>
     <unit id="OnaZspp" name="label_profile.lines.label">
       <segment state="translated">
         <source>label_profile.lines.label</source>
@@ -16073,6 +16091,12 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply.new_entity_not_allowed</source>
         <target>Dane dostawcy informacji utworzyłyby nowy wpis "%name%", jednak nie masz uprawnień do tworzenia wpisów tego typu. Przejrzyj dane dostawcy ręcznie.</target>
+      </segment>
+    </unit>
+    <unit id="vqWRTKI" name="scan_dialog.return_to_scanner">
+      <segment state="translated">
+        <source>scan_dialog.return_to_scanner</source>
+        <target>Powróć do skanera po utworzeniu nowej części</target>
       </segment>
     </unit>
   </file>

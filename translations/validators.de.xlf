@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="validators.de">
+  <file id="validators.en">
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>

@@ -16287,7 +16287,7 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="vqWRTKI" name="scan_dialog.return_to_scanner">
-      <segment>
+      <segment state="translated">
         <source>scan_dialog.return_to_scanner</source>
         <target>Return to scanner after creating a new part</target>
       </segment>
