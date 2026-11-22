@@ -277,14 +277,23 @@ trait EntityMergerHelperTrait
      */
     protected function mergeParameters(AbstractStructuralDBElement|Part $target, AbstractStructuralDBElement|Part $other): object
     {
-        return $this->mergeCollections($target, $other, 'parameters', fn(AbstractParameter $t, AbstractParameter $o): bool => $t->getName() === $o->getName()
-            && $t->getSymbol() === $o->getSymbol()
-            && $t->getUnit() === $o->getUnit()
-            && $t->getValueMax() === $o->getValueMax()
-            && $t->getValueMin() === $o->getValueMin()
-            && $t->getValueTypical() === $o->getValueTypical()
-            && $t->getValueText() === $o->getValueText()
-            && $t->getGroup() === $o->getGroup());
+        return $this->mergeCollections($target, $other, 'parameters',
+            function (AbstractParameter $t, AbstractParameter $o): bool {
+                if ($t->getName() !== $o->getName() || $t->getGroup() !== $o->getGroup()) {
+                    return false;
+                }
+                // Same parameter (by name+group): update the existing entry with the provider's new values so that
+                // a changed value (e.g. a risk rating) does not create a duplicate that fails the
+                // UniqueObjectCollection constraint on the name+group key.
+                $t->setSymbol($o->getSymbol());
+                $t->setUnit($o->getUnit());
+                $t->setValueMin($o->getValueMin());
+                $t->setValueMax($o->getValueMax());
+                $t->setValueTypical($o->getValueTypical());
+                $t->setValueText($o->getValueText());
+                return true;
+            }
+        );
     }
 
     /**
@@ -327,6 +336,15 @@ trait EntityMergerHelperTrait
                 }
                 if (trim($o) === '') {
                     return trim($t);
+                }
+
+                //If the target already contains the other text (after case-folding and trimming), do not append
+                //again. This prevents repeated info-provider updates from accumulating copies when the user has
+                //edited the field (e.g. "My LM358" + "LM358" → "My LM358 / LM358" → "My LM358 / LM358 / LM358").
+                $t_norm = (string) u($t)->trim()->folded();
+                $o_norm = (string) u($o)->trim()->folded();
+                if (str_contains($t_norm, $o_norm)) {
+                    return $t;
                 }
 
                 return trim($t) . $separator . trim($o);
