@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem;
 use App\ApiResource\InfoProviderSystem\PartFieldChange;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Part;
+use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
@@ -141,6 +142,14 @@ final readonly class PartChangeSetBuilder
             } elseif ($collection instanceof PersistentCollection && $collection->getOwner() === $part) {
                 $added = count($collection->getInsertDiff());
                 $removed = count($collection->getDeleteDiff());
+
+                // Skip uninitialized collections that have no tracked changes: calling count() or iterating
+                // an uninitialized PersistentCollection loads it from the database, pulling in unrelated
+                // data (project_bom_entries, bulkImportJobParts, ...) that an info provider can never change.
+                if ($added === 0 && $removed === 0 && !$collection->isInitialized()) {
+                    continue;
+                }
+
                 $new_count = $collection->count();
                 $old_count = $new_count - $added + $removed;
             } else {
@@ -249,6 +258,7 @@ final readonly class PartChangeSetBuilder
             is_bool($value) => $value ? 'true' : 'false',
             $value instanceof \DateTimeInterface => $value->format(\DateTimeInterface::ATOM),
             $value instanceof \BackedEnum => (string) $value->value,
+            $value instanceof BigDecimal => (string) $value,
             $value instanceof AbstractNamedDBElement => $value->getName(),
             is_object($value) => method_exists($value, 'getId') ? '#'.$value->getId() : $value::class,
             is_array($value) => json_encode($value, JSON_THROW_ON_ERROR),

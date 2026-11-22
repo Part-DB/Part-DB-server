@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
+use ApiPlatform\Metadata\McpTool;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\InfoProviderSystem\InfoProviderPartWriteResult;
@@ -30,6 +31,8 @@ use App\Exceptions\InfoProviderNotActiveException;
 use App\Mcp\DTO\InfoProviderCreatePartInput;
 use App\Services\InfoProviderSystem\PartFromProviderWriter;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Settings\AISettings\McpSettings;
+use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -37,16 +40,32 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Handles POST /api/info_providers/create_part and the create_part_from_info_provider MCP tool.
  */
-final readonly class CreatePartFromInfoProviderProcessor implements ProcessorInterface
+final class CreatePartFromInfoProviderProcessor implements ProcessorInterface
 {
+    use McpToolErrorHandling;
+
     public function __construct(
-        private AuthorizationCheckerInterface $authorizationChecker,
-        private PartFromProviderWriter $writer,
-        private EventCommentHelper $eventCommentHelper,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly PartFromProviderWriter $writer,
+        private readonly EventCommentHelper $eventCommentHelper,
+        private readonly McpSettings $mcpSettings,
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): InfoProviderPartWriteResult
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): InfoProviderPartWriteResult|CallToolResult
+    {
+        if ($operation instanceof McpTool) {
+            return $this->runCatchingExpectedErrors(function () use ($data) {
+                $this->mcpSettings->assertEditingEnabled();
+
+                return $this->doCreate($data);
+            });
+        }
+
+        return $this->doCreate($data);
+    }
+
+    private function doCreate(mixed $data): InfoProviderPartWriteResult
     {
         if (!$data instanceof InfoProviderCreatePartInput) {
             throw new BadRequestHttpException('Expected InfoProviderCreatePartInput');

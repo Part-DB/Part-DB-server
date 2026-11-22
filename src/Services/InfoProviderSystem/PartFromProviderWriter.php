@@ -121,6 +121,7 @@ final readonly class PartFromProviderWriter
         $this->persistNewRelatedEntities($part);
 
         try {
+            $this->validateNewRelatedEntities($part);
             $this->validator->validate($part);
         } finally {
             if ($dry_run) {
@@ -136,6 +137,35 @@ final readonly class PartFromProviderWriter
         $this->entityManager->flush();
 
         return InfoProviderPartWriteResult::of($status, $changes, $part);
+    }
+
+    /**
+     * Validates structural entities that the provider created on the fly (and that have no DB id yet), so
+     * that a dry_run gives the same validation outcome as the real write - a name that is too long will fail
+     * validation here rather than silently passing the preview and then failing during flush.
+     */
+    private function validateNewRelatedEntities(Part $part): void
+    {
+        $candidates = [$part->getCategory(), $part->getFootprint(), $part->getManufacturer(), $part->getPartUnit()];
+
+        foreach ($part->getAttachments() as $attachment) {
+            $candidates[] = $attachment->getAttachmentType();
+        }
+
+        foreach ($part->getPartLots() as $lot) {
+            $candidates[] = $lot->getStorageLocation();
+        }
+
+        foreach ($part->getOrderdetails() as $orderdetail) {
+            $candidates[] = $orderdetail->getSupplier();
+        }
+
+        foreach ($candidates as $entity) {
+            while ($entity !== null && $entity->getID() === null) {
+                $this->validator->validate($entity);
+                $entity = $entity instanceof AbstractStructuralDBElement ? $entity->getParent() : null;
+            }
+        }
     }
 
     /**
