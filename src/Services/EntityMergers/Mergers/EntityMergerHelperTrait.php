@@ -274,34 +274,23 @@ trait EntityMergerHelperTrait
      */
     protected function mergeParameters(AbstractStructuralDBElement|Part $target, AbstractStructuralDBElement|Part $other): object
     {
-        return $this->mergeCollections($target, $other, 'parameters', function (AbstractParameter $t, AbstractParameter $o): bool {
-            //A parameter is identified by its name and group, because that is what makes it unique on an
-            //element (see the UniqueEntityIgnoringOrphans constraint on AbstractParameter). Comparing the
-            //values as well would add a second parameter of the same name and group as soon as a provider
-            //reports a different value for it, and the element could not be saved afterwards.
-            if ($t->getName() !== $o->getName() || $t->getGroup() !== $o->getGroup()) {
-                return false;
-            }
-
-            //The values of the target win, as everywhere else in the merge, but a value it does not have
-            //yet is taken from the other side.
-            if ($t->getValueText() === '') {
-                $t->setValueText($o->getValueText());
-            }
-            foreach (['ValueTypical', 'ValueMin', 'ValueMax'] as $value) {
-                if ($t->{'get'.$value}() === null) {
-                    $t->{'set'.$value}($o->{'get'.$value}());
+        return $this->mergeCollections($target, $other, 'parameters',
+            function (AbstractParameter $t, AbstractParameter $o): bool {
+                if ($t->getName() !== $o->getName() || $t->getGroup() !== $o->getGroup()) {
+                    return false;
                 }
-            }
-            if ($t->getUnit() === '') {
-                $t->setUnit($o->getUnit());
-            }
-            if ($t->getSymbol() === '') {
+                // Same parameter (by name+group): update the existing entry with the provider's new values so that
+                // a changed value (e.g. a risk rating) does not create a duplicate that fails the
+                // UniqueObjectCollection constraint on the name+group key.
                 $t->setSymbol($o->getSymbol());
+                $t->setUnit($o->getUnit());
+                $t->setValueMin($o->getValueMin());
+                $t->setValueMax($o->getValueMax());
+                $t->setValueTypical($o->getValueTypical());
+                $t->setValueText($o->getValueText());
+                return true;
             }
-
-            return true;
-        });
+        );
     }
 
     /**
@@ -344,6 +333,15 @@ trait EntityMergerHelperTrait
                 }
                 if (trim($o) === '') {
                     return trim($t);
+                }
+
+                //If the target already contains the other text (after case-folding and trimming), do not append
+                //again. This prevents repeated info-provider updates from accumulating copies when the user has
+                //edited the field (e.g. "My LM358" + "LM358" → "My LM358 / LM358" → "My LM358 / LM358 / LM358").
+                $t_norm = (string) u($t)->trim()->folded();
+                $o_norm = (string) u($o)->trim()->folded();
+                if (str_contains($t_norm, $o_norm)) {
+                    return $t;
                 }
 
                 return trim($t) . $separator . trim($o);

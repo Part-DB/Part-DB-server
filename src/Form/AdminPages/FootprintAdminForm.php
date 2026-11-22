@@ -22,15 +22,27 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Part\EDA\EDAFootprintInfoType;
 use App\Form\Type\MasterPictureAttachmentType;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class FootprintAdminForm extends BaseEntityAdminForm
+class FootprintAdminForm extends AbstractType
 {
-    public function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    public function __construct(private readonly Security $security)
     {
+    }
+
+    public function getParent(): string
+    {
+        return BaseEntityAdminForm::class;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $entity = $options['data'];
+
         $builder->add('footprint_3d', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted(null === $entity->getID() ? 'create' : 'edit', $entity),

@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\MeasurementUnitAlternativeName;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
@@ -50,6 +51,9 @@ use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\MeasurementUnitAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\MeasurementUnitAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
@@ -63,8 +67,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, grams, meters, etc...
  *
- * @extends AbstractPartsContainingDBElement<MeasurementUnitAttachment,MeasurementUnitParameter>
+ * @extends AbstractPartsContainingDBElement<MeasurementUnitAttachment, MeasurementUnitParameter, MeasurementUnitAlternativeName>
  */
+#[EntityConfig(routeBase: 'measurement_unit')]
+#[AdminCrud(formClass: MeasurementUnitAdminForm::class)]
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
@@ -176,6 +182,10 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 
+    #[ORM\OneToMany(targetEntity: MeasurementUnitAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
+
     #[Groups(['measurement_unit:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['measurement_unit:read'])]
@@ -226,5 +236,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 }

@@ -17,6 +17,31 @@ the content (or write HTML code).
 Using the "Label placeholder" menu in the editor, you can insert placeholders for the data of the parts.
 It will be replaced by the concrete data when the label is generated.
 
+## Barcode size and placement
+
+If a barcode type is selected, the barcode is shown next to the label content: By default, 2D barcodes (like QR codes)
+are placed left of the text and 1D barcodes below it, and their size depends on the label size.
+
+The size of the barcode can be set with the **Barcode size** option in mm (the edge length for 2D barcodes, the width
+for 1D barcodes). If a size is set, the text is placed directly next to the barcode (and 1D barcodes are placed at the
+bottom of the label). Leave the option empty to keep the default layout.
+
+The `[[BARCODE_QR]]`, `[[BARCODE_C128]]`, etc. placeholders continue to work as before and are independent of these options.
+
+## Part image
+
+For labels of parts and part lots, the "Part image" button of the editor inserts a placeholder for the main image of the
+part (the same image as shown in the parts table, e.g. the master picture of the part or of its footprint). For part lots,
+the image of the part is used.
+
+The placeholder can be resized and positioned like any other image. When the label is generated, the image is centered in
+the placeholder and scaled so that its larger dimension fits. If the part has no image (or the image is only stored as
+external URL, which can not be embedded in the label, or is too large to be processed, i.e. more than 25 megapixels), the
+placeholder stays empty, so the layout of the label does not change.
+
+In Twig mode (or when writing HTML by hand), you can use an image with the `partdb-part-image` class and its size in px:
+`<img class="partdb-part-image" style="width: 80px; height: 60px;">`.
+
 ## Label placeholders
 
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.

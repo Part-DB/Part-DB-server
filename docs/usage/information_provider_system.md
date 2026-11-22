@@ -413,6 +413,16 @@ to search for parts. TrustedParts.com is operated by the Electronic Components I
 aggregates the offers (stock and prices) of authorized distributors, similar to Octopart. Besides the offers, it also
 provides specifications for many parts, which Part-DB imports as parameters.
 
+TrustedParts also rates how risky a part is to source: how far it is through its lifecycle, how reliable its
+supply chain currently is, and whether it is affected by tariffs. These ratings come with every answer of the
+API, so Part-DB imports them as parameters of their own group `TrustedParts` without making an additional
+request. A part which the API cannot rate simply has no such parameter.
+
+The lifecycle rating is deliberately *not* written to the manufacturing status of the part. It is a rating and
+not a fact: a band like `MED-HIGH` can mean an announced end of life just as well as a part which only one
+manufacturer builds. A manufacturing status, once set, is never overwritten by a later import, so a guess
+stored there would outlive the provider which reported an actual status.
+
 Please note that the TrustedParts API does not return any product images, so parts created with this provider have no
 preview image. You can generate one with the built-in component image generator (the button on the image placeholder of
 the part page), which works well with the package information this provider supplies.
@@ -443,6 +453,8 @@ The following env configuration options are available:
 * `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
+* `PROVIDER_TRUSTEDPARTS_RISK_RATINGS`: If set to `0`, the lifecycle, supply chain and tariff ratings are not
+  imported as parameters (optional, default: `1`)
 
 ### Adafruit
 
@@ -551,3 +563,52 @@ account, you can raise the values.
 Certain providers (like Adafruit, Pololu) have their own rate limits, configurable in the provider settings. 
 These are enforced in addition to the global limits, and are usually lower than the global limits, as no offical API
 exists and the provider is scraping the website and have to be polite to the shop.
+
+## Automated access via API and MCP
+
+Creating a part from a provider and updating it later are also available without the web interface, for scripts
+which maintain parts automatically. Both operations use the very same data mapping and merge rules as the
+buttons in the web interface, so an automated run produces the same result as a manual one.
+
+| Purpose | REST endpoint | MCP tool |
+|---|---|---|
+| Create a part from a provider part | `POST /api/info_providers/create_part` | `create_part_from_info_provider` |
+| Update a part from its provider | `POST /api/info_providers/update_part` | `update_part_from_info_provider` |
+
+Both require the *Create parts from info providers* permission; updating additionally requires edit permission on
+the part itself, and creating requires the permission to create parts.
+
+The important difference to the web interface is the missing review step: there, the merged part is shown in the
+part form and a user saves it, while here it is saved right away. The response therefore reports what was
+written:
+
+```json
+{
+  "status": "updated",
+  "dry_run": false,
+  "part_id": 123,
+  "changes": [
+    {"field": "manufacturer_product_number", "old": "", "new": "1234"},
+    {"field": "attachments", "old": "2", "new": "4"}
+  ]
+}
+```
+
+`status` is `created`, `updated`, or `unchanged` if the provider had nothing to add. The `changes` list is taken
+from what would actually be written to the database, so a field the provider supplied but which already had the
+same value does not show up. Values are rendered as strings, and a changed collection (attachments,
+orderdetails, ...) is reported as its size before and after.
+
+Set `dry_run: true` to see the result without writing anything - useful to check what an automated job is about
+to do. A dry run validates the part as well, so it also tells you whether the write would be accepted at all.
+
+Two things worth knowing when writing such a script:
+
+* **A new part needs a category.** Info providers rarely report one that exists in your Part-DB, so pass
+  `category_id` when creating a part - otherwise the request is rejected with a validation error.
+* **Update one part per call.** There is deliberately no bulk variant: every call queries the provider, and
+  providers enforce rate limits (and often bill per query). Keeping one part per call leaves the pacing to the
+  caller, which is the only place that can know the whole budget.
+
+By default both operations bypass the result cache described above, since the point of an update is to get
+current data. Pass `no_cache: false` to allow a cached provider response.

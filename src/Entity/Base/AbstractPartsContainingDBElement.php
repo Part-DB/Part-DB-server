@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Repository\AbstractPartsContainingRepository;
@@ -33,7 +34,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 /**
  * @template AT of Attachment
  * @template PT of AbstractParameter
- * @extends AbstractStructuralDBElement<AT, PT>
+ * @template ANT of AbstractAlternativeName
+ * @extends AbstractStructuralDBElement<AT, PT, ANT>
  */
 #[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement

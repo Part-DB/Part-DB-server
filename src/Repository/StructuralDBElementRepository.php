@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\AlternativeNames\AbstractAlternativeName;
 use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
 use RecursiveIteratorIterator;
@@ -73,6 +74,11 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
     public function findRootNodes(): array
     {
         return $this->findNodesForParent(null);
+    }
+
+    public function countRootNodes(): int
+    {
+        return $this->count(['parent' => null]);
     }
 
     /**
@@ -287,14 +293,10 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
             return $result[0];
         }
 
-        //If we have no result, try to find the element by alternative names
-        $qb = $this->createQueryBuilder('e');
-        //Use lowercase conversion to be case-insensitive
-        $qb->where($qb->expr()->like('LOWER(e.alternative_names)', 'LOWER(:name)'));
-        //Replace commas in the name with wildcard to match any placeholder character
-        $qb->setParameter('name', '%'.str_replace(',', '_', $name).',%');
-
-        $result = $qb->getQuery()->getResult();
+        //If we have no result, try to find the element by alternative names.
+        // We use a subquery via the concrete XxxAlternativeName class (resolved from metadata) to avoid a DQL join
+        // from the MappedSuperclass perspective, which PHPStan cannot verify statically.
+        $result = $this->findByAlternativeName($name);
 
         if (count($result) >= 1) {
             return $result[0];
@@ -310,6 +312,51 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
 
         //If we find nothing, return null
         return null;
+    }
+
+    /**
+     * Looks up elements of this repository's entity class whose alternative name matches $name (case-insensitive).
+     * Returns the ORM result array (may be empty).
+     *
+     * Uses a DQL subquery via the concrete XxxAlternativeName class resolved from metadata, which lets PHPStan
+     * verify the outer query while the subquery entity class is a runtime string (skipped by PHPStan's DQL checker).
+     *
+     * @return AbstractStructuralDBElement[]
+     */
+    private function findByAlternativeName(string $name): array
+    {
+        $em = $this->getEntityManager();
+        $entityClass = $this->getEntityName();
+
+        // Resolve which XxxAlternativeName subclass maps to this structural entity class
+        $altNameClass = null;
+        $altMeta = $em->getClassMetadata(AbstractAlternativeName::class);
+        foreach ($altMeta->discriminatorMap as $altClass) {
+            $altClassMeta = $em->getClassMetadata($altClass);
+            if ($altClassMeta->hasAssociation('element')
+                && $altClassMeta->getAssociationTargetClass('element') === $entityClass) {
+                $altNameClass = $altClass;
+                break;
+            }
+        }
+
+        if ($altNameClass === null) {
+            return [];
+        }
+
+        // The entity class is a string variable — PHPStan's DQL analyzer skips variable-class queries,
+        // so the IDENTITY(an.element) join is verified only at runtime where the concrete class IS mapped.
+        $subDql = $em->createQueryBuilder()
+            ->select('IDENTITY(an.element)')
+            ->from($altNameClass, 'an')
+            ->where('LOWER(an.name) LIKE LOWER(:name)')
+            ->getDQL();
+
+        $qb = $this->createQueryBuilder('e');
+        $qb->where($qb->expr()->in('e.id', $subDql));
+        $qb->setParameter('name', $name);
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -335,7 +382,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
             $entity->setName($name);
 
             //Set the found name to the alternative names, so the entity can be easily renamed later
-            $entity->setAlternativeNames($name);
+            $entity->setAlternativeNames([$name]);
 
             $this->setNewEntityToCache($entity);
         }

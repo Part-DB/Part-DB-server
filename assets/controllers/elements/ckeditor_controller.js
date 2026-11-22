@@ -23,8 +23,6 @@ import { default as FullEditor } from "../../ckeditor/markdown_full";
 import { default as SingleLineEditor} from "../../ckeditor/markdown_single_line";
 import { default as HTMLLabelEditor } from "../../ckeditor/html_label";
 
-import {EditorWatchdog} from 'ckeditor5';
-
 import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
 
@@ -54,7 +52,7 @@ export default class extends Controller {
     connect() {
         const mode = this.element.dataset.mode;
 
-        let EDITOR_TYPE = "Invalid";
+        let EDITOR_TYPE;
 
         switch (mode) {
             case "markdown-full":
@@ -94,63 +92,57 @@ export default class extends Controller {
         //Apply the default value of the source element as data attribute, so that dirty-form-controller can detect changes
         this.element.dataset.defaultValue = this.element.defaultValue;
 
-        const watchdog = new EditorWatchdog();
-        watchdog.setCreator((elementOrData, editorConfig) => {
-            return EDITOR_TYPE.create(elementOrData, editorConfig)
-                .then(editor => {
-                    if(this.element.disabled) {
-                        editor.enableReadOnlyMode("readonly");
-                    }
+        //Keep the promise, so that disconnect() can destroy the editor even if it is still being created
+        this.editorPromise = EDITOR_TYPE.create(this.element, config)
+            .then(editor => {
+                if(this.element.disabled) {
+                    editor.enableReadOnlyMode("readonly");
+                }
 
-                    //Apply additional styles
-                    const editor_div = editor.ui.view.element;
-                    const new_classes = this.element.dataset.ckClass;
-                    if (editor_div && new_classes) {
-                        editor_div.classList.add(...new_classes.split(","));
-                    }
+                //Apply additional styles
+                const editor_div = editor.ui.view.element;
+                const new_classes = this.element.dataset.ckClass;
+                if (editor_div && new_classes) {
+                    editor_div.classList.add(...new_classes.split(","));
+                }
 
-                    // Automatic synchronization of source input
-                    editor.model.document.on("change:data", () => {
-                        editor.updateSourceElement();
+                // Automatic synchronization of source input
+                editor.model.document.on("change:data", () => {
+                    editor.updateSourceElement();
 
-                        // Dispatch the input event for further treatment
-                        this.element.dispatchEvent(new Event("input", { bubbles: true }));
-                    });
-
-                    //Set an reset listener to update the editor if the source element is reset (e.g. by a reset button)
-                    if (this.element.form && this.element.name) {
-                        this.element.form.addEventListener("reset", () => {
-                            if (editor.isReadOnly) {
-                                return;
-                            }
-                            if (this.element.dataset.defaultValue !== undefined) {
-                                editor.setData(this.element.dataset.defaultValue);
-                            }
-                        });
-                    }
-
-                    //This return is important! Otherwise we get mysterious errors in the console
-                    //See: https://github.com/ckeditor/ckeditor5/issues/5897#issuecomment-628471302
-                    return editor;
-                })
-                .catch(error => {
-                    console.error(error);
+                    // Dispatch the input event for further treatment
+                    this.element.dispatchEvent(new Event("input", { bubbles: true }));
                 });
-        });
 
-        this.watchdog = watchdog;
-        watchdog.create(this.element, config).catch(error => {
-            console.error(error);
-        });
+                //Set an reset listener to update the editor if the source element is reset (e.g. by a reset button)
+                if (this.element.form && this.element.name) {
+                    this.element.form.addEventListener("reset", () => {
+                        if (editor.isReadOnly) {
+                            return;
+                        }
+                        if (this.element.dataset.defaultValue !== undefined) {
+                            editor.setData(this.element.dataset.defaultValue);
+                        }
+                    });
+                }
+
+                return editor;
+            })
+            .catch(error => {
+                console.error(error);
+                return null;
+            });
     }
 
     disconnect() {
-        if (this.watchdog) {
+        if (this.editorPromise) {
             //Destroying the editor restores visibility of the original source textarea element
-            this.watchdog.destroy().catch(error => {
-                console.error(error);
-            });
-            this.watchdog = null;
+            this.editorPromise
+                .then(editor => editor?.destroy())
+                .catch(error => {
+                    console.error(error);
+                });
+            this.editorPromise = null;
         }
     }
 }

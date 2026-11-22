@@ -72,5 +72,15 @@
 	@php_in_media path_regexp (?i)^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$
 	respond @php_in_media 403
 
+	# Serve the webpack build output directly, using the precompressed (.br/.gz) files created during the frontend
+	# build if the client supports them. php_server's internal file server does not support precompressed files,
+	# so without this every asset would be compressed again on each request.
+	# (Responses that already carry a Content-Encoding are not compressed again by the encode directive above.)
+	handle /build/* {
+		file_server {
+			precompressed br gzip
+		}
+	}
+
 	php_server
 }

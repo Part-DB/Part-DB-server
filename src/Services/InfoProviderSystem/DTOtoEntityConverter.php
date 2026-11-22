@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -203,7 +204,8 @@ final class DTOtoEntityConverter
         //Add preview image
         $image_type = $this->getImageType();
 
-        if ($dto->preview_image_url) {
+        //Ignore URLs with unsafe schemes (like javascript:), which could be used for XSS
+        if ($dto->preview_image_url && Attachment::isSafeExternalURL($dto->preview_image_url)) {
             $preview_image = new PartAttachment();
             $preview_image->setURL($dto->preview_image_url);
             $preview_image->setName('Main image');
@@ -219,7 +221,7 @@ final class DTOtoEntityConverter
         $images = $this->files_unique($dto->images ?? []);
         foreach ($images as $image) {
             //Ensure that the image is not the same as the preview image
-            if ($image->url === $dto->preview_image_url) {
+            if ($image->url === $dto->preview_image_url || !Attachment::isSafeExternalURL($image->url)) {
                 continue;
             }
 
@@ -238,6 +240,10 @@ final class DTOtoEntityConverter
         $datasheet_type = $this->getDatasheetType();
         $datasheets = $this->files_unique($dto->datasheets ?? []);
         foreach ($datasheets as $datasheet) {
+            if (!Attachment::isSafeExternalURL($datasheet->url)) {
+                continue;
+            }
+
             $attachment = $this->convertFile($datasheet, $datasheet_type);
 
             $attachments_grouped[$attachment->getName()][] = $attachment;
@@ -338,7 +344,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('application/pdf');
-            $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
+            $tmp->setAlternativeNames([self::TYPE_DATASHEETS_NAME]);
         }
 
         return $tmp;
@@ -356,7 +362,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('image/*');
-            $tmp->setAlternativeNames(self::TYPE_IMAGE_NAME);
+            $tmp->setAlternativeNames([self::TYPE_IMAGE_NAME]);
         }
 
         return $tmp;

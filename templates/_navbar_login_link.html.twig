@@ -1,0 +1,10 @@
+{# The login link in the navbar. Its redirect target is the currently shown page. As the navbar is not re-rendered on
+   turbo navigation, this is also sent via a turbo-stream in _turbo_control.html.twig to keep the target up to date. #}
+{% set login_target = app.request.pathinfo | remove_locale_from_path %}
+{% if login_target in ['/', '/login'] %}
+    {% set login_params = {} %}
+{% else %}
+    {% set login_params = {'_target_path': login_target ~ (app.request.queryString ? '?' ~ app.request.queryString : '')} %}
+{% endif %}
+<a class="dropdown-item" href="{{ path('login', login_params) }}" id="login-link">
+    <i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>

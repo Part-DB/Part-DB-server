@@ -61,5 +61,9 @@ nelmio_security:
             frame-src:
                 - 'self'
                 - 'data:'
+            # form-action is intentionally not set: browsers also check it on every redirect after a form submission,
+            # so a redirect to an absolute URL that does not exactly match the page's origin (e.g. http:// instead of
+            # https:// behind a reverse proxy without matching TRUSTED_PROXIES) would be blocked silently and break
+            # the login (see issue #1651).
             block-all-mixed-content: true # defaults to false, blocks HTTP content over HTTPS transport
             # upgrade-insecure-requests: true # defaults to false, upgrades HTTP requests to HTTPS transport

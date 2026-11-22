@@ -101,6 +101,9 @@ Encore
      */
     .cleanupOutputBeforeBuild()
 
+    // Persistent filesystem cache to speed up subsequent builds. It is invalidated when this config file changes.
+    .enableBuildCache({ config: [import.meta.filename] })
+
     // Displays build status system notifications to the user
     // .enableBuildNotifications()
 
@@ -115,9 +118,11 @@ Encore
     // .configureJsMinimizerPlugin((options, MinimizerPlugin) => {
     //     options.minify = MinimizerPlugin.esbuildMinify
     // })
-    // .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
-    //     options.minify = MinimizerPlugin.lightningCssMinify;
-    // })
+    // Encore 7 no longer minifies CSS by default, so we must configure a minifier explicitly.
+    // We use cssnano, as it is pure JS and works everywhere node runs (unlike native minifiers like lightningcss)
+    .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
+        options.minify = MinimizerPlugin.cssnanoMinify;
+    })
 
     // configure Babel
     .configureBabel((config) => {
@@ -125,9 +130,6 @@ Encore
     })
     // enables Sass/SCSS support
     //.enableSassLoader()
-
-    // uncomment if you use TypeScript
-    .enableTypeScriptLoader()
 
     // uncomment if you use React
     //.enableReactPreset()
@@ -169,7 +171,7 @@ if (Encore.isProduction()) {
         .addPlugin(new CompressionPlugin({
             filename: '[path][base].br',
             algorithm: 'brotliCompress',
-            test: /\.(js|css|html|svg)$/,
+            test: /\.(js|css|html|svg|wasm|json)$/,
             compressionOptions: {
                 // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
                 level: 11,
@@ -184,7 +186,7 @@ if (Encore.isProduction()) {
             algorithm: 'gzip',
             threshold: 10240,
             minRatio: 0.8,
-            test: /\.(js|css|html|svg)$/,
+            test: /\.(js|css|html|svg|wasm|json)$/,
             deleteOriginalAssets: false,
         }))
 }
@@ -207,9 +209,9 @@ config.output.publicPath = 'auto';
 
 //Our own source files are plain scripts without file extensions on relative imports (e.g. "./error_handler").
 //Since package.json declares "type": "module", webpack's resolver otherwise requires those imports to be
-//fully specified (like native ESM does). Relax that requirement for our own JS/TS sources.
+//fully specified (like native ESM does). Relax that requirement for our own JS sources.
 config.module.rules.push({
-    test: /\.(js|mjs|ts)$/,
+    test: /\.(js|mjs)$/,
     resolve: {
         fullySpecified: false,
     },

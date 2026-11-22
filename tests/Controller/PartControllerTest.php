@@ -35,6 +35,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -528,6 +529,43 @@ final class PartControllerTest extends WebTestCase
         }
         $entityManager->remove($refreshedPart);
         $entityManager->flush();
+    }
+
+    public static function openRedirectProvider(): \Iterator
+    {
+        yield ['https://evil.example/phish'];
+        yield ['https:/evil.example/phish'];
+        yield ['https:///evil.example/phish'];
+        yield ['//evil.example/phish'];
+    }
+
+    #[DataProvider('openRedirectProvider')]
+    public function testWithdrawDoesNotRedirectToExternalUrl(string $redirect): void
+    {
+        //Regression test for an open redirect via the _redirect parameter. The redirect also happens if the CSRF
+        //token is invalid, so we can test it without modifying anything.
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/part/1/add_withdraw', [
+            '_csfr' => 'invalid',
+            '_redirect' => $redirect,
+        ]);
+
+        $this->assertResponseRedirects('/en/part/1/info');
+    }
+
+    public function testWithdrawRedirectsToLocalUrl(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/part/1/add_withdraw', [
+            '_csfr' => 'invalid',
+            '_redirect' => '/en/parts?page=2',
+        ]);
+
+        $this->assertResponseRedirects('/en/parts?page=2');
     }
 
     public function testAccessControlForUnauthorizedUser(): void

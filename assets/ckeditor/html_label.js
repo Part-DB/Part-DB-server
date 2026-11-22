@@ -31,7 +31,6 @@ import {LinkImage} from 'ckeditor5';
 import {List} from 'ckeditor5';
 import {ListProperties} from 'ckeditor5';
 import {MediaEmbed} from 'ckeditor5';
-import {MediaEmbedToolbar} from 'ckeditor5';
 import {Paragraph} from 'ckeditor5';
 import {PasteFromOffice} from 'ckeditor5';
 import {RemoveFormat} from 'ckeditor5';
@@ -54,8 +53,8 @@ import {TableProperties} from 'ckeditor5';
 import {TableToolbar} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
 import {WordCount} from 'ckeditor5';
-import {EditorWatchdog} from 'ckeditor5';
 import PartDBLabel from "./plugins/PartDBLabel/PartDBLabel";
+import {sanitizeLabelHtml} from "./plugins/PartDBLabel/PartDBLabelHtmlEmbed";
 import SpecialCharactersGreek from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
@@ -94,7 +93,6 @@ Editor.builtinPlugins = [
     List,
     ListProperties,
     MediaEmbed,
-    MediaEmbedToolbar,
     Paragraph,
     PasteFromOffice,
     RemoveFormat,
@@ -121,6 +119,31 @@ Editor.builtinPlugins = [
     PartDBLabel,
     SpecialCharactersGreek
 ];
+
+/**
+ * dompdf can not parse hsl() colors, which CKEditor uses by default (in its color palettes and color pickers). So all
+ * colors of the label editor use rgb() instead: The default CKEditor palette, converted to rgb.
+ */
+const LABEL_COLORS = [
+    {color: 'rgb(0, 0, 0)', label: 'Black'},
+    {color: 'rgb(77, 77, 77)', label: 'Dim grey'},
+    {color: 'rgb(153, 153, 153)', label: 'Grey'},
+    {color: 'rgb(230, 230, 230)', label: 'Light grey'},
+    {color: 'rgb(255, 255, 255)', label: 'White', hasBorder: true},
+    {color: 'rgb(230, 77, 77)', label: 'Red'},
+    {color: 'rgb(230, 153, 77)', label: 'Orange'},
+    {color: 'rgb(230, 230, 77)', label: 'Yellow'},
+    {color: 'rgb(153, 230, 77)', label: 'Light green'},
+    {color: 'rgb(77, 230, 77)', label: 'Green'},
+    {color: 'rgb(77, 230, 153)', label: 'Aquamarine'},
+    {color: 'rgb(77, 230, 230)', label: 'Turquoise'},
+    {color: 'rgb(77, 153, 230)', label: 'Light blue'},
+    {color: 'rgb(77, 77, 230)', label: 'Blue'},
+    {color: 'rgb(153, 77, 230)', label: 'Purple'},
+];
+
+/** The color picker (custom colors) must output rgb() too */
+const LABEL_COLOR_PICKER = {format: 'rgb'};
 
 // Editor configuration.
 Editor.defaultConfig = {
@@ -166,10 +189,19 @@ Editor.defaultConfig = {
             'sourceEditing',
             '|',
             'partdb_label',
+            'partdb_part_image',
         ],
         shouldNotGroupWhenFull: true
     },
     language: 'en',
+    fontColor: {
+        colors: LABEL_COLORS,
+        colorPicker: LABEL_COLOR_PICKER,
+    },
+    fontBackgroundColor: {
+        colors: LABEL_COLORS,
+        colorPicker: LABEL_COLOR_PICKER,
+    },
     fontFamily: {
         options: [
             'default',
@@ -230,10 +262,33 @@ Editor.defaultConfig = {
         toolbar: [
             'imageTextAlternative',
             'imageStyle:inline',
-            'imageStyle:block',
-            'imageStyle:side',
-            'linkImage'
-        ]
+            'imageStyle:wrapText',
+            //Like the default "imageStyle:breakText" dropdown, but with the "alignCenter" style instead of the default "block"
+            //style: The block style has no CSS class, so that centered images could not be distinguished from images of
+            //existing labels, which are not centered on the label (see label_style.css.twig)
+            {
+                name: 'imageStyle:breakTextCentered',
+                title: 'Break text',
+                items: ['imageStyle:alignBlockLeft', 'imageStyle:alignCenter', 'imageStyle:alignBlockRight'],
+                defaultItem: 'imageStyle:alignCenter',
+            },
+            'linkImage',
+            'partdb_image_size',
+        ],
+        styles: {
+            options: ['inline', 'alignLeft', 'alignRight', 'alignCenter', 'alignBlockLeft', 'alignBlockRight', 'block', 'side'],
+        },
+        //Percentages would be relative to the (much wider) editor, and not to the label, so use absolute sizes instead
+        resizeUnit: 'px',
+        //New images are block images, which get the "Wrap text: left" style (see PartDBLabelImageStyles)
+        insert: {
+            type: 'block',
+        },
+    },
+    //Show HTML snippets rendered (like on the label), their source is edited in a dialog (see PartDBLabelHtmlEmbed.js)
+    htmlEmbed: {
+        showPreviews: true,
+        sanitizeHtml: sanitizeLabelHtml,
     },
     table: {
         contentToolbar: [
@@ -242,8 +297,18 @@ Editor.defaultConfig = {
             'mergeTableCells',
             'tableCellProperties',
             'tableProperties'
-        ]
+        ],
+        tableProperties: {
+            borderColors: LABEL_COLORS,
+            backgroundColors: LABEL_COLORS,
+            colorPicker: LABEL_COLOR_PICKER,
+        },
+        tableCellProperties: {
+            borderColors: LABEL_COLORS,
+            backgroundColors: LABEL_COLORS,
+            colorPicker: LABEL_COLOR_PICKER,
+        },
     },
 };
 
-export default { Editor, EditorWatchdog };
+export default { Editor };

@@ -59,7 +59,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'login', methods: ['GET', 'POST'])]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -67,8 +67,15 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        //If a redirect target was passed, keep it in the form, and ensure that we land on a login page with the same
+        //target again, if the login fails (otherwise the parameter would be lost after a wrong password)
+        $targetPath = $this->getValidTargetPath($request);
+
         $form = $this->createForm(LoginFormType::class, [
             '_username' => $lastUsername,
+        ], [
+            'target_path' => $targetPath,
+            'failure_path' => $targetPath !== null ? $this->generateUrl('login', ['_target_path' => $targetPath]) : null,
         ]);
 
         return $this->render('security/login.html.twig', [
@@ -76,6 +83,22 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+    }
+
+    /**
+     * Returns the redirect target passed to the login page (via query or form), if it is a valid local path.
+     * Only relative paths are allowed, to avoid this being abused as an open redirect.
+     */
+    private function getValidTargetPath(Request $request): ?string
+    {
+        $targetPath = $request->query->get('_target_path') ?? $request->request->get('_target_path');
+
+        if (!is_string($targetPath) || !str_starts_with($targetPath, '/')
+            || str_starts_with($targetPath, '//') || str_starts_with($targetPath, '/\\')) {
+            return null;
+        }
+
+        return $targetPath;
     }
 
     /**

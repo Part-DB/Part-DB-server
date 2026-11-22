@@ -40,6 +40,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\AlternativeNames\StorageLocationAlternativeName;
 use App\Mcp\DTO\CreateStructuralElementInput;
 use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -57,6 +58,9 @@ use App\State\Mcp\UpdateStructuralElementProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\StorageLocationAttachment;
+use App\Entity\Attribute\AdminCrud;
+use App\Entity\Attribute\EntityConfig;
+use App\Form\AdminPages\StorelocationAdminForm;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\StorageLocationParameter;
@@ -69,8 +73,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a storage location, where parts can be stored.
- * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter>
+ * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter, StorageLocationAlternativeName>
  */
+#[EntityConfig(routeBase: 'store_location')]
+#[AdminCrud(formClass: StorelocationAdminForm::class, templatePath: 'admin/storelocation_admin.html.twig')]
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(name: 'location_idx_name', columns: ['name'])]
@@ -180,6 +186,10 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
+
+    #[ORM\OneToMany(targetEntity: StorageLocationAlternativeName::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sort_index' => 'ASC', 'name' => 'ASC'])]
+    protected Collection $alternative_names;
 
     /**
      * @var bool When this attribute is set, it is not possible to add additional parts or increase the instock of existing parts.
@@ -361,5 +371,6 @@ class StorageLocation extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->alternative_names = new ArrayCollection();
     }
 }

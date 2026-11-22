@@ -1,4 +1,4 @@
-# Generated on Mon Nov  2 09:12:01 UTC 2026
+# Generated on Mon Nov 16 09:20:34 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -1949,6 +1949,8 @@ Analog_Switch:ADG884xCP
 Analog_Switch:ADG884xRM
 Analog_Switch:CBTL02043A
 Analog_Switch:CBTL02043B
+Analog_Switch:CBTU02043
+Analog_Switch:CBTU02044
 Analog_Switch:CD4051B
 Analog_Switch:CD4052B
 Analog_Switch:CD4053B
@@ -2093,6 +2095,8 @@ Analog_Switch:TS5A3160DBV
 Analog_Switch:TS5A3160DCK
 Analog_Switch:TS5A3166DBVR
 Analog_Switch:TS5A3166DCKR
+Analog_Switch:TS5A3359DCU
+Analog_Switch:TS5A3359YZP
 Analog_Switch:TS5A63157DBV
 Audio:AD1853
 Audio:AD1855
@@ -5641,17 +5645,29 @@ Converter_DCDC_Isolated:TMU3-2411
 Converter_DCDC_Isolated:TMU3-2412
 Converter_DCDC_Isolated:TMU3-2413
 Converter_DCDC_Isolated:TMV0505D
+Converter_DCDC_Isolated:TMV0505DEN
+Converter_DCDC_Isolated:TMV0505EN
 Converter_DCDC_Isolated:TMV0505S
 Converter_DCDC_Isolated:TMV0509S
 Converter_DCDC_Isolated:TMV0512D
+Converter_DCDC_Isolated:TMV0512DEN
+Converter_DCDC_Isolated:TMV0512EN
 Converter_DCDC_Isolated:TMV0512S
 Converter_DCDC_Isolated:TMV0515D
+Converter_DCDC_Isolated:TMV0515DEN
+Converter_DCDC_Isolated:TMV0515EN
 Converter_DCDC_Isolated:TMV0515S
 Converter_DCDC_Isolated:TMV1205D
+Converter_DCDC_Isolated:TMV1205DEN
+Converter_DCDC_Isolated:TMV1205EN
 Converter_DCDC_Isolated:TMV1205S
 Converter_DCDC_Isolated:TMV1212D
+Converter_DCDC_Isolated:TMV1212DEN
+Converter_DCDC_Isolated:TMV1212EN
 Converter_DCDC_Isolated:TMV1212S
 Converter_DCDC_Isolated:TMV1215D
+Converter_DCDC_Isolated:TMV1215DEN
+Converter_DCDC_Isolated:TMV1215EN
 Converter_DCDC_Isolated:TMV1215S
 Converter_DCDC_Isolated:TMV2405D
 Converter_DCDC_Isolated:TMV2405S
@@ -8396,6 +8412,7 @@ GPU:MC68B45
 Graphic:Annotation_Exclamation
 Graphic:Annotation_Number
 Graphic:Annotation_Question
+Graphic:Logo_Generic
 Graphic:Logo_Open_Hardware_Large
 Graphic:Logo_Open_Hardware_Small
 Graphic:SYM_Arrow45_Large
@@ -19960,6 +19977,8 @@ Regulator_Switching:TPS56339DDC
 Regulator_Switching:TPS565208
 Regulator_Switching:TPS56528DDA
 Regulator_Switching:TPS566231PRQF
+Regulator_Switching:TPS566242DRL
+Regulator_Switching:TPS566247DRL
 Regulator_Switching:TPS568215RNN
 Regulator_Switching:TPS568230
 Regulator_Switching:TPS61040DBV
