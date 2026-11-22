@@ -112,7 +112,7 @@ class ExternalPartLinkRulesCollectionType extends AbstractType
             fn (array $viewValue) => $this->toModelRows($viewValue),
         ));
 
-        //Reject templates using an unknown placeholder or that don't resolve to a valid https URL
+        //Reject templates using an unknown placeholder or that don't resolve to a valid http/https URL
         //with sample data, giving a concrete error message per row (spec: "Fehlerhafte Templates
         //werden vor dem Speichern mit einer konkreten Meldung abgelehnt.")
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {

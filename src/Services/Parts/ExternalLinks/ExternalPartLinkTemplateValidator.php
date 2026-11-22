@@ -54,8 +54,8 @@ final class ExternalPartLinkTemplateValidator
 
     /**
      * Substitutes every placeholder in $template with a harmless sample value and checks that the
-     * result is a well-formed https URL. This only validates the template's static skeleton (the
-     * parts outside of placeholders) - it cannot know a real part's values.
+     * result is a well-formed http or https URL. This only validates the template's static skeleton
+     * (the parts outside of placeholders) - it cannot know a real part's values.
      */
     public static function resolvesToAllowedUrlWithSampleValues(string $template): bool
     {
@@ -65,7 +65,8 @@ final class ExternalPartLinkTemplateValidator
             $template
         );
 
-        return str_starts_with($sample, 'https://') && filter_var($sample, FILTER_VALIDATE_URL) !== false;
+        return (str_starts_with($sample, 'https://') || str_starts_with($sample, 'http://'))
+            && filter_var($sample, FILTER_VALIDATE_URL) !== false;
     }
 
     /**

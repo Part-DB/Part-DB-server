@@ -16169,7 +16169,7 @@ Buerklin-API Authentication server:
     <unit id="uTYu64n" name="settings.external_part_links.rules.placeholders_hint">
       <segment state="translated">
         <source>settings.external_part_links.rules.placeholders_hint</source>
-        <target>Supported template placeholders: {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint}, {id}. Only https URLs are allowed.</target>
+        <target>Supported template placeholders: {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint}, {id}. Only http and https URLs are allowed.</target>
       </segment>
     </unit>
     <unit id="7tGNrSr" name="external_part_link.name">

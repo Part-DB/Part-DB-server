@@ -27,7 +27,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
-use App\Services\Tools\ExternalPartLinkResolver;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkResolver;
 use App\Settings\ExternalPartLinkSettings;
 use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\TestCase;
@@ -145,7 +145,7 @@ final class ExternalPartLinkResolverTest extends TestCase
         $this->assertSame([], $resolver->resolve($part));
     }
 
-    public function testHttpTemplateIsRejected(): void
+    public function testHttpTemplateIsResolved(): void
     {
         $part = $this->createPart();
         $part->setManufacturerProductNumber('BC847C');
@@ -154,7 +154,9 @@ final class ExternalPartLinkResolverTest extends TestCase
             $this->templateLink(['source' => 'http://example.com/{mpn}']),
         ]);
 
-        $this->assertSame([], $resolver->resolve($part));
+        $links = $resolver->resolve($part);
+        $this->assertCount(1, $links);
+        $this->assertSame('http://example.com/BC847C', $links[0]->url);
     }
 
     public function testExistingValidParameterUrlIsResolved(): void

@@ -161,11 +161,12 @@ final class ExternalPartLinkResolver
     }
 
     /**
-     * The only allowed scheme is https. This also rejects javascript:/data:/file: URLs and
-     * relative paths, since none of those start with "https://".
+     * Allowed schemes are http and https. This rejects javascript:/data:/file: URLs and
+     * relative paths.
      */
     private function isAllowedUrl(string $url): bool
     {
-        return str_starts_with($url, 'https://') && filter_var($url, FILTER_VALIDATE_URL) !== false;
+        return (str_starts_with($url, 'https://') || str_starts_with($url, 'http://'))
+            && filter_var($url, FILTER_VALIDATE_URL) !== false;
     }
 }

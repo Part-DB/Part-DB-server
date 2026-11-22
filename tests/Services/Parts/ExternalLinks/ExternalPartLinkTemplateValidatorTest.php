@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Parts\ExternalLinks;
 
-use App\Services\Tools\ExternalPartLinkTemplateValidator;
+use App\Services\Parts\ExternalLinks\ExternalPartLinkTemplateValidator;
 use PHPUnit\Framework\TestCase;
 
 final class ExternalPartLinkTemplateValidatorTest extends TestCase
@@ -55,9 +55,9 @@ final class ExternalPartLinkTemplateValidatorTest extends TestCase
         self::assertSame('mpn2', ExternalPartLinkTemplateValidator::findUnknownPlaceholder('https://example.com/{mpn2}'));
     }
 
-    public function testNonHttpsSchemeIsRejected(): void
+    public function testHttpIsAccepted(): void
     {
-        self::assertSame('invalid_template', ExternalPartLinkTemplateValidator::validate('http://example.com/{mpn}'));
+        self::assertNull(ExternalPartLinkTemplateValidator::validate('http://example.com/{mpn}'));
     }
 
     public function testJavascriptSchemeIsRejected(): void
