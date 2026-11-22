@@ -7017,6 +7017,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Number of [[part]] with this element or its sub elements</target>
       </segment>
     </unit>
+    <unit id="wPok5Wh" name="entity.info.total_count">
+      <segment state="translated">
+        <source>entity.info.total_count</source>
+        <target>Total number of entities</target>
+      </segment>
+    </unit>
+    <unit id="chqscjk" name="entity.info.root_count">
+      <segment state="translated">
+        <source>entity.info.root_count</source>
+        <target>Number of root entities</target>
+      </segment>
+    </unit>
     <unit id="st92iWF" name="tools.server_infos.title">
       <segment state="translated">
         <source>tools.server_infos.title</source>

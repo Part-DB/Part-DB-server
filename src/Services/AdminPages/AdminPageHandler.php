@@ -330,6 +330,8 @@ final readonly class AdminPageHandler
             }
         }
 
+        $repo = $this->em->getRepository($entityClass);
+
         return $this->renderResponse($config->getTemplatePath(), array_merge(
             [
                 'entity' => $newEntity,
@@ -340,6 +342,8 @@ final readonly class AdminPageHandler
                 'showParameters' => $config->showParametersTab(),
                 'showAttachments' => $config->hasAttachments(),
                 'altNamesOverview' => $this->getAlternativeNamesOverview($entityClass, $config),
+                'entityCount' => $repo->count([]),
+                'rootEntityCount' => $repo instanceof \App\Repository\StructuralDBElementRepository ? $repo->countRootNodes() : null,
             ],
             $extension !== null ? $extension->additionalTemplateVars($newEntity, $form) : []
         ));

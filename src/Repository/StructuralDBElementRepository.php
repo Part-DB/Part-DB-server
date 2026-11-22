@@ -76,6 +76,11 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
         return $this->findNodesForParent(null);
     }
 
+    public function countRootNodes(): int
+    {
+        return $this->count(['parent' => null]);
+    }
+
     /**
      * Returns the given element and all its descendants, depth-first, with the children of each element ordered by
      * name (like getChildren()). The subtree is loaded with one query per tree level.
