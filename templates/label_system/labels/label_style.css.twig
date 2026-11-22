@@ -108,6 +108,17 @@ hr {
     position: static;
 }
 
+/* Part images placed inside the lines (see LabelHTMLGenerator::replacePlaceholderImages()).
+   dompdf clips inline images taller than the line at the top of the page, unless they are aligned to the top. */
+img.partdb-part-image {
+    vertical-align: top;
+}
+
+/* The part image is centered in the placeholder via padding, which must not be added to the size */
+img.partdb-part-image {
+    box-sizing: content-box;
+}
+
 .C39-text {
     display: block;
     font-size: 6pt;

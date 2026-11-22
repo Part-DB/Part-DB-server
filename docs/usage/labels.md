@@ -28,6 +28,20 @@ bottom of the label). Leave the option empty to keep the default layout.
 
 The `[[BARCODE_QR]]`, `[[BARCODE_C128]]`, etc. placeholders continue to work as before and are independent of these options.
 
+## Part image
+
+For labels of parts and part lots, the "Part image" button of the editor inserts a placeholder for the main image of the
+part (the same image as shown in the parts table, e.g. the master picture of the part or of its footprint). For part lots,
+the image of the part is used.
+
+The placeholder can be resized and positioned like any other image. When the label is generated, the image is centered in
+the placeholder and scaled so that its larger dimension fits. If the part has no image (or the image is only stored as
+external URL, which can not be embedded in the label, or is too large to be processed, i.e. more than 25 megapixels), the
+placeholder stays empty, so the layout of the label does not change.
+
+In Twig mode (or when writing HTML by hand), you can use an image with the `partdb-part-image` class and its size in px:
+`<img class="partdb-part-image" style="width: 80px; height: 60px;">`.
+
 ## Label placeholders
 
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.

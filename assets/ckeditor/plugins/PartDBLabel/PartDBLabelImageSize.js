@@ -18,7 +18,8 @@
  */
 
 import {Plugin, ButtonView, View, LabeledFieldView, createLabeledInputNumber, createDropdown, submitHandler} from 'ckeditor5';
-import {getSelectedImage, PX_PER_MM} from "./labelGeometry";
+import {getImageKind, getSelectedImage, PX_PER_MM} from "./labelGeometry";
+import {setPartImagePlaceholderSize} from "./PartDBLabelPartImage";
 
 /** The size (in px) assumed for images, whose size is not known */
 const DEFAULT_SIZE = 64;
@@ -68,8 +69,9 @@ class ImageSizeFormView extends View {
 }
 
 /**
- * Adds a "Size" dropdown to the image toolbar, to set the size of the selected image in mm. Images keep their aspect
- * ratio: The changed dimension is used, and the other one is calculated from it.
+ * Adds a "Size" dropdown to the image toolbar, to set the size of the selected image in mm:
+ *  - Part image placeholders get exactly the given size (the part image is fitted into it)
+ *  - Other images keep their aspect ratio: The changed dimension is used, and the other one is calculated from it
  */
 export default class PartDBLabelImageSize extends Plugin {
     static get pluginName() {
@@ -186,6 +188,10 @@ export default class PartDBLabelImageSize extends Plugin {
         const round = (value) => Math.round(value * 100) / 100;
 
         this.editor.model.change(writer => {
+            if (getImageKind(image) === 'part-image') {
+                setPartImagePlaceholderSize(writer, image, width, height);
+                return;
+            }
             //Images keep their aspect ratio, like with the resize handles
             const natural = this._getNaturalSize(image);
             const resizedWidth = heightChanged ? height * natural.width / natural.height : width;
