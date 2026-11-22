@@ -20,7 +20,7 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Tests\Services\Tools;
+namespace App\Tests\Services\Parts\ExternalLinks;
 
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;

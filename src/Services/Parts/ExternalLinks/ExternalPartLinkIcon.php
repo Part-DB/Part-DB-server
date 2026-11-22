@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Tools;
+namespace App\Services\Parts\ExternalLinks;
 
 /**
  * The icon an external part link can be rendered with. This is a closed whitelist:

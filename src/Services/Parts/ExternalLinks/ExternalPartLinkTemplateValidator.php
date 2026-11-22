@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Tools;
+namespace App\Services\Parts\ExternalLinks;
 
 /**
  * Validates an external part link URL template (the "source" of a source_type=template link

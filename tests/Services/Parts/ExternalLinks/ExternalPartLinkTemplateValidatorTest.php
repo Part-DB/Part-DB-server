@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services\Tools;
+namespace App\Tests\Services\Parts\ExternalLinks;
 
 use App\Services\Tools\ExternalPartLinkTemplateValidator;
 use PHPUnit\Framework\TestCase;

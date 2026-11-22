@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Tools;
+namespace App\Services\Parts\ExternalLinks;
 
 /**
  * Where an external part link's URL comes from.

@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Tools;
+namespace App\Services\Parts\ExternalLinks;
 
 /**
  * A fully resolved, safe-to-render external part link. This is the only shape
