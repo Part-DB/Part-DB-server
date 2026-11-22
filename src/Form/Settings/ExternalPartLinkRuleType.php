@@ -89,6 +89,7 @@ class ExternalPartLinkRuleType extends AbstractType
             ->add('enabled', CheckboxType::class, [
                 'label' => false,
                 'required' => false,
+                'data' => true,
                 'row_attr' => ['class' => 'mb-0'],
                 'attr' => ['aria-label' => $t->trans('external_part_link.enabled')],
             ]);
