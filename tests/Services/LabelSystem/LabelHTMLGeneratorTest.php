@@ -334,6 +334,41 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertEqualsWithDelta(1.5875, $boxes['Text']['left'], 0.05);
     }
 
+    public function testFloatingImageInsideSharedLink(): void
+    {
+        //If the link contains other content, the link is split at the image, and the image keeps its own copy of the link
+        $image = str_replace('<img ', '<img class="image-style-align-left" ', $this->createImage(113, 113));
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::NONE)
+            ->setLines('<p><a href="https://example.invalid">Text '.$image.'More</a></p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertMatchesRegularExpression('#<p><a href="https://example.invalid">Text </a><a href="https://example.invalid" class="image-style-align-left"><img src="[^"]*" width="113" height="113"></a><a href="https://example.invalid">More</a></p>#', $html);
+
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(1.5875, $boxes['img']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Text']['left'], 0.05);
+
+        //The caption block of an inline 1D barcode keeps the float, and only its barcode is linked
+        $barcode = '<img class="image-style-align-left" src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">';
+        $options->setBarcodeType(BarcodeType::CODE128)->setBarcodeSize(40)->setLines('<p><a href="https://example.invalid">Text '.$barcode.'More</a></p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertMatchesRegularExpression('#<p class="partdb-placeholder-line"><a href="https://example.invalid">Text </a><span class="partdb-barcode-block image-style-align-left" style="width: 40mm;"><a href="https://example.invalid"><img class="partdb-barcode"[^>]*></a><span class="C39-text">[^<]+</span></span><a href="https://example.invalid">More</a></p>#', $html);
+    }
+
+    public function testCaptionBlockInRowOfFloatingImages(): void
+    {
+        //The caption block of an inline 1D barcode (outside of a paragraph, e.g. from the source editing mode) is fitted into
+        //the rows of wrapped images: A 40mm barcode and a 70mm image do not fit next to each other on a 100mm label
+        $barcode = '<img class="image-style-align-left" src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">';
+        $figure = '<figure class="image image-style-align-right">'.$this->createImage(265, 100).'</figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::CODE128)->setBarcodeSize(40)
+            ->setLines($barcode.$figure.'<p>Text</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertMatchesRegularExpression('#<figure class="image image-style-align-right" style="margin-top: [\d.]+px;">#', $html);
+
+        $caption = $this->renderInlineLayout($html, $options)['caption'];
+        $this->assertEqualsWithDelta($caption['bottom'], $this->renderLayout($options)['figure'][0]['top'], 0.1);
+    }
+
     public function testLegacyLayoutWithFloatingImages(): void
     {
         //dompdf can not handle floats inside floats, so the legacy QR columns must not float if the lines contain wrapped images

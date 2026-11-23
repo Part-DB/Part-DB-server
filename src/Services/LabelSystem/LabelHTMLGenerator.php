@@ -354,21 +354,32 @@ final readonly class LabelHTMLGenerator
                 continue;
             }
 
-            //A linked image (the only content of its link) is floated by its link
-            $link = $node->parentNode;
-            if ($node->nodeName === 'img' && $link instanceof \DOMElement && $link->nodeName === 'a'
-                && $link->getElementsByTagName('*')->length === 1 && trim($link->textContent) === '') {
-                $classes = preg_split('/\s+/', $node->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
-                $styles = array_values(preg_grep(self::FLOATING_IMAGE_REGEX, $classes) ?: []);
-                $remaining = array_diff($classes, $styles);
-                if ($remaining === []) {
-                    $node->removeAttribute('class');
-                } else {
-                    $node->setAttribute('class', implode(' ', $remaining));
+            //A linked image is floated by its link. If the link contains other content, too, the image gets its own copy
+            //of the link, so that it stays linked when the link is split below.
+            $link = null;
+            for ($parent = $node->parentNode; $parent instanceof \DOMElement && in_array(strtolower($parent->nodeName), self::INLINE_ELEMENTS, true);
+                 $parent = $parent->parentNode) {
+                if ($parent->nodeName === 'a') {
+                    $link = $parent;
+                    break;
                 }
-                $link->setAttribute('class', trim($link->getAttribute('class').' '.implode(' ', $styles)));
-                $node = $link;
-                $changed = true;
+            }
+            if ($link !== null) {
+                $image_only = $node->nodeName === 'img' && $this->getImageLink($node) === $link;
+                $own_link = $image_only ? $link : $link->cloneNode(false);
+                //The caption block of a barcode keeps the float, so only its image is linked
+                $linked = $node->nodeName === 'img' ? $node : $node->getElementsByTagName('img')->item(0);
+                if ($own_link instanceof \DOMElement && $linked !== null) {
+                    if (!$image_only) {
+                        $linked->parentNode?->replaceChild($own_link, $linked);
+                        $own_link->appendChild($linked);
+                    }
+                    if ($linked === $node) {
+                        $this->moveFloatStyle($node, $own_link);
+                        $node = $own_link;
+                    }
+                    $changed = true;
+                }
             }
 
             for ($parent = $node->parentNode; $parent instanceof \DOMElement && in_array(strtolower($parent->nodeName), self::INLINE_ELEMENTS, true);
@@ -394,6 +405,34 @@ final readonly class LabelHTMLGenerator
         }
 
         return $changed;
+    }
+
+    /**
+     * Returns the link of the given image (as added by the image toolbar of CKEditor), if the image is the only content of
+     * its link, or null. A link which contains other content too (e.g. text) is not the link of the image only.
+     */
+    private function getImageLink(\DOMElement $img): ?\DOMElement
+    {
+        $link = $img->parentNode;
+
+        return $link instanceof \DOMElement && $link->nodeName === 'a' && $link->getElementsByTagName('*')->length === 1
+            && trim($link->textContent) === '' ? $link : null;
+    }
+
+    /**
+     * Moves the floating image styles (see FLOATING_IMAGE_REGEX) from the classes of the given image to the given element.
+     */
+    private function moveFloatStyle(\DOMElement $img, \DOMElement $target): void
+    {
+        $classes = preg_split('/\s+/', $img->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $styles = array_values(preg_grep(self::FLOATING_IMAGE_REGEX, $classes) ?: []);
+        $remaining = array_diff($classes, $styles);
+        if ($remaining === []) {
+            $img->removeAttribute('class');
+        } else {
+            $img->setAttribute('class', implode(' ', $remaining));
+        }
+        $target->setAttribute('class', trim($target->getAttribute('class').' '.implode(' ', $styles)));
     }
 
     /**
@@ -702,11 +741,14 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Returns the CKEditor image style (align-left, align-right or side), if the given element is a floating image.
+     * Returns the CKEditor image style (align-left, align-right or side), if the given element is a floating image: An
+     * image, its figure, or an element wrapping it, which got the image style of the image (a link, see liftNestedFloats(),
+     * or the caption block of a barcode, see addBarcodeCaption()).
      */
     private function getFloatStyle(\DOMElement $element): ?string
     {
-        if (!in_array($element->nodeName, ['figure', 'img'], true)) {
+        if (!in_array($element->nodeName, ['figure', 'img', 'a', 'span'], true)
+            || (in_array($element->nodeName, ['a', 'span'], true) && $element->getElementsByTagName('img')->length === 0)) {
             return null;
         }
 
@@ -823,7 +865,7 @@ final readonly class LabelHTMLGenerator
         //Inline barcodes keep the same gap to the text after them as barcodes wrapped left (see .image-style-align-left in
         //label_style.css.twig), which also keeps their quiet zone free. Barcodes with an image style or a float keep their margins.
         if ($this->getFigure($img) === null) {
-            $outer = $img->parentNode instanceof \DOMElement && $img->parentNode->nodeName === 'a' ? $img->parentNode : $img;
+            $outer = $this->getImageLink($img) ?? $img;
             if ($outer->parentNode instanceof \DOMElement && str_contains($outer->parentNode->getAttribute('class'), 'partdb-barcode-block')) {
                 $outer = $outer->parentNode;
             }
@@ -848,7 +890,7 @@ final readonly class LabelHTMLGenerator
         $text->appendChild($document->createTextNode($caption));
 
         //Linked images are wrapped in a link
-        $node = $img->parentNode instanceof \DOMElement && $img->parentNode->nodeName === 'a' ? $img->parentNode : $img;
+        $node = $this->getImageLink($img) ?? $img;
         $parent = $node->parentNode;
         if ($parent === null) {
             return;
