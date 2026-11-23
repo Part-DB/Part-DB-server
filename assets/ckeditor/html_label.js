@@ -189,6 +189,7 @@ Editor.defaultConfig = {
             'sourceEditing',
             '|',
             'partdb_label',
+            'partdb_barcode',
             'partdb_part_image',
         ],
         shouldNotGroupWhenFull: true

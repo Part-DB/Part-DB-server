@@ -68,6 +68,14 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertEqualsWithDelta($barcode['height'], $params['legacy1D']['height'], 0.001);
         $this->assertEqualsWithDelta(30 - 2 * 3.175 - $barcode['height'] - $sized['stackedGap'] - $sized['captionHeight'],
             $barcode['cell_height'], 0.001);
+
+        //The size of the barcode without a barcode size (for the barcode placeholder) is the same as in getBarcodeLayout()
+        $options = (new LabelOptions())->setWidth(60)->setHeight(30)->setBarcodeType(BarcodeType::QR);
+        $content_width = 60 - 2 * $params['pageMarginX'];
+        $this->assertEqualsWithDelta($content_width * $params['default2DWidthFactor'], $this->service->getBarcodeLayout($options)['width'], 0.001);
+        $options->setBarcodeType(BarcodeType::CODE128);
+        $this->assertEqualsWithDelta(min($params['default1DMaxWidth'], $content_width), $this->service->getBarcodeLayout($options)['width'], 0.001);
+        $this->assertEqualsWithDelta($params['default1DHeight'], $this->service->getBarcodeLayout($options)['height'], 0.001);
     }
 
     public function testFloatingImagesNextToSizedQRCode(): void
@@ -290,6 +298,42 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertLessThanOrEqual(50 - 3.175, $text['bottom']);
     }
 
+    public function testFloatingImageInsideInlineElements(): void
+    {
+        //CKEditor applies the formatting of the text to inline images. dompdf ignores floats nested in inline elements
+        //(the text would be placed on top of the image), so the image is moved out of them, which are split at its position
+        $image = str_replace('<img ', '<img class="image-style-align-left" ', $this->createImage(113, 113));
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::NONE)
+            ->setLines('<p><span style="font-size:16px;"><strong>Before '.$image.'After</strong></span></p><p>Next</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertMatchesRegularExpression('#<p><span style="font-size:16px;"><strong>Before </strong></span><img class="image-style-align-left"[^>]*><span style="font-size:16px;"><strong>After</strong></span></p>#', $html);
+
+        //The text before and after the image stays in one line, which (like the next paragraph) wraps around the image
+        //with the 4mm gap
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(1.5875, $boxes['img']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['p1']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Before']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['Before']['right'], $boxes['After']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['Before']['top'], $boxes['After']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Next']['left'], 0.05);
+    }
+
+    public function testLinkedFloatingImage(): void
+    {
+        //dompdf ignores the float of an image inside a link, so the link gets the float
+        $image = str_replace('<img ', '<img class="image-style-align-right" ', $this->createImage(113, 113));
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::NONE)
+            ->setLines('<p><strong><a href="https://example.invalid">'.$image.'</a>Text</strong></p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('<p><a href="https://example.invalid" class="image-style-align-right"><img src=', $html);
+        $this->assertStringContainsString('<strong>Text</strong></p>', $html);
+
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(100 - 1.5875, $boxes['img']['right'], 0.05);
+        $this->assertEqualsWithDelta(1.5875, $boxes['Text']['left'], 0.05);
+    }
+
     public function testLegacyLayoutWithFloatingImages(): void
     {
         //dompdf can not handle floats inside floats, so the legacy QR columns must not float if the lines contain wrapped images
@@ -382,6 +426,220 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertEqualsWithDelta(30 - 3.175 - 5 * 25.4 / 96, $layout['caption'][1], 0.05);
     }
 
+    public function testBarcodePlaceholderImage(): void
+    {
+        //Like CKEditor outputs a resized image, with the text wrapped around it
+        $lines = '<figure class="image image-style-align-right image_resized" style="width:50px;">'
+            .'<img style="aspect-ratio:64/64;" src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" alt="Barcode" width="64" height="64">'
+            .'</figure><p>Test</p>';
+        $options = (new LabelOptions())->setBarcodeType(BarcodeType::QR)->setBarcodeSize(15)->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+
+        //The default layout must not be used
+        $this->assertStringNotContainsString('<table class="label-layout', $html);
+        //The placeholder is replaced by the real barcode with the configured size...
+        $this->assertStringNotContainsString(LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX, $html);
+        $this->assertStringContainsString('src="data:image/svg+xml;base64,', $html);
+        $this->assertStringContainsString('width: 15mm; height: 15mm;', $html);
+        $this->assertStringNotContainsString('width="64"', $html);
+        $this->assertStringNotContainsString('width:50px', $html);
+        //... while keeping the placement
+        $this->assertStringContainsString('image-style-align-right', $html);
+        $this->assertStringContainsString('<p>Test</p>', $html);
+    }
+
+    public function testBarcodePlaceholderClass(): void
+    {
+        $options = (new LabelOptions())->setBarcodeType(BarcodeType::CODE128)
+            ->setLines('<p><img class="partdb-barcode" style="float: right;">Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+
+        $this->assertStringNotContainsString('<table class="label-layout', $html);
+        //The 1D barcode is wrapped together with its caption, and the wrapper takes over the float of the image
+        $this->assertStringContainsString('<span class="partdb-barcode-block" style="width: 39.688mm; float: right;"><img class="partdb-barcode" style="width: 39.688mm; height: 7.938mm;"', $html);
+        $this->assertStringContainsString('<span class="C39-text">P0000</span></span>Test</p>', $html);
+    }
+
+    public function testGapAfterInlineBarcode(): void
+    {
+        //Inline barcodes keep the same 4mm gap to the text after them as barcodes wrapped left
+        $placeholder = fn(string $class = '') => '<img'.($class !== '' ? ' class="'.$class.'"' : '').' src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">';
+        $cases = [
+            'inline 2D' => [BarcodeType::QR, '<p>'.$placeholder().'Text</p>'],
+            'inline 1D with caption' => [BarcodeType::CODE128, '<p>'.$placeholder().'Text</p>'],
+            'wrapped left' => [BarcodeType::QR, '<p>'.$placeholder('image-style-align-left').'Text</p>'],
+        ];
+        foreach ($cases as $name => [$type, $lines]) {
+            $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType($type)->setBarcodeSize(20)->setLines($lines);
+            $boxes = $this->renderInlineLayout($this->service->getLabelHTML($options, [$this->getExamplePart()]), $options);
+            $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Text']['left'], 0.1, $name);
+        }
+    }
+
+    public function testPlaced1DBarcodeCaption(): void
+    {
+        //Placed 1D barcodes get their content as caption, like in the default layout: Block images inside their figure...
+        $placeholder = '<img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::CODE128)->setBarcodeSize(40)
+            ->setLines('<figure class="image image-style-block-align-left">'.$placeholder.'</figure><p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('<span class="C39-text">P0000</span></figure>', $html);
+
+        //On the rendered label, the caption (6pt, 2.71mm high) is directly below the 7.94mm high barcode, and the text below both
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(7.9375, $boxes['img']['bottom'] - $boxes['img']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['bottom'], $boxes['caption']['top'], 0.05);
+        $this->assertEqualsWithDelta(2.709, $boxes['caption']['bottom'] - $boxes['caption']['top'], 0.05);
+        $this->assertGreaterThanOrEqual($boxes['caption']['bottom'] - 0.01, $boxes['p1']['top']);
+
+        //... inline images in an inline block with it, which takes over the image style (here: wrap text left)
+        $options->setLines('<p>'.str_replace('<img ', '<img class="image-style-align-left" ', $placeholder).'Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('<span class="partdb-barcode-block image-style-align-left" style="width: 40mm;"><img class="partdb-barcode"', $html);
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta($boxes['img']['bottom'], $boxes['caption']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['Test']['top'], 0.05);
+
+        //2D barcodes have no caption
+        $options->setBarcodeType(BarcodeType::QR)->setLines('<figure class="image image-style-align-left">'.$placeholder.'</figure><p>Test</p>');
+        $this->assertStringNotContainsString('<span class="C39-text">', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+    }
+
+    public function test1DBarcodePlaceholderInRowOfFloatingImages(): void
+    {
+        //The caption belongs to the height of a placed 1D barcode: 7.9375mm barcode + 2.709mm caption = 40.24px, so the
+        //image which does not fit next to it starts 40.24px below
+        $barcode = '<figure class="image image-style-align-left"><img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></figure>';
+        $right = '<figure class="image image-style-align-right"><img src="data:image/png;base64,AAAA" width="250" height="30"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::CODE128)
+            ->setLines($barcode.$right.'<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('data-box-height="40.24"', $html);
+        $this->assertStringContainsString('margin-top: 40.24px;', $html);
+    }
+
+    public function testBarcodePlaceholderWithoutBarcodeType(): void
+    {
+        $options = (new LabelOptions())->setBarcodeType(BarcodeType::NONE)
+            ->setLines('<p><img class="partdb-barcode">Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+
+        $this->assertStringNotContainsString('<img class="partdb-barcode"', $html);
+        $this->assertStringContainsString('<p>Test</p>', $html);
+    }
+
+    public function testLinkedBarcodePlaceholder(): void
+    {
+        //Linked images are wrapped in a link inside their figure: The figure still gets the size of the barcode
+        $lines = '<figure class="image image_resized image-style-align-left" style="width:50px;"><a href="https://example.com">'
+            .'<img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></a></figure><p>Test</p>';
+        $options = (new LabelOptions())->setBarcodeType(BarcodeType::QR)->setBarcodeSize(15)->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+
+        $this->assertStringContainsString('style="width: 15mm;"', $html);
+        $this->assertStringContainsString('width: 15mm; height: 15mm;', $html);
+        $this->assertStringContainsString('<a href="https://example.com">', $html);
+    }
+
+    public function testBarcodePlaceholderInRowOfFloatingImages(): void
+    {
+        //The placed barcode has the size of the barcode layout (30% of the usable width of 96.825mm = 109.79px for a QR
+        //code without barcode size), and the lines use the whole width, as the barcode is not placed next to them. So the
+        //image wrapped right does not fit next to the two images wrapped left, and starts below the barcode.
+        $barcode = '<figure class="image image-style-align-left"><img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></figure>';
+        $left = '<figure class="image image-style-align-left"><img src="data:image/png;base64,AAAA" width="220" height="105"></figure>';
+        $right = '<figure class="image image_resized image-style-align-right" style="width:117.6px;"><img src="data:image/png;base64,AAAA" width="351" height="199"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::QR)
+            ->setLines($barcode.$left.$right.'<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('style="width:117.6px; margin-top: 109.79px;"', $html);
+        //The two images wrapped left fit next to each other, which they would not next to the QR code of the default layout
+        $this->assertDoesNotMatchRegularExpression('/image-style-align-left"[^>]*margin-top/', $html);
+    }
+
+    public function testPlacedBarcodeOnRenderedLabel(): void
+    {
+        //A placed 15mm QR code wrapped right ends at the right edge of the page content (50mm label - 1.5875mm margin),
+        //and the default layout is not used
+        $lines = '<figure class="image image-style-align-right"><img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></figure><p>Test</p>';
+        $options = (new LabelOptions())->setWidth(50)->setHeight(30)->setBarcodeType(BarcodeType::QR)->setBarcodeSize(15)->setLines($lines);
+        [$figure] = $this->renderLayout($options)['figure'];
+
+        $this->assertEqualsWithDelta(15, $figure['right'] - $figure['left'], 0.05);
+        $this->assertEqualsWithDelta(15, $figure['bottom'] - $figure['top'], 0.05);
+        $this->assertEqualsWithDelta(50 - 1.5875, $figure['right'], 0.05);
+        $this->assertEqualsWithDelta(3.175, $figure['top'], 0.05);
+    }
+
+    public function testInlinePartImagePlaceholder(): void
+    {
+        //The text next to inline part image placeholders is aligned to the top as well (see testInlineBarcodePlaceholder())
+        $lines = '<p><span style="font-size:16px;"><strong><img src="'.LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA" width="80" height="80">Name</strong></span> small</p><p>Next</p>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [LabelPartImageProviderTest::createPartWithPicture()]);
+        $this->assertStringContainsString('<p class="partdb-placeholder-line">', $html);
+
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(80 * 25.4 / 96, $boxes['img']['bottom'] - $boxes['img']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['Name']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['small']['top'], 0.05);
+        $this->assertGreaterThanOrEqual($boxes['img']['bottom'] - 0.01, $boxes['p2']['top']);
+    }
+
+    public function testBarcodeAndPartImagePlaceholders(): void
+    {
+        //Both placeholders in one label: The barcode wrapped left, the part image (120x60px box) wrapped right
+        $barcode = '<figure class="image image-style-align-left"><img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64"></figure>';
+        $part_image = '<figure class="image image-style-align-right"><img src="'.LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX.';base64,AAAA" width="120" height="60"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::QR)->setBarcodeSize(20)
+            ->setLines($barcode.$part_image.'<p>Test</p>');
+        $part = LabelPartImageProviderTest::createPartWithPicture();
+        $html = $this->service->getLabelHTML($options, [$part]);
+
+        $this->assertStringNotContainsString('partdb=', substr($html, strpos($html, '<body>')));
+        $this->assertStringNotContainsString('<table class="label-layout', $html);
+        $this->assertStringContainsString('width: 20mm; height: 20mm;', $html);
+        $this->assertStringContainsString('width: 80.00px; height: 60.00px; padding: 0.00px 20.00px;', $html);
+
+        //On the rendered label, the barcode is at the left and the part image box at the right edge of the page content
+        [$barcode_box, $part_image_box] = $this->renderLayout($options, $part)['figure'];
+        $this->assertEqualsWithDelta(1.5875, $barcode_box['left'], 0.05);
+        $this->assertEqualsWithDelta(20, $barcode_box['right'] - $barcode_box['left'], 0.05);
+        $this->assertEqualsWithDelta(100 - 1.5875, $part_image_box['right'], 0.05);
+        $this->assertEqualsWithDelta(120 * 25.4 / 96, $part_image_box['right'] - $part_image_box['left'], 0.05);
+    }
+
+    public function testFloatingBarcodePlaceholderInsideInlineElements(): void
+    {
+        //A barcode inserted into formatted text and wrapped left (like the content of the editor): The text wraps around it
+        $barcode = '<img class="image-style-align-left" src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::QR)->setBarcodeSize(30)
+            ->setLines('<p><span style="font-size:16px;"><strong>'.$barcode.'Name</strong></span></p><p><i>Second</i></p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertMatchesRegularExpression('#<p class="partdb-placeholder-line"><img class="image-style-align-left partdb-barcode"[^>]*><span style="font-size:16px;"><strong>Name</strong></span></p>#', $html);
+
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(30, $boxes['img']['right'] - $boxes['img']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Name']['left'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['right'] + 4, $boxes['Second']['left'], 0.05);
+    }
+
+    public function testInlineBarcodePlaceholder(): void
+    {
+        //Next to an inline placeholder, the text is aligned to the top of the line like in the editor (dompdf would place
+        //it at the baseline of the line otherwise, near the bottom of the barcode). The next paragraph starts below it.
+        $lines = '<p><span style="font-size:16px;"><strong><img src="'.LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX.';base64,AAAA" width="64" height="64">Name</strong></span> small</p><p>Next</p>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50)->setBarcodeType(BarcodeType::QR)->setBarcodeSize(25)->setLines($lines);
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('<p class="partdb-placeholder-line">', $html);
+
+        $boxes = $this->renderInlineLayout($html, $options);
+        $this->assertEqualsWithDelta(25, $boxes['img']['bottom'] - $boxes['img']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['Name']['top'], 0.05);
+        $this->assertEqualsWithDelta($boxes['img']['top'], $boxes['small']['top'], 0.05);
+        $this->assertGreaterThanOrEqual($boxes['img']['bottom'] - 0.01, $boxes['p2']['top']);
+    }
+
     public function testDefaultLayoutWithoutPlaceholder(): void
     {
         $options = (new LabelOptions())->setBarcodeType(BarcodeType::QR)->setBarcodeSize(15)->setLines('<p>Test</p>');
@@ -460,6 +718,38 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $layout['pages'] = $dompdf->getCanvas()->get_page_count();
 
         return $layout;
+    }
+
+    /**
+     * Renders the given label HTML with dompdf and returns the boxes (in mm) of its first image ("img"), the caption of a
+     * placed barcode ("caption"), its paragraphs ("p1", "p2", ...) and its text nodes (by their text).
+     * @return array<string, array{top: float, bottom: float, left: float, right: float}>
+     */
+    private function renderInlineLayout(string $html, LabelOptions $options): array
+    {
+        $dompdf = self::getContainer()->get(DompdfFactoryInterface::class)->create();
+        $dompdf->setPaper(self::getContainer()->get(LabelGenerator::class)->mmToPointsArray($options->getWidth(), $options->getHeight()));
+        $dompdf->loadHtml($html);
+
+        $boxes = [];
+        $dompdf->setCallbacks([['event' => 'end_frame', 'f' => static function (Frame $frame) use (&$boxes): void {
+            $node = $frame->get_node();
+            $key = match (true) {
+                $node instanceof \DOMElement && $node->nodeName === 'img' => 'img',
+                $node instanceof \DOMElement && $node->getAttribute('class') === 'C39-text' => 'caption',
+                $node instanceof \DOMElement && $node->nodeName === 'p' => 'p'.(count(array_filter(array_keys($boxes), static fn($k) => preg_match('/^p\d+$/', (string) $k) === 1)) + 1),
+                $node instanceof \DOMText && trim($node->textContent) !== '' => trim($node->textContent),
+                default => null,
+            };
+            if ($key !== null && !isset($boxes[$key])) {
+                [$x, $y, $width, $height] = $frame->get_border_box();
+                $mm = static fn(float $pt): float => $pt / LabelGenerator::MM_TO_POINTS_FACTOR;
+                $boxes[$key] = ['top' => $mm($y), 'bottom' => $mm($y + $height), 'left' => $mm($x), 'right' => $mm($x + $width)];
+            }
+        }]]);
+        $dompdf->render();
+
+        return $boxes;
     }
 
     private function getExamplePart(): Part

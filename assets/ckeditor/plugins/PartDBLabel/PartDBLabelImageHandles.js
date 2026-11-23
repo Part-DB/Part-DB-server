@@ -37,6 +37,7 @@ const MIN_SIZE = 8;
  * CKEditor, which always keep the aspect ratio):
  *  - Part image placeholders change only the dragged dimension, so they can get any aspect ratio
  *  - Other images keep their aspect ratio, the other dimension is changed accordingly
+ *  - Barcode placeholders get no handles, as their size is defined by the barcode size option of the label
  *
  * The handles are shown in an overlay over the editor content (and not inside the editing view), so that CKEditor does
  * not have to know about them. The size is only written to the model when the drag is finished (one undo step).
@@ -93,7 +94,7 @@ export default class PartDBLabelImageHandles extends Plugin {
     _getTarget() {
         const editor = this.editor;
         const image = getSelectedImage(editor);
-        if (!image) {
+        if (!image || getImageKind(image) === 'barcode') {
             return null;
         }
 

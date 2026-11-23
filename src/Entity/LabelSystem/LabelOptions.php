@@ -75,6 +75,7 @@ class LabelOptions
     /**
      * @var float|null The size of the barcode in mm (the edge length for 2D barcodes, the width for 1D barcodes).
      * Null means that the size is determined automatically based on the label size.
+     * This applies to both the default barcode layout and to barcode images placed in the lines.
      */
     #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]

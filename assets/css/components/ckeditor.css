@@ -214,6 +214,51 @@ textarea[data-dirty] ~ .ck.ck-editor.partdb-label-preview .ck-editor__main > .ck
     min-width: 12em;
 }
 
+/* Without a barcode type, placeholders are not rendered on the label (see PartDBLabelPreview.js) */
+.ck-html-label.partdb-label-no-barcode .ck-content img[src^="data:image/svg+xml;partdb=barcode"] {
+    opacity: 0.3;
+}
+
+/* Barcode placeholder images (see PartDBLabelBarcode.js): Their size is defined by the label options, not by resizing */
+.ck-html-label .ck-content img[src^="data:image/svg+xml;partdb=barcode"] {
+    width: var(--partdb-barcode-width, 64px) !important;
+    height: var(--partdb-barcode-height, 64px) !important;
+    min-width: 0 !important;
+    aspect-ratio: auto !important;
+    /* The caption below 1D barcodes (see LabelHTMLGenerator::addBarcodeCaption()), shown as gray bar in the space below
+       the placeholder */
+    box-sizing: content-box !important;
+    padding-bottom: var(--partdb-barcode-caption, 0px) !important;
+    background-image: linear-gradient(#999, #999);
+    background-repeat: no-repeat;
+    background-position: left 1px bottom calc(var(--partdb-barcode-caption, 0px) * 0.25);
+    background-size: min(50%, 15mm) calc(var(--partdb-barcode-caption, 0px) * 0.5);
+}
+
+.ck-html-label .ck-content .ck-widget:has(img[src^="data:image/svg+xml;partdb=barcode"]) {
+    width: auto !important;
+}
+
+/* Same as in label_style.css.twig */
+.ck-html-label .ck-content .image-inline:has(img[src^="data:image/svg+xml;partdb=barcode"]) {
+    vertical-align: top;
+}
+
+.ck-html-label .ck-content .ck-widget:has(img[src^="data:image/svg+xml;partdb=barcode"]) .ck-widget__resizer {
+    display: none !important;
+}
+
+/* Inline barcodes keep the same gap to the text after them as barcodes wrapped left (see LabelHTMLGenerator::placeBarcodeImage()) */
+.ck-html-label .ck-content .image-inline:not([class*="image-style-"]):has(img[src^="data:image/svg+xml;partdb=barcode"]) {
+    margin-right: 4mm;
+}
+
+/* Same as in label_style.css.twig: The text of lines with inline placeholders is aligned to the top */
+.ck-html-label .ck-content :is(p, h1, h2, h3, h4, h5, h6, li, td, th):has(.image-inline img[src^="data:image/svg+xml;partdb="])
+    :not(.image-inline *, sub, sup) {
+    vertical-align: top;
+}
+
 /* Part images are only rendered for parts and part lots (see PartDBLabelPreview.js) */
 .ck-html-label.partdb-label-no-part-image .ck-content img[src^="data:image/svg+xml;partdb=part-image"] {
     opacity: 0.3;
