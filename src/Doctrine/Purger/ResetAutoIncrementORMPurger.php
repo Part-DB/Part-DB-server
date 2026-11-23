@@ -31,6 +31,7 @@ use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ManyToManyOwningSideMapping;
 
 use function array_reverse;
 use function assert;
@@ -283,7 +284,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 
         foreach ($classes as $class) {
             foreach ($class->associationMappings as $assoc) {
-                if (! $assoc['isOwningSide'] || $assoc['type'] !== ClassMetadata::MANY_TO_MANY) {
+                if (! $assoc instanceof ManyToManyOwningSideMapping) {
                     continue;
                 }
 
@@ -307,12 +308,12 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     }
 
     private function getJoinTableName(
-        array $assoc,
+        ManyToManyOwningSideMapping $assoc,
         ClassMetadata $class,
         AbstractPlatform $platform
     ): string {
-        if (isset($assoc['joinTable']['schema']) && ! method_exists($class, 'getSchemaName')) {
-            return $assoc['joinTable']['schema'] . '.' .
+        if (isset($assoc->joinTable->schema) && ! method_exists($class, 'getSchemaName')) {
+            return $assoc->joinTable->schema . '.' .
                 $this->em->getConfiguration()
                     ->getQuoteStrategy()
                     ->getJoinTableName($assoc, $class, $platform);
