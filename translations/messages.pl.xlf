@@ -178,6 +178,36 @@
         <target>Ogólne</target>
       </segment>
     </unit>
+    <unit id="tg6HUWz" name="admin.alt_names_overview">
+      <segment state="translated">
+        <source>admin.alt_names_overview</source>
+        <target>Alternatywne nazwy</target>
+      </segment>
+    </unit>
+    <unit id="dXf_PrR" name="admin.alt_names_overview.name">
+      <segment state="translated">
+        <source>admin.alt_names_overview.name</source>
+        <target>Alternatywna nazwa</target>
+      </segment>
+    </unit>
+    <unit id="tueArU4" name="admin.alt_names_overview.element">
+      <segment state="translated">
+        <source>admin.alt_names_overview.element</source>
+        <target>Element</target>
+      </segment>
+    </unit>
+    <unit id="9J.v0g9" name="admin.alt_names_overview.empty">
+      <segment state="translated">
+        <source>admin.alt_names_overview.empty</source>
+        <target>Nie zdefiniowano jeszcze alternatywnych nazw.</target>
+      </segment>
+    </unit>
+    <unit id="9w9ImBX" name="admin.alt_names_overview.duplicate_warning">
+      <segment state="translated">
+        <source>admin.alt_names_overview.duplicate_warning</source>
+        <target>Ta nazwa jest przypisana do wielu elementów.</target>
+      </segment>
+    </unit>
     <unit id="fn26FXc" name="admin.attachments">
       <segment state="translated">
         <source>admin.attachments</source>
@@ -6980,6 +7010,18 @@ Element 3</target>
         <target>Liczba [[part]] z tym elementem lub jego pod elementami</target>
       </segment>
     </unit>
+    <unit id="wPok5Wh" name="entity.info.total_count">
+      <segment state="translated">
+        <source>entity.info.total_count</source>
+        <target>Całkowita ilość obiektów</target>
+      </segment>
+    </unit>
+    <unit id="chqscjk" name="entity.info.root_count">
+      <segment state="translated">
+        <source>entity.info.root_count</source>
+        <target>Ilość głównych obiektów</target>
+      </segment>
+    </unit>
     <unit id="st92iWF" name="tools.server_infos.title">
       <segment state="translated">
         <source>tools.server_infos.title</source>
@@ -8784,6 +8826,12 @@ Element 3</target>
       <segment state="translated">
         <source>log.element_edited.changed_fields.attachments</source>
         <target>[[Attachment]]</target>
+      </segment>
+    </unit>
+    <unit id="HYz.9NH" name="log.element_edited.changed_fields.alternative_names">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.alternative_names</source>
+        <target>Alternatywne nazwy</target>
       </segment>
     </unit>
     <unit id="FcLV2wQ" name="tfa_u2f.add_key.registration_error">
@@ -16085,6 +16133,144 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>info_providers.error.server_exception</source>
         <target>Dostawca informacji (%host%) jest tymczasowo niedostępny (HTTP %status%). Spróbuj ponownie później.</target>
+      </segment>
+    </unit>
+    <unit id="G9i5NMy" name="settings.external_part_links">
+      <segment state="translated">
+        <source>settings.external_part_links</source>
+        <target>Zewnętrzne łącza części</target>
+      </segment>
+    </unit>
+    <unit id=".iW8w38" name="settings.external_part_links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.help</source>
+        <target>Zdefiniuj szybkie łącza do zewnętrznych usług, wyświetlane na stronie szczegółów części. URL łącza jest generowany ze wzoru, lub odczytywany bezpośrednio z parametrów części.</target>
+      </segment>
+    </unit>
+    <unit id="YZnItr6" name="settings.external_part_links.links">
+      <segment state="translated">
+        <source>settings.external_part_links.links</source>
+        <target>Łącza</target>
+      </segment>
+    </unit>
+    <unit id="07OwrPf" name="settings.external_part_links.links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.links.help</source>
+        <target>Łącze jest wyświetlane na części tylko wtedy, jeśli jego źródło wskazuje na prawidłowy, dozwolony URL dla danej części.</target>
+      </segment>
+    </unit>
+    <unit id="uTYu64n" name="settings.external_part_links.rules.placeholders_hint">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.placeholders_hint</source>
+        <target>Obsługiwane pola zastępcze wzoru: {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint}, {id}. Dozwolone są tylko URL HTTP oraz HTTPS.</target>
+      </segment>
+    </unit>
+    <unit id="7tGNrSr" name="external_part_link.name">
+      <segment state="translated">
+        <source>external_part_link.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="2hV2WSY" name="external_part_link.source_type">
+      <segment state="translated">
+        <source>external_part_link.source_type</source>
+        <target>Źródło</target>
+      </segment>
+    </unit>
+    <unit id="DxFWEf4" name="external_part_link.source_type.template">
+      <segment state="translated">
+        <source>external_part_link.source_type.template</source>
+        <target>Wzór URL</target>
+      </segment>
+    </unit>
+    <unit id="rYaRkRV" name="external_part_link.source_type.parameter">
+      <segment state="translated">
+        <source>external_part_link.source_type.parameter</source>
+        <target>Parametr części</target>
+      </segment>
+    </unit>
+    <unit id="P7TBf.x" name="external_part_link.source">
+      <segment state="translated">
+        <source>external_part_link.source</source>
+        <target>Wzór URL / nazwa parametru</target>
+      </segment>
+    </unit>
+    <unit id="Zvqaz6C" name="external_part_link.icon">
+      <segment state="translated">
+        <source>external_part_link.icon</source>
+        <target>Ikona</target>
+      </segment>
+    </unit>
+    <unit id="pBy7pjG" name="external_part_link.icon.external-link">
+      <segment state="translated">
+        <source>external_part_link.icon.external-link</source>
+        <target>Łącze zewnętrzne</target>
+      </segment>
+    </unit>
+    <unit id="Wsg1k76" name="external_part_link.icon.search">
+      <segment state="translated">
+        <source>external_part_link.icon.search</source>
+        <target>Szukaj</target>
+      </segment>
+    </unit>
+    <unit id="pytkKrJ" name="external_part_link.icon.shopping-cart">
+      <segment state="translated">
+        <source>external_part_link.icon.shopping-cart</source>
+        <target>Koszyk</target>
+      </segment>
+    </unit>
+    <unit id="lp1pL44" name="external_part_link.icon.industry">
+      <segment state="translated">
+        <source>external_part_link.icon.industry</source>
+        <target>Przemysł</target>
+      </segment>
+    </unit>
+    <unit id="5oa6wzK" name="external_part_link.icon.globe">
+      <segment state="translated">
+        <source>external_part_link.icon.globe</source>
+        <target>Globus</target>
+      </segment>
+    </unit>
+    <unit id="4CZyKCA" name="external_part_link.icon.file">
+      <segment state="translated">
+        <source>external_part_link.icon.file</source>
+        <target>Plik</target>
+      </segment>
+    </unit>
+    <unit id="Gt1BR.W" name="external_part_link.icon.box">
+      <segment state="translated">
+        <source>external_part_link.icon.box</source>
+        <target>Pudełko</target>
+      </segment>
+    </unit>
+    <unit id="L_uJ2oj" name="external_part_link.icon.info">
+      <segment state="translated">
+        <source>external_part_link.icon.info</source>
+        <target>Informacje</target>
+      </segment>
+    </unit>
+    <unit id="mCRd7zj" name="external_part_link.open_new_tab">
+      <segment state="translated">
+        <source>external_part_link.open_new_tab</source>
+        <target>Otwórz w nowej karcie</target>
+      </segment>
+    </unit>
+    <unit id=".yaVEiq" name="external_part_link.enabled">
+      <segment state="translated">
+        <source>external_part_link.enabled</source>
+        <target>Włączone</target>
+      </segment>
+    </unit>
+    <unit id="wjFqhk2" name="external_part_link.add_link">
+      <segment state="translated">
+        <source>external_part_link.add_link</source>
+        <target>Dodaj łącze</target>
+      </segment>
+    </unit>
+    <unit id="ckm00xm" name="external_part_link.remove_link">
+      <segment state="translated">
+        <source>external_part_link.remove_link</source>
+        <target>Usuń łącze</target>
       </segment>
     </unit>
     <unit id="_s9OsKd" name="info_providers.bulk_import.quick_apply.new_entity_not_allowed">
