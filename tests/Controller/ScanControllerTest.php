@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Controller;
 
+use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -70,5 +71,51 @@ final class ScanControllerTest extends WebTestCase
     {
         $this->client->request('GET', '/scan/part/1');
         $this->assertResponseRedirects('/en/part/1');
+    }
+
+    private function submitInfoModeScan(string $input): string
+    {
+        $crawler = $this->client->request('GET', '/en/scan');
+        $form = $crawler->selectButton('scan_dialog[submit]')->form([
+            'scan_dialog[input]' => $input,
+            'scan_dialog[info_mode]' => true,
+        ]);
+        $this->client->submit($form);
+        $this->assertResponseIsSuccessful();
+
+        return $this->client->getResponse()->getContent();
+    }
+
+    public function testInfoModeShowsPart(): void
+    {
+        $content = $this->submitInfoModeScan('P0001');
+        $this->assertStringContainsString('Part 1', $content);
+    }
+
+    /**
+     * A user with only the label scanner permission must not be able to read parts/lots/storage locations
+     * via the info mode (GHSA-4gvj-mg37-hc6p).
+     */
+    public function testInfoModeDoesNotLeakUnreadableEntities(): void
+    {
+        $em = self::getContainer()->get('doctrine')->getManager();
+        /** @var User $user */
+        $user = $em->getRepository(User::class)->findOneBy(['name' => 'noread']);
+        $user->getPermissions()->setPermissionValue('tools', 'label_scanner', true);
+        $em->flush();
+        //Remove the admin basic auth credentials, so that the logged in user is used
+        $this->client->setServerParameters([]);
+        $this->client->loginUser($user);
+
+        $content = $this->submitInfoModeScan('P0001');
+        $this->assertStringNotContainsString('Part 1', $content);
+        $this->assertSelectorNotExists('.card.border-success');
+
+        $content = $this->submitInfoModeScan('L0001');
+        $this->assertStringNotContainsString('Part 1', $content);
+        $this->assertSelectorNotExists('.card.border-success');
+
+        $this->submitInfoModeScan('S0001');
+        $this->assertSelectorNotExists('.card.border-success');
     }
 }

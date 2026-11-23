@@ -119,7 +119,17 @@ class ScanController extends AbstractController
                     //Try to resolve to an entity, to enhance info mode with entity-specific data
                     $dbEntity = $this->resultHandler->resolveEntity($scan);
                     $resolvedPart = $this->resultHandler->resolvePart($scan);
-                    $openUrl = $this->resultHandler->getInfoURL($scan);
+
+                    //The label scanner permission does not imply read access to the scanned elements, so treat
+                    //elements the user is not allowed to read as not found, to not leak their data
+                    if ($dbEntity !== null && !$this->isGranted('read', $dbEntity)) {
+                        $dbEntity = null;
+                    }
+                    if ($resolvedPart !== null && !$this->isGranted('read', $resolvedPart)) {
+                        $resolvedPart = null;
+                    }
+
+                    $openUrl = $dbEntity !== null ? $this->resultHandler->getInfoURL($scan) : null;
 
                     //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
                     $createUrl = null;
