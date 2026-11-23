@@ -31,6 +31,7 @@ use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\Attachments\PartCustomStateAttachment;
+use App\Entity\Attachments\TagAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -90,6 +91,7 @@ class AttachmentSubmitHandler
         $this->folder_mapping = [
             PartAttachment::class => 'part',
             PartCustomStateAttachment::class => 'part_custom_state',
+            TagAttachment::class => 'tag',
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',

@@ -70,6 +70,32 @@ final class PartEndpointTest extends CrudEndpointTestCase
         $this->_testDeleteItem(1);
     }
 
+    public function testTagsAreReadAndWrittenAsText(): void
+    {
+        //Tags are still transferred as a comma separated list of their names, duplicates are merged
+        $this->_testPatchItem(1, [
+            'tags' => 'SMD, smd, Resistor',
+        ]);
+        self::assertJsonContains(['tags' => 'Resistor,SMD']);
+
+        //A tag which already exists (here from the fixtures) is reused, regardless of its case
+        $this->_testPatchItem(1, [
+            'tags' => 'TEST, SMD',
+        ]);
+        self::assertJsonContains(['tags' => 'SMD,test']);
+    }
+
+    public function testFilterByTag(): void
+    {
+        $client = self::createAuthenticatedClient();
+        $client->request('GET', $this->getBasePath().'?tags=PART2');
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            'hydra:totalItems' => 1,
+            'hydra:member' => [['name' => 'Part 2']],
+        ]);
+    }
+
     public function testMasterPictureAttachmentPatchWithIRI(): void
     {
         $client = static::createAuthenticatedClient();

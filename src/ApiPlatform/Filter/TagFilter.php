@@ -26,16 +26,16 @@ namespace App\ApiPlatform\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use App\Entity\Parts\Tag;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Due to their nature, tags are stored in a single string, separated by commas, which requires some more complex search logic.
- * This filter allows to easily search for tags in a part entity.
+ * Filters parts by a tag: only the parts which have the tag with the given name (compared case-insensitively) are
+ * returned. Tags are entities of their own, which are exposed as the comma separated "tags" property of a part.
  */
 final class TagFilter extends AbstractFilter
 {
-
     protected function filterProperty(
         string $property,
         $value,
@@ -45,35 +45,18 @@ final class TagFilter extends AbstractFilter
         ?Operation $operation = null,
         array $context = []
     ): void {
-        // Ignore filter if property is not enabled or mapped
-        if (
-            !$this->isPropertyEnabled($property, $resourceClass) ||
-            !$this->isPropertyMapped($property, $resourceClass)
-        ) {
+        //The tags property is not a mapped field anymore, so only check that the filter is enabled for it
+        if (!$this->isPropertyEnabled($property, $resourceClass) || !is_string($value)) {
             return;
         }
 
-        //Escape any %, _ or \ in the tag
-        $value = addcslashes($value, '%_\\');
+        $rootAlias = $queryBuilder->getRootAliases()[0];
+        $tagAlias = $queryNameGenerator->generateJoinAlias('tag');
+        $parameter = $queryNameGenerator->generateParameterName($property);
 
-        $tag_identifier_prefix = $queryNameGenerator->generateParameterName($property);
-
-        $expr = $queryBuilder->expr();
-
-        $tmp = $expr->orX(
-            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_1) = TRUE',
-            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_2) = TRUE',
-            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_3) = TRUE',
-            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_4) = TRUE',
-        );
-
-        $queryBuilder->andWhere($tmp);
-
-        //Set the parameters for the LIKE expression, in each variation of the tag (so with a comma, at the end, at the beginning, and on both ends, and equaling the tag)
-        $queryBuilder->setParameter($tag_identifier_prefix . '_1', '%,' . $value . ',%');
-        $queryBuilder->setParameter($tag_identifier_prefix . '_2', '%,' . $value);
-        $queryBuilder->setParameter($tag_identifier_prefix . '_3', $value . ',%');
-        $queryBuilder->setParameter($tag_identifier_prefix . '_4', $value);
+        $queryBuilder->andWhere(sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s.tagEntities AND LOWER(%1$s.name) = :%4$s)',
+            $tagAlias, Tag::class, $rootAlias, $parameter));
+        $queryBuilder->setParameter($parameter, Tag::nameKey($value));
     }
 
     public function getDescription(string $resourceClass): array

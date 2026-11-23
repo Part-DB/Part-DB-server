@@ -22,8 +22,8 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters\Constraints\Part;
 
-use Doctrine\ORM\Query\Expr\Orx;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
+use App\Entity\Parts\Tag;
 use Doctrine\ORM\QueryBuilder;
 
 class TagsConstraint extends AbstractConstraint
@@ -77,35 +77,21 @@ class TagsConstraint extends AbstractConstraint
      */
     public function getTags(): array
     {
-        return explode(',', trim($this->value, ','));
+        return Tag::splitNames($this->value ?? '');
     }
 
     /**
-     * Builds an expression to query for a single tag
+     * Builds an expression, which is true if the tag with the given name is assigned to the element.
+     * The property of this constraint has to be the tag collection of the element (e.g. "part.tagEntities").
      */
-    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Orx
+    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): string
     {
-        //Escape any %, _ or \ in the tag
-        $tag = addcslashes($tag, '%_\\');
+        //The identifier serves as the alias of the tag in the subquery and as the name of its parameter
+        $identifier = $this->generateParameterIdentifier('tag');
+        $queryBuilder->setParameter($identifier, Tag::nameKey($tag));
 
-        $tag_identifier_prefix = $this->generateParameterIdentifier('tag');
-
-        $expr = $queryBuilder->expr();
-
-        $tmp = $expr->orX(
-            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_1) = TRUE',
-            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_2) = TRUE',
-            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_3) = TRUE',
-            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_4) = TRUE',
-        );
-
-        //Set the parameters for the LIKE expression, in each variation of the tag (so with a comma, at the end, at the beginning, and on both ends, and equaling the tag)
-        $queryBuilder->setParameter($tag_identifier_prefix . '_1', '%,' . $tag . ',%');
-        $queryBuilder->setParameter($tag_identifier_prefix . '_2', '%,' . $tag);
-        $queryBuilder->setParameter($tag_identifier_prefix . '_3', $tag . ',%');
-        $queryBuilder->setParameter($tag_identifier_prefix . '_4', $tag);
-
-        return $tmp;
+        return sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s AND LOWER(%1$s.name) = :%1$s)',
+            $identifier, Tag::class, $this->property);
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -121,6 +107,11 @@ class TagsConstraint extends AbstractConstraint
         $tagsExpressions = [];
         foreach ($this->getTags() as $tag) {
             $tagsExpressions[] = $this->getExpressionForTag($queryBuilder, $tag);
+        }
+
+        //A value without any tag name (e.g. only commas) does not restrict anything
+        if ($tagsExpressions === []) {
+            return;
         }
 
         if ($this->operator === 'ANY') {

@@ -24,7 +24,9 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\Tag;
 use App\Validator\Constraints\ValidGTIN;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,11 +48,16 @@ trait AdvancedPropertyTrait
     protected bool $needs_review = false;
 
     /**
-     * @var string A comma separated list of tags, associated with the part
+     * @var Collection<int, Tag> The tags assigned to this part.
+     * They are usually assigned and read by their names, through setTags() and getTags(), so the API, the import, the
+     * part form and the info providers keep working with a comma-separated list of tag names.
      */
-    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\Column(type: Types::TEXT)]
-    protected string $tags = '';
+    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'parts_tags')]
+    #[ORM\JoinColumn(name: 'part_id', onDelete: 'CASCADE')]
+    #[ORM\InverseJoinColumn(name: 'tag_id', onDelete: 'CASCADE')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    protected Collection $tagEntities;
 
     /**
      * @var float|null How much a single part unit weighs in grams
@@ -117,23 +124,92 @@ trait AdvancedPropertyTrait
     }
 
     /**
-     * Gets a comma separated list, of tags, that are assigned to this part.
+     * Gets a comma separated list of the names of the tags, that are assigned to this part.
      */
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     public function getTags(): string
     {
-        return $this->tags;
+        return implode(Tag::SEPARATOR, $this->getTagNames());
     }
 
     /**
-     * Sets a comma separated list of tags, that are assigned to this part.
+     * Assigns the tags with the given names to this part, given as a comma separated list.
      *
-     * @param string $tags The new tags
+     * Tags which are already assigned are kept, the others are removed. A name without a tag assigned yet is added as
+     * a new tag, which is replaced by the existing tag of that name (compared case-insensitively) when the part is
+     * saved, see TagAssignmentListener.
+     *
+     * @param string $tags The names of the new tags, separated by commas
      *
      * @return $this
      */
+    #[Groups(['extended', 'full', 'import', 'part:write'])]
     public function setTags(string $tags): self
     {
-        $this->tags = $tags;
+        $wanted = [];
+        foreach (Tag::splitNames($tags) as $name) {
+            $wanted[Tag::nameKey($name)] = $name;
+        }
+
+        foreach ($this->tagEntities->toArray() as $tag) {
+            $key = Tag::nameKey($tag->getName());
+            if (isset($wanted[$key])) {
+                unset($wanted[$key]);
+            } else {
+                $this->tagEntities->removeElement($tag);
+            }
+        }
+
+        foreach ($wanted as $name) {
+            $this->tagEntities->add(new Tag($name));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the names of the tags assigned to this part, in natural order.
+     * @return list<string>
+     */
+    public function getTagNames(): array
+    {
+        $names = $this->tagEntities->map(static fn(Tag $tag): string => $tag->getName())->toArray();
+        usort($names, strnatcasecmp(...));
+
+        return $names;
+    }
+
+    /**
+     * Returns the tags assigned to this part.
+     * @return Collection<int, Tag>
+     */
+    public function getTagEntities(): Collection
+    {
+        return $this->tagEntities;
+    }
+
+    /**
+     * Assigns the given tag to this part, if it is not assigned already.
+     *
+     * @return $this
+     */
+    public function addTagEntity(Tag $tag): self
+    {
+        if (!$this->tagEntities->contains($tag)) {
+            $this->tagEntities->add($tag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes the given tag from this part.
+     *
+     * @return $this
+     */
+    public function removeTagEntity(Tag $tag): self
+    {
+        $this->tagEntities->removeElement($tag);
 
         return $this;
     }

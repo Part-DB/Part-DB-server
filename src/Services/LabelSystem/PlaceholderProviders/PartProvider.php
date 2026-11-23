@@ -113,7 +113,7 @@ final readonly class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[TAGS]]' === $placeholder) {
-            return htmlspecialchars($part->getTags());
+            return htmlspecialchars(implode(', ', $part->getTagNames()));
         }
 
         if ('[[M_STATUS]]' === $placeholder) {

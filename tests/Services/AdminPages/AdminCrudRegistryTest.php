@@ -11,6 +11,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\Tag;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -30,10 +31,10 @@ class AdminCrudRegistryTest extends KernelTestCase
         $this->registry = self::getContainer()->get(AdminCrudRegistry::class);
     }
 
-    public function testGetAllConfigsReturns13Entries(): void
+    public function testGetAllConfigsReturns14Entries(): void
     {
         $configs = $this->registry->getAllConfigs();
-        self::assertCount(13, $configs);
+        self::assertCount(14, $configs);
     }
 
     public function testExpectedEntitiesArePresent(): void
@@ -46,6 +47,7 @@ class AdminCrudRegistryTest extends KernelTestCase
             Supplier::class,
             MeasurementUnit::class,
             PartCustomState::class,
+            Tag::class,
             AttachmentType::class,
             Currency::class,
             LabelProfile::class,

@@ -88,6 +88,8 @@ final class DatatablesAvailabilityTest extends WebTestCase
         yield ['/store_location/1/parts'];
         yield ['/supplier/1/parts'];
         yield ['/parts/by_tag/Test'];
+        //A tag with tags below it, whose parts are included
+        yield ['/parts/by_tag/Node%201'];
         yield ['/parts/search?keyword=test'];
         yield ['/parts'];
 

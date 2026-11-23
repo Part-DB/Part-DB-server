@@ -30,9 +30,10 @@
     <span class="{{ class }}">{{ _self.bool_icon(value) }} {{ _self.boolean(value) }}</span>
 {% endmacro %}
 
-{% macro string_to_tags(string, class="badge bg-info") %}
-    {% for tag in string|split(',') %}
-        <a href="{{ path('part_list_tags', {'tag': tag | trim}) }}" class="{{ class }}" >{{ tag | trim }}</a>
+{# Renders the given tag entities as badges, in their color or in default_class if they have no color #}
+{% macro tags_to_badges(tags, default_class="bg-info") %}
+    {% for tag in tags %}
+        <a href="{{ path('part_list_tags', {'tag': tag.name}) }}" class="badge {{ tag.badgeClass(default_class) }}" >{{ tag.name }}</a>
     {% endfor %}
 {% endmacro %}
 

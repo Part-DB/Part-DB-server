@@ -77,6 +77,8 @@ final class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/tree/manufacturers'];
         yield ['/tree/supplier/1'];
         yield ['/tree/suppliers'];
+        yield ['/tree/tag/1'];
+        yield ['/tree/tags'];
         //yield ['/tree/device/1'];
         yield ['/tree/devices'];
 

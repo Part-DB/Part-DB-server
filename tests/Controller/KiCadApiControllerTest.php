@@ -224,7 +224,7 @@ final class KiCadApiControllerTest extends WebTestCase
                         ),
                     'keywords' =>
                         array (
-                            'value' => 'test, Test, Part2',
+                            'value' => 'Part2,test',
                             'visible' => 'False',
                         ),
                     'datasheet' =>

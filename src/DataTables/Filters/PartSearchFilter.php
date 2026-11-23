@@ -21,6 +21,7 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
+use App\Entity\Parts\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Parameter;
@@ -29,6 +30,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PartSearchFilter implements FilterInterface
 {
+    /**
+     * The name of the tags of a part. Unlike the other fields, it is not searched through a join of the query, but
+     * through a subquery (see fieldCondition()), so the queries using this filter do not need to join the tags.
+     */
+    private const TAG_NAME_FIELD = '_search_tag.name';
 
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
@@ -139,7 +145,7 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'part.comment';
         }
         if($this->tags) {
-            $fields_to_search[] = 'part.tags';
+            $fields_to_search[] = self::TAG_NAME_FIELD;
         }
         if($this->storelocation) {
             $fields_to_search[] = '_storelocations.name';
@@ -164,6 +170,23 @@ class PartSearchFilter implements FilterInterface
         }
 
         return $fields_to_search;
+    }
+
+    /**
+     * Applies the given condition to a field to search in.
+     * @param  string  $condition  The condition, with %s as the placeholder for the field
+     * @param  string  $suffix  Makes the alias of the tag subquery unique, if a condition is used more than once
+     */
+    private static function fieldCondition(string $field, string $condition, string $suffix): string
+    {
+        if ($field !== self::TAG_NAME_FIELD) {
+            return sprintf($condition, $field);
+        }
+
+        $alias = '_search_tag'.$suffix;
+
+        return sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF part.tagEntities AND %3$s)',
+            $alias, Tag::class, sprintf($condition, $alias.'.name'));
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -206,7 +229,7 @@ class PartSearchFilter implements FilterInterface
             if ($this->regex) {
                 //Convert the fields to search to a list of expressions
                 $expressions = array_merge($expressions, array_map(static function (string $field): string {
-                        return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                        return self::fieldCondition($field, "REGEXP(%s, :search_query) = TRUE", 'regex');
                 }, $fields_to_search));
                 $params[] = new Parameter('search_query', $this->keyword);
             } else {
@@ -220,7 +243,7 @@ class PartSearchFilter implements FilterInterface
                     //Convert the fields to search to a list of expressions
                     $tmp = array_fill_keys($fields_to_search, $i);
                     $expressions2 = array_map(static function (string $field, int $idx): string {
-                        return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $idx);
+                        return self::fieldCondition($field, sprintf("ILIKE(%%s, :search_query%u) = TRUE", $idx), (string) $idx);
                     }, array_keys($tmp), array_values($tmp));
 
                     //Aggregate the parameters for consolidated commission at the end

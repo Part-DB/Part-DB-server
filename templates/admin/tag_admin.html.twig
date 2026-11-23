@@ -1,0 +1,26 @@
+{% extends "admin/base_admin.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-tags fa-fw"></i> {{ type_label_p(entity) }}
+{% endblock %}
+
+{% block edit_title %}
+    {% trans %}tag.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}tag.new{% endtrans %}
+{% endblock %}
+
+{% block quick_links %}
+    <div class="btn-toolbar" style="display: inline-block;">
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="{{ path('part_list_tags', {'tag': entity.name}) }}" title="{% trans %}tag.edit.quick.show_parts{% endtrans %}"><i class="fas fa-list fa-fw"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.alternative_names) }}
+    {{ form_row(form.color) }}
+{% endblock %}

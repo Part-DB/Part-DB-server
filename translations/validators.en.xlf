@@ -289,5 +289,17 @@
         <target>This does not result in a valid https URL once the placeholders are filled in.</target>
       </segment>
     </unit>
+    <unit id="BAWSnxu" name="tag.name.not_unique">
+      <segment state="translated">
+        <source>tag.name.not_unique</source>
+        <target>A tag with this name already exists. Tags are compared without regard to upper and lower case.</target>
+      </segment>
+    </unit>
+    <unit id="tZMfYYk" name="tag.name.no_comma">
+      <segment state="translated">
+        <source>tag.name.no_comma</source>
+        <target>A tag name must not contain a comma, as tags are separated by commas.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -8,6 +8,7 @@
         ['footprints', path('tree_footprint_root'), '@footprint@@', is_granted('@footprints.read') and is_granted('@parts.read')],
         ['manufacturers', path('tree_manufacturer_root'), '@manufacturer@@', is_granted('@manufacturers.read') and is_granted('@parts.read'), 'manufacturer'],
         ['suppliers', path('tree_supplier_root'), '@supplier@@', is_granted('@suppliers.read') and is_granted('@parts.read'), 'supplier'],
+        ['tags', path('tree_tag_root'), '@tag@@', is_granted('@tags.read') and is_granted('@parts.read'), 'tag'],
         ['projects', path('tree_device_root'), '@project@@', is_granted('@projects.read'), 'project'],
         ['tools', path('tree_tools'), 'tools.label', true, 'tool'],
     ] %}

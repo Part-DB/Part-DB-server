@@ -95,10 +95,10 @@
 {% endif %}
 
 {# Show tags #}
-{% if part.tags is not empty %}
+{% if part.tagEntities is not empty %}
     <div class="mt-1">
         <h6 style="line-height: 1.5;">
-            {{ helper.string_to_tags(part.tags) }}
+            {{ helper.tags_to_badges(part.tagEntities) }}
         </h6>
     </div>
 {% endif %}

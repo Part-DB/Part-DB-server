@@ -25,6 +25,7 @@ namespace App\Twig;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\Tag;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -90,6 +91,7 @@ final readonly class EntityExtension
             MeasurementUnit::class => 'measurement_unit',
             LabelProfile::class => 'label_profile',
             PartCustomState::class => 'part_custom_state',
+            Tag::class => 'tag',
         ];
 
         foreach ($map as $class => $type) {

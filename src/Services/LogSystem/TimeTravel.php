@@ -30,6 +30,7 @@ use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\Parts\Part;
 use App\Repository\LogEntryRepository;
 use Brick\Math\BigDecimal;
 use DateTime;
@@ -224,6 +225,12 @@ class TimeTravel
                     $names = array_values(array_filter(array_map('trim', explode(',', $data)), static fn(string $n): bool => $n !== ''));
                     $element->setAlternativeNames($names);
                 }
+                continue;
+            }
+
+            // Restore tags: they are logged as a comma separated list of their names, as they were a field of the part
+            if ($field === 'tags' && $element instanceof Part && is_string($data)) {
+                $element->setTags($data);
                 continue;
             }
 

@@ -22,12 +22,12 @@ declare(strict_types=1);
 
 namespace App\Services\Tools;
 
-use App\Entity\Parts\Part;
+use App\Entity\Parts\Tag;
+use App\Repository\Parts\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function mb_strlen;
-use function array_slice;
 
 /**
  * A service related for searching for tags. Mostly useful for autocomplete reasons.
@@ -48,9 +48,6 @@ class TagFinder
      */
     public function searchTags(string $keyword, array $options = []): array
     {
-        $results = [];
-        $keyword_regex = '/^'.preg_quote($keyword, '/').'/';
-
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
@@ -61,33 +58,15 @@ class TagFinder
             return [];
         }
 
-        //Build a query to get all
-        $qb = $this->em->createQueryBuilder();
+        /** @var TagRepository $repo */
+        $repo = $this->em->getRepository(Tag::class);
 
-        $qb->select('p.tags')
-            ->from(Part::class, 'p')
-            ->where('ILIKE(p.tags, ?1) = TRUE')
-            ->setMaxResults($options['query_limit'])
-            //->orderBy('RAND()')
-            ->setParameter(1, '%'.$keyword.'%');
-
-        $possible_tags = $qb->getQuery()->getArrayResult();
-
-        //Iterate over each possible tags (which are comma separated) and extract tags which match our keyword
-        foreach ($possible_tags as $tags) {
-            $tags = explode(',', (string) $tags['tags']);
-            $results = array_merge($results, preg_grep($keyword_regex, $tags));
-        }
-
-        $results = array_unique($results);
-        //Limit the returned tag count to specified value.
-        return array_slice($results, 0, $options['return_limit']);
+        return $repo->findNamesStartingWith($keyword, $options['return_limit']);
     }
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'query_limit' => 75,
             'return_limit' => 75,
             'min_keyword_length' => 2,
         ]);

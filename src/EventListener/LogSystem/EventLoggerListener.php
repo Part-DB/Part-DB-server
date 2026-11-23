@@ -33,7 +33,10 @@ use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\OAuthToken;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Tag;
+use App\EntityListeners\TagAssignmentListener;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
@@ -46,6 +49,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -347,9 +351,10 @@ class EventLoggerListener
         /* We have to call that here again, so the foreign entity timestamps, that were changed in updateTimestamp
            get persisted */
         $changeSet = $uow->getEntityChangeSet($entity);
+        $tagChange = $this->getTagChange($entity);
 
         //Skip log entry, if only the lastModified field has changed...
-        if (count($changeSet) === 1 && isset($changeSet['lastModified'])) {
+        if (count($changeSet) === 1 && isset($changeSet['lastModified']) && $tagChange === null) {
             return;
         }
 
@@ -358,6 +363,9 @@ class EventLoggerListener
             $this->saveChangeSet($entity, $log, $em);
         } elseif ($this->settings->saveChangedFields) {
             $changed_fields = array_keys($uow->getEntityChangeSet($entity));
+            if ($tagChange !== null) {
+                $changed_fields[] = 'tags';
+            }
             //Remove lastModified field, as this is always changed (gives us no additional info)
             $changed_fields = array_diff($changed_fields, ['lastModified']);
             $log->setChangedFields($changed_fields);
@@ -420,8 +428,17 @@ class EventLoggerListener
 
         if ($element_deleted) { //If the element was deleted we can use getOriginalData to save its content
             $old_data = $uow->getOriginalEntityData($entity);
+            //The tags are not part of the original data, as they are stored in a table of their own
+            if ($entity instanceof Part) {
+                $old_data['tags'] = $entity->getTags();
+            }
         } else { //Otherwise we have to get it from entity changeset
             $changeSet = $uow->getEntityChangeSet($entity);
+            //Tags used to be a field of the part, so they are still logged like one, in the same comma separated form
+            $tagChange = $this->getTagChange($entity);
+            if ($tagChange !== null) {
+                $changeSet['tags'] = $tagChange;
+            }
             $old_data = array_combine(array_keys($changeSet), array_column($changeSet, 0));
             //If save_new_data is enabled, we extract it from the change set
             if ($this->settings->saveNewData && $this->settings->saveOldData) { //Only useful if we save old data too
@@ -441,6 +458,28 @@ class EventLoggerListener
 
             $logEntry->setNewData($new_data);
         }
+    }
+
+    /**
+     * Returns the change of the tags of the given part in this flush, as the comma separated tag names before and
+     * after the change, or null if the tags were not changed.
+     * @return array{0: string, 1: string}|null
+     */
+    protected function getTagChange(AbstractDBElement $entity): ?array
+    {
+        if (!$entity instanceof Part) {
+            return null;
+        }
+
+        $tags = $entity->getTagEntities();
+        if (!$tags instanceof PersistentCollection || !TagAssignmentListener::hasChanged($tags)) {
+            return null;
+        }
+
+        $before = array_map(static fn(Tag $tag): string => $tag->getName(), $tags->getSnapshot());
+        usort($before, strnatcasecmp(...));
+
+        return [implode(Tag::SEPARATOR, $before), $entity->getTags()];
     }
 
     /**

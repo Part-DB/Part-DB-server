@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
+use App\Entity\Parts\Tag;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -34,16 +35,19 @@ class TagsColumn extends AbstractColumn
     /**
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
-     * @param mixed $value The single value of the column
-     * @return mixed
+     * @param mixed $value The tags of the part
+     * @return Tag[]
      */
     public function normalize(mixed $value): mixed
     {
-        if (empty($value)) {
+        if (!is_iterable($value)) {
             return [];
         }
 
-        return explode(',', (string) $value);
+        $tags = is_array($value) ? $value : iterator_to_array($value, false);
+        usort($tags, static fn(Tag $a, Tag $b): int => strnatcasecmp($a->getName(), $b->getName()));
+
+        return $tags;
     }
 
     public function render($tags, $context): string
@@ -60,9 +64,10 @@ class TagsColumn extends AbstractColumn
                 break;
             }
             $html .= sprintf(
-                '<a href="%s" class="badge bg-primary badge-table">%s</a>',
-                $this->urlGenerator->generate('part_list_tags', ['tag' => $tag]),
-                htmlspecialchars((string) $tag)
+                '<a href="%s" class="badge %s badge-table">%s</a>',
+                $this->urlGenerator->generate('part_list_tags', ['tag' => $tag->getName()]),
+                $tag->getBadgeClass(),
+                htmlspecialchars($tag->getName())
             );
         }
 

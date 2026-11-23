@@ -267,6 +267,8 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
+                'data' => static fn(Part $context) => $context->getTagEntities(),
+                'orderField' => 'CASE WHEN MIN(_tags.name) IS NULL THEN 1 ELSE 0 END, NATSORT(MIN(_tags.name))',
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
@@ -437,6 +439,8 @@ final readonly class PartsDataTable implements DataTableTypeInterface
         $collections = [
             'orderdetails' => ['orderdetails.supplier'],
             'attachments' => [],
+            //The parent is needed for the color, which a tag inherits
+            'tagEntities' => ['tagEntities.parent'],
             //The build_part of a project is the inverse side of a one-to-one, which doctrine would otherwise load with
             //an extra query for every project
             'project_bom_entries' => ['project_bom_entries.project', '_sub0.build_part'],
@@ -520,6 +524,10 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             $builder->leftJoin('part.attachments', '_attachments');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_attachments');
+        }
+        if (str_contains($dql, '_tags.')) {
+            $builder->leftJoin('part.tagEntities', '_tags');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
         }
         if (str_contains($dql, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');

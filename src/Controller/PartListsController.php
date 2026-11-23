@@ -34,6 +34,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parts\Tag;
 use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
@@ -301,14 +302,22 @@ class PartListsController extends AbstractController
     {
         $tag = trim($tag);
 
+        //Like for the other data structures, the parts of the tags below this tag are shown too, if configured
+        $names = [$tag];
+        $tagEntity = $this->entityManager->getRepository(Tag::class)->findOneByName($tag);
+        if ($tagEntity !== null && $this->sidebarSettings->dataStructureNodesTableIncludeChildren) {
+            $names = $this->entityManager->getRepository(Tag::class)->getSubtreeNames($tagEntity);
+        }
+
         return $this->showListWithFilter($request,
             'parts/lists/tags_list.html.twig',
-            function (PartFilter $filter) use ($tag) {
-                $filter->tags->setOperator('ANY')->setValue($tag);
+            function (PartFilter $filter) use ($names) {
+                $filter->tags->setOperator('ANY')->setValue(implode(Tag::SEPARATOR, $names));
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('tags')->get('value'));
             }, [
                 'tag' => $tag,
+                'entity' => $tagEntity,
             ]
         );
     }

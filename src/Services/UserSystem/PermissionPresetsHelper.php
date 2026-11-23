@@ -106,6 +106,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'currencies', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'measurement_units', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'part_custom_states', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'tags', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
 
@@ -140,6 +141,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'currencies', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'measurement_units', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'part_custom_states', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'tags', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'suppliers', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'projects', PermissionData::ALLOW, ['import']);
 

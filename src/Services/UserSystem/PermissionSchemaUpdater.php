@@ -173,4 +173,21 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('parts_stock', 'stocktake', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion5(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //Tags used to be a text field of the parts, so everybody who could edit parts could create, change and remove
+        //tags. Derive the permissions of the new tag entities from the part permissions, so this does not change.
+        if (!$permissions->isAnyOperationOfPermissionSet('tags')) {
+            $permissions->setPermissionValue('tags', 'read', $permissions->getPermissionValue('parts', 'read'));
+            $permissions->setPermissionValue('tags', 'edit', $permissions->getPermissionValue('parts', 'edit'));
+            $permissions->setPermissionValue('tags', 'create', $permissions->getPermissionValue('parts', 'edit'));
+            $permissions->setPermissionValue('tags', 'delete', $permissions->getPermissionValue('parts', 'edit'));
+            $permissions->setPermissionValue('tags', 'show_history', $permissions->getPermissionValue('parts', 'show_history'));
+            $permissions->setPermissionValue('tags', 'revert_element', $permissions->getPermissionValue('parts', 'revert_element'));
+            $permissions->setPermissionValue('tags', 'import', $permissions->getPermissionValue('parts', 'import'));
+        }
+    }
 }
