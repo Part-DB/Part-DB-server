@@ -277,5 +277,17 @@
         <target>Jeśli wprowadzisz dostawcę informacji, musisz również wprowadzić ID dostawcy lub usunąć obie wartości.</target>
       </segment>
     </unit>
+    <unit id="dTHY_Rh" name="settings.external_part_links.rules.unknown_placeholder">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.unknown_placeholder</source>
+        <target>Nieznane pole zastępcze "{%placeholder%}". Obsługiwane są tylko {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint} oraz {id}.</target>
+      </segment>
+    </unit>
+    <unit id="wHI1itr" name="settings.external_part_links.rules.invalid_template">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.invalid_template</source>
+        <target>To nie utworzy prawidłowego URL HTTPS po wypełnieniu pól zastępczych.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
