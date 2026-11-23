@@ -99,6 +99,33 @@ final class AttachmentsEndpointTest extends AuthenticatedApiTestCase
         ]);
     }
 
+    public function testEmptyUploadKeepsAttachmentPrivate(): void
+    {
+        $client = static::createAuthenticatedClient();
+        $response = $client->request('POST', '/api/attachments', ['json' => [
+            'name' => 'test',
+            'element' => '/api/parts/1',
+            'attachment_type' => '/api/attachment_types/1',
+            'upload' => [
+                'data' => 'data:@file/octet-stream;base64,LS0gcGhwTXlB',
+                'filename' => 'test.csv',
+                'private' => true
+            ],
+        ]]);
+        self::assertResponseIsSuccessful();
+        $iri = $response->toArray()['@id'];
+
+        //An upload object without an explicit privacy must not move the file to the public storage
+        $client->request('PATCH', $iri, [
+            'json' => ['upload' => new \stdClass()],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            'private' => true,
+        ]);
+    }
+
     public function testCreateAttachmentWithExternalURL(): void
     {
         static::createAuthenticatedClient()->request('POST', '/api/attachments', ['json' => [

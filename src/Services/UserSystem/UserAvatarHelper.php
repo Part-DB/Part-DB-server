@@ -162,7 +162,7 @@ class UserAvatarHelper
         }
 
         //Handle the upload
-        $this->submitHandler->handleUpload($attachment, new AttachmentUpload(file: $file));
+        $this->submitHandler->handleUpload($attachment, new AttachmentUpload(file: $file, private: false));
 
         //Set attachment as master picture
         $user->setMasterPictureAttachment($attachment);

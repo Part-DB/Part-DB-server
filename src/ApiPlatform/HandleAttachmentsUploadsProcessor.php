@@ -28,7 +28,9 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentSubmitHandler;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * This state processor handles the upload property set on the deserialized attachment entity and
@@ -41,7 +43,8 @@ final readonly class HandleAttachmentsUploadsProcessor implements ProcessorInter
         private ProcessorInterface $persistProcessor,
         #[Autowire(service: 'api_platform.doctrine.orm.state.remove_processor')]
         private ProcessorInterface $removeProcessor,
-        private AttachmentSubmitHandler $attachmentSubmitHandler
+        private AttachmentSubmitHandler $attachmentSubmitHandler,
+        private Security $security,
     ) {
 
     }
@@ -58,6 +61,13 @@ final readonly class HandleAttachmentsUploadsProcessor implements ProcessorInter
             $upload = $data->getUpload();
             //Reset the upload data
             $data->setUpload(null);
+
+            //Changing the privacy of an attachment (moving its file between public and private storage) requires the
+            //show_private permission, just like in the web form. Otherwise, a user could make private files public.
+            if ($upload->private !== null && $upload->private !== $data->isSecure()
+                && !$this->security->isGranted('@attachments.show_private')) {
+                throw new AccessDeniedHttpException('You are not allowed to change the privacy of attachments!');
+            }
 
             $this->attachmentSubmitHandler->handleUpload($data, $upload);
         }

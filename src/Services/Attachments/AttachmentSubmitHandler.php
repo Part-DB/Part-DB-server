@@ -256,8 +256,8 @@ class AttachmentSubmitHandler
             $file = $this->createFileFromUploadedDocument($upload->uploadedDocumentToken, $upload->filename ?? 'file');
         }
 
-        //By default we assume a public upload
-        $secure_attachment = $upload->private ?? false;
+        //If no privacy was explicitly requested, keep the current state of the attachment (public for new attachments)
+        $secure_attachment = $upload->private ?? $attachment->isSecure();
 
         //When a file is given then upload it, otherwise check if we need to download the URL
         if ($file instanceof UploadedFile) {
