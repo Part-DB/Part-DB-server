@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ImportExportSystem\BOMImporter;
@@ -12,6 +15,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\UserSystem\User;
 
 final class ProjectControllerTest extends WebTestCase
@@ -479,6 +483,123 @@ final class ProjectControllerTest extends WebTestCase
                 'SELECT COUNT(bom_entry.id) FROM App\\Entity\\ProjectSystem\\ProjectBOMEntry bom_entry WHERE bom_entry.id = :id'
             )->setParameter('id', $entry->getID())->getSingleScalarResult()
         );
+    }
+
+    /**
+     * Creates a project with a builds part and one BOM entry (needing 1 piece per build) with a lot of 10 pieces.
+     * @return array{0: Project, 1: PartLot, 2: Part} The project, the component lot and the builds part
+     */
+    private function createBuildableProject(?User $componentLotOwner = null): array
+    {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([]);
+        $this->assertInstanceOf(Category::class, $category);
+
+        $project = $this->createProject('Build permission test');
+
+        $component = new Part();
+        $component->setName('Build component');
+        $component->setCategory($category);
+        $componentLot = new PartLot();
+        $componentLot->setAmount(10);
+        $componentLot->setOwner($componentLotOwner);
+        $component->addPartLot($componentLot);
+        $this->entityManager->persist($component);
+
+        $buildPart = new Part();
+        $buildPart->setName('Build part');
+        $buildPart->setCategory($category);
+        $project->setBuildPart($buildPart);
+        $this->entityManager->persist($buildPart);
+
+        $entry = $this->createBOMEntry($project, 'Component', 'R1', 1.0, '');
+        $entry->setPart($component);
+        $project->addBomEntry($entry);
+
+        $this->entityManager->flush();
+        //Parts must be removed after the project (and its BOM entries), as they are referenced by them
+        array_unshift($this->entitiesToRemove, $component, $buildPart);
+
+        return [$project, $componentLot, $buildPart];
+    }
+
+    private function getOtherUser(): User
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        $this->assertInstanceOf(User::class, $user);
+
+        return $user;
+    }
+
+    public function testBuildCannotAddToLotOwnedByOtherUser(): void
+    {
+        [$project, , $buildPart] = $this->createBuildableProject();
+        $foreignLot = new PartLot();
+        $foreignLot->setAmount(0);
+        $foreignLot->setOwner($this->getOtherUser());
+        $buildPart->addPartLot($foreignLot);
+        $this->entityManager->flush();
+
+        $crawler = $this->client->request('GET', sprintf('/en/project/%d/build?n=1', $project->getID()));
+        $form = $crawler->filter('form[name="project_build"]')->form();
+        $form['project_build[addBuildsToBuildsPart]']->tick();
+        $form['project_build[buildsPartLot]']->setValue((string) $foreignLot->getID());
+
+        try {
+            $this->client->submit($form);
+            $this->fail('Adding stock to a lot owned by another user must be denied.');
+        } catch (AccessDeniedException) {
+            //Expected
+        }
+
+        $this->entityManager->clear();
+        $this->assertSame(0.0, $this->entityManager->find(PartLot::class, $foreignLot->getID())->getAmount());
+    }
+
+    public function testBuildDoesNotWithdrawFromLotOwnedByOtherUser(): void
+    {
+        [$project, $componentLot] = $this->createBuildableProject($this->getOtherUser());
+
+        $crawler = $this->client->request('GET', sprintf('/en/project/%d/build?n=1', $project->getID()));
+        $form = $crawler->filter('form[name="project_build"]')->form();
+        //The default form must not withdraw from the foreign lot (its field is disabled, but prefilled)
+        $form['project_build[dontCheckQuantity]']->tick();
+        $form['project_build[addBuildsToBuildsPart]']->untick();
+        $this->client->submit($form);
+
+        $this->entityManager->clear();
+        $this->assertSame(10.0, $this->entityManager->find(PartLot::class, $componentLot->getID())->getAmount());
+    }
+
+    public function testBuildWithoutAddingBuildsDoesNotCreateLot(): void
+    {
+        [$project, $componentLot, $buildPart] = $this->createBuildableProject();
+
+        $crawler = $this->client->request('GET', sprintf('/en/project/%d/build?n=1', $project->getID()));
+        $form = $crawler->filter('form[name="project_build"]')->form();
+        $form['project_build[addBuildsToBuildsPart]']->untick();
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+
+        $this->entityManager->clear();
+        $this->assertSame(9.0, $this->entityManager->find(PartLot::class, $componentLot->getID())->getAmount());
+        $this->assertCount(0, $this->entityManager->find(Part::class, $buildPart->getID())->getPartLots());
+    }
+
+    public function testBuildAddsToNewLot(): void
+    {
+        [$project, $componentLot, $buildPart] = $this->createBuildableProject();
+
+        $crawler = $this->client->request('GET', sprintf('/en/project/%d/build?n=1', $project->getID()));
+        $form = $crawler->filter('form[name="project_build"]')->form();
+        $form['project_build[addBuildsToBuildsPart]']->tick();
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+
+        $this->entityManager->clear();
+        $this->assertSame(9.0, $this->entityManager->find(PartLot::class, $componentLot->getID())->getAmount());
+        $lots = $this->entityManager->find(Part::class, $buildPart->getID())->getPartLots();
+        $this->assertCount(1, $lots);
+        $this->assertSame(1.0, $lots->first()->getAmount());
     }
 
     private function createProject(string $name): Project

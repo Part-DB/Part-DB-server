@@ -85,10 +85,32 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             /** @var ProjectBuildRequest $build_request */
             $build_request = $event->getData();
 
+            //Do not preselect stock from lots, the user is not allowed to withdraw from (e.g. lots owned by other users).
+            //Disabled fields keep their default value on submit, so the prefilled amount would otherwise be withdrawn.
+            foreach ($build_request->getPartBomEntries() as $bomEntry) {
+                foreach ($build_request->getPartLotsForBOMEntry($bomEntry) as $lot) {
+                    if (!$this->security->isGranted('withdraw', $lot)) {
+                        $build_request->setLotWithdrawAmount($lot, 0);
+                    }
+                }
+            }
+
+            $can_add = $build_request->getProject()->getBuildPart() instanceof Part
+                && $this->security->isGranted('@parts_stock.add');
+
+            //Do not preselect a builds part lot, the user is not allowed to add stock to
+            $default_lot = $build_request->getBuildsPartLot();
+            if ($default_lot instanceof PartLot && !$this->security->isGranted('add', $default_lot)) {
+                $build_request->setBuildsPartLot(null);
+            }
+            if (!$can_add) {
+                $build_request->setAddBuildsToBuildsPart(false);
+            }
+
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => !$build_request->getProject()->getBuildPart() instanceof Part,
+                'disabled' => !$can_add,
             ]);
 
             if ($build_request->getProject()->getBuildPart() instanceof Part) {
@@ -162,7 +184,9 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         $data->setComment($forms['comment']->getData());
         $data->setDontCheckQuantity($forms['dontCheckQuantity']->getData());
 
-        if (isset($forms['buildsPartLot'])) {
+        //Only touch the builds part lot, if the builds should be added at all. Otherwise we would create (and persist)
+        //a new empty lot, even if the user did not want to add the builds to the builds part.
+        if (isset($forms['buildsPartLot']) && $forms['addBuildsToBuildsPart']->getData()) {
             $lot = $forms['buildsPartLot']->getData();
             if (!$lot) { //When the user selected "Create new lot", create a new lot
                 $lot = new PartLot();

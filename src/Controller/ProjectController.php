@@ -25,6 +25,7 @@ namespace App\Controller;
 use App\DataTables\ProjectBomEntriesDataTable;
 use App\Controller\Helpers\SafeRedirectTrait;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\ProjectSystem\BOMEntryEditType;
@@ -172,6 +173,8 @@ class ProjectController extends AbstractController
             if ($form->isValid()) {
                 //Ensure that the user can withdraw stock from all parts
                 $this->denyAccessUnlessGranted('@parts_stock.withdraw');
+                //Ensure that the user is allowed to perform every single stock operation of this build
+                $this->denyAccessUnlessBuildAllowed($projectBuildRequest);
 
                 //We have to do a flush already here, so that the newly created partLot gets an ID and can be logged to DB later.
                 $entityManager->flush();
@@ -192,6 +195,36 @@ class ProjectController extends AbstractController
             'number_of_builds' => $number_of_builds,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * Checks the permissions for every stock operation the build request will perform. The global @parts_stock
+     * permissions are not enough, as part lots can be owned by other users. Disabled form fields do not prevent
+     * the operations either, as they keep their (prefilled) default values.
+     */
+    private function denyAccessUnlessBuildAllowed(ProjectBuildRequest $buildRequest): void
+    {
+        foreach ($buildRequest->getPartBomEntries() as $bomEntry) {
+            foreach ($buildRequest->getPartLotsForBOMEntry($bomEntry) as $lot) {
+                if ($buildRequest->getLotWithdrawAmount($lot) > 0) {
+                    $this->denyAccessUnlessGranted('withdraw', $lot);
+                }
+            }
+        }
+
+        if ($buildRequest->getAddBuildsToBuildsPart()) {
+            $buildsPartLot = $buildRequest->getBuildsPartLot();
+            if (!$buildsPartLot instanceof PartLot) {
+                throw $this->createAccessDeniedException('No part lot to add the builds to was given!');
+            }
+
+            $this->denyAccessUnlessGranted('add', $buildsPartLot);
+
+            //Creating a new lot on the builds part requires the permission to edit that part
+            if ($buildsPartLot->getID() === null) {
+                $this->denyAccessUnlessGranted('edit', $buildsPartLot->getPart());
+            }
+        }
     }
 
     #[Route(
