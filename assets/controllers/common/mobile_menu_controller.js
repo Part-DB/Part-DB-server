@@ -115,12 +115,18 @@ export default class extends Controller {
                 this._state[id] = 'hidden';
                 break;
         }
+        // Expose the transition state to CSS for sidebar animations
+        event.target.dataset.menuState = this._state[id];
     }
 
     _onClick(event) {
         if (!this._isSmallScreen() || !(event.target instanceof Element)) {
             return;
         }
+// Close the navbar when clicking outside it
+if (!event.target.closest('#navbar, .modal, [role="dialog"]')) {
+    this._close('navbarContent');
+}
 
         const link = event.target.closest('a[href]');
         if (!link || !link.closest(this._menuSelector())) {

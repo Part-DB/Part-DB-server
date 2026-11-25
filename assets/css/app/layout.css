@@ -134,6 +134,16 @@ closed (see issue #1609). */
         padding-top: 5px;
         background-color: #F8F8F8;
     }
+    /* Animate the mobile sidebar independently of Bootstrap's height transition */
+    #sidebar-container .fixed-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    #sidebar-container[data-menu-state="showing"] .fixed-sidebar,
+    #sidebar-container[data-menu-state="shown"] .fixed-sidebar {
+        transform: translateX(0);
+    }
 
     /* Hide devices menu */
     #treeBox-devices {
