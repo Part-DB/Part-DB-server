@@ -64,6 +64,21 @@ class TagFinder
         return $repo->findNamesStartingWith($keyword, $options['return_limit']);
     }
 
+    /**
+     * Returns the names of all tags, ordered by name.
+     *
+     * @param int $limit The maximum number of returned tags
+     *
+     * @return string[]
+     */
+    public function listTags(int $limit = 500): array
+    {
+        /** @var TagRepository $repo */
+        $repo = $this->em->getRepository(Tag::class);
+
+        return $repo->findNamesStartingWith('', $limit);
+    }
+
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -228,6 +228,17 @@ class TypeaheadController extends AbstractController
         return new JsonResponse($data);
     }
 
+    /**
+     * Returns the names of all tags, so that they can be offered before anything was typed.
+     */
+    #[Route(path: '/tags/all', name: 'typeahead_tags_all')]
+    public function allTags(TagFinder $finder): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('@parts.read');
+
+        return new JsonResponse($finder->listTags());
+    }
+
     #[Route(path: '/tags/search/{query}', name: 'typeahead_tags', requirements: ['query' => '.+'])]
     public function tags(string $query, TagFinder $finder): JsonResponse
     {

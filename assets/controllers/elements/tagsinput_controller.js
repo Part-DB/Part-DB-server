@@ -67,14 +67,27 @@ export default class extends Controller {
             delimiter: this._separator,
         };
 
+        //Without a search term, the options of the preload URL are offered (e.g. all existing tags), as soon as the
+        //input gets the focus
+        const preload_url = this.element.dataset.preload;
+        if (preload_url) {
+            settings.preload = 'focus';
+            settings.maxOptions = 500;
+        }
+
         if(this.element.dataset.autocomplete) {
             const base_url = this.element.dataset.autocomplete;
             settings.load = (query, callback) => {
+                let url;
                 if(query.length < 2){
-                    callback();
-                    return;
+                    if (!preload_url) {
+                        callback();
+                        return;
+                    }
+                    url = preload_url;
+                } else {
+                    url = base_url.replace('__QUERY__', encodeURIComponent(query));
                 }
-                const url = base_url.replace('__QUERY__', encodeURIComponent(query));
 
                 fetch(url)
                     .then(response => response.json())

@@ -40,6 +40,7 @@ final class TypeaheadControllerTest extends WebTestCase
     public static function endpointProvider(): \Generator
     {
         yield 'tags search'                => ['/en/typeahead/tags/search/test'];
+        yield 'all tags'                   => ['/en/typeahead/tags/all'];
         yield 'parameters part search'     => ['/en/typeahead/parameters/part/search/voltage'];
         yield 'parameters category search' => ['/en/typeahead/parameters/category/search/NPN'];
         yield 'builtin resources'          => ['/en/typeahead/builtInResources/search?query=DIP'];
@@ -50,6 +51,7 @@ final class TypeaheadControllerTest extends WebTestCase
     {
         // These require @parts.read — noread user must be denied
         yield 'tags search'            => ['/en/typeahead/tags/search/test'];
+        yield 'all tags'               => ['/en/typeahead/tags/all'];
         yield 'parameters part search' => ['/en/typeahead/parameters/part/search/voltage'];
         yield 'parts search'           => ['/en/typeahead/parts/search/res'];
     }
@@ -103,6 +105,20 @@ final class TypeaheadControllerTest extends WebTestCase
         $this->assertIsArray($tags);
         foreach ($tags as $tag) {
             $this->assertIsString($tag, 'Each tag entry should be a plain string');
+        }
+    }
+
+    public function testAllTagsReturnsTheNamesOfAllTags(): void
+    {
+        $client = $this->loginClient('admin');
+        $client->request('GET', '/en/typeahead/tags/all');
+
+        $tags = json_decode($client->getResponse()->getContent(), true);
+        self::assertIsArray($tags);
+        self::assertContains('Part2', $tags);
+        self::assertContains('test', $tags);
+        foreach ($tags as $tag) {
+            self::assertIsString($tag, 'Each tag entry should be a plain string');
         }
     }
 
