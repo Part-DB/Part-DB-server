@@ -101,6 +101,7 @@ final class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         //Statistics
         yield ['/statistics'];
+        yield ['/saved_filters'];
 
         //Event log
         yield ['/log/']; //Slash suffix here is important

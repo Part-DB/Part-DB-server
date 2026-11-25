@@ -112,6 +112,9 @@ class PermissionPresetsHelper
         //Allow to change system settings
         $this->permissionResolver->setPermission($perm_holder, 'config', 'change_system_settings', PermissionData::ALLOW);
 
+        //Allow to share saved filters with all users
+        $this->permissionResolver->setPermission($perm_holder, 'saved_filters', 'share', PermissionData::ALLOW);
+
         //Allow to manage Oauth tokens
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
         //And oauth clients
@@ -178,6 +181,9 @@ class PermissionPresetsHelper
 
         //Set attachments permissions
         $this->permissionResolver->setPermission($perm_holder, 'attachments', 'list_attachments', PermissionData::ALLOW);
+
+        //Allow to save own filters of the part lists
+        $this->permissionResolver->setPermission($perm_holder, 'saved_filters', 'create', PermissionData::ALLOW);
 
         //Set user (self) permissions
         $this->permissionResolver->setPermission($perm_holder, 'self', 'show_permissions', PermissionData::ALLOW);

@@ -62,6 +62,16 @@ In the "parameters" tab of the filter panel on parts list page, you can define c
 have to fulfill. This allows you to search for parts with specific parameters (or parameter ranges), for example, you
 can search for all parts with a voltage rating of greater than 5 V.
 
+## Saved filters
+
+A filter, which you applied on a parts list page, can be saved under a name at the bottom of the filter panel. The saved
+filters are listed in the filter panel of all parts list pages and in the tools tree of the sidebar under
+"Show" → "Saved filters", where they can also be renamed and deleted. A saved filter opens its parts list with the
+filter applied, so its results are always up to date.
+
+Saved filters are only visible to the user, who saved them. Users with the "Share filters with all users" permission
+(administrators by default) can share filters with all users, for example a filter for all parts with a long lead time.
+
 ## View own user's permissions
 
 If you want to see which permissions your user has, you can find a list of the permissions in the "Permissions" panel

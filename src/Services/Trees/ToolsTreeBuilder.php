@@ -35,12 +35,14 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\SavedFilter;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -63,6 +65,7 @@ class ToolsTreeBuilder
         private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
         private readonly GenericWebProviderSettings $genericWebProviderSettings,
         private readonly AIFileExtractorSettings $fileExtractorSettings,
+        private readonly EntityManagerInterface $entityManager,
         #[Autowire('%partdb.oauth_server.enabled%')]
         private readonly bool $oauthServerEnabled,
     ) {
@@ -282,6 +285,11 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.show.all_parts'),
                 $this->urlGenerator->generate('parts_show_all')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
+
+            $saved_filters_node = $this->getSavedFiltersNode();
+            if ($saved_filters_node instanceof TreeViewNode) {
+                $show_nodes[] = $saved_filters_node;
+            }
         }
 
         if ($this->security->isGranted('@attachments.list_attachments')) {
@@ -299,6 +307,35 @@ class ToolsTreeBuilder
         }
 
         return $show_nodes;
+    }
+
+    /**
+     * Creates the node of the saved filters with an entry for every filter, which the current user can see.
+     * Returns null, if the user can neither see nor save any filter.
+     */
+    private function getSavedFiltersNode(): ?TreeViewNode
+    {
+        $user = $this->security->getUser();
+        $filters = $this->entityManager->getRepository(SavedFilter::class)
+            ->findVisibleFor($user instanceof User ? $user : null);
+
+        if ($filters === [] && !$this->security->isGranted('create', SavedFilter::class)) {
+            return null;
+        }
+
+        $children = [];
+        foreach ($filters as $filter) {
+            $children[] = (new TreeViewNode(
+                $filter->getName(),
+                $this->urlGenerator->generate('saved_filter_open', ['id' => $filter->getId()])
+            ))->setIcon('fa-fw fa-treeview fa-solid '.($filter->isShared() ? 'fa-users' : 'fa-filter'));
+        }
+
+        return (new TreeViewNode(
+            $this->translator->trans('tree.tools.show.saved_filters'),
+            $this->urlGenerator->generate('saved_filter_list'),
+            $children !== [] ? $children : null
+        ))->setIcon('fa-fw fa-treeview fa-solid fa-bookmark');
     }
 
     /**

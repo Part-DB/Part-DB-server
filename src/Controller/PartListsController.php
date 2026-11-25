@@ -34,6 +34,8 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\SavedFilter;
+use App\Entity\UserSystem\User;
 use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
@@ -200,9 +202,14 @@ class PartListsController extends AbstractController
             }
         }
 
+        $user = $this->getUser();
+        $savedFilters = $this->entityManager->getRepository(SavedFilter::class)
+            ->findVisibleFor($user instanceof User ? $user : null);
+
         return $this->render($template, array_merge([
             'datatable' => $table,
             'filterForm' => $filterForm?->createView(),
+            'savedFilters' => $savedFilters,
         ], $additonal_template_vars));
     }
 
