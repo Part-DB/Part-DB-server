@@ -152,6 +152,10 @@ Classes for Datatables export
 table is much wider than the screen, and the withdraw / add / move / stocktake buttons are only reachable by scrolling
 the table horizontally. */
 @media (max-width: 767.98px) {
+    .part-lots-table {
+        width: 100%;
+        table-layout: fixed;
+    }
     .part-lots-table > thead {
         display: none;
     }
@@ -173,6 +177,9 @@ the table horizontally. */
 
     .part-lots-table > tbody > tr > td {
         display: block;
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
         padding: 0;
         border: 0;
         background-color: transparent;
