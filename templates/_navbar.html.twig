@@ -2,7 +2,7 @@
 {% import "vars.macro.twig" as vars %}
 {% import "components/search.macro.html.twig" as search %}
 
-<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar" {{ stimulus_controller('common/mobile_menu') }}>
     <div class="container-fluid">
         <div class="d-flex justify-content-start align-items-center">
             {# On screens which show the sidebar permanently, it can be slid away with this button #}

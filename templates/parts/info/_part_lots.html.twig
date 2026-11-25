@@ -6,7 +6,7 @@
 {% include "parts/info/_add_lot_modal.html.twig" %}
 
 <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover part-lots-table">
         <thead>
         <tr>
             <th>{% trans %}part_lots.description{% endtrans %}</th>
@@ -23,8 +23,8 @@
         {% for lot in part.partLots %}
             {# @var lot App\Entity\Parts\PartLot #}
             <tr {% if lot.id == highlightLotId %}class="table-primary row-highlight row-pulse"{% endif %}>
-                <td>{{ lot.description }}</td>
-                <td>
+                <td class="part-lot-description">{{ lot.description }}</td>
+                <td class="part-lot-location">
                     {% if lot.storageLocation %}
                         {{ helper.structural_entity_link(lot.storageLocation) }}
                     {% else %}
@@ -33,7 +33,7 @@
                     </span>
                     {% endif %}
                 </td>
-                <td>
+                <td class="part-lot-amount">
                     {% if lot.instockUnknown %}
                         <span class="badge rounded-pill text-bg-warning">
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.instock_unknown{% endtrans %}
@@ -42,7 +42,7 @@
                         {{ lot.amount | format_amount(part.partUnit, {'decimals': 5}) }}
                     {% endif %}
                 </td>
-                <td >
+                <td class="part-lot-badges">
                     <div class="d-flex flex-column align-items-start">
                         {% if lot.owner  %}
                             <span class="badge text-bg-light mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
@@ -74,7 +74,7 @@
                         {% endif %}
                     </div>
                 </td>
-                <td>
+                <td class="part-lot-actions">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                                 data-action="withdraw" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
@@ -103,10 +103,10 @@
                                 data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"><i class="fas fa-clipboard-check fa-fw"></i></button>
                     </div>
                 </td>
-                <td>
+                <td class="part-lot-labels">
                     {{ dropdown.profile_dropdown('part_lot', lot.id, false) }}
                 </td>
-                <td> {# Action for order information #}
+                <td class="part-lot-info"> {# Action for order information #}
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-lightbulb fa-fw"></i>

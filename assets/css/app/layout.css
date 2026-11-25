@@ -60,6 +60,39 @@ menu itself scrollable, so that all entries stay reachable. */
         overflow-y: auto;
         overscroll-behavior: contain;
     }
+
+    /* Keep the navbar in a single row with a fixed height, as the layout below (sidebar overlay, body padding) assumes
+    a 56px high navbar. Otherwise a long instance name pushes the brand into a second row, and the navbar covers the
+    upper part of the sidebar overlay and of the page. */
+    #navbar > .container-fluid {
+        min-height: 56px;
+    }
+
+    #navbar .navbar-brand {
+        flex: 1 1 0;
+        min-width: 0;
+        margin-right: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Show tabs in a single, horizontally scrollable row instead of wrapping them into many rows (e.g. the 10 tabs on
+    the part edit page), which pushes the actual content below the fold. */
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-tabs .nav-link {
+        white-space: nowrap;
+    }
 }
 
 /* Show the sidebar as an overlay on small screens. The upper bound must be 767.98px and not 768px, as Bootstrap's md
@@ -80,7 +113,8 @@ closed (see issue #1609). */
         /*noinspection W3CssValidation*/
         -webkit-overflow-scrolling: touch;
         max-height: 100%;
-        opacity: 0.97;
+        /* Opaque, so that the page below does not shine through the overlay */
+        background-color: var(--bs-body-bg);
         padding: 7px 15px 50px;
         margin-top: -10px;
 
@@ -209,4 +243,34 @@ The toggle button is part of the navbar, so it does not cover any content and st
     top: auto;
     z-index: 3000; /* Over darkmode layer for correct colors! */
     right: 25px;
+}
+
+/* Visual feedback while the content frame is loading (e.g. after clicking a node in the sidebar treeview). Turbo sets
+the busy attribute on the frame while the request is running. */
+turbo-frame#content[busy] {
+    opacity: 0.5;
+    transition: opacity 0.15s ease 0.1s;
+}
+
+html:has(turbo-frame#content[busy]) #navbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 35%;
+    height: 3px;
+    background-color: var(--bs-primary);
+    animation: content-loading-bar 1s linear infinite;
+}
+
+@keyframes content-loading-bar {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(300%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:has(turbo-frame#content[busy]) #navbar::after {
+        width: 100%;
+        animation: none;
+    }
 }
