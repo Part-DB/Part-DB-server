@@ -47,6 +47,28 @@ final class SavedFilterTest extends TestCase
         ], $filter->getQuery());
     }
 
+    public function testDateTimesAreStoredInUtc(): void
+    {
+        //The filter forms read date-times in the timezone of the current user, so a shared filter has to convert them
+        $filter = (new SavedFilter())->setTarget('parts_show_all', [], ['part_filter' => [
+            'lastModified' => ['operator' => 'BETWEEN', 'value1' => '2026-01-15T12:00', 'value2' => '2026-07-15T12:00:30'],
+            'lotExpirationDate' => ['operator' => '<', 'value1' => '2026-01-15'],
+            'name' => ['operator' => '=', 'value' => '2026-01-15T12:00'],
+        ]], new \DateTimeZone('Europe/Berlin'));
+
+        $utc = $filter->getQuery()['part_filter'];
+        self::assertSame('2026-01-15T11:00', $utc['lastModified']['value1']);
+        self::assertSame('2026-07-15T10:00:30', $utc['lastModified']['value2']);
+        //Dates without a time and the values of other filters are kept as they are
+        self::assertSame('2026-01-15', $utc['lotExpirationDate']['value1']);
+        self::assertSame('2026-01-15T12:00', $utc['name']['value']);
+
+        $newYork = $filter->getQuery(new \DateTimeZone('America/New_York'))['part_filter'];
+        self::assertSame('2026-01-15T06:00', $newYork['lastModified']['value1']);
+        self::assertSame('2026-07-15T06:00:30', $newYork['lastModified']['value2']);
+        self::assertSame('2026-01-15', $newYork['lotExpirationDate']['value1']);
+    }
+
     public function testOnlyPartListsAreAllowedAsTarget(): void
     {
         $this->expectException(\InvalidArgumentException::class);

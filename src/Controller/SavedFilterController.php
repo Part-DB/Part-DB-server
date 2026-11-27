@@ -90,7 +90,7 @@ class SavedFilterController extends AbstractController
             ->setOwner($user)
             ->setName(trim((string) $request->request->get('name', '')))
             ->setShared($request->request->getBoolean('shared') && $this->isGranted('share', SavedFilter::class))
-            ->setTarget($route, $routeParams, $query);
+            ->setTarget($route, $routeParams, $query, $this->getUserTimezone());
 
         if (!$this->isCsrfTokenValid('saved_filter_save', (string) $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
@@ -191,11 +191,21 @@ class SavedFilterController extends AbstractController
     {
         try {
             //Parameters, which are not part of the route, are added as query parameters
-            return $this->redirect($this->generateUrl($filter->getRoute(), $filter->getRouteParams() + $filter->getQuery()));
+            return $this->redirect($this->generateUrl($filter->getRoute(),
+                $filter->getRouteParams() + $filter->getQuery($this->getUserTimezone())));
         } catch (RoutingException) {
             $this->addFlash('error', 'saved_filter.open.invalid');
             return $this->redirectToRoute('saved_filter_list');
         }
+    }
+
+    /**
+     * Returns the timezone, in which the filter forms read the date-times. It is set to the timezone of the current
+     * user by the SetUserTimezoneSubscriber.
+     */
+    private function getUserTimezone(): \DateTimeZone
+    {
+        return new \DateTimeZone(date_default_timezone_get());
     }
 
     /**

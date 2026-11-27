@@ -34,6 +34,20 @@ final class SavedFilterControllerTest extends WebTestCase
 {
     private const FILTER_QUERY = 'part_filter%5Bname%5D%5Boperator%5D=%3D&part_filter%5Bname%5D%5Bvalue%5D=Part%201&part_filter%5Bsubmit%5D=';
 
+    private string $defaultTimezone = 'UTC';
+
+    protected function setUp(): void
+    {
+        //The timezone of the logged-in user is set as the default timezone of PHP
+        $this->defaultTimezone = date_default_timezone_get();
+    }
+
+    protected function tearDown(): void
+    {
+        date_default_timezone_set($this->defaultTimezone);
+        parent::tearDown();
+    }
+
     private function createClientAs(string $username): KernelBrowser
     {
         $client = static::createClient();
@@ -65,10 +79,71 @@ final class SavedFilterControllerTest extends WebTestCase
         return $filter;
     }
 
+    private function getCsrfToken(KernelBrowser $client, string $partList): string
+    {
+        $crawler = $client->request('GET', $partList);
+        self::assertResponseIsSuccessful();
+
+        return (string) $crawler->filter('form[action$="/saved_filters/save"] input[name="_token"]')->attr('value');
+    }
+
     private function findFilter(string $name): ?SavedFilter
     {
         return static::getContainer()->get(EntityManagerInterface::class)->getRepository(SavedFilter::class)
             ->findOneBy(['name' => $name]);
+    }
+
+    public function testSharedDateTimesKeepTheirPointInTime(): void
+    {
+        $client = $this->createClientAs('admin');
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $this->getUser('admin')->setTimezone('Europe/Berlin');
+        $this->getUser('user')->setTimezone('America/New_York');
+        $entityManager->flush();
+
+        $query = http_build_query(['part_filter' => ['lastModified' => ['operator' => '>', 'value1' => '2026-01-15T12:00']]]);
+        $client->request('POST', '/en/saved_filters/save', [
+            '_token' => $this->getCsrfToken($client, '/en/parts?'.$query),
+            'route' => 'parts_show_all',
+            'route_params' => '{}',
+            'query' => $query,
+            'name' => 'Changed recently',
+            'shared' => '1',
+        ]);
+        self::assertResponseRedirects();
+        //The owner gets back the time they entered
+        self::assertStringContainsString('[value1]=2026-01-15T12:00', urldecode((string) $client->getResponse()->headers->get('Location')));
+
+        $filter = $this->findFilter('Changed recently');
+        self::assertInstanceOf(SavedFilter::class, $filter);
+        self::assertTrue($filter->isShared());
+
+        //Noon in Berlin is 6:00 in New York
+        $client->loginUser($this->getUser('user'));
+        $client->request('GET', '/en/saved_filters/'.$filter->getId());
+        self::assertResponseRedirects();
+        self::assertStringContainsString('[value1]=2026-01-15T06:00', urldecode((string) $client->getResponse()->headers->get('Location')));
+    }
+
+    public function testDeletingTheOwnerRemovesTheSharedFiltersFromTheTrees(): void
+    {
+        $client = $this->createClientAs('admin');
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $owner = (new User())->setName('filter_owner');
+        $entityManager->persist($owner);
+        $entityManager->flush();
+        $this->createFilter('filter_owner', true, 'Filter of a deleted user');
+
+        $client->request('GET', '/en/tree/tools');
+        self::assertStringContainsString('Filter of a deleted user', (string) $client->getResponse()->getContent());
+
+        //The database deletes the filters of the user, so no entity listener of the filters is called
+        $entityManager->remove($entityManager->find(User::class, $owner->getID()));
+        $entityManager->flush();
+        $entityManager->clear();
+
+        $client->request('GET', '/en/tree/tools');
+        self::assertStringNotContainsString('Filter of a deleted user', (string) $client->getResponse()->getContent());
     }
 
     public function testUserSavesTheAppliedFilterAndOpensItAgain(): void

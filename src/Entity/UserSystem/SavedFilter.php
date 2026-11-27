@@ -87,7 +87,8 @@ class SavedFilter implements TimeStampableInterface, \Stringable
     protected array $routeParams = [];
 
     /**
-     * @var array<string, mixed> The query parameters of the part list, which contain the filter
+     * @var array<string, mixed> The query parameters of the part list, which contain the filter. The date-times of
+     * the filter are stored in UTC (see setTarget()).
      */
     #[ORM\Column(name: 'query_params', type: Types::JSON)]
     protected array $query = [];
@@ -144,11 +145,18 @@ class SavedFilter implements TimeStampableInterface, \Stringable
     }
 
     /**
+     * Returns the query parameters of the filter.
+     * @param  \DateTimeZone|null  $timezone The timezone, in which the date-times of the filter are returned. The
+     * filter forms read them in the timezone of the current user. If null, they are returned in UTC, as stored.
      * @return array<string, mixed>
      */
-    public function getQuery(): array
+    public function getQuery(?\DateTimeZone $timezone = null): array
     {
-        return $this->query;
+        if (!$timezone instanceof \DateTimeZone) {
+            return $this->query;
+        }
+
+        return self::convertDateTimes($this->query, new \DateTimeZone('UTC'), $timezone);
     }
 
     /**
@@ -157,8 +165,11 @@ class SavedFilter implements TimeStampableInterface, \Stringable
      * whoever opens it. Query parameters starting with an underscore are internal (e.g. of the data tables) and dropped.
      * @param  array<string, mixed>  $routeParams
      * @param  array<string, mixed>  $query
+     * @param  \DateTimeZone|null  $timezone The timezone of the date-times in the query, which is the timezone of the
+     * user, who applied the filter. They are stored in UTC, so that a shared filter covers the same points in time
+     * for all users. If null, the date-times are assumed to be in UTC already.
      */
-    public function setTarget(string $route, array $routeParams, array $query): self
+    public function setTarget(string $route, array $routeParams, array $query, ?\DateTimeZone $timezone = null): self
     {
         if (!in_array($route, self::ALLOWED_ROUTES, true)) {
             throw new \InvalidArgumentException(sprintf('The filters of the route "%s" can not be saved!', $route));
@@ -174,7 +185,36 @@ class SavedFilter implements TimeStampableInterface, \Stringable
             static fn ($key) => is_string($key) && !str_starts_with($key, '_'),
             ARRAY_FILTER_USE_KEY);
 
+        if ($timezone instanceof \DateTimeZone) {
+            $this->query = self::convertDateTimes($this->query, $timezone, new \DateTimeZone('UTC'));
+        }
+
         return $this;
+    }
+
+    /**
+     * Converts the date-times of the date-time constraints in the given query parameters between the timezones.
+     * They are recognized as the values of a constraint (value1 and value2) in the format of the HTML datetime-local
+     * input. Dates without a time are not converted, as they denote a calendar day and not a point in time.
+     * @param  array<mixed>  $query
+     * @return array<mixed>
+     */
+    private static function convertDateTimes(array $query, \DateTimeZone $from, \DateTimeZone $to): array
+    {
+        foreach ($query as $key => $value) {
+            if (is_array($value)) {
+                $query[$key] = self::convertDateTimes($value, $from, $to);
+            } elseif (($key === 'value1' || $key === 'value2') && is_string($value)
+                && preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/', $value, $matches) === 1) {
+                $format = isset($matches[1]) ? 'Y-m-d\TH:i:s' : 'Y-m-d\TH:i';
+                $dateTime = \DateTimeImmutable::createFromFormat('!'.$format, $value, $from);
+                if ($dateTime !== false) {
+                    $query[$key] = $dateTime->setTimezone($to)->format($format);
+                }
+            }
+        }
+
+        return $query;
     }
 
     public function __toString(): string
