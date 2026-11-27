@@ -51,6 +51,7 @@ use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\TagRepository;
+use App\State\DeleteTagProcessor;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -70,16 +71,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * Unlike the other data structures, a tag name is unique across all tags, not only among its siblings: tags are still
  * assigned by their names (see Part::setTags()), so a name must stand for exactly one tag. Names are compared
- * case-insensitively, so "SMD" and "smd" are the same tag. The parent only groups tags, and passes its color on.
+ * case-insensitively, so "SMD" and "smd" are the same tag. To have the database compare names the same way on all
+ * platforms, every tag stores the key of its name (see nameKey()), which is unique. The parent only groups tags, and
+ * passes its color on.
  *
  * @see \App\Tests\Entity\Parts\TagTest
  * @extends AbstractPartsContainingDBElement<TagAttachment, TagParameter, TagAlternativeName>
  */
 #[EntityConfig(routeBase: 'tag')]
-#[AdminCrud(formClass: TagAdminForm::class, showParametersTab: false)]
+#[AdminCrud(formClass: TagAdminForm::class)]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\Table('`tags`')]
-#[ORM\UniqueConstraint(name: 'tag_name_unique', columns: ['name'])]
+#[ORM\UniqueConstraint(name: 'tag_name_key_unique', columns: ['name_key'])]
 #[UniqueEntity(fields: ['name'], message: 'tag.name.not_unique', repositoryMethod: 'findForUniquenessCheck')]
 #[ApiResource(
     operations: [
@@ -87,7 +90,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(security: 'is_granted("@tags.read")'),
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
-        new Delete(security: 'is_granted("delete", object)'),
+        new Delete(security: 'is_granted("delete", object)', processor: DeleteTagProcessor::class),
     ],
     normalizationContext: ['groups' => ['tag:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['tag:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
@@ -128,6 +131,21 @@ class Tag extends AbstractPartsContainingDBElement
 
     #[Assert\Regex(pattern: '/,/', message: 'tag.name.no_comma', match: false)]
     protected string $name = '';
+
+    /**
+     * @var string The key of the name, which tags are compared by (see nameKey()).
+     * It is kept in sync with the name, and only exists so the database can look up and enforce the uniqueness of
+     * names the same way on all platforms: their own case-insensitive comparisons differ (e.g. SQLite only knows the
+     * case of ASCII letters, and PostgreSQL compares case-sensitively).
+     */
+    #[ORM\Column(name: 'name_key', type: Types::STRING)]
+    private string $nameKey = '';
+
+    /**
+     * @var bool Whether this tag was only created to assign a tag by its name (see Part::setTags()).
+     * Only such tags are replaced with the existing tag of their name by the TagAssignmentListener. It is not stored.
+     */
+    private bool $createdForAssignment = false;
 
     /**
      * @var string The comment info for this element as markdown
@@ -192,14 +210,40 @@ class Tag extends AbstractPartsContainingDBElement
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->alternative_names = new ArrayCollection();
-        $this->name = self::normalizeName($name);
+        $this->setName($name);
+    }
+
+    /**
+     * Creates a new tag, which stands for a name assigned to a part. It is replaced with the existing tag of the same
+     * name, when the part is saved (see TagAssignmentListener).
+     */
+    public static function forAssignment(string $name): self
+    {
+        $tag = new self($name);
+        $tag->createdForAssignment = true;
+
+        return $tag;
+    }
+
+    public function isCreatedForAssignment(): bool
+    {
+        return $this->createdForAssignment;
     }
 
     public function setName(string $new_name): self
     {
         $this->name = self::normalizeName($new_name);
+        $this->nameKey = self::nameKey($this->name);
 
         return $this;
+    }
+
+    /**
+     * Returns the key of the name of this tag, see nameKey().
+     */
+    public function getNameKey(): string
+    {
+        return $this->nameKey;
     }
 
     public function getColor(): ?BootstrapColor
@@ -247,10 +291,12 @@ class Tag extends AbstractPartsContainingDBElement
 
     /**
      * Returns the key two tag names are compared by. Tags whose names have the same key are the same tag.
+     * The simple case folding of Unicode is used, as it compares the case of all letters and keeps the length of the
+     * name, so the key fits into the same column size as the name.
      */
     public static function nameKey(string $name): string
     {
-        return mb_strtolower(self::normalizeName($name));
+        return mb_convert_case(self::normalizeName($name), MB_CASE_FOLD_SIMPLE);
     }
 
     /**

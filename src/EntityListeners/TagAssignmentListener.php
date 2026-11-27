@@ -40,6 +40,10 @@ use Doctrine\ORM\UnitOfWork;
  * tag of that name which already exists (compared case-insensitively), or with the first new tag of that name in the
  * same flush, so two parts getting the same new tag at once share it.
  *
+ * Only the tags created by Part::setTags() are replaced (see Tag::forAssignment()). Tags created otherwise, e.g. on the
+ * admin pages or through the API, are validated to have a unique name instead, and other entities like their children
+ * may refer to them.
+ *
  * This has to run before the EventLoggerListener (hence the priority), so the history does not record tags which are
  * never written, and sees the parts whose tags changed as edited.
  */
@@ -57,11 +61,19 @@ final class TagAssignmentListener
 
     private function replaceDuplicateTags(EntityManagerInterface $em, UnitOfWork $uow): void
     {
-        /** @var array<int, Tag> $newTags */
+        /** @var array<string, Tag> $canonical The tag which stands for a name, by its name key */
+        $canonical = [];
+        /** @var array<int, Tag> $newTags The new tags created to assign a tag by its name, by their object id */
         $newTags = [];
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            if ($entity instanceof Tag) {
+            if (!$entity instanceof Tag) {
+                continue;
+            }
+            if ($entity->isCreatedForAssignment()) {
                 $newTags[spl_object_id($entity)] = $entity;
+            } else {
+                //A new tag created otherwise is inserted in any case, so it is the tag of its name
+                $canonical[$entity->getNameKey()] ??= $entity;
             }
         }
         if ($newTags === []) {
@@ -71,12 +83,10 @@ final class TagAssignmentListener
         /** @var TagRepository $repo */
         $repo = $em->getRepository(Tag::class);
 
-        /** @var array<string, Tag> $canonical The tag which stands for a name, by its name key */
-        $canonical = [];
         /** @var array<int, Tag> $replacements The tag each duplicate is replaced with, by the object id of the duplicate */
         $replacements = [];
         foreach ($newTags as $oid => $tag) {
-            $key = Tag::nameKey($tag->getName());
+            $key = $tag->getNameKey();
             $canonical[$key] ??= $repo->findOneByName($tag->getName()) ?? $tag;
             if ($canonical[$key] !== $tag) {
                 $replacements[$oid] = $canonical[$key];

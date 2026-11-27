@@ -28,6 +28,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Tag;
 use App\Services\LogSystem\TimeTravel;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -69,6 +70,52 @@ final class TagAssignmentListenerTest extends KernelTestCase
         $this->assertSame($tagCount + 1, $this->countTags());
         $this->assertSame($first->getTagEntities()->first(), $second->getTagEntities()->first());
         $this->assertNotNull($first->getTagEntities()->first()->getID());
+    }
+
+    public function testExistingTagWithAnUmlautIsReused(): void
+    {
+        //Unlike the database functions of SQLite, the key of a name also covers the case of non-ASCII letters
+        $existing = new Tag('Über');
+        $this->em->persist($existing);
+        $this->em->flush();
+        $tagCount = $this->countTags();
+
+        $part = $this->createPart();
+        $part->setTags('über');
+        $this->em->flush();
+
+        $this->assertSame($tagCount, $this->countTags());
+        $this->assertCount(1, $part->getTagEntities());
+        $this->assertSame($existing, $part->getTagEntities()->first());
+    }
+
+    public function testNewTagCreatedOtherwiseIsAssignedInTheSameFlush(): void
+    {
+        //E.g. created on the admin pages: such a tag is inserted in any case, and other tags may refer to it
+        $group = new Tag('Group');
+        $child = (new Tag('Child'))->setParent($group);
+        $this->em->persist($group);
+        $this->em->persist($child);
+
+        $part = $this->createPart();
+        $part->setTags('group, CHILD');
+        $this->em->flush();
+
+        $this->assertNotNull($group->getID());
+        $this->assertSame($group, $child->getParent());
+        $this->assertTrue($part->getTagEntities()->contains($group));
+        $this->assertTrue($part->getTagEntities()->contains($child));
+        $this->assertCount(2, $part->getTagEntities());
+    }
+
+    public function testTagsCreatedOtherwiseAreNotReplaced(): void
+    {
+        //Other entities may refer to such a tag (e.g. its children), so it is not replaced with the existing tag of
+        //its name. It is validated to have a unique name instead, and the database rejects duplicates in any case.
+        $this->em->persist(new Tag('PART2'));
+
+        $this->expectException(UniqueConstraintViolationException::class);
+        $this->em->flush();
     }
 
     public function testExistingPartGetsExistingTag(): void

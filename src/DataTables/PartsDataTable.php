@@ -44,6 +44,7 @@ use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Tag;
 use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
@@ -268,7 +269,10 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
                 'data' => static fn(Part $context) => $context->getTagEntities(),
-                'orderField' => 'CASE WHEN MIN(_tags.name) IS NULL THEN 1 ELSE 0 END, NATSORT(MIN(_tags.name))',
+                //Sorted by the first tag name in a subquery: joining the tags would repeat the rows counted by other
+                //filters (like the number of lots), and change their results
+                'orderField' => 'CASE WHEN EXISTS (SELECT _tagSort1 FROM '.Tag::class.' _tagSort1 WHERE _tagSort1 MEMBER OF part.tagEntities) THEN 0 ELSE 1 END, '
+                    .'NATSORT((SELECT MIN(_tagSort2.name) FROM '.Tag::class.' _tagSort2 WHERE _tagSort2 MEMBER OF part.tagEntities))',
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
@@ -524,10 +528,6 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             $builder->leftJoin('part.attachments', '_attachments');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_attachments');
-        }
-        if (str_contains($dql, '_tags.')) {
-            $builder->leftJoin('part.tagEntities', '_tags');
-            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
         }
         if (str_contains($dql, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');

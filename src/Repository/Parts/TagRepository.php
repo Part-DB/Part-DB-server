@@ -86,15 +86,15 @@ class TagRepository extends AbstractPartsContainingRepository
     }
 
     /**
-     * Finds the tag with the given name, compared case-insensitively.
+     * Finds the tag with the given name, compared case-insensitively (by the key of the name, see Tag::nameKey()).
      *
-     * The comparison is left to the database, as its unique index decides which names are the same: MySQL for example
-     * also treats names which only differ in accents as equal.
+     * The comparison is done by the database, as its unique index of the keys decides which names are the same:
+     * MySQL for example also treats keys which only differ in accents as equal.
      */
     public function findOneByName(string $name): ?Tag
     {
         return $this->createQueryBuilder('tag')
-            ->where('LOWER(tag.name) = :key')
+            ->where('tag.nameKey = :key')
             ->setParameter('key', Tag::nameKey($name))
             ->setMaxResults(1)
             ->getQuery()
@@ -103,8 +103,7 @@ class TagRepository extends AbstractPartsContainingRepository
 
     /**
      * Used by the UniqueEntity constraint of Tag: a tag name has to be unique across all tags (not only among the
-     * siblings, like for the other data structures), and two names which only differ in case are the same tag, which
-     * not every database checks for on its own (MySQL does, PostgreSQL and SQLite do not).
+     * siblings, like for the other data structures), and two names which only differ in case are the same tag.
      * @param  array{name: string}  $criteria
      * @return Tag[]
      */
@@ -123,8 +122,8 @@ class TagRepository extends AbstractPartsContainingRepository
     {
         $rows = $this->createQueryBuilder('tag')
             ->select('tag.name')
-            ->where('ILIKE(tag.name, :keyword) = TRUE')
-            ->setParameter('keyword', addcslashes($keyword, '%_\\').'%')
+            ->where('ILIKE(tag.nameKey, :keyword) = TRUE')
+            ->setParameter('keyword', addcslashes(Tag::nameKey($keyword), '%_\\').'%')
             ->orderBy('tag.name', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()

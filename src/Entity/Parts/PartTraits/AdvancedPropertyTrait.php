@@ -33,6 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use App\Validator\Constraints\UniquePartIpnConstraint;
 
 /**
@@ -161,10 +162,25 @@ trait AdvancedPropertyTrait
         }
 
         foreach ($wanted as $name) {
-            $this->tagEntities->add(new Tag($name));
+            $this->tagEntities->add(Tag::forAssignment($name));
         }
 
         return $this;
+    }
+
+    /**
+     * Checks the names of the tags assigned by their names. The tags themselves are not validated with the part, as a
+     * new tag of an existing name is expected here, and replaced with the existing tag when the part is saved.
+     */
+    #[Assert\Callback]
+    public function validateTagNames(ExecutionContextInterface $context): void
+    {
+        $validator = $context->getValidator()->inContext($context)->atPath('tags');
+        foreach ($this->tagEntities as $tag) {
+            if ($tag->getID() === null) {
+                $validator->validate($tag->getName(), new Length(max: 255));
+            }
+        }
     }
 
     /**

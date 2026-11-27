@@ -48,6 +48,16 @@ final class TagRepositoryTest extends KernelTestCase
         $this->assertNull($this->repo->findOneByName('unknown'));
     }
 
+    public function testNamesWithUmlautsAreComparedCaseInsensitively(): void
+    {
+        $this->em->persist(new Tag('Über'));
+        $this->em->flush();
+
+        $this->assertSame('Über', $this->repo->findOneByName('über')?->getName());
+        $this->assertSame('Über', $this->repo->findOneByName('ÜBER')?->getName());
+        $this->assertSame(['Über'], $this->repo->findNamesStartingWith('üB', 10));
+    }
+
     public function testPartsOfATag(): void
     {
         $tag = $this->repo->findOneByName('test');

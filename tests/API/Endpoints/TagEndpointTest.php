@@ -85,10 +85,27 @@ final class TagEndpointTest extends CrudEndpointTestCase
 
     public function testDeleteItem(): void
     {
-        $this->_testDeleteItem(9);
+        //"Node 3" is not assigned to any part
+        $this->_testDeleteItem(3);
+    }
 
-        //Deleting a tag removes it from the parts
+    public function testDeletingAnAssignedTagIsRejected(): void
+    {
+        //Like on the admin pages, as the assignments could not be restored by undoing the deletion
+        self::createAuthenticatedClient()->request('DELETE', $this->getItemPath(9));
+        self::assertResponseStatusCodeSame(409);
+
         self::createAuthenticatedClient()->request('GET', '/api/parts/2');
-        self::assertJsonContains(['tags' => 'test']);
+        self::assertJsonContains(['tags' => 'Part2,test']);
+    }
+
+    public function testTooLongTagNamesOfPartsAreRejected(): void
+    {
+        self::createAuthenticatedClient()->request('PATCH', '/api/parts/2', [
+            'json' => ['tags' => 'test, '.str_repeat('a', 256)],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+        self::assertResponseStatusCodeSame(422);
+        self::assertJsonContains(['violations' => [['propertyPath' => 'tags']]]);
     }
 }

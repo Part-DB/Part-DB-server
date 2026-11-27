@@ -54,7 +54,7 @@ final class TagFilter extends AbstractFilter
         $tagAlias = $queryNameGenerator->generateJoinAlias('tag');
         $parameter = $queryNameGenerator->generateParameterName($property);
 
-        $queryBuilder->andWhere(sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s.tagEntities AND LOWER(%1$s.name) = :%4$s)',
+        $queryBuilder->andWhere(sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s.tagEntities AND %1$s.nameKey = :%4$s)',
             $tagAlias, Tag::class, $rootAlias, $parameter));
         $queryBuilder->setParameter($parameter, Tag::nameKey($value));
     }

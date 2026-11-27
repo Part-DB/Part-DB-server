@@ -90,7 +90,7 @@ class TagsConstraint extends AbstractConstraint
         $identifier = $this->generateParameterIdentifier('tag');
         $queryBuilder->setParameter($identifier, Tag::nameKey($tag));
 
-        return sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s AND LOWER(%1$s.name) = :%1$s)',
+        return sprintf('EXISTS (SELECT %1$s FROM %2$s %1$s WHERE %1$s MEMBER OF %3$s AND %1$s.nameKey = :%1$s)',
             $identifier, Tag::class, $this->property);
     }
 
