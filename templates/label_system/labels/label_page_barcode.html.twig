@@ -1,4 +1,4 @@
-{# Default layout for labels with a barcode: 2D barcodes left of the text, 1D barcodes below it.
+{# Default layout for labels with a barcode, which is not placed inside the lines: 2D barcodes left of the text, 1D barcodes below it.
    We use a table here, as dompdf handles it much better than floats (e.g. text wrapped images inside the lines).
    The sizes are calculated in LabelHTMLGenerator::getBarcodeLayout(), as dompdf does not support percentage heights for tables. #}
 {% set layout = barcode_layout %}

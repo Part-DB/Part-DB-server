@@ -24,6 +24,12 @@
  */
 
 /**
+ * The start of the src of the barcode placeholder image. The label generator replaces all images with this src with the
+ * barcode of the label (see LabelHTMLGenerator::BARCODE_IMAGE_SRC_PREFIX).
+ */
+export const BARCODE_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=barcode';
+
+/**
  * The start of the src of the part image placeholder (see LabelHTMLGenerator::PART_IMAGE_SRC_PREFIX)
  */
 export const PART_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=part-image';
@@ -35,14 +41,18 @@ export const PART_IMAGE_ELEMENTS = ['part', 'part_lot'];
 export const PX_PER_MM = 96 / 25.4;
 
 /**
- * Returns the kind of the given image model element: null (no image), "part-image" (part image placeholder) or "image"
- * (a normal image).
+ * Returns the kind of the given image model element: null (no image), "barcode" (barcode placeholder), "part-image"
+ * (part image placeholder) or "image" (a normal image).
  */
 export function getImageKind(image) {
     if (!image) {
         return null;
     }
-    return String(image.getAttribute('src') ?? '').startsWith(PART_IMAGE_SRC_PREFIX) ? 'part-image' : 'image';
+    const src = String(image.getAttribute('src') ?? '');
+    if (src.startsWith(BARCODE_IMAGE_SRC_PREFIX)) {
+        return 'barcode';
+    }
+    return src.startsWith(PART_IMAGE_SRC_PREFIX) ? 'part-image' : 'image';
 }
 
 /**
@@ -68,15 +78,36 @@ export function getFormField(editor, name) {
 }
 
 /**
+ * Returns true if the editor content contains a barcode placeholder image.
+ */
+export function containsBarcodePlaceholder(editor) {
+    const model = editor.model;
+    for (const item of model.createRangeIn(model.document.getRoot()).getItems()) {
+        if (item.is('element') && (item.name === 'imageBlock' || item.name === 'imageInline')
+            && String(item.getAttribute('src') ?? '').startsWith(BARCODE_IMAGE_SRC_PREFIX)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
  * Calculates the geometry of the label (all values in mm), the same way as LabelHTMLGenerator::getBarcodeLayout() and
  * the label templates do:
  *  - width/height: The label size, marginX/marginY: The page margins
  *  - barcodeType: "none", "1D" or "2D"
+ *  - barcode: The size of the barcode ({width, height}), or null if there is no barcode
+ *  - placeholder: The size in which barcode placeholders are shown ({width, height, caption}): The size of the barcode
+ *    and the height of its caption (for 1D barcodes, see LabelHTMLGenerator::addBarcodeCaption()), or without a barcode
+ *    type (when they are not rendered on the label) the barcode size option as square (or the default size of 2D
+ *    barcodes), so that they keep a sensible size
  *  - reserved: The area used by the barcode ({left, top, width, height}, relative to the label), or null if there is no
- *    barcode
+ *    barcode or it is placed inside the content (via the barcode placeholder)
  *  - text: The area of the text lines ({left, width}, relative to the label)
+ * @param {number} textHeight The height of the content in mm: Without a barcode size, 1D barcodes are placed below it,
+ *        if the content does not fit above their fixed position (see label_page_1d.html.twig)
  */
-export function calculateGeometry(editor, params) {
+export function calculateGeometry(editor, params, textHeight = 0) {
     const field = (name) => getFormField(editor, name);
 
     const width = parseFloat(field('width')?.value) || 50;
@@ -88,16 +119,34 @@ export function calculateGeometry(editor, params) {
     const marginX = params.pageMarginX;
     const marginY = params.pageMarginY;
     const contentWidth = Math.max(width - 2 * marginX, 1);
+    const contentHeight = Math.max(height - 2 * marginY, 1);
 
     const barcodeType = type === 'none' ? 'none' : (params.types1D.includes(type) ? '1D' : '2D');
+
+    //The size of the barcode, the same calculation as in LabelHTMLGenerator::getBarcodeLayout()
+    let barcode = null;
+    if (barcodeType === '1D') {
+        barcode = {width: size ?? Math.min(params.default1DMaxWidth, contentWidth), height: params.default1DHeight};
+    } else if (barcodeType === '2D') {
+        const edge = size ?? Math.min(contentWidth * params.default2DWidthFactor, contentHeight);
+        barcode = {width: edge, height: edge};
+    }
+
+    const placeholderEdge = size ?? Math.min(contentWidth * params.default2DWidthFactor, contentHeight);
+    const placeholder = barcode
+        ? {...barcode, caption: barcodeType === '1D' ? params.legacy1D.captionHeight : 0}
+        : {width: placeholderEdge, height: placeholderEdge, caption: 0};
+
+    //A barcode placed inside the content (via the barcode placeholder) does not use the default layout
+    const layoutType = containsBarcodePlaceholder(editor) ? 'none' : barcodeType;
 
     let reserved = null;
     let text = {left: marginX, width: contentWidth};
 
-    if (barcodeType !== 'none' && size !== null) {
+    if (layoutType !== 'none' && size !== null) {
         //Layout of label_page_barcode.html.twig: The size is the edge length of 2D barcodes, or the width of 1D barcodes
         const layout = params.sizedLayout;
-        if (barcodeType === '2D') {
+        if (layoutType === '2D') {
             reserved = {left: marginX, top: marginY, width: size, height: size};
             text = {left: marginX + size + layout.sideGap, width: Math.max(contentWidth - size - layout.sideGap, 1)};
         } else {
@@ -105,18 +154,23 @@ export function calculateGeometry(editor, params) {
             const blockHeight = params.legacy1D.height + layout.stackedGap + layout.captionHeight;
             reserved = {left: marginX, top: height - marginY - blockHeight, width: size, height: blockHeight};
         }
-    } else if (barcodeType === '2D') {
+    } else if (layoutType === '2D') {
         //Legacy layout of label_page_qr.html.twig
         const layout = params.legacy2D;
         const edge = contentWidth * layout.barcodeWidth;
         reserved = {left: marginX + contentWidth * layout.barcodeLeft, top: marginY, width: edge, height: edge};
         text = {left: marginX + contentWidth * layout.textLeft, width: contentWidth * layout.textWidth};
-    } else if (barcodeType === '1D') {
-        //Legacy layout of label_page_1d.html.twig
+    } else if (layoutType === '1D') {
+        //Legacy layout of label_page_1d.html.twig: The barcode is placed above the bottom of the label, or below the text
+        //if the text needs more space (except for labels with custom CSS for the barcode, which keep the fixed position)
         const layout = params.legacy1D;
         const blockHeight = layout.height + layout.captionHeight;
-        reserved = {left: marginX, top: height - marginY - layout.bottom - blockHeight, width: Math.min(layout.maxWidth, contentWidth), height: blockHeight};
+        let top = height - marginY - layout.bottom - blockHeight;
+        if (!String(field('additional_css')?.value ?? '').includes('C39')) {
+            top = Math.max(top, marginY + textHeight);
+        }
+        reserved = {left: marginX, top, width: Math.min(layout.maxWidth, contentWidth), height: blockHeight};
     }
 
-    return {width, height, marginX, marginY, barcodeType, reserved, text};
+    return {width, height, marginX, marginY, barcodeType, barcode, placeholder, reserved, text};
 }

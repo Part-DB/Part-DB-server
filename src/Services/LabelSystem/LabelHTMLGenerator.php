@@ -99,6 +99,10 @@ final readonly class LabelHTMLGenerator
         'bottom' => 8.4667,
     ];
 
+    /** The start of the src of the barcode placeholder image, inserted by the label editor (see PartDBLabelBarcode.js) */
+    public const BARCODE_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=barcode';
+    /** Images with this class are replaced by the barcode too (e.g. for handwritten HTML or twig mode) */
+    public const BARCODE_IMAGE_CLASS = 'partdb-barcode';
     /** The start of the src of the part image placeholder, inserted by the label editor (see PartDBLabelPartImage.js) */
     public const PART_IMAGE_SRC_PREFIX = 'data:image/svg+xml;partdb=part-image';
     /** Images with this class are replaced by the part image too (e.g. for handwritten HTML or twig mode) */
@@ -110,6 +114,9 @@ final readonly class LabelHTMLGenerator
 
     /** Matches the CKEditor image styles, which float the image (so that the text wraps around it) */
     private const FLOATING_IMAGE_REGEX = '/image-style-(align-left|align-right|side)\b/';
+    /** Inline elements (of the text formatting of CKEditor), out of which floating images are moved (see liftNestedFloats()) */
+    private const INLINE_ELEMENTS = ['span', 'strong', 'b', 'em', 'i', 'u', 's', 'del', 'ins', 'sub', 'sup', 'mark', 'code',
+        'small', 'big', 'font', 'a', 'abbr', 'cite', 'q', 'label'];
 
     public function __construct(
         private ElementTypeNameGenerator $elementTypeNameGenerator,
@@ -162,15 +169,21 @@ final readonly class LabelHTMLGenerator
                 $lines = $this->replacer->replace($options->getLines(), $element);
             }
 
-            $placed_lines = $this->processLines($lines, $element, $options);
+            $barcode = $this->barcodeGenerator->generateSVG($options, $element);
+            $barcode_content = $this->barcodeGenerator->getContent($options, $element);
+            //Placed 1D barcodes get their content as caption, like in the default layout (2D barcodes have none)
+            $barcode_caption = $barcode_layout !== null && !$barcode_layout['side'] ? $barcode_content : null;
+            [$placed_lines, $barcode_placed] = $this->processLines($lines, $element, $options, $barcode, $barcode_layout, $barcode_caption);
 
             $twig_elements[] = [
                 'element' => $element,
                 'lines' => $placed_lines ?? $lines,
+                //If the barcode is placed inside the lines, we must not render it via the default layout
+                'barcode_placed' => $barcode_placed,
                 //dompdf can not handle floats (text wrapped images) inside the floated columns of the legacy QR layout
                 'has_floating_images' => preg_match(self::FLOATING_IMAGE_REGEX, $placed_lines ?? $lines) === 1,
-                'barcode' => $this->barcodeGenerator->generateSVG($options, $element),
-                'barcode_content' => $this->barcodeGenerator->getContent($options, $element),
+                'barcode' => $barcode,
+                'barcode_content' => $barcode_content,
             ];
 
             ++$page;
@@ -185,8 +198,8 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Returns the parameters needed by the label editor, to show the label content and the barcode in the same size and
-     * position as on the label (see labelGeometry.js), without duplicating the values.
+     * Returns the parameters needed by the label editor, to show the label content and the barcode (and the barcode
+     * placeholder) in the same size and position as on the label (see labelGeometry.js), without duplicating the values.
      * All sizes are in mm, all fractions are relative to the usable label width.
      * @return array<string, mixed>
      */
@@ -197,6 +210,10 @@ final readonly class LabelHTMLGenerator
             'pageMarginY' => self::PAGE_MARGIN_Y,
             'types1D' => array_values(array_map(static fn(BarcodeType $type): string => $type->value,
                 array_filter(BarcodeType::cases(), static fn(BarcodeType $type): bool => $type->is1D()))),
+            //Size of the barcode, if no barcode size is set (see getBarcodeLayout())
+            'default1DMaxWidth' => self::DEFAULT_1D_MAX_WIDTH,
+            'default1DHeight' => self::DEFAULT_1D_HEIGHT,
+            'default2DWidthFactor' => self::DEFAULT_2D_WIDTH_FACTOR,
             //Layout used if a barcode size is set (see label_page_barcode.html.twig and getBarcodeLayout())
             'sizedLayout' => [
                 'sideGap' => self::SIDE_GAP,
@@ -222,55 +239,74 @@ final readonly class LabelHTMLGenerator
     /**
      * Processes the lines of a label: Replaces the placeholder images (see replacePlaceholderImages()) and fixes the
      * position of floating images, which do not fit next to each other (see fitFloatingImages()).
-     * @return string|null The modified lines, or null if they were not changed (so that labels without placeholders or
-     *                     floating images are not changed in any way)
+     * @param  array{width: float, height: float}|null  $barcode_layout
+     * @param  string|null  $barcode_caption The text shown below placed barcodes (for 1D barcodes), or null
+     * @return array{string|null, bool} The modified lines (or null if they were not changed, so that labels without
+     *                                   placeholders or floating images are not changed in any way), and whether a
+     *                                   barcode was placed inside the lines
      */
-    private function processLines(string $lines, object $element, LabelOptions $options): ?string
+    private function processLines(string $lines, object $element, LabelOptions $options, ?string $barcode_svg, ?array $barcode_layout, ?string $barcode_caption = null): array
     {
-        $has_placeholders = str_contains($lines, 'partdb=') || str_contains($lines, self::PART_IMAGE_CLASS);
+        $has_placeholders = str_contains($lines, 'partdb=') || str_contains($lines, self::BARCODE_IMAGE_CLASS)
+            || str_contains($lines, self::PART_IMAGE_CLASS);
         $has_floats = preg_match(self::FLOATING_IMAGE_REGEX, $lines) === 1;
         if (!$has_placeholders && !$has_floats) {
-            return null;
+            return [null, false];
         }
 
         $html5 = new HTML5(['disable_html_ns' => true]);
         $fragment = $html5->loadHTMLFragment($lines);
 
         //The placeholders are replaced first, so that their final size is used to fit the floating images
-        $changed = $has_placeholders && $this->replacePlaceholderImages($fragment, $element);
+        [$changed, $barcode_placed] = $has_placeholders
+            ? $this->replacePlaceholderImages($fragment, $element, $barcode_svg, $barcode_layout, $barcode_caption)
+            : [false, false];
 
         if ($has_floats) {
             $changed = $this->replaceEmptyLines($fragment) || $changed;
-            $changed = $this->fitFloatingImages($fragment, $this->getAvailableWidth($options)) || $changed;
+            $changed = $this->liftNestedFloats($fragment) || $changed;
+            $changed = $this->fitFloatingImages($fragment, $this->getAvailableWidth($options, $barcode_placed)) || $changed;
         }
 
-        return $changed ? $html5->saveHTML($fragment) : null;
+        return [$changed ? $html5->saveHTML($fragment) : null, $barcode_placed];
     }
 
     /**
-     * Replaces the placeholder images in the given lines: Part image placeholders with the image of the part (fitted
-     * into the placeholder).
-     * @return bool Whether the lines were changed
+     * Replaces the placeholder images in the given lines: Barcode placeholders with the barcode of the label (sized
+     * according to the layout, or removed if no barcode type is selected), and part image placeholders with the image of
+     * the part (fitted into the placeholder).
+     * @param  array{width: float, height: float}|null  $barcode_layout
+     * @param  string|null  $barcode_caption The text shown below placed barcodes (for 1D barcodes), or null
+     * @return array{bool, bool} Whether the lines were changed, and whether they contained barcode placeholders (so that
+     *                           the barcode is not rendered by the default layout)
      */
-    private function replacePlaceholderImages(\DOMDocumentFragment $fragment, object $element): bool
+    private function replacePlaceholderImages(\DOMDocumentFragment $fragment, object $element, ?string $barcode_svg, ?array $barcode_layout, ?string $barcode_caption): array
     {
+        $barcode_images = [];
         $part_images = [];
         foreach ((new \DOMXPath($fragment->ownerDocument))->query('.//img', $fragment) as $img) {
-            if ($img instanceof \DOMElement && $this->isPlaceholderImage($img, self::PART_IMAGE_SRC_PREFIX, self::PART_IMAGE_CLASS)) {
+            if (!$img instanceof \DOMElement) {
+                continue;
+            }
+            if ($this->isPlaceholderImage($img, self::BARCODE_IMAGE_SRC_PREFIX, self::BARCODE_IMAGE_CLASS)) {
+                $barcode_images[] = $img;
+            } elseif ($this->isPlaceholderImage($img, self::PART_IMAGE_SRC_PREFIX, self::PART_IMAGE_CLASS)) {
                 $part_images[] = $img;
             }
         }
 
-        if ($part_images === []) {
-            return false;
+        foreach ($barcode_images as $img) {
+            $this->placeBarcodeImage($img, $barcode_svg, $barcode_layout, $barcode_caption);
         }
 
-        $part_image = $this->partImageProvider->getImage($element);
-        foreach ($part_images as $img) {
-            $this->placePartImage($img, $part_image);
+        if ($part_images !== []) {
+            $part_image = $this->partImageProvider->getImage($element);
+            foreach ($part_images as $img) {
+                $this->placePartImage($img, $part_image);
+            }
         }
 
-        return true;
+        return [$barcode_images !== [] || $part_images !== [], $barcode_images !== []];
     }
 
     /**
@@ -301,15 +337,114 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
+     * dompdf ignores the float of elements nested in inline elements (it places the text on top of them), e.g. of an inline
+     * image wrapped left inside bold text (CKEditor applies the formatting of the text to inline images), and of images
+     * inside a link. Browsers (and the label editor) float them like any other image.
+     * So floating inline images are moved out of the inline elements, which are split at their position (so the text
+     * before and after them keeps its formatting and position). Linked images get the float on their link instead.
+     * @return bool Whether the lines were changed
+     */
+    private function liftNestedFloats(\DOMDocumentFragment $fragment): bool
+    {
+        $changed = false;
+        //Images with a block style are wrapped in a figure, which is a block, so only inline images are checked
+        $query = './/*[not(self::figure)][not(ancestor::figure)][contains(@class, "image-style-")]';
+        foreach (iterator_to_array((new \DOMXPath($fragment->ownerDocument))->query($query, $fragment)) as $node) {
+            if (!$node instanceof \DOMElement || preg_match(self::FLOATING_IMAGE_REGEX, $node->getAttribute('class')) !== 1) {
+                continue;
+            }
+
+            //A linked image is floated by its link. If the link contains other content, too, the image gets its own copy
+            //of the link, so that it stays linked when the link is split below.
+            $link = null;
+            for ($parent = $node->parentNode; $parent instanceof \DOMElement && in_array(strtolower($parent->nodeName), self::INLINE_ELEMENTS, true);
+                 $parent = $parent->parentNode) {
+                if ($parent->nodeName === 'a') {
+                    $link = $parent;
+                    break;
+                }
+            }
+            if ($link !== null) {
+                $image_only = $node->nodeName === 'img' && $this->getImageLink($node) === $link;
+                $own_link = $image_only ? $link : $link->cloneNode(false);
+                //The caption block of a barcode keeps the float, so only its image is linked
+                $linked = $node->nodeName === 'img' ? $node : $node->getElementsByTagName('img')->item(0);
+                if ($own_link instanceof \DOMElement && $linked !== null) {
+                    if (!$image_only) {
+                        $linked->parentNode?->replaceChild($own_link, $linked);
+                        $own_link->appendChild($linked);
+                    }
+                    if ($linked === $node) {
+                        $this->moveFloatStyle($node, $own_link);
+                        $node = $own_link;
+                    }
+                    $changed = true;
+                }
+            }
+
+            for ($parent = $node->parentNode; $parent instanceof \DOMElement && in_array(strtolower($parent->nodeName), self::INLINE_ELEMENTS, true);
+                 $parent = $node->parentNode) {
+                $container = $parent->parentNode;
+                if ($container === null) {
+                    break;
+                }
+                //Split the inline element at the position of the image, and move the image between the two parts
+                $after = $parent->cloneNode(false);
+                while ($node->nextSibling !== null) {
+                    $after->appendChild($node->nextSibling);
+                }
+                $container->insertBefore($node, $parent->nextSibling);
+                if ($after->hasChildNodes()) {
+                    $container->insertBefore($after, $node->nextSibling);
+                }
+                if (!$parent->hasChildNodes()) {
+                    $container->removeChild($parent);
+                }
+                $changed = true;
+            }
+        }
+
+        return $changed;
+    }
+
+    /**
+     * Returns the link of the given image (as added by the image toolbar of CKEditor), if the image is the only content of
+     * its link, or null. A link which contains other content too (e.g. text) is not the link of the image only.
+     */
+    private function getImageLink(\DOMElement $img): ?\DOMElement
+    {
+        $link = $img->parentNode;
+
+        return $link instanceof \DOMElement && $link->nodeName === 'a' && $link->getElementsByTagName('*')->length === 1
+            && trim($link->textContent) === '' ? $link : null;
+    }
+
+    /**
+     * Moves the floating image styles (see FLOATING_IMAGE_REGEX) from the classes of the given image to the given element.
+     */
+    private function moveFloatStyle(\DOMElement $img, \DOMElement $target): void
+    {
+        $classes = preg_split('/\s+/', $img->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $styles = array_values(preg_grep(self::FLOATING_IMAGE_REGEX, $classes) ?: []);
+        $remaining = array_diff($classes, $styles);
+        if ($remaining === []) {
+            $img->removeAttribute('class');
+        } else {
+            $img->setAttribute('class', implode(' ', $remaining));
+        }
+        $target->setAttribute('class', trim($target->getAttribute('class').' '.implode(' ', $styles)));
+    }
+
+    /**
      * Returns the width (in mm) available for the lines, depending on the layout used for the barcode.
      */
-    private function getAvailableWidth(LabelOptions $options): float
+    private function getAvailableWidth(LabelOptions $options, bool $barcode_placed): float
     {
         $content_width = max($options->getWidth() - 2 * self::PAGE_MARGIN_X, 1.0);
         $type = $options->getBarcodeType();
 
-        //The lines use the whole label, if there is no barcode next to them
-        if ($type === BarcodeType::NONE || $type->is1D()) {
+        //The lines use the whole label, if there is no barcode next to them (or it is placed inside the lines)
+        if ($type === BarcodeType::NONE || $barcode_placed || $type->is1D()) {
             return $content_width;
         }
 
@@ -606,11 +741,14 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Returns the CKEditor image style (align-left, align-right or side), if the given element is a floating image.
+     * Returns the CKEditor image style (align-left, align-right or side), if the given element is a floating image: An
+     * image, its figure, or an element wrapping it, which got the image style of the image (a link, see liftNestedFloats(),
+     * or the caption block of a barcode, see addBarcodeCaption()).
      */
     private function getFloatStyle(\DOMElement $element): ?string
     {
-        if (!in_array($element->nodeName, ['figure', 'img'], true)) {
+        if (!in_array($element->nodeName, ['figure', 'img', 'a', 'span'], true)
+            || (in_array($element->nodeName, ['a', 'span'], true) && $element->getElementsByTagName('img')->length === 0)) {
             return null;
         }
 
@@ -679,7 +817,108 @@ final readonly class LabelHTMLGenerator
             if (!str_contains($figure->getAttribute('class'), 'image_resized')) {
                 $figure->setAttribute('class', trim($figure->getAttribute('class').' image_resized'));
             }
+        } else {
+            $this->markPlaceholderLine($img);
         }
+    }
+
+    /**
+     * Marks the block (e.g. the paragraph), which contains the given inline placeholder image, so that its text is aligned
+     * to the top of the line (see .partdb-placeholder-line in label_style.css.twig): dompdf places the text of a line at
+     * its baseline, independent of the alignment of the images in it, while browsers (and the label editor) place it at
+     * the top of a line next to an image aligned to the top.
+     */
+    private function markPlaceholderLine(\DOMElement $img): void
+    {
+        for ($node = $img->parentNode; $node instanceof \DOMElement; $node = $node->parentNode) {
+            if (in_array($node->nodeName, ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'td', 'th', 'div'], true)) {
+                $classes = preg_split('/\s+/', $node->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+                if (!in_array('partdb-placeholder-line', $classes, true)) {
+                    $node->setAttribute('class', implode(' ', [...$classes, 'partdb-placeholder-line']));
+                }
+                return;
+            }
+        }
+    }
+
+    /**
+     * Replaces a barcode placeholder image with the barcode, or removes it if no barcode type is selected.
+     * @param  array{width: float, height: float}|null  $layout
+     * @param  string|null  $caption The text shown below the barcode (for 1D barcodes), or null
+     */
+    private function placeBarcodeImage(\DOMElement $img, ?string $barcode_svg, ?array $layout, ?string $caption = null): void
+    {
+        if ($barcode_svg === null || $layout === null) {
+            $node = $this->getFigure($img) ?? $img;
+            $node->parentNode?->removeChild($node);
+            return;
+        }
+
+        $img->setAttribute('src', 'data:image/svg+xml;base64,'.base64_encode($barcode_svg));
+        $this->applyPlaceholderStyles($img, self::BARCODE_IMAGE_CLASS,
+            sprintf('width: %smm; height: %smm;', $layout['width'], $layout['height']), $layout['width'].'mm');
+
+        if ($caption !== null) {
+            $this->addBarcodeCaption($img, $caption, $layout);
+        }
+
+        //Inline barcodes keep the same gap to the text after them as barcodes wrapped left (see .image-style-align-left in
+        //label_style.css.twig), which also keeps their quiet zone free. Barcodes with an image style or a float keep their margins.
+        if ($this->getFigure($img) === null) {
+            $outer = $this->getImageLink($img) ?? $img;
+            if ($outer->parentNode instanceof \DOMElement && str_contains($outer->parentNode->getAttribute('class'), 'partdb-barcode-block')) {
+                $outer = $outer->parentNode;
+            }
+            if (preg_match('/\bimage-style-/', $outer->getAttribute('class').' '.$img->getAttribute('class')) !== 1
+                && preg_match('/(?:^|;)\s*float\s*:/i', $outer->getAttribute('style')) !== 1) {
+                $outer->setAttribute('style', trim($outer->getAttribute('style').' margin-right: '.self::SIDE_GAP.'mm;'));
+            }
+        }
+    }
+
+    /**
+     * Adds the caption below a placed barcode (like the default layout does for 1D barcodes, see .C39-text in
+     * label_style.css.twig). Block images get it inside their figure. Inline images are wrapped together with it in an
+     * inline block, which takes over the position of the image (its image style or float).
+     * @param  array{width: float, height: float}  $layout
+     */
+    private function addBarcodeCaption(\DOMElement $img, string $caption, array $layout): void
+    {
+        $document = $img->ownerDocument;
+        $text = $document->createElement('span');
+        $text->setAttribute('class', 'C39-text');
+        $text->appendChild($document->createTextNode($caption));
+
+        //Linked images are wrapped in a link
+        $node = $this->getImageLink($img) ?? $img;
+        $parent = $node->parentNode;
+        if ($parent === null) {
+            return;
+        }
+
+        if ($this->getFigure($img) !== null) {
+            $parent->insertBefore($text, $node->nextSibling);
+        } else {
+            $classes = preg_split('/\s+/', $img->getAttribute('class'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+            $styles = array_values(preg_grep('/^image-style-/', $classes) ?: []);
+            $img->setAttribute('class', implode(' ', array_diff($classes, $styles)));
+            $float = '';
+            if (preg_match('/(?:^|;)\s*(float\s*:[^;]*);?/i', $img->getAttribute('style'), $matches) === 1) {
+                $float = ' '.trim($matches[1]).';';
+                $img->setAttribute('style', trim(str_replace($matches[0], '', $img->getAttribute('style'))));
+            }
+
+            $wrapper = $document->createElement('span');
+            $wrapper->setAttribute('class', implode(' ', ['partdb-barcode-block', ...$styles]));
+            $wrapper->setAttribute('style', 'width: '.$layout['width'].'mm;'.$float);
+            $parent->replaceChild($wrapper, $node);
+            $wrapper->appendChild($node);
+            $wrapper->appendChild($text);
+        }
+
+        //The size of the barcode together with its caption, to fit floating images (see getElementWidth() and getElementHeight())
+        $img->setAttribute('data-box-width', sprintf('%.2F', $layout['width'] * self::PX_PER_MM));
+        $img->setAttribute('data-box-height', sprintf('%.2F', ($layout['height'] + self::LEGACY_1D_LAYOUT['captionHeight']) * self::PX_PER_MM));
     }
 
     /**
@@ -749,7 +988,7 @@ final readonly class LabelHTMLGenerator
     }
 
     /**
-     * Determines the size (in mm) of the barcode and the layout used.
+     * Determines the size (in mm) of the barcode and the layout used if the barcode is not placed inside the lines.
      * By default, 2D barcodes are placed left of the text and 1D barcodes below it.
      * @return array{side: bool, width: float, height: float, cell_height: float, legacy_text_height: float}|null
      */

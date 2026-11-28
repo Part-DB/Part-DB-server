@@ -60,7 +60,7 @@ export default class PartDBLabelPreview extends Plugin {
         const px = (mm) => (mm * PX_PER_MM) + 'px';
 
         const update = () => {
-            const geometry = calculateGeometry(editor, params);
+            const geometry = calculateGeometry(editor, params, this._getContentHeight() / PX_PER_MM);
             const style = root.style;
 
             style.setProperty('--partdb-label-width', px(geometry.width));
@@ -69,6 +69,11 @@ export default class PartDBLabelPreview extends Plugin {
             style.setProperty('--partdb-label-padding-bottom', px(geometry.marginY));
             style.setProperty('--partdb-label-padding-left', px(geometry.text.left));
             style.setProperty('--partdb-label-padding-right', px(geometry.width - geometry.text.left - geometry.text.width));
+
+            //Size of the barcode placeholder images
+            style.setProperty('--partdb-barcode-width', px(geometry.placeholder.width));
+            style.setProperty('--partdb-barcode-height', px(geometry.placeholder.height));
+            style.setProperty('--partdb-barcode-caption', px(geometry.placeholder.caption));
 
             //The area used by the barcode
             root.classList.toggle('partdb-label-has-reserved', geometry.reserved !== null);
@@ -79,6 +84,8 @@ export default class PartDBLabelPreview extends Plugin {
                 style.setProperty('--partdb-reserved-height', px(geometry.reserved.height));
             }
 
+            //Placeholders are not rendered without a barcode type (see LabelHTMLGenerator::placeBarcodeImage())
+            root.classList.toggle('partdb-label-no-barcode', geometry.barcodeType === 'none');
             //Part images are only rendered for parts and part lots (see LabelPartImageProvider)
             root.classList.toggle('partdb-label-no-part-image', !PART_IMAGE_ELEMENTS.includes(getFormField(editor, 'supported_element')?.value ?? 'part'));
 
@@ -98,6 +105,27 @@ export default class PartDBLabelPreview extends Plugin {
         this.listenTo(editor.editing.view, 'render', update, {priority: 'high'});
         //Images without a size get their width when they are loaded (load events do not bubble)
         this._editable?.addEventListener('load', update, true);
+    }
+
+    /**
+     * Returns the height (in px) of the content of the label, from the top of the content area to the bottom of the
+     * lowest element.
+     */
+    _getContentHeight() {
+        const editable = this.editor.ui.getEditableElement();
+        if (!editable) {
+            return 0;
+        }
+
+        const top = editable.getBoundingClientRect().top + parseFloat(getComputedStyle(editable).paddingTop || '0');
+        let bottom = top;
+        for (const child of editable.children) {
+            //The container of the fake selection of CKEditor is not part of the content
+            if (!child.classList.contains('ck-fake-selection-container')) {
+                bottom = Math.max(bottom, child.getBoundingClientRect().bottom);
+            }
+        }
+        return bottom - top;
     }
 
     /**

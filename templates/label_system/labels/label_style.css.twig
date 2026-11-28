@@ -108,15 +108,36 @@ hr {
     position: static;
 }
 
-/* Part images placed inside the lines (see LabelHTMLGenerator::replacePlaceholderImages()).
+/* Barcodes and part images placed inside the lines (see LabelHTMLGenerator::replacePlaceholderImages()).
    dompdf clips inline images taller than the line at the top of the page, unless they are aligned to the top. */
-img.partdb-part-image {
+img.partdb-barcode, img.partdb-part-image {
     vertical-align: top;
 }
 
 /* The part image is centered in the placeholder via padding, which must not be added to the size */
 img.partdb-part-image {
     box-sizing: content-box;
+}
+
+/* An inline barcode with its caption (see LabelHTMLGenerator::addBarcodeCaption()) */
+.partdb-barcode-block {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* dompdf places the text of a line at its baseline (at 80% of the line height), independent of the alignment of the images
+   in it, while browsers place it at the top of a line next to an image aligned to the top. So the text of lines with
+   inline placeholders is aligned to the top, like in the label editor (see LabelHTMLGenerator::markPlaceholderLine()) */
+.partdb-placeholder-line, .partdb-placeholder-line * {
+    vertical-align: top;
+}
+
+.partdb-placeholder-line sub {
+    vertical-align: sub;
+}
+
+.partdb-placeholder-line sup {
+    vertical-align: super;
 }
 
 .C39-text {
@@ -149,7 +170,8 @@ img.image_resized {
 
 /* Image styles of CKEditor, which are applied via the image toolbar (should be the same as in ckeditor.css).
    Images without a style keep the default positioning of dompdf, so that existing labels do not change. */
-/* Wrapped images keep a 4mm gap to the text (see also ckeditor.css) */
+/* Wrapped images (and placed barcodes) keep a 4mm gap to the text, the same as in the layout with a barcode size
+   (label_page_barcode.html.twig), which also leaves enough space around barcodes to scan them reliably (see also ckeditor.css) */
 .image-style-align-left {
     float: left;
     margin: 0 4mm 0 0;
