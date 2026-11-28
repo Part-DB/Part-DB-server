@@ -2,6 +2,7 @@
 
 {% import "components/new_version.macro.html.twig" as nv %}
 {% import "components/search.macro.html.twig" as search %}
+{% import "components/dismissible.macro.html.twig" as dismissible %}
 {% import "vars.macro.twig" as vars %}
 
 {% block item_search %}
@@ -11,7 +12,8 @@
 {% endblock %}
 
 {% block item_banner %}
-    <div class="rounded p-4 bg-body-secondary">
+    <div class="rounded p-4 bg-body-secondary position-relative" {{ dismissible.attributes('homepage_banner') }}>
+        {{ dismissible.close_button() }}
         <h1 class="display-3">{{ vars.partdb_title() }}</h1>
         {% if settings_instance('customization').showVersionOnHomepage %}
             <h4>
@@ -53,8 +55,9 @@
 {% endblock %}
 
 {% block item_license %}
-    <div class="card border-primary">
+    <div class="card border-primary" {{ dismissible.attributes('homepage_license') }}>
         <div class="card-header bg-primary text-white">
+            {{ dismissible.close_button(true) }}
             <h4><i class="fa fa-book fa-fw" aria-hidden="true"></i> {% trans %}homepage.license{% endtrans %}</h4>
         </div>
         <div class="card-body">

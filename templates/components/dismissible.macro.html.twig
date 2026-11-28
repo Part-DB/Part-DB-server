@@ -1,0 +1,25 @@
+{# Boxes, which the user can close. The closed state is kept in a cookie (see assets/js/lib/dismissed_boxes.js),
+   so that closed boxes are rendered hidden and do not flash up on page load. #}
+
+{# The attributes for the box element. The id must be unique among all dismissible boxes and must not contain commas. #}
+{% macro attributes(id) %}
+    {{- stimulus_controller('common/dismissible', {id: id}) }}
+    {%- if id in app.request.cookies.get('dismissed_boxes', '')|split(',') %} hidden{% endif %}
+{%- endmacro %}
+
+{# The button closing the box, it must be placed inside the box element. The box must be positioned (e.g. position-relative). #}
+{% macro close_button(white = false) %}
+    <button type="button" class="btn-close {% if white %}btn-close-white{% endif %} position-absolute top-0 end-0 m-2"
+            {{ stimulus_action('common/dismissible', 'dismiss') }}
+            title="{% trans %}homepage.dismiss_box{% endtrans %}" aria-label="{% trans %}homepage.dismiss_box{% endtrans %}"></button>
+{% endmacro %}
+
+{# The entry for a dropdown menu, which shows all closed boxes again. It is only shown, if there are closed boxes. #}
+{% macro restore_dropdown_item() %}
+    <li {{ stimulus_controller('common/dismissible_restore') }}
+        {%- if app.request.cookies.get('dismissed_boxes', '') is empty %} hidden{% endif %}>
+        <button type="button" class="dropdown-item" {{ stimulus_action('common/dismissible_restore', 'restore') }}>
+            <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i> {% trans %}homepage.restore_boxes{% endtrans %}
+        </button>
+    </li>
+{% endmacro %}
