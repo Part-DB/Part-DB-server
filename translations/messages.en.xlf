@@ -723,7 +723,7 @@ Sub elements will be moved upwards.</target>
     <unit id="wKzcAZd" name="vendor.base.javascript_hint">
       <segment state="translated">
         <source>vendor.base.javascript_hint</source>
-        <target>Please activate Javascript to use all features!</target>
+        <target>Please activate JavaScript to use all features!</target>
       </segment>
     </unit>
     <unit id="8L0jdfg" name="sidebar.big.toggle">
