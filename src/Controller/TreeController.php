@@ -30,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parts\Tag;
 use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\TreeViewGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -111,6 +112,19 @@ class TreeController extends AbstractController
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
             $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
+        }
+
+        return new JsonResponse($tree);
+    }
+
+    #[Route(path: '/tag/{id}', name: 'tree_tag')]
+    #[Route(path: '/tags', name: 'tree_tag_root')]
+    public function tagTree(#[MapEntity(id: 'id')] ?Tag $tag = null): JsonResponse
+    {
+        if ($this->isGranted('@parts.read') && $this->isGranted('@tags.read')) {
+            $tree = $this->treeGenerator->getTreeView(Tag::class, $tag, 'list_parts_root');
         } else {
             return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }

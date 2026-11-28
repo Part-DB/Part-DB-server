@@ -126,7 +126,7 @@ class PartFilter implements FilterInterface
         $this->comment = new TextConstraint('part.comment');
         $this->category = new EntityConstraint($nodesListBuilder, Category::class, 'part.category');
         $this->footprint = new EntityConstraint($nodesListBuilder, Footprint::class, 'part.footprint');
-        $this->tags = new TagsConstraint('part.tags');
+        $this->tags = new TagsConstraint('part.tagEntities');
 
         $this->favorite = new BooleanConstraint('part.favorite');
         $this->needsReview = new BooleanConstraint('part.needs_review');

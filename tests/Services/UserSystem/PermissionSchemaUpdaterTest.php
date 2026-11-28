@@ -123,4 +123,28 @@ final class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertTrue($this->service->upgradeSchema($user, 3));
         self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('system', 'show_updates'));
     }
+
+    public function testUpgradeSchemaToVersion5(): void
+    {
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('parts', 'read', PermissionData::ALLOW);
+        $perm_data->setPermissionValue('parts', 'edit', PermissionData::DISALLOW);
+
+        $user = new TestPermissionHolder($perm_data);
+
+        //The tag permissions are derived from the part permissions, as tags used to be edited with the part
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('tags', 'read'));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('tags', 'edit'));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('tags', 'create'));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('tags', 'delete'));
+        self::assertNull($user->getPermissions()->getPermissionValue('tags', 'show_history'));
+
+        //Permissions which are already set are kept
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('tags', 'edit', PermissionData::ALLOW);
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('tags', 'edit'));
+    }
 }

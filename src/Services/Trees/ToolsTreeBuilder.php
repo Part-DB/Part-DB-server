@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\Tag;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -257,6 +258,12 @@ class ToolsTreeBuilder
                 $this->elementTypeNameGenerator->typeLabelPlural(PartCustomState::class),
                 $this->urlGenerator->generate('part_custom_state_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
+        }
+        if ($this->security->isGranted('read', new Tag())) {
+            $nodes[] = (new TreeViewNode(
+                $this->elementTypeNameGenerator->typeLabelPlural(Tag::class),
+                $this->urlGenerator->generate('tag_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = (new TreeViewNode(

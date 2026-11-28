@@ -36,6 +36,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\Tag;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -75,6 +76,7 @@ enum ElementTypes: string implements TranslatableInterface
     case BULK_INFO_PROVIDER_IMPORT_JOB = "bulk_info_provider_import_job";
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = "bulk_info_provider_import_job_part";
     case PART_CUSTOM_STATE = "part_custom_state";
+    case TAG = "tag";
 
     //Child classes has to become before parent classes
     private const CLASS_MAPPING = [
@@ -101,6 +103,7 @@ enum ElementTypes: string implements TranslatableInterface
         BulkInfoProviderImportJob::class => self::BULK_INFO_PROVIDER_IMPORT_JOB,
         BulkInfoProviderImportJobPart::class => self::BULK_INFO_PROVIDER_IMPORT_JOB_PART,
         PartCustomState::class => self::PART_CUSTOM_STATE,
+        Tag::class => self::TAG,
     ];
 
     /**
@@ -132,6 +135,7 @@ enum ElementTypes: string implements TranslatableInterface
             self::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.label',
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.label',
             self::PART_CUSTOM_STATE => 'part_custom_state.label',
+            self::TAG => 'tag.label',
         };
     }
 
@@ -161,6 +165,7 @@ enum ElementTypes: string implements TranslatableInterface
             self::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.labelp',
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.labelp',
             self::PART_CUSTOM_STATE => 'part_custom_state.labelp',
+            self::TAG => 'tag.labelp',
         };
     }
 

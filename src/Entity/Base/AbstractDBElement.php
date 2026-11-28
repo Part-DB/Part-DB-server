@@ -54,6 +54,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parts\Tag;
 use App\Entity\UserSystem\User;
 use App\Repository\DBElementRepository;
 use Doctrine\DBAL\Types\Types;
@@ -103,6 +104,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     'measurement_unit' => MeasurementUnit::class,
     'parameter' => AbstractParameter::class,
     'supplier' => Supplier::class,
+    'tag' => Tag::class,
     'user' => User::class]
 )]
 #[ORM\MappedSuperclass(repositoryClass: DBElementRepository::class)]

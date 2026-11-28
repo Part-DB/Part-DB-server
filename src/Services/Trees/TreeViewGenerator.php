@@ -30,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parts\Tag;
 use App\Entity\ProjectSystem\Project;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
@@ -202,6 +203,7 @@ class TreeViewGenerator
                 Footprint::class => $this->router->generate('footprint_new'),
                 Manufacturer::class => $this->router->generate('manufacturer_new'),
                 Supplier::class => $this->router->generate('supplier_new'),
+                Tag::class => $this->router->generate('tag_new'),
                 Project::class => $this->router->generate('project_new'),
                 default => null,
             };
@@ -227,6 +229,7 @@ class TreeViewGenerator
             Footprint::class => $icon.'fa-microchip',
             Manufacturer::class => $icon.'fa-industry',
             Supplier::class => $icon.'fa-truck',
+            Tag::class => $icon.'fa-tag',
             Project::class => $icon.'fa-archive',
             default => null,
         };

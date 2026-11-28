@@ -56,6 +56,7 @@ use Doctrine\ORM\Mapping as ORM;
     8 => GroupAlternativeName::class,
     9 => CurrencyAlternativeName::class,
     10 => ProjectAlternativeName::class,
+    11 => TagAlternativeName::class,
 ])]
 abstract class AbstractAlternativeName
 {

@@ -30,6 +30,12 @@ A part entity has many fields, which can be used to describe it better. Most of 
 * **Tags**: The list of tags this part belongs to. Tags can be used to group parts logically (similar to the category),
   but tags are much less strict and formal (they don't have to be defined beforehand) and you can assign multiple tags to
   a part. When clicking on a tag, a list with all parts which have the same tag, is shown.
+  Parts with the same tag share it: a tag which is entered for the first time is created automatically, and tags are
+  compared without regard to upper and lower case, so `SMD` and `smd` are the same tag. Under *Tools → Edit → Tags*
+  a tag can be renamed for all its parts at once, given a color it is shown with, or grouped below another tag like the
+  other data structures (see below). A tag without a color of its own takes the color of the tag above it. Unlike for
+  the other data structures, a tag name has to be unique across all tags, as tags are still assigned by their names:
+  in the API, the import and the export, the tags of a part are a comma-separated list of their names.
 * **Min Instock**: *Not fully implemented yet*. Parts where the total instock is below this value will show up for
   ordering.
 * **Footprint**: See there. Useful especially for electronic parts, which have one of the common electronic footprints (

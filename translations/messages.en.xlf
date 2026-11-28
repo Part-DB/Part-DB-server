@@ -16292,5 +16292,47 @@ Buerklin-API Authentication server:
         <target>Return to scanner after creating a new part</target>
       </segment>
     </unit>
+    <unit id="iBJJ3Nj" name="tag.label">
+      <segment state="translated">
+        <source>tag.label</source>
+        <target>Tag</target>
+      </segment>
+    </unit>
+    <unit id="bEBjYgO" name="tag.labelp">
+      <segment state="translated">
+        <source>tag.labelp</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="e.5So2d" name="tag.edit">
+      <segment state="translated">
+        <source>tag.edit</source>
+        <target>Edit tag</target>
+      </segment>
+    </unit>
+    <unit id="IFlAM89" name="tag.new">
+      <segment state="translated">
+        <source>tag.new</source>
+        <target>New tag</target>
+      </segment>
+    </unit>
+    <unit id="xG94lvl" name="tag.color.label">
+      <segment state="translated">
+        <source>tag.color.label</source>
+        <target>Color</target>
+      </segment>
+    </unit>
+    <unit id="AvSzHPE" name="tag.color.help">
+      <segment state="translated">
+        <source>tag.color.help</source>
+        <target>The color the tag is shown with. Tags without a color keep their previous appearance.</target>
+      </segment>
+    </unit>
+    <unit id="naKnnTX" name="tag.edit.quick.show_parts">
+      <segment state="translated">
+        <source>tag.edit.quick.show_parts</source>
+        <target>Show the [[part]] with this tag</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

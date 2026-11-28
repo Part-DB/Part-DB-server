@@ -338,6 +338,7 @@ class Part extends AttachmentContainingDBElement
         $this->associated_parts_as_owner = new ArrayCollection();
         $this->associated_parts_as_other = new ArrayCollection();
         $this->bulkImportJobParts = new ArrayCollection();
+        $this->tagEntities = new ArrayCollection();
 
         //By default, the part has no provider
         $this->providerReference = InfoProviderReference::noProvider();
@@ -346,6 +347,9 @@ class Part extends AttachmentContainingDBElement
 
     public function __clone()
     {
+        //Tags are shared between parts, so the clone gets the same tags, but in a collection of its own
+        $this->tagEntities = new ArrayCollection($this->tagEntities->toArray());
+
         if ($this->id) {
             //Deep clone part lots
             $lots = $this->partLots;

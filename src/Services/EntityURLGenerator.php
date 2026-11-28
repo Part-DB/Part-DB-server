@@ -33,6 +33,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parts\Tag;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -259,6 +260,11 @@ class EntityURLGenerator
      */
     public function listPartsURL(AbstractDBElement $entity): string
     {
+        //Tags are shown by their name, like when clicking on a tag of a part
+        if ($entity instanceof Tag) {
+            return $this->urlGenerator->generate('part_list_tags', ['tag' => $entity->getName()]);
+        }
+
         $map = [
             Project::class => 'project_info',
 

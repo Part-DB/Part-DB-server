@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Parameters\PartCustomStateParameter;
+use App\Entity\Parameters\TagParameter;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractDBElement;
@@ -100,6 +101,8 @@ final class ParameterVoter extends Voter
             $param = 'parts';
         } elseif (is_a($subject, PartCustomStateParameter::class, true)) {
             $param = 'part_custom_states';
+        } elseif (is_a($subject, TagParameter::class, true)) {
+            $param = 'tags';
         } elseif (is_a($subject, StorageLocationParameter::class, true)) {
             $param = 'storelocations';
         } elseif (is_a($subject, SupplierParameter::class, true)) {

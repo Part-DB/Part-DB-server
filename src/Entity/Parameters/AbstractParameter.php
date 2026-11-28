@@ -75,7 +75,7 @@ use function sprintf;
     3 => FootprintParameter::class, 4 => GroupParameter::class, 5 => ManufacturerParameter::class,
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
     9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class,
-    12 => PartCustomStateParameter::class])]
+    12 => PartCustomStateParameter::class, 13 => TagParameter::class])]
 #[ORM\Table('parameters')]
 #[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
@@ -108,7 +108,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
         "Project" => ProjectParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
         "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
-        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class, "PartCustomState" => PartCustomStateParameter::class];
+        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class, "PartCustomState" => PartCustomStateParameter::class, "Tag" => TagParameter::class];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
