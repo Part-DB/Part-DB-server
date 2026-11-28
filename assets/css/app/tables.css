@@ -147,3 +147,71 @@ Classes for Datatables export
     animation: pulse-highlight 1s ease-in-out;
     animation-iteration-count: 3;
 }
+
+/* On small screens show the part lots on the part info page as stacked blocks instead of a wide table. Otherwise the
+table is much wider than the screen, and the withdraw / add / move / stocktake buttons are only reachable by scrolling
+the table horizontally. */
+@media (max-width: 767.98px) {
+    .part-lots-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    .part-lots-table > thead {
+        display: none;
+    }
+
+    .part-lots-table > tbody > tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.4rem 0.75rem;
+        padding: 0.6rem 0.5rem;
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        /* Apply the table background (incl. contextual classes like table-primary) and striping to the whole row */
+        background-color: var(--bs-table-bg);
+    }
+
+    .part-lots-table.table-striped > tbody > tr:nth-of-type(odd) {
+        box-shadow: inset 0 0 0 9999px var(--bs-table-striped-bg);
+    }
+
+    .part-lots-table > tbody > tr > td {
+        display: block;
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .part-lots-table .part-lot-description {
+        flex: 1 0 100%;
+        color: var(--bs-secondary-color);
+    }
+
+    .part-lots-table .part-lot-description:empty,
+    .part-lots-table .part-lot-badges:not(:has(.badge)) {
+        display: none;
+    }
+
+    .part-lots-table .part-lot-location {
+        flex: 1 1 auto;
+        font-weight: 600;
+    }
+
+    .part-lots-table .part-lot-badges {
+        flex: 1 0 100%;
+    }
+
+    .part-lots-table .part-lot-badges > div {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+
+    .part-lots-table .part-lot-actions .btn {
+        padding: 0.45rem 0.8rem;
+    }
+}
