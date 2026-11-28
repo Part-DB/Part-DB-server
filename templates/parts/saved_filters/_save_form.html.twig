@@ -1,0 +1,48 @@
+{# The saved filters and the form to save the applied filter of the current part list #}
+{% set saved_filter_class = 'App\\Entity\\UserSystem\\SavedFilter' %}
+
+{% if savedFilters is defined and savedFilters is not empty or is_granted('create', saved_filter_class) %}
+    <hr>
+    <h6><i class="fa-solid fa-bookmark fa-fw"></i> {% trans %}saved_filter.title{% endtrans %}</h6>
+
+    {% if savedFilters is defined and savedFilters is not empty %}
+        <div class="mb-2">
+            {% for saved_filter in savedFilters %}
+                <a href="{{ path('saved_filter_open', {'id': saved_filter.id}) }}" class="btn btn-sm btn-outline-secondary mb-1">
+                    <i class="fa-solid {{ saved_filter.shared ? 'fa-users' : 'fa-filter' }} fa-fw"></i> {{ saved_filter.name }}
+                </a>
+            {% endfor %}
+            <a href="{{ path('saved_filter_list') }}" class="btn btn-sm btn-link mb-1">{% trans %}saved_filter.manage{% endtrans %}</a>
+        </div>
+    {% endif %}
+
+    {% if is_granted('create', saved_filter_class) %}
+        {% if app.request.queryString is not empty %}
+            <form method="post" action="{{ path('saved_filter_save') }}" class="row g-2 align-items-center">
+                <input type="hidden" name="_token" value="{{ csrf_token('saved_filter_save') }}">
+                <input type="hidden" name="route" value="{{ app.request.attributes.get('_route') }}">
+                <input type="hidden" name="route_params" value="{{ app.request.attributes.get('_route_params')|json_encode }}">
+                <input type="hidden" name="query" value="{{ app.request.queryString }}">
+                <div class="col-sm-6 col-lg-4">
+                    <input type="text" name="name" class="form-control form-control-sm" required maxlength="255"
+                           placeholder="{% trans %}saved_filter.name{% endtrans %}" aria-label="{% trans %}saved_filter.name{% endtrans %}">
+                </div>
+                {% if is_granted('share', saved_filter_class) %}
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input type="checkbox" name="shared" value="1" class="form-check-input" id="saved_filter_shared">
+                            <label class="form-check-label" for="saved_filter_shared">{% trans %}saved_filter.shared{% endtrans %}</label>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa-solid fa-floppy-disk fa-fw"></i> {% trans %}saved_filter.save{% endtrans %}
+                    </button>
+                </div>
+            </form>
+        {% else %}
+            <span class="text-muted">{% trans %}saved_filter.save.apply_first{% endtrans %}</span>
+        {% endif %}
+    {% endif %}
+{% endif %}

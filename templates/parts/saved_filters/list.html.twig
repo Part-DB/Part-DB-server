@@ -1,0 +1,63 @@
+{% extends "main_card.html.twig" %}
+
+{% import "helper.twig" as helper %}
+
+{% block title %}{% trans %}saved_filter.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i>
+    {% trans %}saved_filter.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted">{% trans %}saved_filter.list.description{% endtrans %}</p>
+
+    {% if filters is empty %}
+        <b>{% trans %}saved_filter.list.empty{% endtrans %}</b>
+    {% else %}
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <thead>
+            <tr>
+                <th>{% trans %}saved_filter.name{% endtrans %}</th>
+                <th>{% trans %}saved_filter.owner{% endtrans %}</th>
+                <th>{% trans %}saved_filter.shared{% endtrans %}</th>
+                <th>{% trans %}lastModified{% endtrans %}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for filter in filters %}
+                {# @var filter \App\Entity\UserSystem\SavedFilter #}
+                <tr>
+                    <td><a href="{{ path('saved_filter_open', {'id': filter.id}) }}">{{ filter.name }}</a></td>
+                    <td>{{ filter.owner ? filter.owner.fullName(true) : '' }}</td>
+                    <td>{{ helper.boolean_badge(filter.shared) }}</td>
+                    <td>{{ helper.format_date_nullable(filter.lastModified) }}</td>
+                    <td class="text-nowrap">
+                        {% if is_granted('edit', filter) %}
+                            <a href="{{ path('saved_filter_edit', {'id': filter.id}) }}" class="btn btn-sm btn-secondary">
+                                <i class="fa-solid fa-pen-to-square fa-fw"></i> {% trans %}saved_filter.edit{% endtrans %}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('delete', filter) %}
+                            <form method="post" action="{{ path('saved_filter_delete', {'id': filter.id}) }}" class="d-inline"
+                                    {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                                  data-delete-title="{{ 'saved_filter.delete.title'|trans({'%name%': filter.name}) }}"
+                                  data-delete-message="{% trans %}saved_filter.delete.message{% endtrans %}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete_saved_filter' ~ filter.id) }}">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash-alt fa-fw"></i> {% trans %}saved_filter.delete{% endtrans %}
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if is_granted('create', 'App\\Entity\\UserSystem\\SavedFilter') %}
+        <p class="text-muted mb-0">{% trans %}saved_filter.list.how_to_save{% endtrans %}</p>
+    {% endif %}
+{% endblock %}

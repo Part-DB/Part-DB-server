@@ -173,4 +173,16 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('parts_stock', 'stocktake', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion5(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //Everybody who can see parts can save their own filters of the part lists. Sharing filters with all users
+        //is left to the ones who can change the system settings, which are shown to all users too (e.g. the banner).
+        if (!$permissions->isAnyOperationOfPermissionSet('saved_filters')) {
+            $permissions->setPermissionValue('saved_filters', 'create', $permissions->getPermissionValue('parts', 'read'));
+            $permissions->setPermissionValue('saved_filters', 'share', $permissions->getPermissionValue('config', 'change_system_settings'));
+        }
+    }
 }

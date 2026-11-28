@@ -123,4 +123,28 @@ final class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertTrue($this->service->upgradeSchema($user, 3));
         self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('system', 'show_updates'));
     }
+
+    public function testUpgradeSchemaToVersion5(): void
+    {
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('parts', 'read', PermissionData::ALLOW);
+        $perm_data->setPermissionValue('config', 'change_system_settings', PermissionData::DISALLOW);
+        $user = new TestPermissionHolder($perm_data);
+
+        //Who can see parts can save own filters, who can change the system settings can share them
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('saved_filters', 'create'));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('saved_filters', 'share'));
+
+        //Permissions, which were set already, are kept
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('parts', 'read', PermissionData::ALLOW);
+        $perm_data->setPermissionValue('saved_filters', 'create', PermissionData::DISALLOW);
+        $user = new TestPermissionHolder($perm_data);
+
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('saved_filters', 'create'));
+    }
 }

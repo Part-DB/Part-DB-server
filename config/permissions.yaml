@@ -166,6 +166,15 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       component_image_generator:
         label: "perm.tools.component_image_generator"
 
+  saved_filters:
+    label: "perm.saved_filters"
+    operations:
+      create:
+        label: "perm.saved_filters.create"
+      share:
+        label: "perm.saved_filters.share"
+        alsoSet: ['create']
+
   info_providers:
     label: "perm.part.info_providers"
     operations:

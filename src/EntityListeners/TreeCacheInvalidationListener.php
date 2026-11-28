@@ -67,6 +67,13 @@ class TreeCacheInvalidationListener
         //For user changes, we invalidate the cache for this user
         if ($element instanceof User) {
             $tags[] = $this->keyGenerator->generateKey($element);
+
+            //The database deletes the saved filters of a deleted user, which are shown in the tools tree of all users,
+            //if they were shared. No listener of the filters is called for that, so invalidate all tools trees here.
+            if ($event instanceof PostRemoveEventArgs) {
+                $tags[] = 'tree_tools';
+                $tags[] = 'sidebar_tree_update';
+            }
         }
 
         /* If any group change, then invalidate all cached trees. Users Permissions can be inherited from groups,

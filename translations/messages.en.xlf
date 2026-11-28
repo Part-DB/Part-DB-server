@@ -16292,5 +16292,173 @@ Buerklin-API Authentication server:
         <target>Return to scanner after creating a new part</target>
       </segment>
     </unit>
+    <unit id="VM54ZB3" name="tree.tools.show.saved_filters">
+      <segment state="translated">
+        <source>tree.tools.show.saved_filters</source>
+        <target>Saved filters</target>
+      </segment>
+    </unit>
+    <unit id="aCYC2Xa" name="saved_filter.title">
+      <segment state="translated">
+        <source>saved_filter.title</source>
+        <target>Saved filters</target>
+      </segment>
+    </unit>
+    <unit id="apjKibx" name="saved_filter.manage">
+      <segment state="translated">
+        <source>saved_filter.manage</source>
+        <target>Manage saved filters</target>
+      </segment>
+    </unit>
+    <unit id="D1N7Yre" name="saved_filter.name">
+      <segment state="translated">
+        <source>saved_filter.name</source>
+        <target>Name of the filter</target>
+      </segment>
+    </unit>
+    <unit id="_FftLxn" name="saved_filter.owner">
+      <segment state="translated">
+        <source>saved_filter.owner</source>
+        <target>Created by</target>
+      </segment>
+    </unit>
+    <unit id="JBI.Sh4" name="saved_filter.shared">
+      <segment state="translated">
+        <source>saved_filter.shared</source>
+        <target>Shared with all users</target>
+      </segment>
+    </unit>
+    <unit id="5xPdMDt" name="saved_filter.shared.help">
+      <segment state="translated">
+        <source>saved_filter.shared.help</source>
+        <target>Shared filters are shown to all users, in the sidebar under Tools → Show → Saved filters and in the filter of the part lists.</target>
+      </segment>
+    </unit>
+    <unit id="yqiUhik" name="saved_filter.save">
+      <segment state="translated">
+        <source>saved_filter.save</source>
+        <target>Save applied filter</target>
+      </segment>
+    </unit>
+    <unit id="NgD94V." name="saved_filter.save.apply_first">
+      <segment state="translated">
+        <source>saved_filter.save.apply_first</source>
+        <target>Apply a filter to save it under a name.</target>
+      </segment>
+    </unit>
+    <unit id="NZWe.Mq" name="saved_filter.save.invalid_page">
+      <segment state="translated">
+        <source>saved_filter.save.invalid_page</source>
+        <target>The filters of this page can not be saved.</target>
+      </segment>
+    </unit>
+    <unit id="ru2Bmgc" name="saved_filter.save.no_filter">
+      <segment state="translated">
+        <source>saved_filter.save.no_filter</source>
+        <target>No filter is applied, so there is nothing to save.</target>
+      </segment>
+    </unit>
+    <unit id="cu7rcdB" name="saved_filter.save.no_name">
+      <segment state="translated">
+        <source>saved_filter.save.no_name</source>
+        <target>Please enter a name of at most 255 characters for the filter.</target>
+      </segment>
+    </unit>
+    <unit id="5W6S.mF" name="saved_filter.save.success">
+      <segment state="translated">
+        <source>saved_filter.save.success</source>
+        <target>The filter was saved.</target>
+      </segment>
+    </unit>
+    <unit id="eVCNu2W" name="saved_filter.open.invalid">
+      <segment state="translated">
+        <source>saved_filter.open.invalid</source>
+        <target>The saved filter can not be opened anymore.</target>
+      </segment>
+    </unit>
+    <unit id="64Uvgsb" name="saved_filter.list.description">
+      <segment state="translated">
+        <source>saved_filter.list.description</source>
+        <target>A saved filter opens its part list with the filter, which was applied when it was saved. Shared filters are visible to all users.</target>
+      </segment>
+    </unit>
+    <unit id="rwfaJgX" name="saved_filter.list.empty">
+      <segment state="translated">
+        <source>saved_filter.list.empty</source>
+        <target>There are no saved filters yet.</target>
+      </segment>
+    </unit>
+    <unit id="wVChWa0" name="saved_filter.list.how_to_save">
+      <segment state="translated">
+        <source>saved_filter.list.how_to_save</source>
+        <target>To save a filter, apply it in the filter of a part list and save it there under a name.</target>
+      </segment>
+    </unit>
+    <unit id="TKJfEPq" name="saved_filter.edit">
+      <segment state="translated">
+        <source>saved_filter.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="2XUQiks" name="saved_filter.edit.title">
+      <segment state="translated">
+        <source>saved_filter.edit.title</source>
+        <target>Edit saved filter</target>
+      </segment>
+    </unit>
+    <unit id="HSS06TB" name="saved_filter.edit.success">
+      <segment state="translated">
+        <source>saved_filter.edit.success</source>
+        <target>The changes of the saved filter were saved.</target>
+      </segment>
+    </unit>
+    <unit id="gtWY7pa" name="saved_filter.edit.back">
+      <segment state="translated">
+        <source>saved_filter.edit.back</source>
+        <target>Back to the saved filters</target>
+      </segment>
+    </unit>
+    <unit id="xRHEl9e" name="saved_filter.delete">
+      <segment state="translated">
+        <source>saved_filter.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="Z6QvvzZ" name="saved_filter.delete.title">
+      <segment state="translated">
+        <source>saved_filter.delete.title</source>
+        <target>Do you really want to delete the saved filter %name%?</target>
+      </segment>
+    </unit>
+    <unit id=".8kYSCh" name="saved_filter.delete.message">
+      <segment state="translated">
+        <source>saved_filter.delete.message</source>
+        <target>Only the saved filter is deleted, the parts are not changed.</target>
+      </segment>
+    </unit>
+    <unit id="kzxZ0Qa" name="saved_filter.delete.success">
+      <segment state="translated">
+        <source>saved_filter.delete.success</source>
+        <target>The saved filter was deleted.</target>
+      </segment>
+    </unit>
+    <unit id="6mPk7DB" name="perm.saved_filters">
+      <segment state="translated">
+        <source>perm.saved_filters</source>
+        <target>Saved filters</target>
+      </segment>
+    </unit>
+    <unit id="ERom.Eg" name="perm.saved_filters.create">
+      <segment state="translated">
+        <source>perm.saved_filters.create</source>
+        <target>Save own filters</target>
+      </segment>
+    </unit>
+    <unit id="bA9MJze" name="perm.saved_filters.share">
+      <segment state="translated">
+        <source>perm.saved_filters.share</source>
+        <target>Share filters with all users</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

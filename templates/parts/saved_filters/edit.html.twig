@@ -1,0 +1,14 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}saved_filter.edit.title{% endtrans %}: {{ filter.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i>
+    {% trans %}saved_filter.edit.title{% endtrans %}: {{ filter.name }}
+{% endblock %}
+
+{% block card_content %}
+    {{ form(form) }}
+
+    <a href="{{ path('saved_filter_list') }}">{% trans %}saved_filter.edit.back{% endtrans %}</a>
+{% endblock %}
